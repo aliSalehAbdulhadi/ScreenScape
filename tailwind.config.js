@@ -9,8 +9,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        main: '#161925',
+        primary: '#161925',
         secondary: '#DFD260',
+        offWhite: '#f5f5f5',
       },
       fontFamily: {
         averia: ['var(--font-averia)'],
