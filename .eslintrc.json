@@ -1,3 +1,16 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "plugins": ["prettier"],
+  "rules": {
+    "react/jsx-filename-extension": [
+      2,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "prettier/prettier": "warn",
+    "no-unused-vars": "warn",
+    "no-console": "warn",
+    "spaced-comment": "warn",
+    "newline-after-var": "warn",
+    "import/newline-after-import": "warn"
+  }
 }
