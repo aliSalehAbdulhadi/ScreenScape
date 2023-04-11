@@ -12,6 +12,11 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
+import MainButton from '../../Buttons/MainButton/MainButton';
+import { BsInfoCircle } from 'react-icons/bs';
+import { FaVolumeMute } from 'react-icons/fa';
+import { IoReloadSharp } from 'react-icons/io5';
+import PlusButton from '../../Buttons/PlusButton/PlusButton';
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -19,9 +24,23 @@ const TrailerSlider = () => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
   const [showArrows, setShowArrows] = useState<boolean>(false);
+  const [activeSlide, setActiveSlide] = useState<number>(0);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
+
+  const images = [
+    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
+    {
+      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
+    },
+    { url: '/images/x0pqq.jpg' },
+    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
+
+    {
+      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
+    },
+  ];
 
   return (
     <div
@@ -40,12 +59,13 @@ const TrailerSlider = () => {
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
-            depth: 100,
+            depth: 150,
             modifier: 3,
             slideShadows: true,
           }}
           loop={true}
           slidesPerView={2}
+          onSlideChange={(e) => setActiveSlide(e.realIndex)}
           navigation={{
             prevEl: swiperImagePrevRef.current,
             nextEl: swiperImageNextRef.current,
@@ -60,51 +80,48 @@ const TrailerSlider = () => {
           }}
         >
           <div>
-            <SwiperSlide className="w-[34rem] h-[30rem] ">
-              <Image
-                width={900}
-                height={400}
-                src="/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg"
-                className=" object-contain rounded "
-                alt="poster"
-              />
-            </SwiperSlide>
-            <SwiperSlide className="w-[34rem] h-[30rem] ">
-              <Image
-                width={900}
-                height={400}
-                src="/images/ben-stiller-movie-poster-wallpaper-preview.jpg"
-                className=" object-contain rounded "
-                alt="poster"
-              />
-            </SwiperSlide>
-            <SwiperSlide className="w-[34rem] h-[32rem]">
-              <Image
-                width={900}
-                height={400}
-                src="/images/x0pqq.jpg"
-                className=" object-contain rounded "
-                alt="poster"
-              />
-            </SwiperSlide>
-            <SwiperSlide className="w-[34rem] h-[30rem]">
-              <Image
-                width={900}
-                height={400}
-                src="/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg"
-                className=" object-contain rounded "
-                alt="poster"
-              />
-            </SwiperSlide>
-            <SwiperSlide className="w-[34rem] h-[30rem]">
-              <Image
-                width={900}
-                height={400}
-                src="/images/x0pqq.jpg"
-                className=" object-contain rounded "
-                alt="poster"
-              />
-            </SwiperSlide>
+            {images.map((image, i) => (
+              <SwiperSlide key={image.url + i} className="w-[34rem] h-[30rem] ">
+                <div className="relative">
+                  <Image
+                    width={900}
+                    height={400}
+                    src={image.url}
+                    className=" object-contain rounded "
+                    alt="poster"
+                  />
+                  <div className={`${activeSlide === i ? '' : 'hidden'} `}>
+                    <div className=" absolute bottom-14 left-10 ">
+                      <div>
+                        <span className="text-white text-4xl font-bold">
+                          Midway
+                        </span>
+                      </div>
+                      <div className="mt-3">
+                        <div className="flex items-center justify-center">
+                          <MainButton>
+                            <BsInfoCircle className="mb-[1.5px]" size={18} />
+                            <span className="ml-2">More Info</span>
+                          </MainButton>
+                          <div className="ml-2 mb-[1.5px] ">
+                            <PlusButton />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="absolute bottom-[64px] right-24 flex items-center justify-center">
+                      <div className="border-[1px] p-[.45rem] rounded-full cursor-pointer mr-3 bg-black bg-opacity-30">
+                        <IoReloadSharp size={18} />
+                      </div>
+                      <div className="border-[1px] p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-30">
+                        <FaVolumeMute size={18} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
           </div>
 
           <div className=" transition-all">
@@ -112,22 +129,22 @@ const TrailerSlider = () => {
               onMouseEnter={() => setPrevArrow(true)}
               onMouseLeave={() => setPrevArrow(false)}
               ref={swiperImagePrevRef}
-              className={showArrows ? styles.customPrevArrow : 'hidden'}
+              className={showArrows ? styles.customPrevArrowTrailer : 'hidden'}
             >
               <MdOutlineArrowBackIos
                 className={`${prevArrow ? '' : 'opacity-80'}`}
-                size={40}
+                size={30}
               />
             </div>
             <div
               onMouseEnter={() => setNextArrow(true)}
               onMouseLeave={() => setNextArrow(false)}
               ref={swiperImageNextRef}
-              className={showArrows ? styles.customNextArrow : 'hidden'}
+              className={showArrows ? styles.customNextArrowTrailer : 'hidden'}
             >
               <MdOutlineArrowBackIos
                 className={`rotate-180  ${nextArrow ? '' : 'opacity-80'}`}
-                size={40}
+                size={30}
               />
             </div>
           </div>
