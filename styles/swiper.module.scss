@@ -1,3 +1,23 @@
+.customNextArrowTrailer,
+.customPrevArrowTrailer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50.4%);
+
+  z-index: 1;
+  cursor: pointer;
+}
+.customNextArrowTrailer {
+  right: 10px;
+}
+
+.customPrevArrowTrailer {
+  left: 10px;
+}
+
 .customNextArrow,
 .customPrevArrow {
   display: flex;
@@ -7,8 +27,8 @@
   top: 50%;
   right: 0px;
   transform: translateY(-50.4%);
-  width: 80px;
-  height: 405px;
+  width: 50px;
+  height: 220px;
   z-index: 1;
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.2);

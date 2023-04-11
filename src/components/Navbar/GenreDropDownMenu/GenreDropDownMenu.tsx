@@ -39,7 +39,7 @@ const GenreDropDownMenu = () => {
         onClick={() => setOpen(true)}
         onMouseEnter={() => setHoverAnimation(true)}
         onMouseLeave={() => setHoverAnimation(false)}
-        className="py-[4.5px] px-[.20rem] w-[5rem] border-[1px]  border-white border-opacity-70  rounded flex items-center justify-between cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all relative"
+        className="py-[4px] px-[.20rem] w-[5rem] border-[1px]  border-white border-opacity-70  rounded flex items-center justify-between cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all relative"
       >
         <span className="text-sm ">Genres</span>
         <div
@@ -60,7 +60,7 @@ const GenreDropDownMenu = () => {
           {movieGenres.map((genre) => {
             return (
               <div
-                className="py-2 cursor-pointer text-lg text-center  hover:text-opacity-90 text-offWhite transition-all"
+                className="py-2 cursor-pointer text-lg text-center  hover:text-opacity-80 text-white transition-all"
                 key={genre.value}
                 onClick={() => setGenre(genre.title)}
               >

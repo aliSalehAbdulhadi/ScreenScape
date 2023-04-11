@@ -15,12 +15,12 @@ const Navbar = () => {
   });
 
   return (
-    <div className="h-[8vh]  flex items-center justify-between px-20">
+    <div className="h-[8vh]  flex items-center justify-between px-[3rem]">
       <div className="flex items-center w-[50%]">
         <Image
-          src="/svg/logo/screenScapeLogo.svg"
-          height={45}
-          width={45}
+          src="/svg/logo/screenScapeLogo2.svg"
+          height={50}
+          width={50}
           alt="ScreenScape Logo"
         />
 
@@ -29,14 +29,14 @@ const Navbar = () => {
             htmlFor="searchBar"
             className={`${
               searchBarFocus || searchText ? 'hidden' : 'absolute'
-            } left-[50px] top-[9px] text-xs opacity-50 text-offWhite`}
+            } left-[50px] top-[9px] text-xs opacity-50 `}
           >
             Search Title...
           </label>
           <input
             onFocus={() => setSearchBarFocus(true)}
             onChange={(e) => setSearchText(e.target.value)}
-            className="rounded outline-none pl-3 ml-10 w-[18rem] h-[2rem] border-[1px] border-white  bg-offWhite bg-opacity-10 text-white text-sm"
+            className="rounded outline-none pl-3 ml-10 w-[18rem] h-[2rem] border-[1px] border-white  bg-offWhite  text-sm"
             type="text"
             name="searchBar"
             id="searchBar"

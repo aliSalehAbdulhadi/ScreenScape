@@ -17,6 +17,10 @@ module.exports = {
         averia: ['var(--font-averia)'],
         roboto: ['var(--font-roboto)'],
       },
+      gridTemplateColumns: {
+        fluidText: 'repeat(auto-fit,minmax(1rem,1fr))',
+        fluid: 'repeat(auto-fit,minmax(15rem,1fr))',
+      },
     },
   },
   plugins: [],
