@@ -10,7 +10,7 @@
     "no-unused-vars": "warn",
     "no-console": "warn",
     "spaced-comment": "warn",
-    "newline-after-var": "warn",
+    "newline-after-var": "off",
     "import/newline-after-import": "warn"
   }
 }

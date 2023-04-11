@@ -1,6 +1,7 @@
-import './globals.css';
+import Navbar from '@/src/components/Navbar/Navbar';
 import { Roboto } from 'next/font/google';
 import { Averia_Serif_Libre } from 'next/font/google';
+import './globals.css';
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -27,8 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} ${roboto.variable} ${averia.variable}`}
+        className={`${roboto.className} ${roboto.variable} ${averia.variable} bg-primary`}
       >
+        <Navbar />
+
         {children}
       </body>
     </html>

@@ -1,0 +1,22 @@
+.customNextArrow,
+.customPrevArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50.4%);
+  width: 80px;
+  height: 405px;
+  z-index: 1;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.customNextArrow {
+  right: 0;
+}
+
+.customPrevArrow {
+  left: 0;
+}
