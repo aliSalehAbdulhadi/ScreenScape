@@ -29,7 +29,7 @@ const Navbar = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const scrollY = useScrollY();
+  const scrollY: any = useScrollY();
 
   useEffect(() => {
     if (focusSearchBar && inputRef.current) {
