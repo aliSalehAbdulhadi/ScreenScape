@@ -27,11 +27,21 @@
   top: 50%;
   right: 0px;
   transform: translateY(-50.4%);
-  width: 50px;
+  width: 37px;
   height: 220px;
   z-index: 1;
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.2);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.customNextArrow:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.customPrevArrow:hover {
+  background-color: rgba(0, 0, 0, 0.4);
 }
 .customNextArrow {
   right: 0;

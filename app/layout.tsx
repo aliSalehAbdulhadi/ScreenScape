@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} ${roboto.variable} ${averia.variable} bg-primary`}
+        className={`${roboto.className} ${roboto.variable} ${averia.variable}  bg-primary  select-none`}
       >
         <Navbar />
 

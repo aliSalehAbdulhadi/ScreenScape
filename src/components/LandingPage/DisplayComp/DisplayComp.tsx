@@ -15,7 +15,7 @@ const DisplayComp = () => {
         i++;
         return (
           <div key={genre.id} className=" mt-10 w-[100%] flex flex-col">
-            <span className="ml-10 text-2xl mb-3 text-secondary">
+            <span className="ml-9 text-2xl mb-3 text-secondary">
               {genre.name}
             </span>
             <DisplaySlider />

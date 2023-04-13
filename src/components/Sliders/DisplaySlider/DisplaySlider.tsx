@@ -7,6 +7,7 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
+import Link from 'next/link';
 
 SwiperCore.use([Navigation]);
 
@@ -80,16 +81,16 @@ const DisplaySlider = () => {
     >
       {
         <Swiper
-          className={`${firstSlide ? '' : 'pl-10'} pl-12 transition-all`}
+          className={`${firstSlide ? '' : 'pl-10'} pl-9 transition-all`}
           modules={[Pagination]}
           pagination={showArrows ? true : false}
           draggable={false}
-          allowTouchMove={false}
-          slidesPerGroup={5}
-          spaceBetween={5}
+          slidesPerGroup={6}
+          spaceBetween={0}
           loop={true}
-          slidesPerView={6}
+          slidesPerView={6.1}
           speed={700}
+          onSlideChange={() => firstSlideHandler()}
           navigation={{
             prevEl: swiperImagePrevRef.current,
             nextEl: swiperImageNextRef.current,
@@ -105,14 +106,16 @@ const DisplaySlider = () => {
         >
           <div>
             {images.map((image, i) => (
-              <SwiperSlide key={image.url + i}>
-                <Image
-                  width={310}
-                  height={310}
-                  src={image.url}
-                  className=" object-contain rounded "
-                  alt="poster"
-                />
+              <SwiperSlide className="m-0" key={image.url + i}>
+                <Link href={'browse/sss'}>
+                  <Image
+                    width={300}
+                    height={300}
+                    src={image.url}
+                    className=" object-contain rounded h-[163px] w-[290px] m-0 cursor-pointer"
+                    alt="poster"
+                  />
+                </Link>
               </SwiperSlide>
             ))}
           </div>
