@@ -70,7 +70,7 @@ const Navbar = () => {
     <div
       className={`h-[7vh]  flex items-center  px-[2rem] sticky top-0 z-10 bg-primary ${
         scrollY > 50
-          ? 'background-fade-bottom-exit'
+          ? 'background-fade-bottom-exit shadow-md'
           : 'background-fade-bottom-enter'
       } ${
         pathName === '/' || includesSearch

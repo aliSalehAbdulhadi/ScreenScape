@@ -1,8 +1,8 @@
 import Navbar from '@/src/components/Navbar/Navbar';
 import { Roboto } from 'next/font/google';
 import { Averia_Serif_Libre } from 'next/font/google';
-import './globals.css';
 import Footer from '@/src/components/Footer/Footer';
+import './globals.css';
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
