@@ -17,34 +17,28 @@ body {
   opacity: 0 !important;
 }
 
-.swiper-button-next {
-}
-
 .swiper-pagination-bullet-active {
-  background-color: white;
+  background-color: white !important;
 }
 
 .swiper-pagination {
   position: absolute !important;
   top: -10px !important;
   right: 5px !important;
-  height: 20%;
-}
-
-.swiper-pagination {
+  height: 20% !important;
 }
 
 .swiper-pagination-bullets {
   position: absolute !important;
   margin-left: auto !important;
   width: 10% !important;
-  height: 5%;
+  height: 5% !important;
 }
 
 .swiper-pagination-bullet {
-  border-radius: 0;
-  height: 3px;
-  background-color: white;
+  border-radius: 0 !important;
+  height: 3px !important;
+  background-color: white !important;
   margin: 0 3px !important;
 }
 
@@ -77,10 +71,6 @@ body {
     rgba(255, 255, 255, 0)
   );
   background-color: #161925;
-
-  animation-name: fade;
-  animation-duration: 5s;
-  animation-timing-function: ease-out;
 }
 
 .background-fade-bottom-exit {
@@ -91,66 +81,4 @@ body {
   );
 
   background-color: #161925;
-
-  animation-name: fade;
-  animation-duration: 5s;
-  animation-timing-function: ease-out;
-  animation-direction: reverse;
-}
-
-@keyframes fade {
-  0% {
-    background: linear-gradient(
-      to top,
-      rgba(255, 255, 255, 0.01),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0)
-    );
-  }
-  33% {
-    background: linear-gradient(
-      to top,
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0.01),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0)
-    );
-  }
-
-  66% {
-    background: linear-gradient(
-      to top,
-      rgba(255, 255, 255, 0.03),
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0.01),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0)
-    );
-  }
-
-  100% {
-    background: linear-gradient(
-      to top,
-      rgba(255, 255, 255, 0.06),
-      rgba(255, 255, 255, 0.05),
-      rgba(255, 255, 255, 0.04),
-      rgba(255, 255, 255, 0.03),
-      rgba(255, 255, 255, 0.02),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0)
-    );
-  }
 }

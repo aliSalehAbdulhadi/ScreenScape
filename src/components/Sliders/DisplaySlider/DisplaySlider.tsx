@@ -74,80 +74,85 @@ const DisplaySlider = () => {
     }, 600);
   };
 
+  console.log(firstSlide);
+
   return (
     <div
       onMouseEnter={() => setShowArrows(true)}
       onMouseLeave={() => setShowArrows(false)}
     >
       {
-        <Swiper
-          className={`${firstSlide ? '' : 'pl-10'} pl-9 transition-all`}
-          modules={[Pagination]}
-          pagination={showArrows ? true : false}
-          draggable={false}
-          slidesPerGroup={6}
-          spaceBetween={0}
-          loop={true}
-          slidesPerView={6.1}
-          speed={700}
-          onSlideChange={() => firstSlideHandler()}
-          navigation={{
-            prevEl: swiperImagePrevRef.current,
-            nextEl: swiperImageNextRef.current,
-          }}
-          onInit={(swiper) => {
-            // @ts-ignore
-            swiper.params.navigation.prevEl = swiperImagePrevRef.current;
-            // @ts-ignore
-            swiper.params.navigation.nextEl = swiperImageNextRef.current;
-            swiper.navigation.init();
-            swiper.navigation.update();
-          }}
-        >
-          <div>
-            {images.map((image, i) => (
-              <SwiperSlide className="m-0" key={image.url + i}>
-                <Link href={'browse/sss'}>
-                  <Image
-                    width={300}
-                    height={300}
-                    src={image.url}
-                    className=" object-contain rounded h-[163px] w-[290px] m-0 cursor-pointer"
-                    alt="poster"
-                  />
-                </Link>
-              </SwiperSlide>
-            ))}
-          </div>
+        <div>
+          <Swiper
+            className={`${firstSlide ? '' : '!pl-10'}  transition-all`}
+            modules={[Pagination]}
+            pagination={showArrows ? true : false}
+            draggable={false}
+            slidesPerGroup={6}
+            spaceBetween={0}
+            loop={true}
+            slidesPerView={6.1}
+            speed={700}
+            onSliderFirstMove={() => firstSlideHandler()}
+            allowSlidePrev={firstSlide ? true : false}
+            navigation={{
+              prevEl: swiperImagePrevRef.current,
+              nextEl: swiperImageNextRef.current,
+            }}
+            onInit={(swiper) => {
+              // @ts-ignore
+              swiper.params.navigation.prevEl = swiperImagePrevRef.current;
+              // @ts-ignore
+              swiper.params.navigation.nextEl = swiperImageNextRef.current;
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }}
+          >
+            <div>
+              {images.map((image, i) => (
+                <SwiperSlide className="m-0" key={image.url + i}>
+                  <Link href={'browse/sss'}>
+                    <Image
+                      width={300}
+                      height={300}
+                      src={image.url}
+                      className=" object-contain rounded h-[163px] w-[290px] m-0 cursor-pointer"
+                      alt="poster"
+                    />
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </div>
 
-          <div className=" transition-all">
-            <div
-              onMouseEnter={() => setPrevArrow(true)}
-              onMouseLeave={() => setPrevArrow(false)}
-              ref={swiperImagePrevRef}
-              className={
-                showArrows && firstSlide ? styles.customPrevArrow : 'hidden'
-              }
-            >
-              <MdOutlineArrowBackIos
-                className={`${prevArrow ? '' : 'opacity-80'}`}
-                size={30}
-              />
+            <div className=" transition-all">
+              <div
+                onMouseEnter={() => setPrevArrow(true)}
+                onMouseLeave={() => setPrevArrow(false)}
+                ref={swiperImagePrevRef}
+                className={
+                  showArrows && firstSlide ? styles.customPrevArrow : 'hidden'
+                }
+              >
+                <MdOutlineArrowBackIos
+                  className={`${prevArrow ? '' : 'opacity-80'}`}
+                  size={30}
+                />
+              </div>
+              <div
+                onMouseEnter={() => setNextArrow(true)}
+                onMouseLeave={() => setNextArrow(false)}
+                onClick={() => firstSlideHandler()}
+                ref={swiperImageNextRef}
+                className={showArrows ? styles.customNextArrow : 'hidden'}
+              >
+                <MdOutlineArrowBackIos
+                  className={`rotate-180  ${nextArrow ? '' : 'opacity-80'}`}
+                  size={30}
+                />
+              </div>
             </div>
-            <div
-              onMouseEnter={() => setNextArrow(true)}
-              onMouseLeave={() => setNextArrow(false)}
-              onClick={() => firstSlideHandler()}
-              ref={swiperImageNextRef}
-              className={showArrows ? styles.customNextArrow : 'hidden'}
-            >
-              <MdOutlineArrowBackIos
-                className={`rotate-180  ${nextArrow ? '' : 'opacity-80'}`}
-                size={30}
-              />
-            </div>
-          </div>
-        </Swiper>
+          </Swiper>
+        </div>
       }
     </div>
   );
