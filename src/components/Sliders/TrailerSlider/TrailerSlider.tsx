@@ -13,10 +13,11 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import MainButton from '../../Buttons/MainButton/MainButton';
-import { BsInfoCircle } from 'react-icons/bs';
+import { GrCircleInformation } from 'react-icons/gr';
 import { FaVolumeMute } from 'react-icons/fa';
 import { IoReloadSharp } from 'react-icons/io5';
 import PlusButton from '../../Buttons/PlusButton/PlusButton';
+import Link from 'next/link';
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -81,36 +82,45 @@ const TrailerSlider = () => {
         >
           <div>
             {images.map((image, i) => (
-              <SwiperSlide key={image.url + i} className="w-[34rem] h-[30rem] ">
-                <div className="relative">
+              <SwiperSlide
+                key={image.url + i}
+                className="w-[34rem] h-[30rem] overflow-hidden rounded-lg "
+              >
+                <div className="relative overflow-hidden">
                   <Image
                     width={900}
                     height={400}
                     src={image.url}
-                    className=" object-contain rounded "
+                    className=" object-fill rounded-lg "
                     alt="poster"
                   />
                   <div className={`${activeSlide === i ? '' : 'hidden'} `}>
-                    <div className=" absolute bottom-14 left-10 ">
+                    <div className=" absolute bottom-12 left-10 ">
                       <div>
                         <span className="text-white text-4xl font-bold">
                           Midway
                         </span>
                       </div>
-                      <div className="mt-3">
-                        <div className="flex items-center justify-center">
-                          <MainButton>
-                            <BsInfoCircle className="mb-[1.5px]" size={18} />
+                      <div className="mt-3 ">
+                        <Link
+                          href="/browse/sss"
+                          className="flex items-center justify-center"
+                        >
+                          <MainButton className="bg-opacity-75">
+                            <GrCircleInformation
+                              className="mb-[1.5px] text-opacity-75"
+                              size={20}
+                            />
                             <span className="ml-2">More Info</span>
                           </MainButton>
                           <div className="ml-2 mb-[1.5px] ">
-                            <PlusButton />
+                            <PlusButton size={25} />
                           </div>
-                        </div>
+                        </Link>
                       </div>
                     </div>
 
-                    <div className="absolute bottom-[64px] right-24 flex items-center justify-center">
+                    <div className="absolute bottom-14 right-24 flex items-center justify-center">
                       <div className="border-[1px] p-[.45rem] rounded-full cursor-pointer mr-3 bg-black bg-opacity-30">
                         <IoReloadSharp size={18} />
                       </div>

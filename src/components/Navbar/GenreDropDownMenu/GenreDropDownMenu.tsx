@@ -34,16 +34,16 @@ const GenreDropDownMenu = () => {
   });
 
   return (
-    <div className="text-offWhite ">
+    <div className="text-offWhite">
       <div
         onClick={() => setOpen(true)}
         onMouseEnter={() => setHoverAnimation(true)}
         onMouseLeave={() => setHoverAnimation(false)}
-        className="py-[4px] px-[.20rem] w-[5rem] border-[1px]  border-white border-opacity-70  rounded flex items-center justify-between cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all relative"
+        className="py-[4px] px-[.20rem] w-[5rem] border-[1px]  border-white border-opacity-70  rounded flex items-center justify-center cursor-pointer hover:bg-white hover:bg-opacity-10 transition-all relative"
       >
         <span className="text-sm ">Genres</span>
         <div
-          className={`absolute right-2 transition-all ${
+          className={`transition-all mt-[2px] ${
             hoverAnimation ? 'translate-x-1' : ''
           }`}
         >
