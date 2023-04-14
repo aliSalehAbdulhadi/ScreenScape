@@ -22,6 +22,18 @@ module.exports = {
         fluid: 'repeat(auto-fit,minmax(10rem,1fr))',
       },
     },
+
+    screens: {
+      xxs: '330px',
+      xs: '450px',
+      sm: '640px',
+      semiSm: '865px',
+      md: '1000px',
+      lg: '1280px',
+      xl: '1300px',
+      xxl: '1450px',
+      xxxl: '1640px',
+    },
   },
   plugins: [],
 };

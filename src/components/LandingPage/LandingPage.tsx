@@ -3,11 +3,11 @@ import DisplayComp from './DisplayComp/DisplayComp';
 
 const LandingPage = () => {
   return (
-    <div className="flex flex-col items-center background-fade py-[6rem]">
+    <div className="flex flex-col items-center background-fade md:py-[6rem]">
       <div className="w-[100%]">
         <TrailerSlider />
       </div>
-      <div className="w-[100%]">
+      <div className="w-[100%] ">
         <DisplayComp />
       </div>
     </div>

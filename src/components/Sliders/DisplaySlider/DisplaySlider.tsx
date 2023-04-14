@@ -8,6 +8,7 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import Link from 'next/link';
+import useWindowSize from '@/src/hooks/useWindowsSize';
 
 SwiperCore.use([Navigation]);
 
@@ -71,7 +72,21 @@ const DisplaySlider = () => {
   const firstSlideHandler = () => {
     setTimeout(() => {
       setFirstSlide(true);
-    }, 600);
+    }, 635);
+  };
+
+  const width = useWindowSize();
+
+  const widthHandler = () => {
+    if (width > 1000) {
+      return 6.1;
+    } else if (width > 850) {
+      return 4.1;
+    } else if (width > 640) {
+      return 3.1;
+    } else {
+      return 2.2;
+    }
   };
 
   return (
@@ -82,14 +97,15 @@ const DisplaySlider = () => {
       {
         <div>
           <Swiper
-            className={`${firstSlide ? '' : '!pl-10'}  transition-all`}
+            className={`!pl-5 xs:!pl-10`}
             modules={[Pagination]}
             pagination={showArrows ? true : false}
             draggable={false}
-            slidesPerGroup={6}
+            // @ts-ignore
+            slidesPerGroup={parseInt(widthHandler())}
             spaceBetween={0}
             loop={true}
-            slidesPerView={6.1}
+            slidesPerView={widthHandler()}
             speed={700}
             onSliderFirstMove={() => firstSlideHandler()}
             allowSlidePrev={firstSlide ? true : false}
@@ -108,13 +124,13 @@ const DisplaySlider = () => {
           >
             <div>
               {images.map((image, i) => (
-                <SwiperSlide className="m-0" key={image.url + i}>
+                <SwiperSlide key={image.url + i}>
                   <Link href={'browse/sss'}>
                     <Image
                       width={300}
                       height={300}
                       src={image.url}
-                      className=" object-contain rounded h-[163px] w-[290px] m-0 cursor-pointer"
+                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer"
                       alt="poster"
                     />
                   </Link>

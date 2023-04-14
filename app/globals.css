@@ -13,6 +13,10 @@ body {
   backdrop-filter: blur(4px);
 }
 
+.burger-blur {
+  backdrop-filter: blur(0.5px);
+}
+
 .swiper-scrollbar {
   opacity: 0 !important;
 }
