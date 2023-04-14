@@ -73,6 +73,7 @@ const Navbar = () => {
         scrollY > 50
           ? `${width > 1000 ? 'background-fade-bottom-exit shadow-md' : ''}`
           : `${width > 1000 ? 'background-fade-bottom-enter' : ''} `
+
       } `}
     >
       <div className="flex items-center justify-between w-full semiSm:w-fit">
@@ -106,6 +107,7 @@ const Navbar = () => {
             className={`${
               focusSearchBar || searchText ? 'hidden' : 'absolute'
             } left-2 top-[50%] translate-y-[-50%] text-[.65rem] mt-[1px] md:text-xs opacity-50 `}
+
           >
             Search...
           </label>
