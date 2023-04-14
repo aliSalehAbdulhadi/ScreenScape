@@ -12,12 +12,8 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
-import MainButton from '../../Buttons/MainButton/MainButton';
-import { GrCircleInformation } from 'react-icons/gr';
-import { FaVolumeMute } from 'react-icons/fa';
-import { IoReloadSharp } from 'react-icons/io5';
-import PlusButton from '../../Buttons/PlusButton/PlusButton';
-import Link from 'next/link';
+import useWindowSize from '@/src/hooks/useWindowsSize';
+import TrailerButtons from './TrailerButtons/TrailerButtons';
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -43,6 +39,8 @@ const TrailerSlider = () => {
     },
   ];
 
+  const width = useWindowSize();
+
   return (
     <div
       onMouseEnter={() => setShowArrows(true)}
@@ -51,7 +49,7 @@ const TrailerSlider = () => {
       {
         <Swiper
           modules={[EffectCoverflow, Autoplay, Pagination]}
-          pagination={showArrows ? true : false}
+          pagination={false}
           scrollbar={{ draggable: true }}
           effect={'coverflow'}
           autoplay={false}
@@ -65,7 +63,7 @@ const TrailerSlider = () => {
             slideShadows: true,
           }}
           loop={true}
-          slidesPerView={2}
+          slidesPerView={width > 1000 ? 2 : 1}
           onSlideChange={(e) => setActiveSlide(e.realIndex)}
           navigation={{
             prevEl: swiperImagePrevRef.current,
@@ -84,51 +82,20 @@ const TrailerSlider = () => {
             {images.map((image, i) => (
               <SwiperSlide
                 key={image.url + i}
-                className="w-[34rem] h-[30rem] overflow-hidden rounded-lg "
+                className=" md:rounded-lg relative "
               >
-                <div className="relative overflow-hidden">
+                <div className="relative ">
                   <Image
-                    width={900}
-                    height={400}
+                    width={2000}
+                    height={1000}
                     src={image.url}
-                    className=" object-fill rounded-lg "
+                    className=" object-fill md:rounded-lg "
                     alt="poster"
                   />
-                  <div className={`${activeSlide === i ? '' : 'hidden'} `}>
-                    <div className=" absolute bottom-12 left-10 ">
-                      <div>
-                        <span className="text-white text-4xl font-bold">
-                          Midway
-                        </span>
-                      </div>
-                      <div className="mt-3 ">
-                        <Link
-                          href="/browse/sss"
-                          className="flex items-center justify-center"
-                        >
-                          <MainButton className="bg-opacity-75">
-                            <GrCircleInformation
-                              className="mb-[1.5px] text-opacity-75"
-                              size={20}
-                            />
-                            <span className="ml-2">More Info</span>
-                          </MainButton>
-                          <div className="ml-2 mb-[1.5px] ">
-                            <PlusButton size={25} />
-                          </div>
-                        </Link>
-                      </div>
-                    </div>
+                </div>
 
-                    <div className="absolute bottom-14 right-24 flex items-center justify-center">
-                      <div className="border-[1px] p-[.45rem] rounded-full cursor-pointer mr-3 bg-black bg-opacity-30">
-                        <IoReloadSharp size={18} />
-                      </div>
-                      <div className="border-[1px] p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-30">
-                        <FaVolumeMute size={18} />
-                      </div>
-                    </div>
-                  </div>
+                <div className=" absolute bottom-3 sm:bottom-5 w-full">
+                  <TrailerButtons activeSlide={activeSlide} i={i} />
                 </div>
               </SwiperSlide>
             ))}

@@ -1,4 +1,3 @@
-import { spawn } from 'child_process';
 import React from 'react';
 
 import {
@@ -40,9 +39,11 @@ const footerCol = [
 
 const Footer = () => {
   return (
-    <div className="text-white  flex items-center justify-center min-h-[15vh] mb-2">
-      <div className="mr-[5rem]">
-        <span className="text-secondary font-averia text-2xl">ScreenSpace</span>
+    <div className="text-white  flex items-center justify-center flex-col sm:flex-row min-h-[15vh]  w-fit mx-5 sm:mx-10 my-5 sm:my-0">
+      <div className="sm:mr-[5rem] sm:mb-0 pb-5">
+        <span className="text-secondary font-averia text-xl semiSm:text-2xl">
+          ScreenSpace
+        </span>
         <div className="flex items-center justify-around mt-2 opacity-80">
           <GrFacebookOption className="cursor-pointer" size={20} />
           <GrInstagram className="cursor-pointer" size={20} />
@@ -50,7 +51,7 @@ const Footer = () => {
           <GrYoutube className="cursor-pointer" size={20} />
         </div>
       </div>
-      <div className="grid grid-cols-3 grid-rows-3 gap-x-24 gap-y-3 text-sm text-offWhite text-opacity-50 font-light ">
+      <div className="grid grid-cols-3 grid-rows-3 gap-x-12 gap-y-1  semiSm:gap-x-24 semiSm:gap-y-3 text-xs semiSm:text-sm text-offWhite text-opacity-50 font-light ">
         {footerCol.map((link) => (
           <span className="hover:underline cursor-pointer" key={link.link}>
             {link.link}

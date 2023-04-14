@@ -29,12 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} ${roboto.variable} ${averia.variable}  bg-primary  select-none`}
+        className={`${roboto.className} ${roboto.variable} ${averia.variable} flex flex-col  bg-primary  select-none`}
       >
         <Navbar />
 
         {children}
-        <Footer />
+        <div className="self-center">
+          <Footer />
+        </div>
       </body>
     </html>
   );
