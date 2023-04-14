@@ -13,14 +13,11 @@ import { useScrollY } from '@/src/hooks/useScrollY';
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState<string>('');
-  const [searchBarFocus, setSearchBarFocus] = useState<boolean>(false);
   const [firstSearch, setFirstSearch] = useState<boolean>(false);
-  const [includesSearch, setIncludesSearch] = useState<boolean>(false);
   const [goBack, setGoBack] = useState(true);
   const [focusSearchBar, setFocusSearchBar] = useState(false);
 
   const navBarRef = useClickOutside(() => {
-    setSearchBarFocus(false);
     setFocusSearchBar(false);
   });
 
@@ -48,7 +45,6 @@ const Navbar = () => {
   }, [router, searchText, firstSearch]);
 
   useEffect(() => {
-    setIncludesSearch(pathName.includes('search'));
     setGoBack(true);
   }, [pathName]);
 
@@ -68,15 +64,11 @@ const Navbar = () => {
 
   return (
     <div
-      className={`h-[7vh]  flex items-center  px-[2rem] sticky top-0 z-10 bg-primary ${
+      className={`h-[7vh]  flex items-center  px-10 sticky top-0 z-10 bg-primary justify-between ${
         scrollY > 50
           ? 'background-fade-bottom-exit shadow-md'
           : 'background-fade-bottom-enter'
-      } ${
-        pathName === '/' || includesSearch
-          ? 'justify-between'
-          : 'justify-center'
-      }`}
+      } `}
     >
       <div className="flex items-center w-[37.5%]">
         <Link
@@ -98,14 +90,14 @@ const Navbar = () => {
           <label
             htmlFor="searchBar"
             className={`${
-              searchBarFocus || searchText ? 'hidden' : 'absolute'
+              focusSearchBar || searchText ? 'hidden' : 'absolute'
             } left-[50px] top-[9px] text-xs opacity-50 `}
           >
             Search Title...
           </label>
           <input
             ref={inputRef}
-            onFocus={() => setSearchBarFocus(true)}
+            onFocus={() => setFocusSearchBar(true)}
             onChange={(e) => setSearchText(e.target.value)}
             className="rounded outline-none pl-3 ml-10 w-[18rem] h-[2rem] border-[1px] border-white  bg-offWhite  text-sm"
             type="text"
