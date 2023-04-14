@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const TitleRelated = () => {
   const images = [
@@ -69,7 +70,11 @@ const TitleRelated = () => {
       <span className="text-2xl text-secondary">Related</span>
       <div className="mt-5 grid grid-cols-fluid gap-2">
         {images.map((cast, i) => (
-          <div key={cast.url + i} className=" mb-3 cursor-pointer w-fit">
+          <Link
+            href="/browse/sss"
+            key={cast.url + i}
+            className=" mb-3 cursor-pointer w-fit"
+          >
             <Image
               src={cast.url}
               width={150}
@@ -77,7 +82,7 @@ const TitleRelated = () => {
               alt="Actor Image"
               className="h-[240px] w-[180px] object-fill rounded"
             />
-          </div>
+          </Link>
         ))}
       </div>
     </div>

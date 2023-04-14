@@ -74,8 +74,6 @@ const DisplaySlider = () => {
     }, 600);
   };
 
-  console.log(firstSlide);
-
   return (
     <div
       onMouseEnter={() => setShowArrows(true)}

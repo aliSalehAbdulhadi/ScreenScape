@@ -27,10 +27,10 @@ export const TitleCast = () => {
           >
             <Image
               src={cast.url}
-              width={180}
-              height={180}
+              width={150}
+              height={150}
               alt="Actor Image"
-              className="rounded-lg h-[140px] w-[130px] object-fill"
+              className="rounded-lg h-[150px] w-[150px] object-fill"
             />
             <span className="mt-2">{cast.name}</span>
           </Link>

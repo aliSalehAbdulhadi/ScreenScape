@@ -1,7 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
-const ActorAppearedIn = () => {
+const OtherActors = () => {
   const images = [
     { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
     {
@@ -9,18 +8,21 @@ const ActorAppearedIn = () => {
     },
     { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
     { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
+    {
+      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
+    },
+    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
     { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
+    {
+      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
+    },
   ];
   return (
     <div className="">
-      <span className="text-2xl text-secondary">Appeared In</span>
+      <span className="text-2xl text-secondary">Other Actors</span>
       <div className="mt-5 grid grid-cols-fluid gap-2">
         {images.map((cast, i) => (
-          <Link
-            href="/browse/sss"
-            key={cast.url + i}
-            className=" mb-3 cursor-pointer w-fit"
-          >
+          <div key={cast.url + i} className=" mb-3 cursor-pointer w-fit">
             <Image
               src={cast.url}
               width={150}
@@ -28,11 +30,11 @@ const ActorAppearedIn = () => {
               alt="Actor Image"
               className="h-[240px] w-[180px] object-fill rounded"
             />
-          </Link>
+          </div>
         ))}
       </div>
     </div>
   );
 };
 
-export default ActorAppearedIn;
+export default OtherActors;

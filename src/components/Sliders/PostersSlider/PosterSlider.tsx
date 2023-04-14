@@ -1,10 +1,5 @@
 'use client';
-import SwiperCore, {
-  Autoplay,
-  EffectCoverflow,
-  Navigation,
-  Pagination,
-} from 'swiper';
+import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
@@ -12,11 +7,6 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
-import MainButton from '../../Buttons/MainButton/MainButton';
-import { BsInfoCircle } from 'react-icons/bs';
-import { FaVolumeMute } from 'react-icons/fa';
-import { IoReloadSharp } from 'react-icons/io5';
-import PlusButton from '../../Buttons/PlusButton/PlusButton';
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -63,16 +53,13 @@ const PosterSlider = () => {
         >
           <div className="">
             {images.map((image, i) => (
-              <SwiperSlide
-                key={image.url + i}
-                className=" flex items-center justify-center "
-              >
+              <SwiperSlide key={image.url + i} className=" ">
                 <Image
-                  width={300}
-                  height={300}
+                  width={500}
+                  height={500}
                   src={image.url}
-                  className=" object-fit h-[30rem] w-full rounded"
-                  alt="poster"
+                  alt="Actor Photo"
+                  className="rounded object-fill h-[30rem] w-[25rem]"
                 />
               </SwiperSlide>
             ))}
