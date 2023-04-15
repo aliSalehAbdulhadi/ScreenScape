@@ -18,7 +18,7 @@ module.exports = {
         roboto: ['var(--font-roboto)'],
       },
       gridTemplateColumns: {
-        fluidText: 'repeat(auto-fit,minmax(1rem,1fr))',
+        fluidNarrow: 'repeat(auto-fit,minmax(11rem,1fr))',
         fluid: 'repeat(auto-fit,minmax(10rem,1fr))',
       },
     },

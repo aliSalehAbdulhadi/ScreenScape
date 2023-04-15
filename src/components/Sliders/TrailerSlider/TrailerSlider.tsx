@@ -106,7 +106,11 @@ const TrailerSlider = () => {
               onMouseEnter={() => setPrevArrow(true)}
               onMouseLeave={() => setPrevArrow(false)}
               ref={swiperImagePrevRef}
-              className={showArrows ? styles.customPrevArrowTrailer : 'hidden'}
+              className={
+                showArrows && width > 865
+                  ? styles.customPrevArrowTrailer
+                  : 'hidden'
+              }
             >
               <MdOutlineArrowBackIos
                 className={`${prevArrow ? '' : 'opacity-80'}`}
@@ -117,7 +121,11 @@ const TrailerSlider = () => {
               onMouseEnter={() => setNextArrow(true)}
               onMouseLeave={() => setNextArrow(false)}
               ref={swiperImageNextRef}
-              className={showArrows ? styles.customNextArrowTrailer : 'hidden'}
+              className={
+                showArrows && width > 865
+                  ? styles.customNextArrowTrailer
+                  : 'hidden'
+              }
             >
               <MdOutlineArrowBackIos
                 className={`rotate-180  ${nextArrow ? '' : 'opacity-80'}`}

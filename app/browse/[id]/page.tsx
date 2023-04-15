@@ -6,21 +6,21 @@ import TitleRelated from '@/src/components/TitleSinglePage/TitleRelated/TitleRel
 const page = () => {
   return (
     <div className="text-white background-fade flex flex-col justify-center items-center pt-10 px-10">
-      <div className="flex justify-between">
+      <div className="flex  justify-between w-full">
         <div className="w-[75%]">
           <TitleInfo />
         </div>
-        <div>
+        <div className="w-[25%]">
           <News />
         </div>
       </div>
 
-      <div className="mt-14 flex w-full justify-between">
-        <div className=" w-[45%]">
+      <div className="mt-14 flex flex-col semiSm:flex-row w-full justify-between">
+        <div className=" semiSm:w-[45%]">
           <TitleCast />
         </div>
 
-        <div className="w-[45%]">
+        <div className="semiSm:w-[45%]">
           <TitleRelated />
         </div>
       </div>

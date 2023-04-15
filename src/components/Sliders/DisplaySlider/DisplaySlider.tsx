@@ -99,7 +99,7 @@ const DisplaySlider = () => {
           <Swiper
             className={`!pl-5 xs:!pl-10`}
             modules={[Pagination]}
-            pagination={showArrows ? true : false}
+            pagination={showArrows && width > 865 ? true : false}
             draggable={false}
             // @ts-ignore
             slidesPerGroup={parseInt(widthHandler())}
@@ -144,7 +144,9 @@ const DisplaySlider = () => {
                 onMouseLeave={() => setPrevArrow(false)}
                 ref={swiperImagePrevRef}
                 className={
-                  showArrows && firstSlide ? styles.customPrevArrow : 'hidden'
+                  showArrows && firstSlide && width > 865
+                    ? styles.customPrevArrow
+                    : 'hidden'
                 }
               >
                 <MdOutlineArrowBackIos
@@ -157,7 +159,9 @@ const DisplaySlider = () => {
                 onMouseLeave={() => setNextArrow(false)}
                 onClick={() => firstSlideHandler()}
                 ref={swiperImageNextRef}
-                className={showArrows ? styles.customNextArrow : 'hidden'}
+                className={
+                  showArrows && width > 865 ? styles.customNextArrow : 'hidden'
+                }
               >
                 <MdOutlineArrowBackIos
                   className={`rotate-180  ${nextArrow ? '' : 'opacity-80'}`}
