@@ -3,13 +3,13 @@ import Image from 'next/image';
 const ActorInfo = () => {
   return (
     <div className="flex  justify-center h-[30rem]  w-full ">
-      <div className=" rounded ">
+      <div className=" rounded">
         <Image
           width={1280}
           height={1400}
           src="/images/licensed-image.jpeg"
           alt="Actor Photo"
-          className="rounded h-full"
+          className="rounded h-full  "
         />
       </div>
 

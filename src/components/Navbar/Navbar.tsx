@@ -73,7 +73,6 @@ const Navbar = () => {
         scrollY > 50
           ? `${width > 1000 ? 'background-fade-bottom-exit shadow-md' : ''}`
           : `${width > 1000 ? 'background-fade-bottom-enter' : ''} `
-
       } `}
     >
       <div className="flex items-center justify-between w-full semiSm:w-fit">
@@ -82,7 +81,7 @@ const Navbar = () => {
             onClick={() => setBurgerOpen(!burgerOpen)}
             className=" semiSm:hidden"
           >
-            <GiHamburgerMenu className="text-white w-5 h-5 xx:w-7 xxs:h-7 mr-3 xxs:mr-5" />
+            <GiHamburgerMenu className="text-white w-5 h-5 xx:w-7 xxxs:h-7 mr-3 xxxs:mr-5" />
           </div>
           <Link
             onClick={() => {
@@ -107,7 +106,6 @@ const Navbar = () => {
             className={`${
               focusSearchBar || searchText ? 'hidden' : 'absolute'
             } left-2 top-[50%] translate-y-[-50%] text-[.65rem] mt-[1px] md:text-xs opacity-50 `}
-
           >
             Search...
           </label>
@@ -115,7 +113,7 @@ const Navbar = () => {
             ref={inputRef}
             onFocus={() => setFocusSearchBar(true)}
             onChange={(e) => setSearchText(e.target.value)}
-            className="semiSm:rounded outline-none pl-3 w-[8rem]  xxs:w-[10rem] xs:w-[13rem] h-[1.75rem] md:w-[18rem] md:h-[2rem] border-[1px] border-white  bg-offWhite  text-sm"
+            className="semiSm:rounded outline-none pl-3 w-[8rem]  xxxs:w-[10rem] xs:w-[13rem] h-[1.75rem] md:w-[18rem] md:h-[2rem] border-[1px] border-white  bg-offWhite  text-sm"
             type="text"
             name="searchBar"
             id="searchBar"

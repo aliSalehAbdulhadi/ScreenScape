@@ -25,7 +25,7 @@ const TrailerButtons = ({
         </div>
         <div className="mt-1">
           <Link href="/browse/sss" className="flex items-center justify-center">
-            <button className="flex items-center rounded bg-white hover:bg-opacity-90 transition-all text-black px-2 py-[.40rem] xxs:px-3 xxs:py-2 md:px-2 md:py-[.40rem] xl:px-3 xl:py-2 ">
+            <button className="flex items-center rounded bg-white hover:bg-opacity-90 transition-all text-black px-2 py-[.40rem] xxxs:px-3 xxxs:py-2 md:px-2 md:py-[.40rem] xl:px-3 xl:py-2 ">
               <GrCircleInformation className="mb-[2px] text-opacity-75 h-4 w-4  semiSm:h-5 semiSm:w-5" />
               <span className="ml-2 text-[10px] xs:text-sm xl:text-base">
                 More Info

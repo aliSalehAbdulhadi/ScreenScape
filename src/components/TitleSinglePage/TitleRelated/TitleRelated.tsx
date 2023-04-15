@@ -32,48 +32,19 @@ const TitleRelated = () => {
     {
       url: '/images/716rIayrVWL._AC_SL1500_.jpg',
     },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
   ];
 
   return (
-    <div>
-      <span className="text-2xl text-secondary">Related</span>
-      <div className="mt-5 grid grid-cols-fluid gap-2">
+    <div className="flex flex-col">
+      <span className="text-2xl text-secondary self-center xxxs:self-start">
+        Related
+      </span>
+      <div className="mt-5 grid grid-cols-fluid gap-2 place-items-center semiSm:place-items-start ">
         {images.map((cast, i) => (
           <Link
             href="/browse/sss"
             key={cast.url + i}
-            className=" mb-3 cursor-pointer w-fit"
+            className=" mb-3 cursor-pointer w-fit "
           >
             <Image
               src={cast.url}

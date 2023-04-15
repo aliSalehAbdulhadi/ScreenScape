@@ -16,23 +16,28 @@ const castImages = [
 
 export const TitleCast = () => {
   return (
-    <div>
-      <span className="text-2xl text-secondary">Cast</span>
-      <div className="mt-5 grid grid-cols-fluid">
+    <div className="flex flex-col">
+      <span className="text-2xl text-secondary self-center xxxs:self-start">
+        Cast
+      </span>
+      <div className="mt-5 grid grid-cols-fluid place-items-center semiSm:place-items-start ">
         {castImages.map((cast, i) => (
           <Link
             href="/actor/sss"
             key={cast.url + i}
-            className="flex flex-col items-center mb-3 cursor-pointer w-fit"
+            className="flex flex-col  mb-3 cursor-pointer w-fit bg-white bg-opacity-10 h-[15rem] rounded-lg overflow-hidden"
           >
             <Image
               src={cast.url}
               width={150}
               height={150}
               alt="Actor Image"
-              className="rounded-lg h-[150px] w-[150px] object-fill"
+              className="h-[150px] w-[150px] object-fill"
             />
-            <span className="mt-2">{cast.name}</span>
+            <div className="ml-2 mt-2 flex flex-col">
+              <span className="mt-2">{cast.name}</span>
+              <span className=" text-sm opacity-75">{cast.name}</span>
+            </div>
           </Link>
         ))}
       </div>

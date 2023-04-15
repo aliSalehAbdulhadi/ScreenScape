@@ -59,7 +59,7 @@ const PosterSlider = () => {
                   height={500}
                   src={image.url}
                   alt="Actor Photo"
-                  className="rounded object-fill h-[30rem] w-[25rem]"
+                  className="xs:rounded object-fit h-[28rem] xxs:h-[35rem]  sm:h-[30rem] w-full"
                 />
               </SwiperSlide>
             ))}
