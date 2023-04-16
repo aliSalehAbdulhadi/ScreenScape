@@ -4,11 +4,11 @@ import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
-
+import Link from 'next/link';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
-import Link from 'next/link';
 import useWindowSize from '@/src/hooks/useWindowsSize';
+import HoverExpand from '../../HoverExpand/HoverExpand';
 
 SwiperCore.use([Navigation]);
 
@@ -17,6 +17,7 @@ const DisplaySlider = () => {
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
   const [showArrows, setShowArrows] = useState<boolean>(false);
   const [firstSlide, setFirstSlide] = useState<boolean>(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number>(0);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
@@ -97,7 +98,7 @@ const DisplaySlider = () => {
       {
         <div>
           <Swiper
-            className={`!pl-5 xs:!pl-10`}
+            className={`!pl-5 xs:!pl-10 !overflow-visible`}
             modules={[Pagination]}
             pagination={showArrows && width > 865 ? true : false}
             draggable={false}
@@ -122,21 +123,32 @@ const DisplaySlider = () => {
               swiper.navigation.update();
             }}
           >
-            <div>
-              {images.map((image, i) => (
-                <SwiperSlide key={image.url + i}>
-                  <Link href={'browse/sss'}>
-                    <Image
-                      width={300}
-                      height={300}
-                      src={image.url}
-                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer"
-                      alt="poster"
+            {images.map((image, i) => (
+              <SwiperSlide
+                onMouseEnter={() => setHoveredIndex(i)}
+                key={image.url + i}
+                className={`relative hover:${
+                  i === hoveredIndex ? '!z-[2]' : '!z-[1]'
+                }`}
+              >
+                <Link href={'browse/sss'}>
+                  <Image
+                    width={300}
+                    height={300}
+                    src={image.url}
+                    className=" object-contain md:rounded w-[290px] m-0 cursor-pointer"
+                    alt="poster"
+                  />
+                  <div className=" absolute top-[-40px] h-fit">
+                    <HoverExpand
+                      index={i}
+                      hoveredIndex={hoveredIndex}
+                      title={image}
                     />
-                  </Link>
-                </SwiperSlide>
-              ))}
-            </div>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            ))}
 
             <div className=" transition-all">
               <div

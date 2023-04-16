@@ -46,6 +46,19 @@ body {
   margin: 0 3px !important;
 }
 
+.swiper-slide,
+.swiper {
+  position: relative;
+  z-index: 1 !important;
+}
+
+.swiper:hover {
+  z-index: 2 !important;
+}
+.swiper-slide:hover {
+  z-index: 2 !important;
+}
+
 .background-fade {
   background: linear-gradient(
     to bottom,
@@ -85,4 +98,17 @@ body {
   );
 
   background-color: #161925;
+}
+
+.cardHover {
+  transition: all 0.3s ease-in-out;
+}
+
+.poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.1s ease-in-out;
 }
