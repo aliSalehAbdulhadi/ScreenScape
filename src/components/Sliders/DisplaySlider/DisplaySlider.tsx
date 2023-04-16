@@ -103,7 +103,7 @@ const DisplaySlider = () => {
             draggable={false}
             // @ts-ignore
             slidesPerGroup={parseInt(widthHandler())}
-            spaceBetween={0}
+            spaceBetween={width > 1650 ? 0 : 10}
             loop={true}
             slidesPerView={widthHandler()}
             speed={700}

@@ -89,7 +89,7 @@ const TrailerSlider = () => {
                     width={2000}
                     height={1000}
                     src={image.url}
-                    className=" object-fill md:rounded-lg "
+                    className=" object-fit md:rounded-lg "
                     alt="poster"
                   />
                 </div>

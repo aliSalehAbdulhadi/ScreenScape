@@ -5,7 +5,7 @@ import TitleRelated from '@/src/components/TitleSinglePage/TitleRelated/TitleRel
 
 const page = () => {
   return (
-    <div className="text-white background-fade flex flex-col justify-center items-center pb-10 xs:py-10  sm:px-10">
+    <div className="text-white background-fade flex flex-col justify-center items-center pb-10 xs:pt-5 semiSm:pt-10  sm:px-10">
       <div className="flex  justify-between w-full">
         <div className="w-full  lg:w-[70%]">
           <TitleInfo />
@@ -20,7 +20,7 @@ const page = () => {
           <TitleCast />
         </div>
 
-        <div className="semiSm:w-[45%] mt-10 md:mt-0">
+        <div className="semiSm:w-[45%] mt-10 semiSm:mt-0">
           <TitleRelated />
         </div>
       </div>

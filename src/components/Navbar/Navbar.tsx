@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { VscChromeClose } from 'react-icons/vsc';
+import { RiCloseFill } from 'react-icons/ri';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import useClickOutside from '@/src/hooks/useClickOutside';
 import GenreDropDownMenu from './GenreDropDownMenu/GenreDropDownMenu';
@@ -71,8 +71,8 @@ const Navbar = () => {
     <div
       className={`h-[4rem]  flex items-center  justify-between px-5 semiSm:px-10 sticky top-0 z-10 bg-primary ${
         scrollY > 50
-          ? `${width > 1000 ? 'background-fade-bottom-exit shadow-md' : ''}`
-          : `${width > 1000 ? 'background-fade-bottom-enter' : ''} `
+          ? `${width > 865 ? 'background-fade-bottom-exit shadow-md' : ''}`
+          : `${width > 865 ? 'background-fade-bottom-enter' : ''} `
       } `}
     >
       <div className="flex items-center justify-between w-full semiSm:w-fit">
@@ -122,16 +122,16 @@ const Navbar = () => {
 
           <div
             onClick={() => setSearchText('')}
-            className={`absolute right-1 top-[50%] translate-y-[-50%] cursor-pointer ${
+            className={`absolute right-2 top-[50%] translate-y-[-50%] cursor-pointer ${
               searchText ? '' : 'hidden'
             }`}
           >
-            <VscChromeClose />
+            <RiCloseFill size={22} />
           </div>
 
           <div
             className={`absolute right-2 text-xs font-averia text-primary text-opacity-60 top-[50%] translate-y-[-50%] hidden semiSm:block ${
-              focusSearchBar || searchText ? 'hidden' : ''
+              focusSearchBar || searchText ? 'semiSm:hidden' : ''
             }`}
           >
             Alt + K
