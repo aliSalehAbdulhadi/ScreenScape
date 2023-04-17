@@ -1,6 +1,12 @@
 const genres = ['Action', 'Thriller', 'Crime Film', 'Adventure'];
 
-const Genres = ({ className = '' }: { className?: string }) => {
+const SingleGenres = ({
+  className = '',
+  underLine = true,
+}: {
+  className?: string;
+  underLine?: boolean;
+}) => {
   return (
     <div
       className={`${
@@ -10,7 +16,10 @@ const Genres = ({ className = '' }: { className?: string }) => {
       }`}
     >
       {genres.map((genre) => (
-        <span key={genre} className="underline cursor-pointer">
+        <span
+          key={genre}
+          className={`${underLine ? 'underline' : ''} cursor-pointer`}
+        >
           {genre}
         </span>
       ))}
@@ -18,4 +27,4 @@ const Genres = ({ className = '' }: { className?: string }) => {
   );
 };
 
-export default Genres;
+export default SingleGenres;

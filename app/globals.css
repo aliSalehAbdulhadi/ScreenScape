@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  overflow-x: hidden;
 }
 
 .blur {
@@ -23,27 +24,32 @@ body {
 
 .swiper-pagination-bullet-active {
   background-color: white !important;
+  z-index: 0 !important;
 }
 
 .swiper-pagination {
   position: absolute !important;
-  top: -10px !important;
-  right: 5px !important;
+  top: -30px !important;
+  right: 45px !important;
   height: 20% !important;
+  z-index: 0 !important;
 }
 
 .swiper-pagination-bullets {
   position: absolute !important;
   margin-left: auto !important;
-  width: 10% !important;
+  width: fit-content !important;
   height: 5% !important;
+  left: 0px;
+  z-index: 0 !important;
 }
 
 .swiper-pagination-bullet {
   border-radius: 0 !important;
-  height: 3px !important;
+  height: 2px !important;
+  width: 10px !important;
   background-color: white !important;
-  margin: 0 3px !important;
+  margin: 0 1px !important;
 }
 
 .swiper-slide,

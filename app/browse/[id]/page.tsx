@@ -7,10 +7,10 @@ const page = () => {
   return (
     <div className="text-white background-fade flex flex-col justify-center items-center pb-10 xs:pt-5 semiSm:pt-10  sm:px-10">
       <div className="flex  justify-between w-full">
-        <div className="w-full  lg:w-[70%]">
+        <div className="w-full  xl:w-[70%]">
           <TitleInfo />
         </div>
-        <div className="md:w-[35%] lg:w-[30%] hidden lg:block">
+        <div className="md:w-[35%] xl:w-[30%] hidden xl:block">
           <News />
         </div>
       </div>
@@ -25,7 +25,7 @@ const page = () => {
         </div>
       </div>
 
-      <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 lg:hidden ">
+      <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden ">
         <News />
       </div>
     </div>

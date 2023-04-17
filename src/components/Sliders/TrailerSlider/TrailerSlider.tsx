@@ -52,7 +52,7 @@ const TrailerSlider = () => {
           pagination={false}
           scrollbar={{ draggable: true }}
           effect={'coverflow'}
-          autoplay={false}
+          autoplay={true}
           grabCursor={true}
           centeredSlides={true}
           coverflowEffect={{
@@ -107,7 +107,7 @@ const TrailerSlider = () => {
               onMouseLeave={() => setPrevArrow(false)}
               ref={swiperImagePrevRef}
               className={
-                showArrows && width > 865
+                showArrows && width > 1150
                   ? styles.customPrevArrowTrailer
                   : 'hidden'
               }
@@ -122,7 +122,7 @@ const TrailerSlider = () => {
               onMouseLeave={() => setNextArrow(false)}
               ref={swiperImageNextRef}
               className={
-                showArrows && width > 865
+                showArrows && width > 1150
                   ? styles.customNextArrowTrailer
                   : 'hidden'
               }

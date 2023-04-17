@@ -1,102 +1,45 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import Genres from '../TitleSinglePage/TitleInfo/Genres/Genres';
+import SingleGenres from '../TitleSinglePage/TitleInfo/SingleGenres/SingleGenres';
 import PlusButton from '../Buttons/PlusButton/PlusButton';
-import useClickOutside from '@/src/hooks/useClickOutside';
+import useWindowSize from '@/src/hooks/useWindowsSize';
 
-const HoverExpand = ({
-  index,
-  hoveredIndex,
-  title,
-}: {
-  index: number;
-  hoveredIndex: number;
-  title: { url: string };
-}) => {
-  const [expand, setExpand] = useState<boolean>(false);
-  const [expandAnimation, setExpandAnimation] = useState<boolean>(false);
-
-  const hoverRef = useClickOutside(() => {
-    setExpand(false);
-    setExpandAnimation(false);
-  });
-
-  const expandEnterHandler = () => {
-    const expandTimer = setTimeout(() => {
-      if (!expand && !expandAnimation) {
-        setExpand(true);
-      }
-    }, 800);
-
-    const animationTimer = setTimeout(() => {
-      if (!expand && !expandAnimation) {
-        setExpandAnimation(true);
-      }
-    }, 750);
-
-    if (!expand) {
-      return [
-        () => clearTimeout(animationTimer),
-        () => clearTimeout(expandTimer),
-      ];
-    }
-  };
-
-  const expandExitHandler = () => {
-    const expandTimer = setTimeout(() => {
-      setExpand(false);
-    }, 55);
-
-    const animationTimer = setTimeout(() => {
-      setExpandAnimation(false);
-    }, 100);
-
-    return [
-      () => clearTimeout(animationTimer),
-      () => clearTimeout(expandTimer),
-    ];
-  };
-
-  useEffect(() => {
-    hoveredIndex !== index && expandExitHandler();
-  }, [hoveredIndex]);
-
+const HoverExpand = ({ title }: { title: { url: string } }) => {
+  const width = useWindowSize();
   return (
-    <div
-      onMouseOver={() => expandEnterHandler()}
-      onMouseLeave={() => expandExitHandler()}
-      className="flex flex-col items-center justify-center my-10  cursor-pointer  rounded bg-primary hover:scale-125  hover:shadow-2xl opacity-0 hover:opacity-100 cardHover relative"
-    >
+    <div className="flex flex-col items-center justify-center my-10 cursor-pointer rounded lg:hover:scale-[1.5] xl:hover:scale-[1.3] opacity-0 lg:hover:opacity-100 hover:delay-[.5s] cardHover relative">
       <div>
         <Image
           width={300}
           height={300}
           src={title.url}
           className={`object-contain w-[290px]  m-0 cursor-pointer "
-            alt="poster ${expand ? 'md:rounded-t ' : 'rounded'}`}
+            alt="poster rounded-t`}
           alt="aaa"
         />
       </div>
 
       <div
-        className={`p-3 rounded-b bg-black bg-opacity-50 w-full absolute -bottom-28`}
+        className={`py-3 px-1 xl:px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px]  `}
       >
         <div className="flex items-center justify-between">
-          <span className="text-xl">Midway</span>
-          <PlusButton size={25} />
+          <span className="text-xs xl:text-lg">Midway</span>
+          <PlusButton size={width > 1300 ? 20 : 15} />
         </div>
 
-        <div className="flex text-sm my-3">
-          <span className="mr-5 mt-1">1h26m</span>
+        <div className="flex text-[.6rem] xl:text-xs my-3">
+          <span className="mr-5 mt-[2px]">1h 26m</span>
           <div className="flex items-center ">
-            <span className="border-[1px] p-1  border-white border-opacity-75 mr-3 text-xs">
-              +18
+            <span className="border-[1px] py-[1px] px-[5px]  border-white border-opacity-75 mr-3 text-[.6rem] xl:text-xs">
+              18+
             </span>
             <span>2019</span>
           </div>
         </div>
-        <div className="">
-          <Genres className="flex items-center justify-between text-xs" />
+        <div>
+          <SingleGenres
+            underLine={false}
+            className="flex items-center justify-between text-[.5rem] xl:text-xs"
+          />
         </div>
       </div>
     </div>

@@ -34,7 +34,7 @@ const ActorInfo = () => {
             </div>
           </div>
 
-          <div className=" mt-12 w-full  lg:w-[90%] text-[17px] h-[13rem]  overflow-auto hidden semiSm:block">
+          <div className=" mt-12 w-full  xl:w-[90%] text-[17px] h-[13rem]  overflow-auto hidden semiSm:block">
             <span className=" leading-7">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat
               aliquam nisi pariatur unde quibusdam vitae blanditiis,

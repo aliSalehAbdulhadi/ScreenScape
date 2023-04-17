@@ -1,5 +1,5 @@
 import PosterSlider from '@/src/components/Sliders/PostersSlider/PosterSlider';
-import Genres from './Genres/Genres';
+import SingleGenres from './SingleGenres/SingleGenres';
 import Rating from './Rating/Rating';
 import StreamedOn from './StreamedOn/StreamedOn';
 import TrailerButton from './TrailerButton/TrailerButton';
@@ -18,7 +18,7 @@ const TitleInfo = () => {
               John Wick John Wick part 2
             </span>
             <div className="text-offWhite text-opacity-75 w-fit mb-5 mt-2">
-              <Genres />
+              <SingleGenres />
             </div>
 
             <div className="  top-0 absolute hidden xxs:hidden xxxs:block right-0">
