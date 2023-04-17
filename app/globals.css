@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  overflow-x: hidden;
 }
 
 .blur {
@@ -23,27 +24,45 @@ body {
 
 .swiper-pagination-bullet-active {
   background-color: white !important;
+  z-index: 0 !important;
 }
 
 .swiper-pagination {
   position: absolute !important;
-  top: -10px !important;
-  right: 5px !important;
+  top: -30px !important;
+  right: 45px !important;
   height: 20% !important;
+  z-index: 0 !important;
 }
 
 .swiper-pagination-bullets {
   position: absolute !important;
   margin-left: auto !important;
-  width: 10% !important;
+  width: fit-content !important;
   height: 5% !important;
+  left: 0px;
+  z-index: 0 !important;
 }
 
 .swiper-pagination-bullet {
   border-radius: 0 !important;
-  height: 3px !important;
+  height: 2px !important;
+  width: 10px !important;
   background-color: white !important;
-  margin: 0 3px !important;
+  margin: 0 1px !important;
+}
+
+.swiper-slide,
+.swiper {
+  position: relative;
+  z-index: 1 !important;
+}
+
+.swiper:hover {
+  z-index: 2 !important;
+}
+.swiper-slide:hover {
+  z-index: 2 !important;
 }
 
 .background-fade {
@@ -85,4 +104,17 @@ body {
   );
 
   background-color: #161925;
+}
+
+.cardHover {
+  transition: all 0.3s ease-in-out;
+}
+
+.poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.1s ease-in-out;
 }

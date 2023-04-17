@@ -1,5 +1,5 @@
 import PosterSlider from '@/src/components/Sliders/PostersSlider/PosterSlider';
-import Genres from './Genres/Genres';
+import SingleGenres from './SingleGenres/SingleGenres';
 import Rating from './Rating/Rating';
 import StreamedOn from './StreamedOn/StreamedOn';
 import TrailerButton from './TrailerButton/TrailerButton';
@@ -12,20 +12,20 @@ const TitleInfo = () => {
           <PosterSlider />
         </div>
 
-        <div className=" px-2 xxxs:px-5  xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 sm:mt-0">
+        <div className=" px-2 xxxs:px-5  xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0">
           <div className=" w-full xxs:w-fit relative">
-            <span className="text-lg xxxs:text-2xl xs:text-3xl text-offWhite flex items-center xxxs:w-[50%] xxs:w-[95%] semiSm:w-full">
+            <span className="text-lg xxxs:text-2xl xs:text-3xl text-offWhite flex items-center w-full xxxs:w-[50%] xxs:w-[95%] semiSm:w-full">
               John Wick John Wick part 2
             </span>
             <div className="text-offWhite text-opacity-75 w-fit mb-5 mt-2">
-              <Genres />
+              <SingleGenres />
             </div>
 
             <div className="  top-0 absolute hidden xxs:hidden xxxs:block right-0">
               <TrailerButton />
             </div>
           </div>
-          <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2">
+          <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
             <div className="flex items-center mb-5 ">
               <span className="border-[1px] p-1 border-white border-opacity-75 mr-3">
                 +18
@@ -33,17 +33,17 @@ const TitleInfo = () => {
               <span>2019</span>
             </div>
 
-            <div className="mb-5 ">
+            <div className="mb-5 whitespace-nowrap ">
               <span>Duration: 106 mins</span>
             </div>
-          </div>
 
-          <div className="flex flex-col semiSm:flex-row  w-fit mr-5 mt-1 mb-5 xxxs:mb-0 semiSm:mt-0">
-            <div className="mb-7 semiSm:mr-5 opacity-75">
-              <Rating />
-            </div>
-            <div className="opacity-75">
-              <StreamedOn />
+            <div className="flex flex-col semiSm:flex-row  w-fit  mt-1 mb-5 xxxs:mb-0 semiSm:mt-0">
+              <div className="mb-5 semiSm:mr-5 opacity-75">
+                <Rating />
+              </div>
+              <div className="opacity-75">
+                <StreamedOn />
+              </div>
             </div>
           </div>
 
@@ -62,7 +62,7 @@ const TitleInfo = () => {
         </div>
       </div>
 
-      <div className="text-sm xxs:text-[17px] h-[9rem] mx-2 xxxs:mx-5 sm:mx-0  mt-5 self-center  semiSm:hidden">
+      <div className="text-sm xxs:text-[17px] mx-2 xxxs:mx-5 sm:mx-0  mt-5 self-center  semiSm:hidden">
         <span className="leading-7">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat
           aliquam nisi pariatur unde quibusdam vitae blanditiis, exercitationem

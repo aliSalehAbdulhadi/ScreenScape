@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import GridComp from '../../GridComp/GridComp';
 
 const OtherActors = () => {
   const images = [
@@ -18,22 +19,19 @@ const OtherActors = () => {
     },
   ];
   return (
-    <div className="">
-      <span className="text-2xl text-secondary">Other Actors</span>
-      <div className="mt-5 grid grid-cols-fluid gap-2">
-        {images.map((cast, i) => (
-          <div key={cast.url + i} className=" mb-3 cursor-pointer w-fit">
-            <Image
-              src={cast.url}
-              width={150}
-              height={150}
-              alt="Actor Image"
-              className="h-[240px] w-[180px] object-fill rounded"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
+    <GridComp title="Other Actors">
+      {images.map((cast, i) => (
+        <div key={cast.url + i} className=" mb-3 cursor-pointer w-fit">
+          <Image
+            src={cast.url}
+            width={150}
+            height={150}
+            alt="Actor Image"
+            className="h-[240px] w-[180px] object-fit  rounded"
+          />
+        </div>
+      ))}
+    </GridComp>
   );
 };
 

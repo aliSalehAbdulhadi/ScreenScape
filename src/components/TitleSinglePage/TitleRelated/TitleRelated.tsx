@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import GridComp from '../../GridComp/GridComp';
 
 const TitleRelated = () => {
   const images = [
@@ -35,28 +36,23 @@ const TitleRelated = () => {
   ];
 
   return (
-    <div className="flex flex-col">
-      <span className="text-2xl text-secondary self-center xxxs:self-start">
-        Related
-      </span>
-      <div className="mt-5 grid grid-cols-fluid gap-2 place-items-center semiSm:place-items-start ">
-        {images.map((cast, i) => (
-          <Link
-            href="/browse/sss"
-            key={cast.url + i}
-            className=" mb-3 cursor-pointer w-fit "
-          >
-            <Image
-              src={cast.url}
-              width={150}
-              height={150}
-              alt="Actor Image"
-              className="h-[240px] w-[180px] object-fill rounded"
-            />
-          </Link>
-        ))}
-      </div>
-    </div>
+    <GridComp title="Related">
+      {images.map((cast, i) => (
+        <Link
+          href="/browse/sss"
+          key={cast.url + i}
+          className=" mb-3 cursor-pointer w-fit "
+        >
+          <Image
+            src={cast.url}
+            width={150}
+            height={150}
+            alt="Actor Image"
+            className="h-[240px] w-[180px] object-fit rounded"
+          />
+        </Link>
+      ))}
+    </GridComp>
   );
 };
 

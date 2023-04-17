@@ -3,8 +3,10 @@ import NewsCard from './NewsCard/NewsCard';
 
 export const News = () => {
   return (
-    <div>
-      <span className="text-xl text-secondary">Explore More</span>
+    <div className="flex flex-col">
+      <span className="text-lg xxs:text-xl text-secondary self-center xxs:self-start">
+        Explore More
+      </span>
       <div className="mt-5">
         <NewsCard />
       </div>

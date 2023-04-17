@@ -5,7 +5,7 @@ const platforms = ['Netflix', 'Hulu', 'Disney+'];
 const StreamedOn = () => {
   return (
     <div className="flex flex-col justify-center">
-      <div className="flex flex-col justify-center ml-1">
+      <div className="flex flex-col justify-center ">
         {platforms.map((platform) => (
           <span key={platform}>{platform}</span>
         ))}

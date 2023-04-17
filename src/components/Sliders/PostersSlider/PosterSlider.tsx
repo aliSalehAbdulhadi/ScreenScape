@@ -7,6 +7,7 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
+import useWindowSize from '@/src/hooks/useWindowsSize';
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -25,6 +26,8 @@ const PosterSlider = () => {
     },
     { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
   ];
+
+  const width = useWindowSize();
 
   return (
     <div
@@ -55,11 +58,11 @@ const PosterSlider = () => {
             {images.map((image, i) => (
               <SwiperSlide key={image.url + i} className=" ">
                 <Image
-                  width={500}
-                  height={500}
+                  width={1500}
+                  height={1500}
                   src={image.url}
                   alt="Actor Photo"
-                  className="xs:rounded object-fit h-[28rem] xxs:h-[35rem]  sm:h-[30rem] w-full"
+                  className="xs:rounded object-fit h-[25rem] xxxs:h-[31.5rem] xxs:h-[35rem] sm:h-[30rem] w-full"
                 />
               </SwiperSlide>
             ))}
@@ -70,7 +73,11 @@ const PosterSlider = () => {
               onMouseEnter={() => setPrevArrow(true)}
               onMouseLeave={() => setPrevArrow(false)}
               ref={swiperImagePrevRef}
-              className={showArrows ? styles.customPrevArrowTrailer : 'hidden'}
+              className={
+                showArrows && width > 865
+                  ? styles.customPrevArrowTrailer
+                  : 'hidden'
+              }
             >
               <MdOutlineArrowBackIos
                 className={`${prevArrow ? '' : 'opacity-80'}`}
@@ -81,7 +88,11 @@ const PosterSlider = () => {
               onMouseEnter={() => setNextArrow(true)}
               onMouseLeave={() => setNextArrow(false)}
               ref={swiperImageNextRef}
-              className={showArrows ? styles.customNextArrowTrailer : 'hidden'}
+              className={
+                showArrows && width > 865
+                  ? styles.customNextArrowTrailer
+                  : 'hidden'
+              }
             >
               <MdOutlineArrowBackIos
                 className={`rotate-180  ${nextArrow ? '' : 'opacity-80'}`}

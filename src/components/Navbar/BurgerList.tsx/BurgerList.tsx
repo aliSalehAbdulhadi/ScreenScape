@@ -31,8 +31,8 @@ const BurgerList = ({
   ];
 
   return (
-    <div className="w-full flex text-offWhite text-opacity-75  ">
-      <div className=" pl-5 font-[500]   bg-primary w-[50vw] h-[100vh] overflow-scroll sm:w-[35vw] md:w-[30vw] ">
+    <div className="w-full flex text-offWhite text-opacity-75 ">
+      <div className=" pl-5 font-[500]   bg-primary w-[50vw] overflow-scroll h-[100vh]  sm:w-[35vw] md:w-[30vw] ">
         <div className="flex flex-col">
           <div className="flex flex-col items-start ">
             <div className="cursor-pointer hover:text-opacity-80  transition-all mb-3">
@@ -66,7 +66,7 @@ const BurgerList = ({
 
           <div className="h-[1px] bg-secondary bg-opacity-60  mr-5 my-3"></div>
 
-          <div className="min-h-[88vh]">
+          <div className="h-[120vh]">
             {movieGenres.map((genre) => {
               return (
                 <div
