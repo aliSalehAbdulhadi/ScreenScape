@@ -17,7 +17,6 @@ const VideoPlayer = ({
   width = '100%',
 }: videoPlayerInterface) => {
   const [videoDuration, setVideoDuration] = useState(0);
-  const [origin, setOrigin] = useState<any>(null);
 
   const booleanToNumber = (boolean: boolean) => {
     return boolean ? '1' : '0';
@@ -25,11 +24,14 @@ const VideoPlayer = ({
 
   const playerRef = useRef<any>();
 
+  const origin = typeof window !== 'undefined' ? window.location.origin : '';
+
   const opts = {
     height: height,
     width: width,
 
     playerVars: {
+      origin: origin,
       autoplay: booleanToNumber(autoplay),
       controls: booleanToNumber(controls),
       mute: 0,
@@ -39,10 +41,6 @@ const VideoPlayer = ({
       end: -10,
     },
   };
-
-  useEffect(() => {
-    setOrigin(window.location.origin);
-  }, []);
 
   useEffect(() => {
     mute
