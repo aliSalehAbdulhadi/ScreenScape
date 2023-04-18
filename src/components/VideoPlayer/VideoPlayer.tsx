@@ -24,14 +24,12 @@ const VideoPlayer = ({
 
   const playerRef = useRef<any>();
 
-  const origin = typeof window !== 'undefined' ? window.location.origin : '';
-
   const opts = {
     height: height,
     width: width,
 
     playerVars: {
-      origin: origin,
+      origin: process.env.NEXT_PUBLIC_ORIGIN,
       autoplay: booleanToNumber(autoplay),
       controls: booleanToNumber(controls),
       mute: 0,
