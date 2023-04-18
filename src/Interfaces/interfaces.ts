@@ -1,6 +1,6 @@
 'use client';
 
-export interface videoPlayer {
+export interface videoPlayerInterface {
   onEnd?: Function;
   videoId: string;
   controls?: boolean;

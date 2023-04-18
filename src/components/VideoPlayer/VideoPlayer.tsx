@@ -1,8 +1,8 @@
 'use client';
 
-import { videoPlayer } from '@/src/Interfaces/interfaces';
 import React, { useEffect, useRef, useState } from 'react';
 import YouTube from 'react-youtube';
+import { videoPlayerInterface } from '@/src/Interfaces/interfaces';
 
 const VideoPlayer = ({
   onEnd,
@@ -15,7 +15,7 @@ const VideoPlayer = ({
   videoId,
   height = '0',
   width = '100%',
-}: videoPlayer) => {
+}: videoPlayerInterface) => {
   const [videoDuration, setVideoDuration] = useState(0);
 
   const booleanToNumber = (boolean: boolean) => {
@@ -69,7 +69,7 @@ const VideoPlayer = ({
           onEnd && onEnd();
           playerRef?.current?.internalPlayer.stopVideo();
         }}
-      ></YouTube>
+      />
     </div>
   );
 };

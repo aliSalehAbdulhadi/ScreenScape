@@ -105,7 +105,7 @@ const TrailerSlider = () => {
                 className=" md:rounded-lg relative "
               >
                 <div className={`relative rounded h-full`}>
-                  {activeSlide === i ? (
+                  {activeSlide === i && window ? (
                     <VideoPlayer
                       onEnd={handleOnEnd}
                       mute={muteVideo}
