@@ -57,6 +57,7 @@ const VideoPlayer = ({
     setVideoDuration(player.getDuration() - 10);
   };
 
+  if (typeof window === 'undefined') return <div>loading window</div>;
   return (
     <div className="rounded overflow-hidden w-full h-full bg-primary youtube-player-container">
       <YouTube

@@ -1,4 +1,5 @@
 'use client';
+
 import SwiperCore, {
   Autoplay,
   EffectCoverflow,
@@ -105,7 +106,7 @@ const TrailerSlider = () => {
                 className=" md:rounded-lg relative "
               >
                 <div className={`relative rounded h-full`}>
-                  {activeSlide === i && window ? (
+                  {activeSlide === i ? (
                     <VideoPlayer
                       onEnd={handleOnEnd}
                       mute={muteVideo}
