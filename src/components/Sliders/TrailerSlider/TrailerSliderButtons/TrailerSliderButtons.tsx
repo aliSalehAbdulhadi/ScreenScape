@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { Dispatch, SetStateAction } from 'react';
 
-const TrailerButtons = ({
+const TrailerSliderButtons = ({
   setMuteVideo,
   muteVideo,
   activeSlide,
@@ -58,4 +58,4 @@ const TrailerButtons = ({
   );
 };
 
-export default TrailerButtons;
+export default TrailerSliderButtons;

@@ -14,7 +14,7 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
-import TrailerButtons from './TrailerButtons/TrailerButtons';
+import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
 import VideoPlayer from '../../VideoPlayer/VideoPlayer';
 
 SwiperCore.use([Navigation, Autoplay]);
@@ -125,7 +125,7 @@ const TrailerSlider = () => {
                   )}
 
                   <div className=" absolute top-0 left-0 h-full w-full">
-                    <TrailerButtons
+                    <TrailerSliderButtons
                       muteVideo={muteVideo}
                       setMuteVideo={setMuteVideo}
                       activeSlide={activeSlide}

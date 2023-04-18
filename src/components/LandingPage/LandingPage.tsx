@@ -7,9 +7,9 @@ const LandingPage = () => {
       <div className="w-[100%]">
         <TrailerSlider />
       </div>
-      {/* <div className="w-[100%] ">
+      <div className="w-[100%] ">
         <DisplayComp />
-      </div> */}
+      </div>
     </div>
   );
 };

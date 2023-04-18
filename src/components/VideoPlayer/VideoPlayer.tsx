@@ -17,6 +17,7 @@ const VideoPlayer = ({
   width = '100%',
 }: videoPlayerInterface) => {
   const [videoDuration, setVideoDuration] = useState(0);
+  const [origin, setOrigin] = useState<any>(null);
 
   const booleanToNumber = (boolean: boolean) => {
     return boolean ? '1' : '0';
@@ -29,7 +30,7 @@ const VideoPlayer = ({
     width: width,
 
     playerVars: {
-      origin: window.location.origin,
+      origin: window?.location?.origin,
       autoplay: booleanToNumber(autoplay),
       controls: booleanToNumber(controls),
       mute: 0,
@@ -39,6 +40,10 @@ const VideoPlayer = ({
       end: -10,
     },
   };
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   useEffect(() => {
     mute
@@ -57,7 +62,6 @@ const VideoPlayer = ({
     setVideoDuration(player.getDuration() - 10);
   };
 
-  if (typeof window === 'undefined') return <div>loading window</div>;
   return (
     <div className="rounded overflow-hidden w-full h-full bg-primary youtube-player-container">
       <YouTube
