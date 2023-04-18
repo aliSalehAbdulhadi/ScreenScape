@@ -30,7 +30,6 @@ const VideoPlayer = ({
     width: width,
 
     playerVars: {
-      origin: window?.location?.origin,
       autoplay: booleanToNumber(autoplay),
       controls: booleanToNumber(controls),
       mute: 0,
