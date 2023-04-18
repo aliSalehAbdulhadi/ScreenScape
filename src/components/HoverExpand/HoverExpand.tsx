@@ -2,8 +2,11 @@ import Image from 'next/image';
 import SingleGenres from '../TitleSinglePage/TitleInfo/SingleGenres/SingleGenres';
 import PlusButton from '../Buttons/PlusButton/PlusButton';
 import useWindowSize from '@/src/hooks/useWindowsSize';
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import { useState } from 'react';
 
 const HoverExpand = ({ title }: { title: { url: string } }) => {
+  const [first, setFirst] = useState(false);
   const width = useWindowSize();
   return (
     <div className="flex flex-col items-center justify-center my-10 cursor-pointer rounded lg:hover:scale-[1.5] xl:hover:scale-[1.3] opacity-0 lg:hover:opacity-100 hover:delay-[.5s] cardHover relative">
@@ -16,6 +19,7 @@ const HoverExpand = ({ title }: { title: { url: string } }) => {
             alt="poster rounded-t`}
           alt="aaa"
         />
+        {/* <VideoPlayer videoId="Tp_YZNqNBhw" setAdvanceSlide={setFirst} /> */}
       </div>
 
       <div
