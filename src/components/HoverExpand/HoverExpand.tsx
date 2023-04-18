@@ -2,8 +2,19 @@ import Image from 'next/image';
 import SingleGenres from '../TitleSinglePage/TitleInfo/SingleGenres/SingleGenres';
 import PlusButton from '../Buttons/PlusButton/PlusButton';
 import useWindowSize from '@/src/hooks/useWindowsSize';
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
+import { useState } from 'react';
 
-const HoverExpand = ({ title }: { title: { url: string } }) => {
+const HoverExpand = ({
+  title,
+  index,
+  hoveredIndex,
+}: {
+  title: { url: string };
+  index: number;
+  hoveredIndex: number;
+}) => {
+  const [first, setFirst] = useState(false);
   const width = useWindowSize();
   return (
     <div className="flex flex-col items-center justify-center my-10 cursor-pointer rounded lg:hover:scale-[1.5] xl:hover:scale-[1.3] opacity-0 lg:hover:opacity-100 hover:delay-[.5s] cardHover relative">
@@ -12,10 +23,10 @@ const HoverExpand = ({ title }: { title: { url: string } }) => {
           width={300}
           height={300}
           src={title.url}
-          className={`object-contain w-[290px]  m-0 cursor-pointer "
-            alt="poster rounded-t`}
+          className={`object-contain w-[290px]  m-0 cursor-pointer `}
           alt="aaa"
         />
+        {index === hoveredIndex ? <div className=""></div> : ''}
       </div>
 
       <div

@@ -8,7 +8,6 @@ interface TypingAnimationProps {
 const TypingAnimation: React.FC<TypingAnimationProps> = ({ text, reStart }) => {
   const [displayText, setDisplayText] = useState('');
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  console.log(currentTextIndex);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -17,7 +16,6 @@ const TypingAnimation: React.FC<TypingAnimationProps> = ({ text, reStart }) => {
       setCurrentTextIndex((prevIndex) => prevIndex + 1);
     }, 30);
     if (true) {
-      console.log('stop');
       clearInterval(intervalId);
     }
   }, [currentTextIndex, text, reStart]);

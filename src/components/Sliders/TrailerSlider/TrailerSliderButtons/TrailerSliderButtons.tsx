@@ -1,21 +1,25 @@
 import { GrCircleInformation } from 'react-icons/gr';
-import { FaVolumeMute } from 'react-icons/fa';
-import { IoReloadSharp } from 'react-icons/io5';
+import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import Link from 'next/link';
 import { HiOutlinePlus } from 'react-icons/hi';
+import { Dispatch, SetStateAction } from 'react';
 
-const TrailerButtons = ({
+const TrailerSliderButtons = ({
+  setMuteVideo,
+  muteVideo,
   activeSlide,
   i,
 }: {
+  setMuteVideo: Dispatch<SetStateAction<boolean>>;
+  muteVideo: boolean;
   activeSlide: number;
   i: number;
 }) => {
   return (
     <div
-      className={`${
+      className={`bg-red-100 w-full h-full bg-opacity-0 px-5 pb-5 rounded ${
         activeSlide === i ? '' : 'hidden'
-      } flex items-end justify-between mx-5 semiSm:mx-10`}
+      } flex items-end justify-between `}
     >
       <div className="flex flex-col">
         <div>
@@ -31,23 +35,27 @@ const TrailerButtons = ({
                 More Info
               </span>
             </button>
-            <div className="border-[1px] p-[.45rem] rounded-full cursor-pointer mr-3 bg-black bg-opacity-60 ml-2">
+            <div className="border-[2px] p-[.45rem] rounded-full cursor-pointer mr-3 bg-black bg-opacity-60 ml-2">
               <HiOutlinePlus className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
             </div>
           </Link>
         </div>
       </div>
 
-      <div className="flex justify-center mb-1">
-        <div className="border-[1px] p-[.45rem] rounded-full cursor-pointer mr-3 bg-black bg-opacity-60">
-          <IoReloadSharp className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
-        </div>
-        <div className="border-[1px] p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60">
-          <FaVolumeMute className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
+      <div className="flex justify-center">
+        <div
+          onClick={() => setMuteVideo(!muteVideo)}
+          className="border-[2px] p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
+        >
+          {muteVideo ? (
+            <FaVolumeMute className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
+          ) : (
+            <FaVolumeUp className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default TrailerButtons;
+export default TrailerSliderButtons;

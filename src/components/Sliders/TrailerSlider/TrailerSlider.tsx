@@ -1,11 +1,12 @@
 'use client';
+
 import SwiperCore, {
   Autoplay,
   EffectCoverflow,
   Navigation,
   Pagination,
 } from 'swiper';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
@@ -13,7 +14,8 @@ import { MdOutlineArrowBackIos } from 'react-icons/md';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
-import TrailerButtons from './TrailerButtons/TrailerButtons';
+import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
+import VideoPlayer from '../../VideoPlayer/VideoPlayer';
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -22,6 +24,9 @@ const TrailerSlider = () => {
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
   const [showArrows, setShowArrows] = useState<boolean>(false);
   const [activeSlide, setActiveSlide] = useState<number>(0);
+  const [advanceSlide, setAdvanceSlide] = useState<boolean>(false);
+  const [swiper, setSwiper] = useState<any>(null);
+  const [muteVideo, setMuteVideo] = useState<boolean>(true);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
@@ -31,8 +36,8 @@ const TrailerSlider = () => {
     {
       url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
     },
-    { url: '/images/x0pqq.jpg' },
     { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
+    { url: '/images/x0pqq.jpg' },
 
     {
       url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
@@ -41,6 +46,17 @@ const TrailerSlider = () => {
 
   const width = useWindowSize();
 
+  useEffect(() => {
+    if (advanceSlide) {
+      swiper.slideNext();
+      setAdvanceSlide(false);
+    }
+  }, [advanceSlide, swiper]);
+
+  const handleOnEnd = () => {
+    setAdvanceSlide(true);
+  };
+
   return (
     <div
       onMouseEnter={() => setShowArrows(true)}
@@ -48,11 +64,13 @@ const TrailerSlider = () => {
     >
       {
         <Swiper
+          observeParents={true}
+          observer={true}
           modules={[EffectCoverflow, Autoplay, Pagination]}
           pagination={false}
           scrollbar={{ draggable: true }}
           effect={'coverflow'}
-          autoplay={true}
+          autoplay={false}
           grabCursor={true}
           centeredSlides={true}
           coverflowEffect={{
@@ -65,6 +83,9 @@ const TrailerSlider = () => {
           loop={true}
           slidesPerView={width > 1000 ? 2 : 1}
           onSlideChange={(e) => setActiveSlide(e.realIndex)}
+          onSwiper={(s) => {
+            setSwiper(s);
+          }}
           navigation={{
             prevEl: swiperImagePrevRef.current,
             nextEl: swiperImageNextRef.current,
@@ -84,18 +105,33 @@ const TrailerSlider = () => {
                 key={image.url + i}
                 className=" md:rounded-lg relative "
               >
-                <div className="relative ">
-                  <Image
-                    width={2000}
-                    height={1000}
-                    src={image.url}
-                    className=" object-fit md:rounded-lg "
-                    alt="poster"
-                  />
-                </div>
+                <div className={`relative rounded h-full`}>
+                  {activeSlide === i ? (
+                    <VideoPlayer
+                      onEnd={handleOnEnd}
+                      mute={muteVideo}
+                      controls={false}
+                      autoplay={true}
+                      videoId="Tp_YZNqNBhw"
+                    />
+                  ) : (
+                    <Image
+                      width={2000}
+                      height={1000}
+                      src={image.url}
+                      className=" object-fit md:rounded-lg "
+                      alt="poster"
+                    />
+                  )}
 
-                <div className=" absolute bottom-3 sm:bottom-5 w-full">
-                  <TrailerButtons activeSlide={activeSlide} i={i} />
+                  <div className=" absolute top-0 left-0 h-full w-full">
+                    <TrailerSliderButtons
+                      muteVideo={muteVideo}
+                      setMuteVideo={setMuteVideo}
+                      activeSlide={activeSlide}
+                      i={i}
+                    />
+                  </div>
                 </div>
               </SwiperSlide>
             ))}

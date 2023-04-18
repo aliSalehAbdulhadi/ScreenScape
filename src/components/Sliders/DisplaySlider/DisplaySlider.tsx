@@ -210,7 +210,11 @@ const DisplaySlider = () => {
                   alt="poster"
                 />
                 <div className=" absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300">
-                  <HoverExpand title={image} />
+                  <HoverExpand
+                    index={i}
+                    hoveredIndex={hoveredIndex}
+                    title={image}
+                  />
                 </div>
               </Link>
             </SwiperSlide>
