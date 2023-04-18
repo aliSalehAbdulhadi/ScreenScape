@@ -1,3 +1,5 @@
+'use client';
+
 export interface videoPlayer {
   onEnd?: Function;
   videoId: string;

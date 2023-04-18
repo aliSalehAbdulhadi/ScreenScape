@@ -21,9 +21,9 @@ const TitleInfo = () => {
               <SingleGenres />
             </div>
 
-            {/* <div className="  top-0 absolute hidden xxs:hidden xxxs:block right-0">
+            <div className="  top-0 absolute hidden xxs:hidden xxxs:block right-0">
               <TrailerButton />
-            </div> */}
+            </div>
           </div>
           <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
             <div className="flex items-center mb-5 ">
@@ -56,9 +56,9 @@ const TitleInfo = () => {
             </span>
           </div>
 
-          {/* <div className="bottom-0 left-5 block xxxs:hidden xxs:block xxxs:absolute">
+          <div className="bottom-0 left-5 block xxxs:hidden xxs:block xxxs:absolute">
             <TrailerButton />
-          </div> */}
+          </div>
         </div>
       </div>
 
