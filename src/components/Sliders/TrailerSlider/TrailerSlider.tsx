@@ -52,6 +52,10 @@ const TrailerSlider = () => {
     }
   }, [advanceSlide, swiper]);
 
+  const handleOnEnd = () => {
+    setAdvanceSlide(true);
+  };
+
   return (
     <div
       onMouseEnter={() => setShowArrows(true)}
@@ -103,11 +107,10 @@ const TrailerSlider = () => {
                 <div className={`relative rounded h-full`}>
                   {activeSlide === i ? (
                     <VideoPlayer
-                      setAdvanceSlide={setAdvanceSlide}
+                      onEnd={handleOnEnd}
                       mute={muteVideo}
                       controls={false}
                       autoplay={true}
-                      autoSlide={true}
                       videoId="Tp_YZNqNBhw"
                     />
                   ) : (

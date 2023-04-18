@@ -5,7 +5,15 @@ import useWindowSize from '@/src/hooks/useWindowsSize';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import { useState } from 'react';
 
-const HoverExpand = ({ title }: { title: { url: string } }) => {
+const HoverExpand = ({
+  title,
+  index,
+  hoveredIndex,
+}: {
+  title: { url: string };
+  index: number;
+  hoveredIndex: number;
+}) => {
   const [first, setFirst] = useState(false);
   const width = useWindowSize();
   return (
@@ -15,11 +23,10 @@ const HoverExpand = ({ title }: { title: { url: string } }) => {
           width={300}
           height={300}
           src={title.url}
-          className={`object-contain w-[290px]  m-0 cursor-pointer "
-            alt="poster rounded-t`}
+          className={`object-contain w-[290px]  m-0 cursor-pointer `}
           alt="aaa"
         />
-        {/* <VideoPlayer videoId="Tp_YZNqNBhw" setAdvanceSlide={setFirst} /> */}
+        {index === hoveredIndex ? <div className=""></div> : ''}
       </div>
 
       <div

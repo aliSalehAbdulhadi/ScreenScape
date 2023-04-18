@@ -42,7 +42,7 @@ const TrailerButtons = ({
         </div>
       </div>
 
-      <div className="flex justify-center mb-1">
+      <div className="flex justify-center">
         <div
           onClick={() => setMuteVideo(!muteVideo)}
           className="border-[2px] p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
