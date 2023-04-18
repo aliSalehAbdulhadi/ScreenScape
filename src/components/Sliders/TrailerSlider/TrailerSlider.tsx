@@ -106,13 +106,15 @@ const TrailerSlider = () => {
               >
                 <div className={`relative rounded h-full`}>
                   {activeSlide === i ? (
-                    <VideoPlayer
-                      onEnd={handleOnEnd}
-                      mute={muteVideo}
-                      controls={false}
-                      autoplay={true}
-                      videoId="Tp_YZNqNBhw"
-                    />
+                    <div>
+                      {/* <VideoPlayer
+                        onEnd={handleOnEnd}
+                        mute={muteVideo}
+                        controls={false}
+                        autoplay={true}
+                        videoId="Tp_YZNqNBhw"
+                      /> */}
+                    </div>
                   ) : (
                     <Image
                       width={2000}
