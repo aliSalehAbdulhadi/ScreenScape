@@ -2,9 +2,9 @@
 
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { videoPlayerInterface } from '@/src/Interfaces/interfaces';
-// import ReactPlayer from 'react-player/lazy';
+import ReactPlayer from 'react-player/lazy';
 
-const ReactPlayer = lazy(() => import('react-player/youtube'));
+// const ReactPlayer = lazy(() => import('react-player/youtube'));
 
 const VideoPlayer = ({
   onEnd,
@@ -79,7 +79,8 @@ const VideoPlayer = ({
           width="100%"
           height="100%"
           volume={50}
-          muted={mute}
+          playsinline={true}
+          muted={true}
           onEnded={() => {
             onEnd && onEnd();
           }}
