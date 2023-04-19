@@ -62,6 +62,7 @@ const VideoPlayer = ({
             volume={0.5}
             controls={controls}
             muted={mute}
+            allowfullscreen={true}
             onError={(e: any) => onError && onError(e)}
             onEnded={() => {
               onEnd && onEnd();
