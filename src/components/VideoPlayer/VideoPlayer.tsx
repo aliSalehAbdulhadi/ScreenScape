@@ -60,7 +60,6 @@ const VideoPlayer = ({
             width="100%"
             height="100%"
             volume={0.5}
-            playsinline={true}
             controls={controls}
             muted={mute}
             onError={(e: any) => onError && onError(e)}
