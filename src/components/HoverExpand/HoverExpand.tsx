@@ -1,9 +1,10 @@
-import Image from 'next/image';
 import SingleGenres from '../TitleSinglePage/TitleInfo/SingleGenres/SingleGenres';
 import PlusButton from '../Buttons/PlusButton/PlusButton';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import { useState } from 'react';
+import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
+import Link from 'next/link';
 
 const HoverExpand = ({
   title,
@@ -14,22 +15,51 @@ const HoverExpand = ({
   index: number;
   hoveredIndex: number;
 }) => {
-  const [first, setFirst] = useState(false);
+  const [muteVideo, setMuteVideo] = useState<boolean>(true);
+  const [playVideo, setPlayVideo] = useState<boolean>(false);
+
   const width = useWindowSize();
+
   return (
-    <div className="flex flex-col items-center justify-center my-10 cursor-pointer rounded lg:hover:scale-[1.5] xl:hover:scale-[1.3] opacity-0 lg:hover:opacity-100 hover:delay-[.5s] cardHover relative">
+    <div
+      onMouseEnter={() => setPlayVideo(true)}
+      onMouseLeave={() => {
+        setPlayVideo(false);
+        setMuteVideo(true);
+      }}
+      className="flex flex-col items-center justify-center my-10 cursor-pointer rounded lg:hover:scale-[1.5] xl:hover:scale-[1.3] opacity-0 lg:hover:opacity-100 hover:delay-[.5s] cardHover relative"
+    >
       <div>
-        <Image
-          width={300}
-          height={300}
-          src={title.url}
-          className={`object-contain w-[290px]  m-0 cursor-pointer `}
-          alt="aaa"
-        />
-        {index === hoveredIndex ? <div className=""></div> : ''}
+        {index === hoveredIndex ? (
+          <div className="object-contain w-[288px] cursor-pointer relative">
+            <VideoPlayer
+              videoId="aa"
+              mute={muteVideo}
+              autoplay={true}
+              controls={false}
+              stopVideo={!playVideo}
+              playVideo={playVideo}
+            />
+            <div className="absolute top-0 left-0 h-full px-1 xl:px-3  w-[288px] flex items-end justify-end sliderButtonsBgFade">
+              <div
+                onClick={() => setMuteVideo(!muteVideo)}
+                className="w-fit border-[2px] border-white border-opacity-60 opacity-40 hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60  mb-3"
+              >
+                {muteVideo ? (
+                  <FaVolumeMute size={width > 1300 ? 13 : 10} />
+                ) : (
+                  <FaVolumeUp size={width > 1300 ? 13 : 10} />
+                )}
+              </div>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
 
-      <div
+      <Link
+        href={'browse/sss'}
         className={`py-3 px-1 xl:px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px]  `}
       >
         <div className="flex items-center justify-between">
@@ -52,7 +82,7 @@ const HoverExpand = ({
             className="flex items-center justify-between text-[.5rem] xl:text-xs"
           />
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

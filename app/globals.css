@@ -106,6 +106,44 @@ body {
   background-color: #161925;
 }
 
+.sliderButtonsBgFade {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 12%,
+    rgba(0, 0, 0, 0.5) 15%,
+    rgba(0, 0, 0, 0.3) 20%,
+    rgba(0, 0, 0, 0.2) 25%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.sliderButtonsBgBlur {
+  position: relative;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(4px);
+}
+
+.sliderButtonsBgBlur:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.2) 5%,
+    rgba(0, 0, 0, 0.1) 10%,
+    rgba(0, 0, 0, 0.05) 15%,
+    rgba(0, 0, 0, 0.01) 30%,
+    rgba(0, 0, 0, 0) 40%
+  );
+  backdrop-filter: blur(4px);
+  z-index: -1;
+}
+
 .cardHover {
   transition: all 0.3s ease-in-out;
 }
@@ -132,4 +170,22 @@ body {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
+}
+
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.fullscreen iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 177.78%; /* Set to 100 / 0.5625 (aspect ratio) */
 }

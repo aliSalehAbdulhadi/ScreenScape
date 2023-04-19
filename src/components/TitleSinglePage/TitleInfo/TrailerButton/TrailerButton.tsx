@@ -1,17 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsPlayFill } from 'react-icons/bs';
 import PlusButton from '@/src/components/Buttons/PlusButton/PlusButton';
 import VideoPlayer from '@/src/components/VideoPlayer/VideoPlayer';
 
 const TrailerButton = () => {
   const [openTrailer, setOpenTrailer] = useState(false);
-  const [killVideo, setKillVideo] = useState(false);
+  const [isClientSide, setIsClientSide] = useState(false);
 
   const handleOnEnd = () => {
     setOpenTrailer(false);
   };
+
+  useEffect(() => {
+    setIsClientSide(true);
+  }, []);
 
   return (
     <div className=" flex self-start items-center transition-all">
@@ -28,25 +32,23 @@ const TrailerButton = () => {
           openTrailer ? '' : 'pointer-events-none hidden'
         }`}
       >
-        <div
-          onClick={() => {
-            setOpenTrailer(false);
-            setKillVideo(true);
-          }}
-          className="w-full h-full flex items-center justify-center"
-        >
-          <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]">
-            <VideoPlayer
-              controls={true}
-              autoplay={true}
-              playVideo={openTrailer}
-              mute={false}
-              videoId="Tp_YZNqNBhw"
-              onEnd={handleOnEnd}
-              pauseVideo={!openTrailer}
-            />
+        {isClientSide && (
+          <div
+            onClick={() => setOpenTrailer(false)}
+            className="w-full h-full flex items-center justify-center"
+          >
+            <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]">
+              <VideoPlayer
+                controls={true}
+                playVideo={openTrailer}
+                mute={false}
+                videoId="Tp_YZNqNBhw"
+                onEnd={handleOnEnd}
+                pauseVideo={!openTrailer}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
