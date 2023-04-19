@@ -37,7 +37,7 @@ const TrailerButton = () => {
             onClick={() => setOpenTrailer(false)}
             className="w-full h-full flex items-center justify-center"
           >
-            <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]">
+            <div className="w-full h-full sm:w-[90%] semiSm:w-[80%] lg:w-[70%]">
               <VideoPlayer
                 controls={true}
                 playVideo={openTrailer}
