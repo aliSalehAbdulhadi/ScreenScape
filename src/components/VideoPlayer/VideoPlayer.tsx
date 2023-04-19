@@ -24,7 +24,6 @@ const VideoPlayer = ({
 
   const playerRef = useRef<any>();
 
-  console.log(process.env.NEXT_PUBLIC_ORIGIN);
   const opts = {
     height: height,
     width: width,
