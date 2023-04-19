@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
-import Link from 'next/link';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
@@ -201,7 +200,7 @@ const DisplaySlider = () => {
               key={image.url + i}
               className={`relative lg:!overflow-hidden lg:hover:!overflow-visible my-element `}
             >
-              <Link href={'browse/sss'}>
+              <div>
                 <Image
                   width={300}
                   height={300}
@@ -216,7 +215,7 @@ const DisplaySlider = () => {
                     title={image}
                   />
                 </div>
-              </Link>
+              </div>
             </SwiperSlide>
           ))}
 

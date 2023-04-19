@@ -2,6 +2,8 @@
 
 export interface videoPlayerInterface {
   onEnd?: Function;
+  onReady?: Function;
+  onError?: Function;
   videoId: string;
   controls?: boolean;
   autoplay?: boolean;
@@ -9,6 +11,7 @@ export interface videoPlayerInterface {
   playVideo?: boolean;
   pauseVideo?: boolean;
   mute?: boolean;
+  reloadVideo?: boolean;
   height?: string;
   width?: string;
 }

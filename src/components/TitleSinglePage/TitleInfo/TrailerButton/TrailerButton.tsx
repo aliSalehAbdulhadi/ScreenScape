@@ -7,16 +7,16 @@ import VideoPlayer from '@/src/components/VideoPlayer/VideoPlayer';
 
 const TrailerButton = () => {
   const [openTrailer, setOpenTrailer] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-  const [killVideo, setKillVideo] = useState(false);
+  const [isClientSide, setIsClientSide] = useState(false);
 
   const handleOnEnd = () => {
     setOpenTrailer(false);
   };
 
   useEffect(() => {
-    setIsClient(true);
+    setIsClientSide(true);
   }, []);
+
   return (
     <div className=" flex self-start items-center transition-all">
       <button
@@ -32,18 +32,14 @@ const TrailerButton = () => {
           openTrailer ? '' : 'pointer-events-none hidden'
         }`}
       >
-        {isClient && (
+        {isClientSide && (
           <div
-            onClick={() => {
-              setOpenTrailer(false);
-              setKillVideo(true);
-            }}
+            onClick={() => setOpenTrailer(false)}
             className="w-full h-full flex items-center justify-center"
           >
             <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]">
               <VideoPlayer
                 controls={true}
-                autoplay={true}
                 playVideo={openTrailer}
                 mute={false}
                 videoId="Tp_YZNqNBhw"

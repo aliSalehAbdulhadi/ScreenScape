@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
+import { useInView } from 'react-intersection-observer';
 
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
@@ -27,9 +28,17 @@ const TrailerSlider = () => {
   const [advanceSlide, setAdvanceSlide] = useState<boolean>(false);
   const [swiper, setSwiper] = useState<any>(null);
   const [muteVideo, setMuteVideo] = useState<boolean>(true);
+  const [reloadVideo, setReloadVideo] = useState<boolean>(false);
+  const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
+  const [isVideoVisible, setIsVideoVisible] = useState<boolean>(false);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
+  const [isInTab, setIsInTab] = useState(true);
+
+  const { ref, inView } = useInView({
+    threshold: 0.4,
+  });
 
   const images = [
     { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
@@ -47,6 +56,26 @@ const TrailerSlider = () => {
   const width = useWindowSize();
 
   useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsInTab(!document.hidden);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    setIsVideoVisible(inView);
+  }, [inView]);
+
+  useEffect(() => {
+    setReloadVideo(false);
+  }, [reloadVideo]);
+
+  useEffect(() => {
     if (advanceSlide) {
       swiper.slideNext();
       setAdvanceSlide(false);
@@ -55,6 +84,12 @@ const TrailerSlider = () => {
 
   const handleOnEnd = () => {
     setAdvanceSlide(true);
+  };
+
+  const handleOnReady = () => {
+    setTimeout(() => {
+      setIsVideoReady(true);
+    }, 2800);
   };
 
   return (
@@ -106,14 +141,20 @@ const TrailerSlider = () => {
                 className=" md:rounded-lg relative "
               >
                 <div className={`relative rounded h-full`}>
-                  {activeSlide === i ? (
-                    <VideoPlayer
-                      onEnd={handleOnEnd}
-                      mute={muteVideo}
-                      controls={false}
-                      autoplay={true}
-                      videoId="Tp_YZNqNBhw"
-                    />
+                  {activeSlide === i && width > 1150 ? (
+                    <div ref={ref}>
+                      <VideoPlayer
+                        onEnd={handleOnEnd}
+                        onReady={handleOnReady}
+                        mute={muteVideo}
+                        reloadVideo={reloadVideo}
+                        playVideo={isVideoVisible || isInTab}
+                        pauseVideo={!isVideoVisible || !isInTab}
+                        controls={false}
+                        autoplay={true}
+                        videoId="Tp_YZNqNBhw"
+                      />
+                    </div>
                   ) : (
                     <Image
                       width={2000}
@@ -124,11 +165,13 @@ const TrailerSlider = () => {
                     />
                   )}
 
-                  <div className=" absolute top-0 hidden left-0 h-full w-full">
+                  <div className={`absolute top-0  left-0 h-full w-full `}>
                     <TrailerSliderButtons
                       muteVideo={muteVideo}
                       setMuteVideo={setMuteVideo}
+                      setReloadVideo={setReloadVideo}
                       activeSlide={activeSlide}
+                      isVideoReady={isVideoReady}
                       i={i}
                     />
                   </div>
