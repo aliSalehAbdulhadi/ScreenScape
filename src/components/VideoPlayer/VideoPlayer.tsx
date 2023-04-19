@@ -50,12 +50,17 @@ const VideoPlayer = ({
     }
   }, [pathName]);
 
+  const videoStyle = {
+    objectFit: 'cover',
+  };
+
   return (
     <div className="rounded overflow-hidden w-full h-full bg-black youtube-player-container">
       {isClientSide && (
         <Suspense>
           <ReactPlayer
             ref={playerRef}
+            style={videoStyle}
             url={`https://www.youtube.com/watch?v=XAwpu4rQpeQ&t=31s?showinfo=0&enablejsapi=1&origin=${window?.location?.origin}`}
             width="100%"
             height="100%"
