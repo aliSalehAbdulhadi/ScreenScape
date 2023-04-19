@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import YouTube from 'react-youtube';
+import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { videoPlayerInterface } from '@/src/Interfaces/interfaces';
+// import ReactPlayer from 'react-player/lazy';
+
+const ReactPlayer = lazy(() => import('react-player/youtube'));
 
 const VideoPlayer = ({
   onEnd,
@@ -13,8 +15,6 @@ const VideoPlayer = ({
   playVideo,
   pauseVideo,
   videoId,
-  height = '0',
-  width = '100%',
 }: videoPlayerInterface) => {
   const [videoDuration, setVideoDuration] = useState(0);
 
@@ -24,33 +24,46 @@ const VideoPlayer = ({
 
   const playerRef = useRef<any>();
 
-  const opts = {
-    height: height,
-    width: width,
+  console.log(playerRef?.current?.getInternalPlayer());
 
-    playerVars: {
-      origin: process.env.NEXT_PUBLIC_ORIGIN,
-      autoplay: booleanToNumber(autoplay),
-      controls: booleanToNumber(controls),
-      mute: 0,
-      iv_load_policy: 3,
-      modestbranding: 1,
-      rel: 0,
-      end: -10,
+  const config = {
+    youtube: {
+      playerVars: {
+        autoplay: booleanToNumber(autoplay),
+        controls: booleanToNumber(controls),
+        mute: 0,
+        iv_load_policy: 3,
+        modestbranding: 1,
+        rel: 0,
+        end: -10,
+      },
     },
   };
+  // useEffect(() => {
+  //   if (playerRef.current && playerRef.current.getInternalPlayer) {
+  //     const internalPlayer = playerRef.current.getInternalPlayer();
+  //     if (internalPlayer && typeof internalPlayer.setVolume === 'function') {
+  //       mute ? internalPlayer.setVolume(0) : internalPlayer.setVolume(50);
+  //     }
+  //   }
+  // }, [mute]);
 
-  useEffect(() => {
-    mute
-      ? playerRef?.current?.internalPlayer.setVolume(0)
-      : playerRef?.current?.internalPlayer.setVolume(50);
-  }, [mute]);
+  // useEffect(() => {
+  //   if (playerRef.current && playerRef.current.getInternalPlayer) {
+  //     const internalPlayer = playerRef.current.getInternalPlayer();
+  //     if (internalPlayer && typeof internalPlayer.setVolume === 'function') {
+  //       stopVideo && playerRef?.current?.getInternalPlayer()?.stopVideo();
+  //       playVideo && playerRef?.current?.getInternalPlayer()?.playVideo();
+  //       pauseVideo && playerRef?.current?.getInternalPlayer()?.pauseVideo();
+  //     }
+  //   }
+  // }, [stopVideo, pauseVideo, playVideo]);
 
-  useEffect(() => {
-    stopVideo && playerRef?.current?.internalPlayer.stopVideo();
-    playVideo && playerRef?.current?.internalPlayer.playVideo();
-    pauseVideo && playerRef?.current?.internalPlayer.pauseVideo();
-  }, [stopVideo, pauseVideo, playVideo]);
+  // useEffect(() => {
+  //   if (playerRef.current && playerRef.current.getInternalPlayer) {
+  //     stopVideo && playerRef?.current?.getInternalPlayer()?.stopVideo();
+  //   }
+  // });
 
   const handleReady = (e: any) => {
     const player = e.target;
@@ -58,19 +71,29 @@ const VideoPlayer = ({
   };
 
   return (
-    <div className="rounded overflow-hidden w-full h-full bg-primary youtube-player-container">
-      <YouTube
-        ref={playerRef}
-        className="rounded"
-        videoId={videoId}
-        opts={opts}
-        onReady={handleReady}
-        onEnd={() => {
-          onEnd && onEnd();
-          playerRef?.current?.internalPlayer.stopVideo();
-        }}
-      />
-    </div>
+    <Suspense>
+      <div className="rounded overflow-hidden w-full h-full bg-primary youtube-player-container">
+        <ReactPlayer
+          ref={playerRef}
+          url="https://www.youtube.com/watch?v=vS3_72Gb-bI?showinfo=0&enablejsapi=1&origin=http://localhost:3001"
+          width="100%"
+          height="100%"
+          volume={50}
+          muted={mute}
+          onEnded={() => {
+            onEnd && onEnd();
+          }}
+          config={{
+            youtube: {
+              playerVars: {
+                autoplay: autoplay,
+                controls: controls,
+              },
+            },
+          }}
+        />
+      </div>
+    </Suspense>
   );
 };
 

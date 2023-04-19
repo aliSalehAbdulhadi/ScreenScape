@@ -124,7 +124,7 @@ const TrailerSlider = () => {
                     />
                   )}
 
-                  <div className=" absolute top-0 left-0 h-full w-full">
+                  <div className=" absolute top-0 hidden left-0 h-full w-full">
                     <TrailerSliderButtons
                       muteVideo={muteVideo}
                       setMuteVideo={setMuteVideo}

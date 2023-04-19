@@ -7,6 +7,7 @@ import TrailerButton from './TrailerButton/TrailerButton';
 const TitleInfo = () => {
   return (
     <div className="flex flex-col  items-start w-[100%]  sm:pr-5">
+      <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]"></div>
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
         <div className=" w-full xs:w-[30rem] sm:w-[22rem] xs:rounded self-center sm:self-start">
           <PosterSlider />
