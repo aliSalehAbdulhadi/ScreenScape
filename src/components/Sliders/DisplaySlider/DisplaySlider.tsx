@@ -1,5 +1,5 @@
 'use client';
-import SwiperCore, { Navigation, Pagination } from 'swiper';
+import SwiperCore, { Navigation, Pagination, Lazy } from 'swiper';
 import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
@@ -8,8 +8,9 @@ import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import HoverExpand from '../../HoverExpand/HoverExpand';
+import Link from 'next/link';
 
-SwiperCore.use([Navigation]);
+SwiperCore.use([Navigation, Lazy]);
 
 const DisplaySlider = () => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
@@ -154,6 +155,10 @@ const DisplaySlider = () => {
     }
   };
 
+  const swiperStyle = {
+    transform: 'translateZ(0)',
+  };
+
   return (
     <div
       onMouseEnter={() => {
@@ -168,6 +173,13 @@ const DisplaySlider = () => {
       {
         <Swiper
           className={`!pl-5 xs:!pl-10 lg:!overflow-visible`}
+          style={swiperStyle}
+          //@ts-ignore
+          lazy={{
+            loadPrevNext: true,
+            loadPrevNextAmount: 2,
+            loadOnTransitionStart: true,
+          }}
           modules={[Pagination]}
           pagination={showPag}
           draggable={false}
@@ -193,6 +205,8 @@ const DisplaySlider = () => {
             swiper.navigation.init();
             swiper.navigation.update();
           }}
+          //@ts-ignore
+          momentum="false"
         >
           {images.map((image, i) => (
             <SwiperSlide
@@ -200,22 +214,36 @@ const DisplaySlider = () => {
               key={image.url + i}
               className={`relative lg:!overflow-hidden lg:hover:!overflow-visible my-element `}
             >
-              <div>
-                <Image
-                  width={300}
-                  height={300}
-                  src={image.url}
-                  className=" object-contain md:rounded w-[290px] m-0 cursor-pointer"
-                  alt="poster"
-                />
-                <div className=" absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300">
-                  <HoverExpand
-                    index={i}
-                    hoveredIndex={hoveredIndex}
-                    title={image}
+              {width > 1150 ? (
+                <div>
+                  <Image
+                    width={300}
+                    height={300}
+                    src={image.url}
+                    className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
+                    alt="poster"
+                    loading="lazy"
                   />
+                  <div className=" absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300">
+                    <HoverExpand
+                      index={i}
+                      hoveredIndex={hoveredIndex}
+                      title={image}
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <Link href="/browse/sss">
+                  <Image
+                    width={300}
+                    height={300}
+                    src={image.url}
+                    className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
+                    alt="poster"
+                    loading="lazy"
+                  />
+                </Link>
+              )}
             </SwiperSlide>
           ))}
 

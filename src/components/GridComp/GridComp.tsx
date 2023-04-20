@@ -7,7 +7,7 @@ const GridComp = ({
   className = '',
 }: {
   children: ReactNode;
-  title: string;
+  title?: string;
   className?: String;
   changeableTitle?: string;
 }) => {

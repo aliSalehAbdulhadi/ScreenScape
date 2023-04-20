@@ -17,17 +17,27 @@ const HoverExpand = ({
 }) => {
   const [muteVideo, setMuteVideo] = useState<boolean>(true);
   const [playVideo, setPlayVideo] = useState<boolean>(false);
+  const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
 
   const width = useWindowSize();
+
+  const HandleOnReady = () => {
+    setTimeout(() => {
+      setIsVideoReady(true);
+    }, 1000);
+  };
+
+  const handleOnMouseLeave = () => {
+    setPlayVideo(false);
+    setIsVideoReady(false);
+    setMuteVideo(true);
+  };
 
   return (
     <div
       onMouseEnter={() => setPlayVideo(true)}
-      onMouseLeave={() => {
-        setPlayVideo(false);
-        setMuteVideo(true);
-      }}
-      className="flex flex-col items-center justify-center my-10 cursor-pointer rounded lg:hover:scale-[1.5] xl:hover:scale-[1.3] opacity-0 lg:hover:opacity-100 hover:delay-[.5s] cardHover relative"
+      onMouseLeave={handleOnMouseLeave}
+      className="flex flex-col items-center justify-center my-10 cursor-pointer rounded hover:scale-[1.5] opacity-0 lg:hover:opacity-100 hover:delay-[.5s] cardHover relative"
     >
       <div>
         {index === hoveredIndex ? (
@@ -39,11 +49,14 @@ const HoverExpand = ({
               controls={false}
               stopVideo={!playVideo}
               playVideo={playVideo}
+              onReady={HandleOnReady}
             />
-            <div className="absolute top-0 left-0 h-full px-1 xl:px-3  w-[288px] flex items-end justify-end sliderButtonsBgFade">
+            <div className="absolute top-0 left-0 h-full px-1 xl:px-3  w-[288px] flex items-end justify-end ">
               <div
                 onClick={() => setMuteVideo(!muteVideo)}
-                className="w-fit border-[2px] border-white border-opacity-60 opacity-40 hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60  mb-3"
+                className={`w-fit border-[2px] border-white border-opacity-60 opacity-40 hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60  mb-3  ${
+                  isVideoReady || 'hidden'
+                }`}
               >
                 {muteVideo ? (
                   <FaVolumeMute size={width > 1300 ? 13 : 10} />

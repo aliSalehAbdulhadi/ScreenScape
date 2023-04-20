@@ -189,3 +189,75 @@ body {
   height: 100%;
   width: 177.78%; /* Set to 100 / 0.5625 (aspect ratio) */
 }
+
+.spinner-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #161925;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  animation: spinner 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.spinner-inner {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 8px solid #dfd260;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spinner-inner 1s linear infinite;
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  font-weight: bold;
+  color: #dfd260;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner-inner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 865px) {
+  a:focus,
+  a:visited,
+  a:active {
+    outline: none;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
