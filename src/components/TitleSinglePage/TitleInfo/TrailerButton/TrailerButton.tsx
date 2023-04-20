@@ -1,21 +1,32 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { BsPlayFill } from 'react-icons/bs';
 import PlusButton from '@/src/components/Buttons/PlusButton/PlusButton';
-import VideoPlayer from '@/src/components/VideoPlayer/VideoPlayer';
+import dynamic from 'next/dynamic';
+
+const VideoPlayer = dynamic(
+  () => import('@/src/components/VideoPlayer/VideoPlayer')
+);
 
 const TrailerButton = () => {
-  const [openTrailer, setOpenTrailer] = useState(false);
-  const [isClientSide, setIsClientSide] = useState(false);
+  const [isClientSide, setIsClientSide] = useState<boolean>(false);
+  const [openTrailer, setOpenTrailer] = useState<boolean>(false);
+  const [stopTrailer, setStopTrailer] = useState<boolean>(false);
 
   const handleOnEnd = () => {
     setOpenTrailer(false);
+    setStopTrailer(true);
   };
 
   useEffect(() => {
     setIsClientSide(true);
+    setStopTrailer(true);
   }, []);
+
+  useEffect(() => {
+    openTrailer && setStopTrailer(false);
+  }, [openTrailer]);
 
   return (
     <div className=" flex self-start items-center transition-all">
@@ -38,14 +49,17 @@ const TrailerButton = () => {
             className="w-full h-full flex items-center justify-center"
           >
             <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]">
-              <VideoPlayer
-                controls={true}
-                playVideo={openTrailer}
-                mute={false}
-                videoId="Tp_YZNqNBhw"
-                onEnd={handleOnEnd}
-                pauseVideo={!openTrailer}
-              />
+              <Suspense>
+                <VideoPlayer
+                  controls={true}
+                  playVideo={openTrailer}
+                  mute={false}
+                  videoId="Tp_YZNqNBhw"
+                  onEnd={handleOnEnd}
+                  pauseVideo={!openTrailer}
+                  stopVideo={stopTrailer}
+                />
+              </Suspense>
             </div>
           </div>
         )}

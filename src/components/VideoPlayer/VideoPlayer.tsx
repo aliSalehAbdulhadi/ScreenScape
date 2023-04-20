@@ -61,13 +61,13 @@ const VideoPlayer = ({
           <ReactPlayer
             ref={playerRef}
             style={videoStyle}
-            url={`https://www.youtube.com/watch?v=XAwpu4rQpeQ&t=31s?showinfo=0&enablejsapi=1&origin=${window?.location?.origin}`}
+            url={`http://www.youtube.com/watch?v=ekpd_6O5ASQ=31s?showinfo=0&enablejsapi=1&origin=${window?.location?.origin}`}
             width="100%"
             height="100%"
             volume={0.5}
             controls={controls}
             muted={mute}
-            allowfullscreen={true}
+            allowFullScreen={true}
             onError={(e: any) => onError && onError(e)}
             onEnded={() => {
               onEnd && onEnd();

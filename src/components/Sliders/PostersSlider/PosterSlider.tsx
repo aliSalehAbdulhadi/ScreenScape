@@ -1,5 +1,5 @@
 'use client';
-import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
+import SwiperCore, { Autoplay, Navigation, Pagination, Lazy } from 'swiper';
 import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
@@ -9,7 +9,7 @@ import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
-SwiperCore.use([Navigation, Autoplay]);
+SwiperCore.use([Navigation, Autoplay, Lazy]);
 
 const PosterSlider = () => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
@@ -29,6 +29,9 @@ const PosterSlider = () => {
 
   const width = useWindowSize();
 
+  const swiperStyle = {
+    transform: 'translateZ(0)',
+  };
   return (
     <div
       onMouseEnter={() => setShowArrows(true)}
@@ -37,6 +40,13 @@ const PosterSlider = () => {
       {
         <Swiper
           modules={[Autoplay, Pagination]}
+          style={swiperStyle}
+          //@ts-ignore
+          lazy={{
+            loadPrevNext: true,
+            loadPrevNextAmount: 2,
+            loadOnTransitionStart: true,
+          }}
           autoplay={false}
           grabCursor={true}
           loop={true}
@@ -62,7 +72,8 @@ const PosterSlider = () => {
                   height={1500}
                   src={image.url}
                   alt="Actor Photo"
-                  className="xs:rounded object-fit h-[25rem] xxxs:h-[31.5rem] xxs:h-[35rem] sm:h-[30rem] w-full"
+                  className="xs:rounded object-fit h-[25rem] xxxs:h-[31.5rem] xxs:h-[35rem] sm:h-[30rem] w-full "
+                  loading="lazy"
                 />
               </SwiperSlide>
             ))}

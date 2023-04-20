@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -90,13 +89,10 @@ const Navbar = () => {
             }}
             href={'/'}
           >
-            <Image
-              src="/svg/logo/screenScapeLogo2.svg"
-              height={45}
-              width={45}
-              alt="ScreenScape Logo"
-              className="w-7 xx:w-8 semiSm:w-10 md:w-12"
-            />
+            <div className=" text-4xl xxxs:text-[2.8rem] h-fit text-secondary flex items-center font-averia tracking-tighter">
+              <div>S</div>
+              <div className="mt-2 ">S</div>
+            </div>
           </Link>
         </div>
 

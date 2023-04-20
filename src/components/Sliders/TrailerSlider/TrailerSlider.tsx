@@ -5,6 +5,7 @@ import SwiperCore, {
   EffectCoverflow,
   Navigation,
   Pagination,
+  Lazy,
 } from 'swiper';
 import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -18,7 +19,7 @@ import useWindowSize from '@/src/hooks/useWindowsSize';
 import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
 import VideoPlayer from '../../VideoPlayer/VideoPlayer';
 
-SwiperCore.use([Navigation, Autoplay]);
+SwiperCore.use([Navigation, Autoplay, Lazy]);
 
 const TrailerSlider = () => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
@@ -92,6 +93,10 @@ const TrailerSlider = () => {
     }, 2800);
   };
 
+  const swiperStyle = {
+    transform: 'translateZ(0)',
+  };
+
   return (
     <div
       onMouseEnter={() => setShowArrows(true)}
@@ -99,8 +104,13 @@ const TrailerSlider = () => {
     >
       {
         <Swiper
-          observeParents={true}
-          observer={true}
+          style={swiperStyle}
+          //@ts-ignore
+          lazy={{
+            loadPrevNext: true,
+            loadPrevNextAmount: 2,
+            loadOnTransitionStart: true,
+          }}
           modules={[EffectCoverflow, Autoplay, Pagination]}
           pagination={false}
           scrollbar={{ draggable: true }}
@@ -138,7 +148,7 @@ const TrailerSlider = () => {
             {images.map((image, i) => (
               <SwiperSlide
                 key={image.url + i}
-                className=" md:rounded-lg relative "
+                className=" md:rounded-lg relative"
               >
                 <div className={`relative rounded h-full`}>
                   {activeSlide === i && width > 1150 ? (
@@ -157,11 +167,12 @@ const TrailerSlider = () => {
                     </div>
                   ) : (
                     <Image
-                      width={2000}
-                      height={1000}
+                      width={1100}
+                      height={700}
                       src={image.url}
                       className=" object-fit md:rounded-lg "
                       alt="poster"
+                      loading="lazy"
                     />
                   )}
 

@@ -4,6 +4,7 @@ import { TbReload } from 'react-icons/tb';
 import Link from 'next/link';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { Dispatch, SetStateAction } from 'react';
+import useWindowSize from '@/src/hooks/useWindowsSize';
 
 const TrailerSliderButtons = ({
   setReloadVideo,
@@ -20,14 +21,17 @@ const TrailerSliderButtons = ({
   activeSlide: number;
   i: number;
 }) => {
+  const width = useWindowSize();
   return (
     <div
-      className={`w-full h-full  rounded sliderButtonsBgFade ${
-        activeSlide === i ? '' : 'hidden'
-      } flex items-end justify-between `}
+      className={`w-full h-full  rounded  ${
+        width > 1150 && 'sliderButtonsBgFade'
+      } ${activeSlide === i ? '' : 'hidden'} flex items-end justify-between `}
     >
       <div className="flex items-end justify-between px-5  pb-5 w-full ">
-        <div className={`flex flex-col visible ${isVideoReady || 'invisible'}`}>
+        <div
+          className={`flex flex-col visible ${isVideoReady || 'lg:invisible'}`}
+        >
           <span className="text-white text-xl xs:text-3xl md:text-2xl xl:text-[2rem] font-bold">
             Miday
           </span>
