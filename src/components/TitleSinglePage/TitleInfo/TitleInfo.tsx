@@ -2,7 +2,6 @@ import PosterSlider from '@/src/components/Sliders/PostersSlider/PosterSlider';
 import SingleGenres from './SingleGenres/SingleGenres';
 import Rating from './Rating/Rating';
 import StreamedOn from './StreamedOn/StreamedOn';
-import TrailerButton from './TrailerButton/TrailerButton';
 
 const TitleInfo = () => {
   return (
@@ -20,10 +19,6 @@ const TitleInfo = () => {
             </span>
             <div className="text-offWhite text-opacity-75 w-fit mb-5 mt-2">
               <SingleGenres />
-            </div>
-
-            <div className="  top-0 absolute hidden xxs:hidden xxxs:block right-0">
-              <TrailerButton />
             </div>
           </div>
           <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
@@ -55,10 +50,6 @@ const TitleInfo = () => {
               exercitationem impedit explicabo beatae porro. Quo eveniet magnam
               cupiditate.
             </span>
-          </div>
-
-          <div className="bottom-0 left-5 block xxxs:hidden xxs:block xxxs:absolute">
-            <TrailerButton />
           </div>
         </div>
       </div>
