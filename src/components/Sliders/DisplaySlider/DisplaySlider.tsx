@@ -128,10 +128,6 @@ const DisplaySlider = () => {
     }
   };
 
-  const swiperStyle = {
-    transform: 'translateZ(0)',
-  };
-
   return (
     <div
       onMouseEnter={() => {
@@ -146,7 +142,6 @@ const DisplaySlider = () => {
       {
         <Swiper
           className={`!pl-5 xs:!pl-10 lg:!overflow-visible`}
-          style={swiperStyle}
           //@ts-ignore
           lazy={{
             loadPrevNext: true,
@@ -163,7 +158,7 @@ const DisplaySlider = () => {
           spaceBetween={width > 1650 ? 0 : 10}
           loop={true}
           slidesPerView={widthHandler()}
-          speed={700}
+          speed={width > 640 ? 700 : 400}
           onSliderFirstMove={() => firstSlideHandler()}
           onSlideChangeTransitionStart={() => setSlideChanging(true)}
           onSlideChangeTransitionEnd={() => setSlideChanging(false)}
@@ -194,9 +189,9 @@ const DisplaySlider = () => {
                   <div>
                     <Image
                       width={300}
-                      height={300}
+                      height={290}
                       src={image.url}
-                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
+                      className=" object-contain md:rounded m-0 cursor-pointer "
                       alt="poster"
                       loading="lazy"
                     />
@@ -217,12 +212,12 @@ const DisplaySlider = () => {
                     </Suspense>
                   </div>
                 ) : (
-                  <Link href="/actor/sss">
+                  <Link href="/browse/sss">
                     <Image
                       width={300}
-                      height={300}
+                      height={290}
                       src={image.url}
-                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
+                      className=" object-contain md:rounded  m-0"
                       alt="poster"
                       loading="lazy"
                     />
