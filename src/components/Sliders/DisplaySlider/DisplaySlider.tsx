@@ -1,5 +1,6 @@
 'use client';
 import SwiperCore, { Navigation, Pagination, Lazy } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import {
   Suspense,
   lazy,
@@ -8,7 +9,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
 import Link from 'next/link';
@@ -77,52 +77,6 @@ const DisplaySlider = () => {
     {
       url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
     },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
   ];
 
   const sliderElementIndex = useCallback((e: number) => {
@@ -199,6 +153,8 @@ const DisplaySlider = () => {
             loadPrevNextAmount: 2,
             loadOnTransitionStart: true,
           }}
+          preloadImages={false}
+          updateOnImagesReady={true}
           modules={[Pagination]}
           pagination={showPag}
           draggable={false}
@@ -234,16 +190,44 @@ const DisplaySlider = () => {
                 key={image.url + i}
                 className={`relative lg:!overflow-hidden lg:hover:!overflow-visible my-element isClose`}
               >
-                <Link href="/actor/sss">
-                  <Image
-                    width={300}
-                    height={300}
-                    src={image.url}
-                    className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
-                    alt="poster"
-                    loading="lazy"
-                  />
-                </Link>
+                {width > 1150 ? (
+                  <div>
+                    <Image
+                      width={300}
+                      height={300}
+                      src={image.url}
+                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
+                      alt="poster"
+                      loading="lazy"
+                    />
+                    <Suspense>
+                      <div
+                        className={`absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300 ${
+                          sliderElementIndex(0).includes(i) && 'hover:left-14'
+                        } ${
+                          sliderElementIndex(5).includes(i) && 'hover:right-14'
+                        }`}
+                      >
+                        <HoverExpand
+                          index={i}
+                          hoveredIndex={hoveredIndex}
+                          title={image}
+                        />
+                      </div>
+                    </Suspense>
+                  </div>
+                ) : (
+                  <Link href="/actor/sss">
+                    <Image
+                      width={300}
+                      height={300}
+                      src={image.url}
+                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
+                      alt="poster"
+                      loading="lazy"
+                    />
+                  </Link>
+                )}
               </SwiperSlide>
             );
           })}
