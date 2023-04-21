@@ -28,6 +28,8 @@ const DisplaySlider = () => {
   const [slideChanging, setSlideChanging] = useState<boolean>(false);
   const [showPag, setShowPag] = useState<boolean>(false);
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
+  const [touchedIndex, setTouchedIndex] = useState<number>(0);
+  const [touch, setTouch] = useState<boolean>(false);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
@@ -214,10 +216,21 @@ const DisplaySlider = () => {
                 ) : (
                   <Link href="/browse/sss">
                     <Image
+                      onTouchStart={() => {
+                        setTouch(true);
+                        setTouchedIndex(i);
+                      }}
+                      onTouchEnd={() => {
+                        setTimeout(() => {
+                          setTouch(false);
+                        }, 100);
+                      }}
                       width={300}
                       height={290}
                       src={image.url}
-                      className=" object-contain md:rounded  m-0"
+                      className={`object-contain md:rounded m-0 ${
+                        touch && touchedIndex === i ? 'opacity-60' : ''
+                      }`}
                       alt="poster"
                       loading="lazy"
                     />
