@@ -1,5 +1,5 @@
 'use client';
-import SwiperCore, { Navigation, Pagination, Lazy, Virtual } from 'swiper';
+import SwiperCore, { Navigation, Pagination, Lazy } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
   Suspense,
@@ -16,12 +16,9 @@ import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
-import 'swiper/css';
-import 'swiper/css/virtual';
-
 const HoverExpand = lazy(() => import('../../HoverExpand/HoverExpand'));
 
-SwiperCore.use([Navigation, Lazy, Virtual]);
+SwiperCore.use([Navigation, Lazy]);
 
 const DisplaySlider = () => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
@@ -82,17 +79,7 @@ const DisplaySlider = () => {
     {
       url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
     },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
   ];
-
-  console.log(images.length);
 
   const sliderElementIndex = useCallback((e: number) => {
     const startNum = e;
@@ -156,22 +143,17 @@ const DisplaySlider = () => {
     >
       {
         <Swiper
-          virtual={true}
           className={`!pl-5 xs:!pl-10 lg:!overflow-visible`}
-          // @ts-ignore
-          lazy={{
-            loadPrevNext: true,
-            loadPrevNextAmount: 2,
-            loadOnTransitionStart: true,
-          }}
-          modules={[Pagination, Virtual]}
+          //@ts-ignore
+          lazy={true}
+          modules={[Pagination, lazy]}
           pagination={showPag}
           draggable={false}
           // @ts-ignore
           slidesPerGroup={parseInt(widthHandler())}
           spaceBetween={width > 1650 ? 0 : 10}
+          loop={true}
           slidesPerView={widthHandler()}
-          onSwiper={(e: any) => console.log(e)}
           speed={width > 640 ? 700 : 400}
           onSliderFirstMove={() => firstSlideHandler()}
           onSlideChangeTransitionStart={() => setSlideChanging(true)}
@@ -189,27 +171,27 @@ const DisplaySlider = () => {
             swiper.navigation.init();
             swiper.navigation.update();
           }}
-          // @ts-ignore
+          //@ts-ignore
           momentum="false"
         >
           {images.map((image, i) => {
             return (
               <SwiperSlide
-                virtualIndex={i}
                 onMouseEnter={() => setHoveredIndex(i)}
                 key={image.url + i}
-                className={`relative lg:!overflow-hidden lg:hover:!overflow-visible my-element isClose`}
+                className={`relative `}
               >
                 {width > 1150 ? (
-                  <div className="w-fit h-fit">
+                  <div>
                     <Image
                       width={300}
                       height={290}
-                      src={image.url}
+                      src="https://e0.pxfuel.com/wallpapers/1009/445/desktop-wallpaper-thor-movie-wide-poster-best.jpg"
                       className=" object-contain md:rounded m-0 cursor-pointer "
                       alt="poster"
                       loading="lazy"
                     />
+                    <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                     <Suspense>
                       <div
                         className={`absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300 ${
