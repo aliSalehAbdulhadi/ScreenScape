@@ -14,7 +14,6 @@ const DisplaySliderContent = ({
 }) => {
   const [touchedIndex, setTouchedIndex] = useState<number>(0);
   const [touch, setTouch] = useState<boolean>(false);
-  const [loaded, setLoaded] = useState(false);
 
   const width = useWindowSize();
 

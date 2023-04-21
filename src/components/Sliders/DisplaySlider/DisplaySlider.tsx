@@ -11,14 +11,12 @@ import {
   useState,
 } from 'react';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
-import Link from 'next/link';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
 import DisplaySliderContent from './DisplaySliderContent/DisplaySliderContent';
 import { useInViewport } from 'react-in-viewport';
-
 
 SwiperCore.use([Navigation, Lazy]);
 
@@ -91,17 +89,6 @@ const DisplaySlider = ({
       url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
     },
   ];
-
-  const sliderElementIndex = useCallback((e: number) => {
-    const startNum = e;
-    let numbers = [startNum];
-
-    for (let i = 1; i < 20; i++) {
-      numbers.push(numbers[i - 1] + 6);
-    }
-
-    return numbers;
-  }, []);
 
   const hidedArrows = () => {
     return prevArrow || nextArrow || slideChanging || showArrows;
@@ -197,11 +184,9 @@ const DisplaySlider = ({
               <SwiperSlide
                 onMouseEnter={() => setHoveredIndex(i)}
                 key={image.url + i}
-
                 className={`relative`}
               >
                 <DisplaySliderContent index={i} hoveredIndex={hoveredIndex} />
-
               </SwiperSlide>
             );
           })}
