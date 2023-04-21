@@ -37,7 +37,7 @@ const HoverExpand = ({
     <div
       onMouseEnter={() => setPlayVideo(true)}
       onMouseLeave={handleOnMouseLeave}
-      className="flex flex-col items-center justify-center my-10 cursor-pointer rounded hover:scale-[1.5] opacity-0 lg:hover:opacity-100 hover:delay-[.5s] cardHover relative"
+      className="flex flex-col items-center justify-center my-10 cursor-pointer rounded hover:scale-[1.3] hover:xl:scale-[1.5] opacity-0 lg:hover:opacity-100 hover:delay-[.5s] cardHover relative"
     >
       <div>
         {index === hoveredIndex ? (

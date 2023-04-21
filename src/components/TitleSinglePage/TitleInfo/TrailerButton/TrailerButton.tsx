@@ -1,11 +1,10 @@
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { BsPlayFill } from 'react-icons/bs';
 import PlusButton from '@/src/components/Buttons/PlusButton/PlusButton';
-import dynamic from 'next/dynamic';
 
-const VideoPlayer = dynamic(
+const VideoPlayer = lazy(
   () => import('@/src/components/VideoPlayer/VideoPlayer')
 );
 

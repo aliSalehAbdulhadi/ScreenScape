@@ -1,14 +1,23 @@
 'use client';
 import SwiperCore, { Navigation, Pagination, Lazy } from 'swiper';
-import { useEffect, useRef, useState } from 'react';
+import {
+  Suspense,
+  lazy,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
+import Link from 'next/link';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
-import HoverExpand from '../../HoverExpand/HoverExpand';
-import Link from 'next/link';
+
+const HoverExpand = lazy(() => import('../../HoverExpand/HoverExpand'));
 
 SwiperCore.use([Navigation, Lazy]);
 
@@ -117,6 +126,17 @@ const DisplaySlider = () => {
     { url: '/images/x0pqq.jpg' },
   ];
 
+  const sliderElementIndex = useCallback((e: number) => {
+    const startNum = e;
+    let numbers = [startNum];
+
+    for (let i = 1; i < 20; i++) {
+      numbers.push(numbers[i - 1] + 6);
+    }
+
+    return numbers;
+  }, []);
+
   const hidedArrows = () => {
     return prevArrow || nextArrow || slideChanging || showArrows;
   };
@@ -208,44 +228,54 @@ const DisplaySlider = () => {
           //@ts-ignore
           momentum="false"
         >
-          {images.map((image, i) => (
-            <SwiperSlide
-              onMouseEnter={() => setHoveredIndex(i)}
-              key={image.url + i}
-              className={`relative lg:!overflow-hidden lg:hover:!overflow-visible my-element `}
-            >
-              {width > 1150 ? (
-                <div>
-                  <Image
-                    width={300}
-                    height={300}
-                    src={image.url}
-                    className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
-                    alt="poster"
-                    loading="lazy"
-                  />
-                  <div className=" absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300">
-                    <HoverExpand
-                      index={i}
-                      hoveredIndex={hoveredIndex}
-                      title={image}
+          {images.map((image, i) => {
+            return (
+              <SwiperSlide
+                onMouseEnter={() => setHoveredIndex(i)}
+                key={image.url + i}
+                className={`relative lg:!overflow-hidden lg:hover:!overflow-visible my-element isClose`}
+              >
+                {width > 1150 ? (
+                  <div>
+                    <Image
+                      width={300}
+                      height={300}
+                      src={image.url}
+                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
+                      alt="poster"
+                      loading="lazy"
                     />
+                    <Suspense>
+                      <div
+                        className={`absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300 ${
+                          sliderElementIndex(0).includes(i) && 'hover:left-14'
+                        } ${
+                          sliderElementIndex(5).includes(i) && 'hover:right-14'
+                        }`}
+                      >
+                        <HoverExpand
+                          index={i}
+                          hoveredIndex={hoveredIndex}
+                          title={image}
+                        />
+                      </div>
+                    </Suspense>
                   </div>
-                </div>
-              ) : (
-                <Link href="/browse/sss">
-                  <Image
-                    width={300}
-                    height={300}
-                    src={image.url}
-                    className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
-                    alt="poster"
-                    loading="lazy"
-                  />
-                </Link>
-              )}
-            </SwiperSlide>
-          ))}
+                ) : (
+                  <Link href="/browse/sss">
+                    <Image
+                      width={300}
+                      height={300}
+                      src={image.url}
+                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
+                      alt="poster"
+                      loading="lazy"
+                    />
+                  </Link>
+                )}
+              </SwiperSlide>
+            );
+          })}
 
           <div className=" transition-all">
             <div
