@@ -5,7 +5,6 @@ import {
   lazy,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -18,8 +17,6 @@ import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
 const HoverExpand = lazy(() => import('../../HoverExpand/HoverExpand'));
-
-
 
 SwiperCore.use([Navigation, Lazy]);
 
@@ -143,20 +140,6 @@ const DisplaySlider = () => {
     return prevArrow || nextArrow || slideChanging || showArrows;
   };
 
-  useEffect(() => {
-    setShowArrows(true);
-  }, [hoveredIndex]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      prevArrow || nextArrow || slideChanging ? '' : setShowArrows(false);
-    }, 600);
-
-    if (prevArrow || nextArrow || slideChanging) {
-      clearTimeout(timer);
-    }
-  }, [hoveredIndex, nextArrow, prevArrow, showArrows, slideChanging]);
-
   const firstSlideHandler = () => {
     setTimeout(() => {
       setFirstSlide(true);
@@ -164,18 +147,6 @@ const DisplaySlider = () => {
   };
 
   const width = useWindowSize();
-
-  const widthHandler = () => {
-    if (width > 1000) {
-      return 6.1;
-    } else if (width > 850) {
-      return 4.1;
-    } else if (width > 640) {
-      return 3.1;
-    } else {
-      return 2.2;
-    }
-  };
 
   const swiperStyle = {
     transform: 'translateZ(0)',
@@ -206,10 +177,8 @@ const DisplaySlider = () => {
           pagination={showPag}
           draggable={false}
           // @ts-ignore
-          slidesPerGroup={parseInt(widthHandler())}
           spaceBetween={width > 1650 ? 0 : 10}
           loop={true}
-          slidesPerView={widthHandler()}
           speed={700}
           onSliderFirstMove={() => firstSlideHandler()}
           onSlideChangeTransitionStart={() => setSlideChanging(true)}
@@ -264,7 +233,7 @@ const DisplaySlider = () => {
                     </Suspense>
                   </div>
                 ) : (
-                  <Link href="/browse/sss">
+                  <Link href="/actor/sss">
                     <Image
                       width={300}
                       height={300}
