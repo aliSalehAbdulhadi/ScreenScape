@@ -19,6 +19,8 @@ import useWindowSize from '@/src/hooks/useWindowsSize';
 
 const HoverExpand = lazy(() => import('../../HoverExpand/HoverExpand'));
 
+
+
 SwiperCore.use([Navigation, Lazy]);
 
 const DisplaySlider = () => {

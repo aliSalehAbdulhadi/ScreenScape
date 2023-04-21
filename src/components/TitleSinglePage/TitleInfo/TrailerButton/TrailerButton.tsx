@@ -4,9 +4,7 @@ import { Suspense, lazy, useEffect, useState } from 'react';
 import { BsPlayFill } from 'react-icons/bs';
 import PlusButton from '@/src/components/Buttons/PlusButton/PlusButton';
 
-const VideoPlayer = lazy(
-  () => import('@/src/components/VideoPlayer/VideoPlayer')
-);
+const VideoPlayer = lazy(() => import('@/src/components/VideoPlayer/VideoPlayer'));
 
 const TrailerButton = () => {
   const [isClientSide, setIsClientSide] = useState<boolean>(false);
