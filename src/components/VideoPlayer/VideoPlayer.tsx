@@ -24,6 +24,9 @@ const VideoPlayer = ({
   const pathName = usePathname();
   const playerRef = useRef<any>();
 
+  const referrer = document.referrer;
+  const origin = window.location.origin;
+
   useEffect(() => {
     setIsClientSide(true);
   }, []);
@@ -60,8 +63,9 @@ const VideoPlayer = ({
         <Suspense>
           <ReactPlayer
             ref={playerRef}
+            referrer={referrer}
             style={videoStyle}
-            url={`http://www.youtube.com/watch?v=ekpd_6O5ASQ=31s?showinfo=0&enablejsapi=1&origin=${window?.location?.origin}`}
+            url={`http://www.youtube.com/watch?v=ekpd_6O5ASQ=31s?`}
             width="100%"
             height="100%"
             volume={0.5}
@@ -75,12 +79,17 @@ const VideoPlayer = ({
             onReady={() => onReady && onReady()}
             config={{
               youtube: {
+                preload: true,
+                cache: true,
                 playerVars: {
                   autoplay: autoplay,
                   hd: 1,
                   iv_load_policy: 3,
                   modestbranding: 1,
                   rel: 0,
+                  showinfo: 0,
+                  enablejsapi: 1,
+                  origin: origin,
                 },
               },
             }}

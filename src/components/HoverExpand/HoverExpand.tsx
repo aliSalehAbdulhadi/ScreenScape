@@ -7,11 +7,11 @@ import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import Link from 'next/link';
 
 const HoverExpand = ({
-  title,
+  trailerUrl,
   index,
   hoveredIndex,
 }: {
-  title: { url: string };
+  trailerUrl: string;
   index: number;
   hoveredIndex: number;
 }) => {

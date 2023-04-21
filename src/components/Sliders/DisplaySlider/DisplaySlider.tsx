@@ -2,25 +2,31 @@
 import SwiperCore, { Navigation, Pagination, Lazy } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
-  Suspense,
+  Dispatch,
+  SetStateAction,
   lazy,
-  useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
-import Link from 'next/link';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
-
-const HoverExpand = lazy(() => import('../../HoverExpand/HoverExpand'));
+import DisplaySliderContent from './DisplaySliderContent/DisplaySliderContent';
+import { useInViewport } from 'react-in-viewport';
 
 SwiperCore.use([Navigation, Lazy]);
 
-const DisplaySlider = () => {
+const DisplaySlider = ({
+  index,
+  setSlidersInView,
+  slidersInView,
+}: {
+  index: number;
+  setSlidersInView: Dispatch<SetStateAction<number>>;
+  slidersInView: number;
+}) => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
   const [showArrows, setShowArrows] = useState<boolean>(false);
@@ -28,11 +34,12 @@ const DisplaySlider = () => {
   const [slideChanging, setSlideChanging] = useState<boolean>(false);
   const [showPag, setShowPag] = useState<boolean>(false);
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
-  const [touchedIndex, setTouchedIndex] = useState<number>(0);
-  const [touch, setTouch] = useState<boolean>(false);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
+
+  const inViewPortRef = useRef(null);
+  const { inViewport } = useInViewport(inViewPortRef);
 
   const images = [
     { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
@@ -81,20 +88,16 @@ const DisplaySlider = () => {
     },
   ];
 
-  const sliderElementIndex = useCallback((e: number) => {
-    const startNum = e;
-    let numbers = [startNum];
-
-    for (let i = 1; i < 20; i++) {
-      numbers.push(numbers[i - 1] + 6);
-    }
-
-    return numbers;
-  }, []);
-
   const hidedArrows = () => {
     return prevArrow || nextArrow || slideChanging || showArrows;
   };
+
+  useEffect(() => {
+    // lazy loading display components
+    if (inViewport && index >= slidersInView) {
+      setSlidersInView(slidersInView + 2);
+    }
+  }, [slidersInView, inViewport, index, setSlidersInView]);
 
   useEffect(() => {
     setShowArrows(true);
@@ -132,6 +135,7 @@ const DisplaySlider = () => {
 
   return (
     <div
+      ref={inViewPortRef}
       onMouseEnter={() => {
         setShowArrows(true);
         setShowPag(true);
@@ -144,14 +148,13 @@ const DisplaySlider = () => {
       {
         <Swiper
           className={`!pl-5 xs:!pl-10 lg:!overflow-visible`}
-          //@ts-ignore
-          lazy={true}
+          // @ts-ignore
           modules={[Pagination, lazy]}
           pagination={showPag}
           draggable={false}
           // @ts-ignore
           slidesPerGroup={parseInt(widthHandler())}
-          spaceBetween={width > 1650 ? 0 : 10}
+          spaceBetween={width > 1650 ? 3 : 10}
           loop={true}
           slidesPerView={widthHandler()}
           speed={width > 640 ? 700 : 400}
@@ -171,7 +174,7 @@ const DisplaySlider = () => {
             swiper.navigation.init();
             swiper.navigation.update();
           }}
-          //@ts-ignore
+          // @ts-ignore
           momentum="false"
         >
           {images.map((image, i) => {
@@ -179,58 +182,9 @@ const DisplaySlider = () => {
               <SwiperSlide
                 onMouseEnter={() => setHoveredIndex(i)}
                 key={image.url + i}
-                className={`relative `}
+                className={`relative`}
               >
-                {width > 1150 ? (
-                  <div>
-                    <Image
-                      width={300}
-                      height={290}
-                      src="https://e0.pxfuel.com/wallpapers/1009/445/desktop-wallpaper-thor-movie-wide-poster-best.jpg"
-                      className=" object-contain md:rounded m-0 cursor-pointer "
-                      alt="poster"
-                      loading="lazy"
-                    />
-                    <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-                    <Suspense>
-                      <div
-                        className={`absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300 ${
-                          sliderElementIndex(0).includes(i) && 'hover:left-14'
-                        } ${
-                          sliderElementIndex(5).includes(i) && 'hover:right-14'
-                        }`}
-                      >
-                        <HoverExpand
-                          index={i}
-                          hoveredIndex={hoveredIndex}
-                          title={image}
-                        />
-                      </div>
-                    </Suspense>
-                  </div>
-                ) : (
-                  <Link href="/browse/sss">
-                    <Image
-                      onTouchStart={() => {
-                        setTouch(true);
-                        setTouchedIndex(i);
-                      }}
-                      onTouchEnd={() => {
-                        setTimeout(() => {
-                          setTouch(false);
-                        }, 100);
-                      }}
-                      width={300}
-                      height={290}
-                      src="https://e0.pxfuel.com/wallpapers/1009/445/desktop-wallpaper-thor-movie-wide-poster-best.jpg"
-                      className={`object-contain md:rounded m-0 transition-all ${
-                        touch && touchedIndex === i ? 'opacity-60' : ''
-                      }`}
-                      alt="poster"
-                      loading="lazy"
-                    />
-                  </Link>
-                )}
+                <DisplaySliderContent index={i} hoveredIndex={hoveredIndex} />
               </SwiperSlide>
             );
           })}

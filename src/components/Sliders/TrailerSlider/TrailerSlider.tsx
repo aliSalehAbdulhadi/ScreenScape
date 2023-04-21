@@ -7,7 +7,7 @@ import SwiperCore, {
   Pagination,
   Lazy,
 } from 'swiper';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
@@ -17,7 +17,8 @@ import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
-import VideoPlayer from '../../VideoPlayer/VideoPlayer';
+
+const VideoPlayer = lazy(() => import('../../VideoPlayer/VideoPlayer'));
 
 SwiperCore.use([Navigation, Autoplay, Lazy]);
 
@@ -152,19 +153,32 @@ const TrailerSlider = () => {
               >
                 <div className={`relative rounded h-full`}>
                   {activeSlide === i && width > 1150 ? (
-                    <div ref={ref}>
-                      <VideoPlayer
-                        onEnd={handleOnEnd}
-                        onReady={handleOnReady}
-                        mute={muteVideo}
-                        reloadVideo={reloadVideo}
-                        playVideo={isVideoVisible || isInTab}
-                        pauseVideo={!isVideoVisible || !isInTab}
-                        controls={false}
-                        autoplay={true}
-                        videoId="Tp_YZNqNBhw"
-                      />
-                    </div>
+                    <Suspense
+                      fallback={
+                        <Image
+                          width={1100}
+                          height={700}
+                          src={image.url}
+                          className=" object-fit md:rounded-lg "
+                          alt="poster"
+                          loading="lazy"
+                        />
+                      }
+                    >
+                      <div ref={ref}>
+                        <VideoPlayer
+                          onEnd={handleOnEnd}
+                          onReady={handleOnReady}
+                          mute={muteVideo}
+                          reloadVideo={reloadVideo}
+                          playVideo={isVideoVisible || isInTab}
+                          pauseVideo={!isVideoVisible || !isInTab}
+                          controls={false}
+                          autoplay={true}
+                          videoId="Tp_YZNqNBhw"
+                        />
+                      </div>
+                    </Suspense>
                   ) : (
                     <Image
                       width={1100}
