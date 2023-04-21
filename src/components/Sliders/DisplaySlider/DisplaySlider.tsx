@@ -222,7 +222,7 @@ const DisplaySlider = () => {
                       }}
                       width={300}
                       height={290}
-                      src={image.url}
+                      src="https://e0.pxfuel.com/wallpapers/1009/445/desktop-wallpaper-thor-movie-wide-poster-best.jpg"
                       className={`object-contain md:rounded m-0 transition-all ${
                         touch && touchedIndex === i ? 'opacity-60' : ''
                       }`}
