@@ -140,6 +140,20 @@ const DisplaySlider = () => {
     return prevArrow || nextArrow || slideChanging || showArrows;
   };
 
+  useEffect(() => {
+    setShowArrows(true);
+  }, [hoveredIndex]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      prevArrow || nextArrow || slideChanging ? '' : setShowArrows(false);
+    }, 600);
+
+    if (prevArrow || nextArrow || slideChanging) {
+      clearTimeout(timer);
+    }
+  }, [hoveredIndex, nextArrow, prevArrow, showArrows, slideChanging]);
+
   const firstSlideHandler = () => {
     setTimeout(() => {
       setFirstSlide(true);
@@ -147,6 +161,18 @@ const DisplaySlider = () => {
   };
 
   const width = useWindowSize();
+
+  const widthHandler = () => {
+    if (width > 1000) {
+      return 6.1;
+    } else if (width > 850) {
+      return 4.1;
+    } else if (width > 640) {
+      return 3.1;
+    } else {
+      return 2.2;
+    }
+  };
 
   const swiperStyle = {
     transform: 'translateZ(0)',
@@ -177,8 +203,10 @@ const DisplaySlider = () => {
           pagination={showPag}
           draggable={false}
           // @ts-ignore
+          slidesPerGroup={parseInt(widthHandler())}
           spaceBetween={width > 1650 ? 0 : 10}
           loop={true}
+          slidesPerView={widthHandler()}
           speed={700}
           onSliderFirstMove={() => firstSlideHandler()}
           onSlideChangeTransitionStart={() => setSlideChanging(true)}
@@ -206,44 +234,16 @@ const DisplaySlider = () => {
                 key={image.url + i}
                 className={`relative lg:!overflow-hidden lg:hover:!overflow-visible my-element isClose`}
               >
-                {width > 1150 ? (
-                  <div>
-                    <Image
-                      width={300}
-                      height={300}
-                      src={image.url}
-                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
-                      alt="poster"
-                      loading="lazy"
-                    />
-                    <Suspense>
-                      <div
-                        className={`absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300 ${
-                          sliderElementIndex(0).includes(i) && 'hover:left-14'
-                        } ${
-                          sliderElementIndex(5).includes(i) && 'hover:right-14'
-                        }`}
-                      >
-                        <HoverExpand
-                          index={i}
-                          hoveredIndex={hoveredIndex}
-                          title={image}
-                        />
-                      </div>
-                    </Suspense>
-                  </div>
-                ) : (
-                  <Link href="/actor/sss">
-                    <Image
-                      width={300}
-                      height={300}
-                      src={image.url}
-                      className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
-                      alt="poster"
-                      loading="lazy"
-                    />
-                  </Link>
-                )}
+                <Link href="/actor/sss">
+                  <Image
+                    width={300}
+                    height={300}
+                    src={image.url}
+                    className=" object-contain md:rounded w-[290px] m-0 cursor-pointer "
+                    alt="poster"
+                    loading="lazy"
+                  />
+                </Link>
               </SwiperSlide>
             );
           })}
