@@ -8,6 +8,7 @@ import SwiperCore, {
   Lazy,
 } from 'swiper';
 import { Suspense, useEffect, useRef, useState } from 'react';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
@@ -17,9 +18,11 @@ import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
+
 import dynamic from 'next/dynamic';
 
 const VideoPlayer = dynamic(() => import('../../VideoPlayer/VideoPlayer'));
+
 
 SwiperCore.use([Navigation, Autoplay, Lazy]);
 

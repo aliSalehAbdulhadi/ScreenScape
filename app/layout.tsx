@@ -4,6 +4,8 @@ import Footer from '@/src/components/Footer/Footer';
 import './globals.css';
 import Navbar from '@/src/components/Navbar/Navbar';
 
+
+
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
   subsets: ['latin'],
@@ -31,8 +33,9 @@ export default function RootLayout({
       <body
         className={`${roboto.className} ${roboto.variable} ${averia.variable} flex flex-col  bg-primary  select-none`}
       >
-        <Navbar />
-
+      
+          <Navbar />
+          
         {children}
         <div className="self-center">
           <Footer />

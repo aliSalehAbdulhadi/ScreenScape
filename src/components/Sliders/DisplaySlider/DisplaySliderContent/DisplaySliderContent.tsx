@@ -1,7 +1,9 @@
 import { Suspense, lazy, useCallback, useState } from 'react';
 import Image from 'next/image';
+
 import Link from 'next/link';
 import useWindowSize from '@/src/hooks/useWindowsSize';
+
 
 const HoverExpand = lazy(() => import('../../../HoverExpand/HoverExpand'));
 
