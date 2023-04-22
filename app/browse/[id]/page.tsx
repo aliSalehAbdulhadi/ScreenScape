@@ -8,7 +8,9 @@ const TitleSinglePage = lazy(
 const page = () => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <TitleSinglePage />
+      <div className="fade-in">
+        <TitleSinglePage />
+      </div>
     </Suspense>
   );
 };

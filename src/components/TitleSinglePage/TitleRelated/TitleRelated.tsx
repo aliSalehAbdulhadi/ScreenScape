@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import GridComp from '../../GridComp/GridComp';
+import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 
 const TitleRelated = () => {
   const images = [
@@ -38,19 +39,17 @@ const TitleRelated = () => {
   return (
     <GridComp title="Related">
       {images.map((cast, i) => (
-        <Link
-          href="/browse/sss"
-          key={cast.url + i}
-          className=" mb-3 cursor-pointer w-fit "
-        >
-          <Image
-            src={cast.url}
-            width={150}
-            height={150}
-            alt="Actor Image"
-            className="h-[240px] w-[180px] object-fit rounded"
-          />
-        </Link>
+        <DelayDisplay key={cast.url + i} delay={i * 50}>
+          <Link href="/browse/sss" className=" mb-3 cursor-pointer w-fit ">
+            <Image
+              src={cast.url}
+              width={150}
+              height={150}
+              alt="Actor Image"
+              className="h-[240px] w-[180px] object-fit rounded"
+            />
+          </Link>
+        </DelayDisplay>
       ))}
     </GridComp>
   );

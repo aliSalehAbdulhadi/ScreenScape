@@ -261,3 +261,32 @@ body {
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+.slideInLeft {
+  animation: slideInLeftAnimation ease-in-out 1s linear;
+}
+
+@keyframes slideInLeftAnimation {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+}
