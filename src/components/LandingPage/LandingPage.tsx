@@ -1,11 +1,12 @@
 import dynamic from 'next/dynamic';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
-import DisplayComp from './DisplayComp/DisplayComp';
 import { Suspense } from 'react';
 
 const TrailerSlider = dynamic(
   () => import('../Sliders/TrailerSlider/TrailerSlider')
 );
+
+const DisplayComp = dynamic(() => import('./DisplayComp/DisplayComp'));
 
 const LandingPage = () => {
   return (
@@ -16,9 +17,11 @@ const LandingPage = () => {
             <TrailerSlider />
           </div>
         </Suspense>
-        <div className="w-[100%] ">
-          <DisplayComp />
-        </div>
+        <Suspense>
+          <div className="w-[100%]">
+            <DisplayComp />
+          </div>
+        </Suspense>
       </LoadingComponent>
     </div>
   );
