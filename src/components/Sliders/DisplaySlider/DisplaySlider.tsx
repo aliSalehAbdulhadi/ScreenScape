@@ -16,6 +16,7 @@ import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
 import DisplaySliderContent from './DisplaySliderContent/DisplaySliderContent';
+import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 
 SwiperCore.use([Navigation, Lazy]);
 
@@ -185,7 +186,9 @@ const DisplaySlider = ({
                 key={image.url + i}
                 className={`relative`}
               >
-                <DisplaySliderContent index={i} hoveredIndex={hoveredIndex} />
+                <DelayDisplay delay={i < 8 ? i * 100 : 0}>
+                  <DisplaySliderContent index={i} hoveredIndex={hoveredIndex} />
+                </DelayDisplay>
               </SwiperSlide>
             );
           })}

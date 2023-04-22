@@ -1,10 +1,11 @@
 import { Roboto } from 'next/font/google';
 import { Averia_Serif_Libre } from 'next/font/google';
-import Footer from '@/src/components/Footer/Footer';
 import './globals.css';
-import Navbar from '@/src/components/Navbar/Navbar';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
-
+const Navbar = dynamic(() => import('@/src/components/Navbar/Navbar'));
+const Footer = dynamic(() => import('@/src/components/Footer/Footer'));
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
@@ -33,13 +34,18 @@ export default function RootLayout({
       <body
         className={`${roboto.className} ${roboto.variable} ${averia.variable} flex flex-col  bg-primary  select-none`}
       >
-      
+        <Suspense
+          fallback={<div className="bgFadeInEnter w-full h-[7vh]"></div>}
+        >
           <Navbar />
-          
+        </Suspense>
+
         {children}
-        <div className="self-center">
-          <Footer />
-        </div>
+        <Suspense>
+          <div className="self-center">
+            <Footer />
+          </div>
+        </Suspense>
       </body>
     </html>
   );

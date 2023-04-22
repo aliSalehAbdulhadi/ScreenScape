@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import GridComp from '../../GridComp/GridComp';
+import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 
 const OtherActors = () => {
   const images = [
@@ -21,15 +22,17 @@ const OtherActors = () => {
   return (
     <GridComp title="Other Actors">
       {images.map((cast, i) => (
-        <div key={cast.url + i} className=" mb-3 cursor-pointer w-fit">
-          <Image
-            src={cast.url}
-            width={150}
-            height={150}
-            alt="Actor Image"
-            className="h-[240px] w-[180px] object-fit  rounded"
-          />
-        </div>
+        <DelayDisplay key={cast.url + i} delay={i * 50}>
+          <div className=" mb-3 cursor-pointer w-fit">
+            <Image
+              src={cast.url}
+              width={150}
+              height={150}
+              alt="Actor Image"
+              className="h-[240px] w-[180px] object-fit  rounded"
+            />
+          </div>
+        </DelayDisplay>
       ))}
     </GridComp>
   );
