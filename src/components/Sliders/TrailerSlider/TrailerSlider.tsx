@@ -107,7 +107,7 @@ const TrailerSlider = () => {
       {
         <Swiper
           style={swiperStyle}
-          //@ts-ignore
+          // @ts-ignore
           lazy={{
             loadPrevNext: true,
             loadPrevNextAmount: 2,
