@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import { Suspense } from 'react';
-import DisplayComp from './DisplayComp/DisplayComp';
 
 const TrailerSlider = dynamic(
   () => import('../Sliders/TrailerSlider/TrailerSlider')
@@ -22,7 +21,6 @@ const LandingPage = () => {
         <div className="w-[100%]">
           <DisplayComp />
         </div>
-
       </LoadingComponent>
     </div>
   );

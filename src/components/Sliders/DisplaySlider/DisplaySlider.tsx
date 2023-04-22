@@ -19,7 +19,6 @@ import DisplaySliderContent from './DisplaySliderContent/DisplaySliderContent';
 
 import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 
-
 SwiperCore.use([Navigation, Lazy]);
 
 const DisplaySlider = ({
