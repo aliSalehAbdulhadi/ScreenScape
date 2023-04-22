@@ -1,6 +1,5 @@
 'use client';
 import SwiperCore, { Navigation, Pagination, Lazy } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
   Dispatch,
@@ -11,12 +10,12 @@ import {
   useState,
 } from 'react';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
+import { useInViewport } from 'react-in-viewport';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
 import DisplaySliderContent from './DisplaySliderContent/DisplaySliderContent';
-import { useInViewport } from 'react-in-viewport';
 
 SwiperCore.use([Navigation, Lazy]);
 

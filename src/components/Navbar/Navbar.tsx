@@ -1,17 +1,20 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { RiCloseFill } from 'react-icons/ri';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import useClickOutside from '@/src/hooks/useClickOutside';
-import GenreDropDownMenu from './GenreDropDownMenu/GenreDropDownMenu';
 import NavbarButtons from './NavbarButtons/NavbarButtons';
 import { useScrollY } from '@/src/hooks/useScrollY';
-import BurgerList from './BurgerList.tsx/BurgerList';
 import useWindowSize from '@/src/hooks/useWindowsSize';
+
+const BurgerList = lazy(() => import('./BurgerList.tsx/BurgerList'));
+const GenreDropDownMenu = lazy(
+  () => import('./GenreDropDownMenu/GenreDropDownMenu')
+);
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState<string>('');
@@ -135,7 +138,9 @@ const Navbar = () => {
         </form>
 
         <div className="ml-3 semiSm:block hidden">
-          <GenreDropDownMenu />
+          <Suspense>
+            <GenreDropDownMenu />
+          </Suspense>
         </div>
       </div>
 
@@ -147,7 +152,9 @@ const Navbar = () => {
           burgerOpen ? '' : 'hidden'
         }`}
       >
-        <BurgerList setBurgerOpen={setBurgerOpen} />
+        <Suspense>
+          <BurgerList setBurgerOpen={setBurgerOpen} />
+        </Suspense>
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ body {
 }
 
 .swiper-scrollbar {
-  opacity: 0 !important;
+  display: none !important;
 }
 
 .swiper-pagination-bullet-active {

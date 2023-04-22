@@ -7,7 +7,8 @@ import SwiperCore, {
   Pagination,
   Lazy,
 } from 'swiper';
-import { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
@@ -18,7 +19,10 @@ import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
 
-const VideoPlayer = lazy(() => import('../../VideoPlayer/VideoPlayer'));
+import dynamic from 'next/dynamic';
+
+const VideoPlayer = dynamic(() => import('../../VideoPlayer/VideoPlayer'));
+
 
 SwiperCore.use([Navigation, Autoplay, Lazy]);
 
@@ -151,13 +155,13 @@ const TrailerSlider = () => {
                 key={image.url + i}
                 className=" md:rounded-lg relative"
               >
-                <div className={`relative rounded h-full`}>
+                <div className={`relative rounded`}>
                   {activeSlide === i && width > 1150 ? (
                     <Suspense
                       fallback={
                         <Image
                           width={1100}
-                          height={700}
+                          height={500}
                           src={image.url}
                           className=" object-fit md:rounded-lg "
                           alt="poster"
@@ -182,7 +186,7 @@ const TrailerSlider = () => {
                   ) : (
                     <Image
                       width={1100}
-                      height={700}
+                      height={500}
                       src={image.url}
                       className=" object-fit md:rounded-lg "
                       alt="poster"
