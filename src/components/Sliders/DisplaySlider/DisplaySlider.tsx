@@ -16,7 +16,9 @@ import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
 import DisplaySliderContent from './DisplaySliderContent/DisplaySliderContent';
+
 import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+
 
 SwiperCore.use([Navigation, Lazy]);
 

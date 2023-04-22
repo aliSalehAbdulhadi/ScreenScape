@@ -7,6 +7,8 @@ const TrailerSlider = dynamic(
   () => import('../Sliders/TrailerSlider/TrailerSlider')
 );
 
+const DisplayComp = dynamic(() => import('./DisplayComp/DisplayComp'));
+
 const LandingPage = () => {
   return (
     <div className="flex flex-col items-center background-fade md:py-[6rem]">
@@ -16,9 +18,11 @@ const LandingPage = () => {
             <TrailerSlider />
           </div>
         </Suspense>
+
         <div className="w-[100%]">
           <DisplayComp />
         </div>
+
       </LoadingComponent>
     </div>
   );
