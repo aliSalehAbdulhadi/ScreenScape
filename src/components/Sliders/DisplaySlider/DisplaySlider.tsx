@@ -15,7 +15,6 @@ import { useInViewport } from 'react-in-viewport';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
-
 import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 import LoadingCard from '../../LoadingComponent/LoadingCard/LoadingCard';
 
@@ -190,7 +189,7 @@ const DisplaySlider = ({
                 key={image.url + i}
                 className=""
               >
-                <Suspense>
+                <Suspense fallback={<LoadingCard />}>
                   <DelayDisplay delay={i < 8 ? i * 100 : 0}>
                     <DisplaySliderContent
                       index={i}
