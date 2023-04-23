@@ -18,11 +18,13 @@ const LandingPage = () => {
           </div>
         </Suspense>
 
+
         <Suspense>
           <div className="w-[100%]">
             <DisplayComp />
           </div>
         </Suspense>
+
       </LoadingComponent>
     </div>
   );

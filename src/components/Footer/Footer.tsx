@@ -45,6 +45,7 @@ const Footer = () => {
           ScreenSpace
         </span>
         <div className="flex items-center justify-around mt-2 opacity-80 hidden">
+
           <GrFacebookOption className="cursor-pointer " size={20} />
           <GrInstagram className="cursor-pointer " size={20} />
           <GrTwitter className="cursor-pointer " size={20} />
