@@ -2,7 +2,7 @@
 
 const nextConfig = {
   images: {
-    domains: ['e0.pxfuel.com'],
+    domains: ['e0.pxfuel.com', 'e1.pxfuel.com'],
   },
   experimental: {
     appDir: true,

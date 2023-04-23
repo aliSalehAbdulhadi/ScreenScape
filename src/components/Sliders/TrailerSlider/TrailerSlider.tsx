@@ -182,12 +182,12 @@ const TrailerSlider = () => {
                       <Image
                         width={1100}
                         height={500}
-                        src={image.url}
+                        src="https://e1.pxfuel.com/desktop-wallpaper/699/466/desktop-wallpaper-2560x1600-rampage-gorilla-wolf-chinese-poster-2018-movie-dual-wide-widescreen-16-10-widescreen-2560x1600-background-3976-gorilla-movie.jpg"
                         className=" object-fit md:rounded-lg "
                         alt="poster"
                         loading="eager"
                         priority={true}
-                        blurDataURL={image.url}
+                        blurDataURL="https://e1.pxfuel.com/desktop-wallpaper/699/466/desktop-wallpaper-2560x1600-rampage-gorilla-wolf-chinese-poster-2018-movie-dual-wide-widescreen-16-10-widescreen-2560x1600-background-3976-gorilla-movie.jpg"
                       />
                     </div>
                   )}
