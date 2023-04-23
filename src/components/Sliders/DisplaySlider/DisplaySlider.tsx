@@ -98,7 +98,7 @@ const DisplaySlider = ({
   useEffect(() => {
     // lazy loading display components
     if (inViewport && index >= slidersInView) {
-      setSlidersInView(slidersInView + 4);
+      setSlidersInView(slidersInView + 2);
     }
   }, [slidersInView, inViewport, index, setSlidersInView]);
 
@@ -125,11 +125,13 @@ const DisplaySlider = ({
   const width = useWindowSize();
 
   const widthHandler = () => {
-    if (width > 1000) {
+    if (width >= 1000) {
       return 6.1;
-    } else if (width > 850) {
+    } else if (width >= 850) {
+      return 5.1;
+    } else if (width >= 640) {
       return 4.1;
-    } else if (width > 640) {
+    } else if (width >= 500) {
       return 3.1;
     } else {
       return 2.2;
@@ -147,10 +149,11 @@ const DisplaySlider = ({
         setShowArrows(false);
         setShowPag(false);
       }}
+      className=" min-h-[6.5rem] xxxs:min-h-[7rem] sm:min-h-[7.6rem] semiSm:min-h-[8rem] xl:min-h-[8.7rem] xxl:min-h-[9.7rem] xxxl:min-h-[12rem]"
     >
       {
         <Swiper
-          className={`!pl-5 xs:!pl-10 lg:!overflow-visible`}
+          className={`!pl-5 semiSm:!pl-10 lg:!overflow-visible flex flex-col  h-full`}
           // @ts-ignore
           modules={[Pagination]}
           pagination={showPag}
@@ -185,8 +188,9 @@ const DisplaySlider = ({
               <SwiperSlide
                 onMouseEnter={() => setHoveredIndex(i)}
                 key={image.url + i}
+                className=""
               >
-                <Suspense fallback={<LoadingCard />}>
+                <Suspense>
                   <DelayDisplay delay={i < 8 ? i * 100 : 0}>
                     <DisplaySliderContent
                       index={i}
@@ -197,7 +201,7 @@ const DisplaySlider = ({
               </SwiperSlide>
             );
           })}
-
+          <div />
           <div className=" transition-all">
             <div
               onMouseEnter={() => {

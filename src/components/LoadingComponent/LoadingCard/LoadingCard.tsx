@@ -10,9 +10,9 @@ const LoadingCard = ({ className }: { className?: string }) => {
           </div>
         </div>
         <div className="px-4 py-2">
-          <div className="h-4 bg-gray-900 rounded w-3/4 mb-2 animate-pulse"></div>
-          <div className="h-4 bg-gray-900 rounded w-5/6 mb-2 animate-pulse"></div>
-          <div className="h-4 bg-gray-900 rounded w-3/4 mb-2 animate-pulse"></div>
+          <div className="h-2 xxxs:h-4 bg-gray-900 rounded w-3/4 mb-2 animate-pulse"></div>
+          <div className="h-2 xxxs:h-4 bg-gray-900 rounded w-5/6 mb-2 animate-pulse"></div>
+          <div className="h-2 xxxs:h-4 bg-gray-900 rounded w-3/4 mb-2 animate-pulse"></div>
         </div>
       </div>
     </div>
