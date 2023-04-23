@@ -12,7 +12,7 @@ const LandingPage = () => {
   return (
     <div className="flex flex-col items-center background-fade md:py-[6rem] fade-in">
       <LoadingComponent>
-        <Suspense fallback={<div className="h-full w-full">lading.</div>}>
+        <Suspense>
           <div className="w-[100%] ">
             <TrailerSlider />
           </div>
