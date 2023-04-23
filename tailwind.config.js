@@ -33,7 +33,7 @@ module.exports = {
       lg: '1150px',
       xl: '1280px',
       xxl: '1450px',
-      xxxl: '1640px',
+      xxxl: '1600px',
     },
   },
   plugins: [],

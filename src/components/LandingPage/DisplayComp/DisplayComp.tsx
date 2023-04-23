@@ -10,12 +10,10 @@ const movieGenres = [
   { id: 18, name: 'Drama' },
   { id: 14, name: 'Fantasy' },
   { id: 10749, name: 'Romance' },
-  { id: 28, name: 'Action' },
   { id: 35, name: 'Comedy' },
   { id: 18, name: 'Drama' },
   { id: 14, name: 'Fantasy' },
   { id: 10749, name: 'Romance' },
-  { id: 28, name: 'Action' },
   { id: 35, name: 'Comedy' },
   { id: 18, name: 'Drama' },
   { id: 14, name: 'Fantasy' },
@@ -41,10 +39,16 @@ const DisplayComp = () => {
               key={genre.id + i}
               className=" mt-5 semiSm:mt-10 w-[100%]  flex flex-col transition-all"
             >
-              <span className=" ml-5 semiSm:ml-10 text-opacity-75 semiSm:text-opacity-100 semiSm:text semiSm:text-xl md:text-2xl mb-3 text-secondary fade-in ">
-                {genre.name}
-              </span>
-
+              <div className="flex items-center justify-between">
+                <span className=" ml-5 semiSm:ml-10 text-opacity-75 semiSm:text-opacity-100 semiSm:text semiSm:text-xl md:text-2xl mb-3 text-secondary fade-in ">
+                  {genre.name}
+                </span>
+                <div
+                  className={`h-[1px] w-[60%] semiSm:w-[80%] bg-secondary self-center bg-opacity-50 fade-in mr-5 semiSm:mr-10 mb-2 ${
+                    genre.name === 'Action' ? 'hidden' : ''
+                  }`}
+                />
+              </div>
               <div className=" transition-all ">
                 <DisplaySlider
                   index={i}
@@ -52,12 +56,6 @@ const DisplayComp = () => {
                   slidersInView={slidersInView}
                 />
               </div>
-
-              <div
-                className={`h-[1px] w-[80%] bg-secondary mt-2 md:mt-10 self-center bg-opacity-50 fade-in ${
-                  movieGenres.length === i ? 'hidden' : ''
-                }`}
-              />
             </div>
           );
         }

@@ -25,7 +25,7 @@ export const TitleCast = () => {
         <DelayDisplay key={cast.url + i} delay={i * 50}>
           <Link
             href="/actor/sss"
-            className="flex flex-col  mb-3 cursor-pointer w-fit bg-white bg-opacity-10 h-[15rem] rounded-lg overflow-hidden"
+            className="flex flex-col  mb-3 cursor-pointer w-fit bg-white bg-opacity-10 h-[15rem] rounded overflow-hidden"
           >
             <Image
               src={cast.url}

@@ -47,7 +47,7 @@ const PosterSlider = () => {
             loadPrevNextAmount: 2,
             loadOnTransitionStart: true,
           }}
-          autoplay={false}
+          autoplay={true}
           grabCursor={true}
           loop={true}
           slidesPerView={1}

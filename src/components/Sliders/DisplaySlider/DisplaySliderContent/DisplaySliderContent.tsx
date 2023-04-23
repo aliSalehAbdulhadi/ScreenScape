@@ -35,7 +35,7 @@ const DisplaySliderContent = ({
         <div className="max-w-[300px] max-h-[190px]">
           <Image
             width={300}
-            height={290}
+            height={190}
             src="https://e0.pxfuel.com/wallpapers/1009/445/desktop-wallpaper-thor-movie-wide-poster-best.jpg"
             className=" object-contain md:rounded m-0 cursor-pointer "
             alt="poster"
@@ -69,9 +69,9 @@ const DisplaySliderContent = ({
                 }, 100);
               }}
               width={300}
-              height={290}
+              height={190}
               src="https://e0.pxfuel.com/wallpapers/1009/445/desktop-wallpaper-thor-movie-wide-poster-best.jpg"
-              className={`object-contain md:rounded m-0 transition-all ${
+              className={`object-contain md:rounded m-0 transition-all  ${
                 touch && touchedIndex === index ? 'opacity-60' : ''
               }`}
               alt="poster"
