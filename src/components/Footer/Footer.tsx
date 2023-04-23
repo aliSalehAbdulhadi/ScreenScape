@@ -39,12 +39,13 @@ const footerCol = [
 
 const Footer = () => {
   return (
-    <div className="text-white  flex items-center justify-center flex-col sm:flex-row min-h-[15vh]  w-fit mx-5 sm:mx-10 my-5 sm:my-0">
+    <div className="text-white transition-all  flex items-center justify-center flex-col sm:flex-row min-h-[15vh]  w-fit mx-5 sm:mx-10 my-5 sm:my-0">
       <div className="sm:mr-[5rem] sm:mb-0 pb-5">
         <span className="text-secondary font-averia text-xl semiSm:text-2xl">
           ScreenSpace
         </span>
-        <div className="flex items-center justify-around mt-2 opacity-80 ">
+        <div className="flex items-center justify-around mt-2 opacity-80 hidden">
+
           <GrFacebookOption className="cursor-pointer " size={20} />
           <GrInstagram className="cursor-pointer " size={20} />
           <GrTwitter className="cursor-pointer " size={20} />

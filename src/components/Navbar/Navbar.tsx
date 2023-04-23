@@ -49,6 +49,7 @@ const Navbar = () => {
     if (!searchText && firstSearch && goBack) {
       router.back();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, searchText, firstSearch]);
 
   useEffect(() => {
@@ -67,6 +68,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener('keydown', keydownHandler);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

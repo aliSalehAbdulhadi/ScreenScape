@@ -1,11 +1,8 @@
 'use client';
 
-import { Suspense, lazy, useEffect, useState } from 'react';
-import LoadingCardsGrid from '../../LoadingComponent/LoadingCardsGrid/LoadingCardsGrid';
-
-const DisplaySlider = lazy(
-  () => import('../../Sliders/DisplaySlider/DisplaySlider')
-);
+import { useEffect, useState } from 'react';
+import { IoIosArrowUp } from 'react-icons/io';
+import DisplaySlider from '../../Sliders/DisplaySlider/DisplaySlider';
 
 const movieGenres = [
   { id: 28, name: 'Action' },
@@ -34,7 +31,7 @@ const DisplayComp = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col">
       {movieGenres.map((genre, i) => {
         // to re-render the component to hide the last line
         i++;
@@ -48,18 +45,16 @@ const DisplayComp = () => {
                 {genre.name}
               </span>
 
-              <Suspense fallback={<LoadingCardsGrid />}>
-                <div className=" transition-all ">
-                  <DisplaySlider
-                    index={i}
-                    setSlidersInView={setSlidersInView}
-                    slidersInView={slidersInView}
-                  />
-                </div>
-              </Suspense>
+              <div className=" transition-all ">
+                <DisplaySlider
+                  index={i}
+                  setSlidersInView={setSlidersInView}
+                  slidersInView={slidersInView}
+                />
+              </div>
 
               <div
-                className={`h-[1px] w-[80%] bg-secondary mt-2 md:mt-10 self-center bg-opacity-50 ${
+                className={`h-[1px] w-[80%] bg-secondary mt-2 md:mt-10 self-center bg-opacity-50 fade-in ${
                   movieGenres.length === i ? 'hidden' : ''
                 }`}
               />
@@ -67,6 +62,15 @@ const DisplayComp = () => {
           );
         }
       })}
+
+      <div
+        onClick={() => setSlidersInView(slidersInView + 4)}
+        className={`self-center  ${
+          slidersInView < movieGenres.length ? '' : 'hidden'
+        } py-1 px-1 rotate-180 rounded-full bg-white bg-opacity-10 text-white border-[2px] border-opacity-10 border-white text-xs text-opacity-70 mt-5 cursor-pointer hover:opacity-90 transition-all`}
+      >
+        <IoIosArrowUp className="h-5 w-5 md:w-6 md:h-6" />
+      </div>
     </div>
   );
 };
