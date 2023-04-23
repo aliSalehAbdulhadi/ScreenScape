@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import GridComp from '@/src/components/GridComp/GridComp';
 import DelayDisplay from '../DelayDisplay/DelayDisplay';
