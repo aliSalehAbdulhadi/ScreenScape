@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
-
 const HoverExpand = lazy(() => import('../../../HoverExpand/HoverExpand'));
 
 const DisplaySliderContent = ({
@@ -58,7 +57,7 @@ const DisplaySliderContent = ({
         </div>
       ) : (
         <Link href="/browse/sss">
-          <div className="max-w-[300px] max-h-[190px]">
+          <div>
             <Image
               onTouchStart={() => {
                 setTouch(true);

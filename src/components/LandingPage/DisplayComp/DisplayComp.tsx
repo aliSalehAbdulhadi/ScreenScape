@@ -38,7 +38,7 @@ const DisplayComp = () => {
       {movieGenres.map((genre, i) => {
         // to re-render the component to hide the last line
         i++;
-        if (slidersInView >= i) {
+        if (slidersInView >= i - 1) {
           return (
             <div
               key={genre.id + i}

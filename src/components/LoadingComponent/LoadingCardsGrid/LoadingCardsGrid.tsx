@@ -4,7 +4,7 @@ import LoadingCard from '../LoadingCard/LoadingCard';
 const LoadingCardsGrid = () => {
   const myArray = [1, 2, 3, 4, 5, 6];
   return (
-    <div className="flex items-center h-full overflow-hidden ml-3 xs:ml-9">
+    <div className="flex items-center overflow-hidden ml-3 xs:ml-9 ">
       {myArray.map((_, i) => {
         return (
           <div

@@ -3,9 +3,9 @@ import React from 'react';
 const LoadingCard = ({ className }: { className?: string }) => {
   return (
     <div
-      className={`w-[8rem] xxxs:w-[12rem] xs:w-[14rem] xl:w-[18rem]  mx-2 h-full mb-8 ${className}`}
+      className={`w-[8rem] xxxs:w-[12rem] xs:w-[14rem] xl:w-[18rem]  mx-2 h-full ${className}`}
     >
-      <div className="bg-gray-800 rounded shadow-lg overflow-hidden h-[4.5rem] xxxs:h-[7rem] xl:h-[10rem]">
+      <div className="bg-gray-800 rounded shadow-lg overflow-hidden h-[4.5rem] xxxs:h-[6.5rem] xl:h-[10rem]">
         <div className="relative pb-2/3">
           <div className="absolute inset-0">
             <div className="w-full h-full bg-gray-800 animate-pulse"></div>

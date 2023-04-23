@@ -44,11 +44,11 @@ const Footer = () => {
         <span className="text-secondary font-averia text-xl semiSm:text-2xl">
           ScreenSpace
         </span>
-        <div className="flex items-center justify-around mt-2 opacity-80">
-          <GrFacebookOption className="cursor-pointer" size={20} />
-          <GrInstagram className="cursor-pointer" size={20} />
-          <GrTwitter className="cursor-pointer" size={20} />
-          <GrYoutube className="cursor-pointer" size={20} />
+        <div className="flex items-center justify-around mt-2 opacity-80 ">
+          <GrFacebookOption className="cursor-pointer " size={20} />
+          <GrInstagram className="cursor-pointer " size={20} />
+          <GrTwitter className="cursor-pointer " size={20} />
+          <GrYoutube className="cursor-pointer " size={20} />
         </div>
       </div>
       <div className="grid grid-cols-3 grid-rows-3 gap-x-12 gap-y-1  semiSm:gap-x-24 semiSm:gap-y-3 text-xs semiSm:text-sm text-offWhite text-opacity-50 font-light ">

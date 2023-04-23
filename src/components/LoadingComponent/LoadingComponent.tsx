@@ -10,7 +10,7 @@ const LoadingComponent = ({ children }: { children: React.ReactNode }) => {
     setIsClientSide(true);
   }, []);
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full z-[2]">
       {isClientSide ? children : <LoadingSpinner />}
     </div>
   );
