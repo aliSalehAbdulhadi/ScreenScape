@@ -19,7 +19,9 @@ const LandingPage = () => {
         </Suspense>
 
         <div className="w-[100%]">
-          <DisplayComp />
+          <Suspense>
+            <DisplayComp />
+          </Suspense>
         </div>
       </LoadingComponent>
     </div>

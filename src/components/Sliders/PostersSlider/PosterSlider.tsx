@@ -1,5 +1,5 @@
 'use client';
-import SwiperCore, { Autoplay, Navigation, Pagination, Lazy } from 'swiper';
+import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
@@ -9,7 +9,7 @@ import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
-SwiperCore.use([Navigation, Autoplay, Lazy]);
+SwiperCore.use([Navigation, Autoplay]);
 
 const PosterSlider = () => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
@@ -41,7 +41,7 @@ const PosterSlider = () => {
         <Swiper
           modules={[Autoplay, Pagination]}
           style={swiperStyle}
-          //@ts-ignore
+          // @ts-ignore
           lazy={{
             loadPrevNext: true,
             loadPrevNextAmount: 2,

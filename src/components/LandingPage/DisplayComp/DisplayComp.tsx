@@ -1,13 +1,11 @@
 'use client';
 
-
 import { Suspense, lazy, useEffect, useState } from 'react';
 import LoadingCardsGrid from '../../LoadingComponent/LoadingCardsGrid/LoadingCardsGrid';
 
 const DisplaySlider = lazy(
   () => import('../../Sliders/DisplaySlider/DisplaySlider')
 );
-
 
 const movieGenres = [
   { id: 28, name: 'Action' },
@@ -40,18 +38,15 @@ const DisplayComp = () => {
       {movieGenres.map((genre, i) => {
         // to re-render the component to hide the last line
         i++;
-        if (slidersInView >= i) {
+        if (slidersInView >= i - 1) {
           return (
             <div
-
               key={genre.id + i}
-
               className=" mt-5 semiSm:mt-10 w-[100%]  flex flex-col transition-all"
             >
               <span className=" ml-5 semiSm:ml-10 text-opacity-75 semiSm:text-opacity-100 semiSm:text semiSm:text-xl md:text-2xl mb-3 text-secondary fade-in ">
                 {genre.name}
               </span>
-
 
               <Suspense fallback={<LoadingCardsGrid />}>
                 <div className=" transition-all ">

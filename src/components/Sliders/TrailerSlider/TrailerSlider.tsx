@@ -5,7 +5,6 @@ import SwiperCore, {
   EffectCoverflow,
   Navigation,
   Pagination,
-  Lazy,
 } from 'swiper';
 import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 
@@ -21,7 +20,7 @@ import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
 
 const VideoPlayer = lazy(() => import('../../VideoPlayer/VideoPlayer'));
 
-SwiperCore.use([Navigation, Autoplay, Lazy]);
+SwiperCore.use([Navigation, Autoplay]);
 
 const TrailerSlider = () => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
@@ -180,16 +179,18 @@ const TrailerSlider = () => {
                       </div>
                     </Suspense>
                   ) : (
-                    <Suspense>
+                    <div>
                       <Image
                         width={1100}
                         height={500}
                         src={image.url}
                         className=" object-fit md:rounded-lg "
                         alt="poster"
-                        loading="lazy"
+                        loading="eager"
+                        priority={true}
+                        blurDataURL={image.url}
                       />
-                    </Suspense>
+                    </div>
                   )}
 
                   <div className={`absolute top-0  left-0 h-full w-full `}>

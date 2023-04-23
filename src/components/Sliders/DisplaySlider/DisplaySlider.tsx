@@ -1,14 +1,7 @@
 'use client';
-import SwiperCore, { Navigation, Pagination, Lazy } from 'swiper';
+import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import {
-  Dispatch,
-  SetStateAction,
-  lazy,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
 import { useInViewport } from 'react-in-viewport';
 import 'swiper/swiper-bundle.css';
@@ -19,7 +12,7 @@ import DisplaySliderContent from './DisplaySliderContent/DisplaySliderContent';
 
 import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 
-SwiperCore.use([Navigation, Lazy]);
+SwiperCore.use([Navigation]);
 
 const DisplaySlider = ({
   index,
@@ -152,7 +145,7 @@ const DisplaySlider = ({
         <Swiper
           className={`!pl-5 xs:!pl-10 lg:!overflow-visible`}
           // @ts-ignore
-          modules={[Pagination, lazy]}
+          modules={[Pagination]}
           pagination={showPag}
           draggable={false}
           // @ts-ignore
