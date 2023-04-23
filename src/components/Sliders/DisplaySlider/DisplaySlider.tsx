@@ -1,16 +1,27 @@
 'use client';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  Suspense,
+  lazy,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
 import { useInViewport } from 'react-in-viewport';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
-import DisplaySliderContent from './DisplaySliderContent/DisplaySliderContent';
-
 import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import LoadingCard from '../../LoadingComponent/LoadingCard/LoadingCard';
+
+const DisplaySliderContent = lazy(
+  () => import('./DisplaySliderContent/DisplaySliderContent')
+);
 
 SwiperCore.use([Navigation]);
 
@@ -38,10 +49,6 @@ const DisplaySlider = ({
   const { inViewport } = useInViewport(inViewPortRef);
 
   const images = [
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
     { url: '/images/x0pqq.jpg' },
     { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
     {
@@ -91,7 +98,7 @@ const DisplaySlider = ({
   useEffect(() => {
     // lazy loading display components
     if (inViewport && index >= slidersInView) {
-      setSlidersInView(slidersInView + 2);
+      setSlidersInView(slidersInView + 4);
     }
   }, [slidersInView, inViewport, index, setSlidersInView]);
 
@@ -178,11 +185,15 @@ const DisplaySlider = ({
               <SwiperSlide
                 onMouseEnter={() => setHoveredIndex(i)}
                 key={image.url + i}
-                className={`relative`}
               >
-                <DelayDisplay delay={i < 8 ? i * 100 : 0}>
-                  <DisplaySliderContent index={i} hoveredIndex={hoveredIndex} />
-                </DelayDisplay>
+                <Suspense fallback={<LoadingCard />}>
+                  <DelayDisplay delay={i < 8 ? i * 100 : 0}>
+                    <DisplaySliderContent
+                      index={i}
+                      hoveredIndex={hoveredIndex}
+                    />
+                  </DelayDisplay>
+                </Suspense>
               </SwiperSlide>
             );
           })}

@@ -10,19 +10,19 @@ const DisplayComp = dynamic(() => import('./DisplayComp/DisplayComp'));
 
 const LandingPage = () => {
   return (
-    <div className="flex flex-col items-center background-fade md:py-[6rem]">
+    <div className="flex flex-col items-center background-fade md:py-[6rem] fade-in">
       <LoadingComponent>
         <Suspense>
-          <div className="w-[100%] fade-in">
+          <div className="w-[100%]">
             <TrailerSlider />
           </div>
         </Suspense>
 
-        <div className="w-[100%]">
-          <Suspense>
+        <Suspense>
+          <div className="w-[100%]">
             <DisplayComp />
-          </Suspense>
-        </div>
+          </div>
+        </Suspense>
       </LoadingComponent>
     </div>
   );

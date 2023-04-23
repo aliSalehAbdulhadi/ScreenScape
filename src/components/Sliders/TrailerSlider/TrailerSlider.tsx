@@ -7,7 +7,6 @@ import SwiperCore, {
   Pagination,
 } from 'swiper';
 import { Suspense, lazy, useEffect, useRef, useState } from 'react';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
