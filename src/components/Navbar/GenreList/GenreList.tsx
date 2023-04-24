@@ -1,8 +1,11 @@
 import useClickOutside from '@/src/hooks/useClickOutside';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoMdArrowDropright } from 'react-icons/io';
+import GenreCard from './GenreCard/GenreCard';
+import GridComp from '../../GridComp/GridComp';
+import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 
-const GenreDropDownMenu = () => {
+const GenreList = () => {
   const [genre, setGenre] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
   const [hoverAnimation, setHoverAnimation] = useState<boolean>(false);
@@ -23,15 +26,23 @@ const GenreDropDownMenu = () => {
     { title: 'Mystery', value: 9648 },
     { title: 'Romance', value: 10749 },
     { title: 'Science Fiction', value: 878 },
-    { title: 'TV Movie', value: 10770 },
     { title: 'Thriller', value: 53 },
     { title: 'War', value: 10752 },
-    { title: 'Western', value: 37 },
   ];
 
   const genreRef = useClickOutside(() => {
     setOpen(false);
   });
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflowY = 'hidden';
+      document.body.style.overflowX = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+      document.body.style.overflowX = 'hidden';
+    }
+  }, [open]);
 
   return (
     <div className="text-offWhite">
@@ -54,24 +65,28 @@ const GenreDropDownMenu = () => {
       <div
         className={`${
           !open ? 'hidden' : ''
-        }  fixed inset-0 w-full left-1/2 transform -translate-x-1/2 py-2 rounded flex flex-col items-center justify-center bg-primary bg-opacity-60 bg-blur transition-all z-10`}
+        }  fixed inset-0 w-full left-1/2 transform -translate-x-1/2 py-2 rounded  bg-primary bg-opacity-90 bg-blur transition-all z-10 px-10 overflow-auto`}
       >
-        <div ref={genreRef}>
-          {movieGenres.map((genre) => {
-            return (
-              <div
-                className="py-2 cursor-pointer text-lg text-center  hover:text-opacity-80 text-white transition-all"
-                key={genre.value}
-                onClick={() => setGenre(genre.title)}
-              >
-                {genre.title}
-              </div>
-            );
-          })}
+        <div className="fade-in pt-10 ">
+          <GridComp title="Search by Genre" wide={true}>
+            {movieGenres.map((genre, i) => {
+              return (
+                <DelayDisplay key={genre.value} delay={i * 50}>
+                  <div
+                    ref={genreRef}
+                    className=" cursor-pointer  rounded overflow-hidden hover:text-opacity-80 text-white transition-all"
+                    onClick={() => setGenre(genre.title)}
+                  >
+                    <GenreCard genre={genre} />
+                  </div>
+                </DelayDisplay>
+              );
+            })}
+          </GridComp>
         </div>
       </div>
     </div>
   );
 };
 
-export default GenreDropDownMenu;
+export default GenreList;

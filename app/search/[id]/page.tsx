@@ -7,7 +7,7 @@ const SearchPage = dynamic(
 
 const Search = () => {
   return (
-    <Suspense fallback={<div>loading</div>}>
+    <Suspense>
       <SearchPage />
     </Suspense>
   );

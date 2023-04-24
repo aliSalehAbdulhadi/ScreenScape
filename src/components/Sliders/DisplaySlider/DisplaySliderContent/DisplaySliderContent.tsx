@@ -7,9 +7,11 @@ import useWindowSize from '@/src/hooks/useWindowsSize';
 const HoverExpand = lazy(() => import('../../../HoverExpand/HoverExpand'));
 
 const DisplaySliderContent = ({
+  imageUrl,
   index,
   hoveredIndex,
 }: {
+  imageUrl: string;
   index: number;
   hoveredIndex: number;
 }) => {
@@ -36,7 +38,7 @@ const DisplaySliderContent = ({
           <Image
             width={300}
             height={190}
-            src="https://e0.pxfuel.com/wallpapers/1009/445/desktop-wallpaper-thor-movie-wide-poster-best.jpg"
+            src={imageUrl}
             className=" object-contain md:rounded m-0 cursor-pointer "
             alt="poster"
             loading="lazy"
@@ -70,7 +72,7 @@ const DisplaySliderContent = ({
               }}
               width={300}
               height={190}
-              src="https://e0.pxfuel.com/wallpapers/1009/445/desktop-wallpaper-thor-movie-wide-poster-best.jpg"
+              src={imageUrl}
               className={`object-contain md:rounded m-0 transition-all  ${
                 touch && touchedIndex === index ? 'opacity-60' : ''
               }`}

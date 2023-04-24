@@ -12,9 +12,7 @@ import { useScrollY } from '@/src/hooks/useScrollY';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
 const BurgerList = lazy(() => import('./BurgerList.tsx/BurgerList'));
-const GenreDropDownMenu = lazy(
-  () => import('./GenreDropDownMenu/GenreDropDownMenu')
-);
+const GenreList = lazy(() => import('./GenreList/GenreList'));
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState<string>('');
@@ -34,6 +32,16 @@ const Navbar = () => {
 
   const scrollY: any = useScrollY();
   const width = useWindowSize();
+
+  useEffect(() => {
+    if (burgerOpen) {
+      document.body.style.overflowY = 'hidden';
+      document.body.style.overflowX = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+      document.body.style.overflowX = 'hidden';
+    }
+  }, [burgerOpen]);
 
   useEffect(() => {
     if (focusSearchBar && inputRef.current) {
@@ -141,7 +149,7 @@ const Navbar = () => {
 
         <div className="ml-3 semiSm:block hidden">
           <Suspense>
-            <GenreDropDownMenu />
+            <GenreList />
           </Suspense>
         </div>
       </div>

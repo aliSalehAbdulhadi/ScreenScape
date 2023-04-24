@@ -18,7 +18,9 @@ const SingleGenres = ({
       {genres.map((genre) => (
         <span
           key={genre}
-          className={`${underLine ? 'underline' : ''} cursor-pointer`}
+          className={`${
+            underLine ? 'underline' : ''
+          } cursor-pointer hover:opacity-90 transition-all`}
         >
           {genre}
         </span>
