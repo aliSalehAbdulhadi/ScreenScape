@@ -1,7 +1,8 @@
 import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
-import { Suspense, lazy } from 'react';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
-const TitleSinglePage = lazy(
+const TitleSinglePage = dynamic(
   () => import('@/src/components/TitleSinglePage/TitleSinglePage')
 );
 

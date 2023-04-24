@@ -1,5 +1,7 @@
 import { Roboto } from 'next/font/google';
 import { Averia_Serif_Libre } from 'next/font/google';
+import { Inter } from 'next/font/google';
+
 import './globals.css';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
@@ -9,6 +11,12 @@ const Footer = dynamic(() => import('@/src/components/Footer/Footer'));
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
+  subsets: ['latin'],
+  variable: '--font-roboto',
+});
+
+const inter = Inter({
+  weight: ['100', '300', '400', '400', '700', '900'],
   subsets: ['latin'],
   variable: '--font-roboto',
 });
@@ -32,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} ${roboto.variable} ${averia.variable} flex flex-col  bg-primary  select-none`}
+        className={`${inter.className} ${roboto.variable} ${averia.variable} flex flex-col  bg-primary  select-none`}
       >
         <Suspense
           fallback={<div className="bgFadeInEnter w-full h-[7vh]"></div>}

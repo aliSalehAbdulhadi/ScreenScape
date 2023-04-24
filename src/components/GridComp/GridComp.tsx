@@ -5,11 +5,13 @@ const GridComp = ({
   title,
   changeableTitle = '',
   className = '',
+  wide = false,
 }: {
   children: ReactNode;
   title?: string;
   className?: String;
   changeableTitle?: string;
+  wide?: boolean;
 }) => {
   return (
     <div className={`flex flex-col ${className}`}>
@@ -26,7 +28,11 @@ const GridComp = ({
           ''
         )}
       </div>
-      <div className="mt-5 grid grid-cols-fluid gap-2 place-items-center semiSm:place-items-start ">
+      <div
+        className={`mt-5 grid gap-2 place-items-center semiSm:place-items-start ${
+          wide ? 'grid-cols-fluidWide' : 'grid-cols-fluid'
+        } `}
+      >
         {children}
       </div>
     </div>

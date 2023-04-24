@@ -192,6 +192,7 @@ const DisplaySlider = ({
                 <Suspense>
                   <DelayDisplay delay={i < 8 ? i * 100 : 0}>
                     <DisplaySliderContent
+                      imageUrl={image.url}
                       index={i}
                       hoveredIndex={hoveredIndex}
                     />

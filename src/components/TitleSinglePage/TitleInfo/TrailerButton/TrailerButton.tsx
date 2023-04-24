@@ -38,7 +38,7 @@ const TrailerButton = () => {
       </button>
       <PlusButton size={25} />
       <div
-        className={`fixed inset-0  w-full h-[100vh] z-50 bg-primary bg-opacity-60 bg-blur   ${
+        className={`fixed inset-0  w-full h-[100vh] z-50 bg-primary bg-opacity-90 bg-blur   ${
           openTrailer ? '' : 'pointer-events-none hidden'
         }`}
       >
@@ -47,7 +47,7 @@ const TrailerButton = () => {
             onClick={() => setOpenTrailer(false)}
             className="w-full h-full flex items-center justify-center"
           >
-            <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]">
+            <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%] ">
               <Suspense>
                 <VideoPlayer
                   controls={true}

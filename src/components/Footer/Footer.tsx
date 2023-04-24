@@ -44,8 +44,7 @@ const Footer = () => {
         <span className="text-secondary font-averia text-xl semiSm:text-2xl">
           ScreenSpace
         </span>
-        <div className="flex items-center justify-around mt-2 opacity-80 hidden">
-
+        <div className=" items-center justify-around mt-2 opacity-80 hidden">
           <GrFacebookOption className="cursor-pointer " size={20} />
           <GrInstagram className="cursor-pointer " size={20} />
           <GrTwitter className="cursor-pointer " size={20} />

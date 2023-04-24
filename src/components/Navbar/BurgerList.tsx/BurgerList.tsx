@@ -32,7 +32,7 @@ const BurgerList = ({
 
   return (
     <div className="w-full flex text-offWhite text-opacity-75 ">
-      <div className=" pl-5 font-[500]   bg-primary w-[50vw] overflow-scroll h-[100vh]  sm:w-[35vw] md:w-[30vw] ">
+      <div className=" pl-5 pt-5 font-[500] burgerOpenAnimation  bg-primary w-[50vw] overflow-scroll scrollBar h-[100vh]  sm:w-[35vw] md:w-[30vw] ">
         <div className="flex flex-col">
           <div className="flex flex-col items-start ">
             <div className="cursor-pointer hover:text-opacity-80  transition-all mb-3">
@@ -43,7 +43,10 @@ const BurgerList = ({
             </div>
           </div>
 
-          <div className="h-[1px] bg-secondary bg-opacity-60  mr-5 my-3"></div>
+          <div className="flex items-center justify-between my-5">
+            <span className="text-secondary">Links</span>
+            <div className="h-[1px] w-[50%] xxxs:w-[60%] bg-secondary bg-opacity-60 "></div>
+          </div>
 
           <Link
             href={'/'}
@@ -60,11 +63,14 @@ const BurgerList = ({
           <div className="cursor-pointer mb-3 hover:text-opacity-80  transition-all">
             Actors
           </div>
-          <div className="cursor-pointer mb-3 hover:text-opacity-80  transition-all">
+          <div className="cursor-pointer hover:text-opacity-80  transition-all">
             My List
           </div>
 
-          <div className="h-[1px] bg-secondary bg-opacity-60  mr-5 my-3"></div>
+          <div className="flex items-center justify-between my-5">
+            <span className="text-secondary">Genres</span>
+            <div className="h-[1px] w-[50%] xxxs:w-[60%] bg-secondary bg-opacity-60 "></div>
+          </div>
 
           <div className="h-[120vh]">
             {movieGenres.map((genre) => {
@@ -83,7 +89,7 @@ const BurgerList = ({
       </div>
       <div
         onClick={() => setBurgerOpen(false)}
-        className="w-[50vw] sm:w-[65vw] md:w-[70vw] bg-primary bg-opacity-60 burger-blur "
+        className="w-[50vw] sm:w-[65vw] md:w-[70vw] burgerLayoutOpenAnimation bg-primary bg-opacity-60 burger-blur "
       />
     </div>
   );
