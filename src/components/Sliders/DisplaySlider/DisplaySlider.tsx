@@ -189,7 +189,7 @@ const DisplaySlider = ({
                 key={image.url + i}
                 className=""
               >
-                <Suspense fallback={<LoadingCard />}>
+                <Suspense>
                   <DelayDisplay delay={i < 8 ? i * 100 : 0}>
                     <DisplaySliderContent
                       imageUrl={image.url}
