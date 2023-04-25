@@ -3,6 +3,7 @@ import { News } from '../News/News';
 import { TitleCast } from './TitleCast/TitleCast';
 import TitleRelated from './TitleRelated/TitleRelated';
 import BackgroundOverlay from './TitleInfo/BackgroundOverlay/BackgroundOverlay';
+import ShowCertainLength from '../ShowCertainLength/ShowCertianLength';
 
 const TitleSinglePage = () => {
   return (
@@ -16,16 +17,19 @@ const TitleSinglePage = () => {
         </div>
       </BackgroundOverlay>
 
-      <div className="mt-14 flex flex-col semiSm:flex-row w-full justify-between px-2 xxxs:px-5 sm:px-10">
-        <div className=" semiSm:w-[45%]">
-          <TitleCast />
-        </div>
+      <div className="px-2 xxxs:px-5 sm:px-10 w-full">
+        <ShowCertainLength>
+          <div className="mt-14 flex flex-col semiSm:flex-row  justify-between ">
+            <div className=" semiSm:w-[45%]">
+              <TitleCast />
+            </div>
 
-        <div className="semiSm:w-[45%] mt-10 semiSm:mt-0">
-          <TitleRelated />
-        </div>
+            <div className="semiSm:w-[45%] mt-10 semiSm:mt-0">
+              <TitleRelated />
+            </div>
+          </div>
+        </ShowCertainLength>
       </div>
-
       <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden sm:px-10">
         <News />
       </div>

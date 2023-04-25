@@ -1,10 +1,16 @@
+'use client';
+
 import Link from 'next/link';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 const BurgerList = ({
+  closeAnimation,
   setBurgerOpen,
+  setCloseAnimation,
 }: {
+  closeAnimation: boolean;
   setBurgerOpen: Dispatch<SetStateAction<boolean>>;
+  setCloseAnimation: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [genre, setGenre] = useState<string>('');
 
@@ -30,9 +36,23 @@ const BurgerList = ({
     { title: 'Western', value: 37 },
   ];
 
+  useEffect(() => {
+    if (closeAnimation) {
+      setTimeout(() => {
+        setBurgerOpen(false);
+        setCloseAnimation(false);
+      }, 190);
+    }
+  }, [closeAnimation, setBurgerOpen]);
+
   return (
     <div className="w-full flex text-offWhite text-opacity-75 ">
-      <div className=" pl-5 pt-5 font-[500] burgerOpenAnimation  bg-primary w-[50vw] overflow-scroll scrollBar h-[100vh]  sm:w-[35vw] md:w-[30vw] ">
+      <div
+        className={`pl-5 pt-5 font-[500] burgerOpenAnimation  bg-primary w-[50vw] overflow-scroll scrollBar h-[100vh]  sm:w-[35vw] md:w-[30vw] ${
+          closeAnimation ? 'burgerCloseAnimation' : ''
+        }`}
+      >
+
         <div className="flex flex-col">
           <div className="flex flex-col items-start ">
             <div className="cursor-pointer hover:text-opacity-80  transition-all mb-3">
@@ -88,8 +108,11 @@ const BurgerList = ({
         </div>
       </div>
       <div
-        onClick={() => setBurgerOpen(false)}
-        className="w-[50vw] sm:w-[65vw] md:w-[70vw] burgerLayoutOpenAnimation bg-primary bg-opacity-60 burger-blur "
+        onClick={() => setCloseAnimation(true)}
+        className={`w-[50vw] sm:w-[65vw] md:w-[70vw] burgerLayoutOpenAnimation bg-primary bg-opacity-80 burger-blur ${
+          closeAnimation ? 'burgerLayoutCloseAnimation' : ''
+        }`}
+
       />
     </div>
   );

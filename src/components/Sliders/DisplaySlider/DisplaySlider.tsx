@@ -1,4 +1,5 @@
 'use client';
+
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
@@ -189,7 +190,13 @@ const DisplaySlider = ({
                 key={image.url + i}
                 className=""
               >
-                <Suspense>
+                <Suspense
+                  fallback={
+                    <div className="h-full">
+                      <LoadingCard />
+                    </div>
+                  }
+                >
                   <DelayDisplay delay={i < 8 ? i * 100 : 0}>
                     <DisplaySliderContent
                       imageUrl={image.url}

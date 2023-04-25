@@ -122,7 +122,7 @@ const TrailerSlider = () => {
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
-            depth: 150,
+            depth: 200,
             modifier: 3,
             slideShadows: true,
           }}

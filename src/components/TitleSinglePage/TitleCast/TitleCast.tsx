@@ -32,7 +32,7 @@ export const TitleCast = () => {
               width={150}
               height={150}
               alt="Actor Image"
-              className="h-[150px] w-[150px] object-fit"
+              className="h-[170px] w-[150px] object-fit"
             />
             <div className="ml-2 mt-2 flex flex-col">
               <span className="mt-2">{cast.name}</span>

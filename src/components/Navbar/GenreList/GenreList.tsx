@@ -1,3 +1,5 @@
+'use client';
+
 import useClickOutside from '@/src/hooks/useClickOutside';
 import { useEffect, useState } from 'react';
 import { IoMdArrowDropright } from 'react-icons/io';
@@ -8,6 +10,7 @@ import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 const GenreList = () => {
   const [genre, setGenre] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
+  const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
   const [hoverAnimation, setHoverAnimation] = useState<boolean>(false);
 
   const movieGenres = [
@@ -31,7 +34,13 @@ const GenreList = () => {
   ];
 
   const genreRef = useClickOutside(() => {
-    setOpen(false);
+    if (open) {
+      setCloseAnimation(true);
+      setTimeout(() => {
+        setOpen(false);
+        setCloseAnimation(false);
+      }, 190);
+    }
   });
 
   useEffect(() => {
@@ -65,9 +74,9 @@ const GenreList = () => {
       <div
         className={`${
           !open ? 'hidden' : ''
-        }  fixed inset-0 w-full left-1/2 transform -translate-x-1/2 py-2 rounded  bg-primary bg-opacity-90 bg-blur transition-all z-10 px-10 overflow-auto`}
+        }  fixed inset-0 w-full left-1/2 transform -translate-x-1/2 py-5 rounded  bg-primary bg-opacity-90 bg-blur transition-all z-10 px-10 overflow-y-auto`}
       >
-        <div className="fade-in pt-10 ">
+        <div className={`fade-in pt-10 ${closeAnimation ? 'fade-out' : ''}`}>
           <GridComp title="Search by Genre" wide={true}>
             {movieGenres.map((genre, i) => {
               return (

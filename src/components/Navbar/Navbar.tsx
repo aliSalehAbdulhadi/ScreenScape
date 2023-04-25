@@ -20,6 +20,7 @@ const Navbar = () => {
   const [goBack, setGoBack] = useState(true);
   const [focusSearchBar, setFocusSearchBar] = useState(false);
   const [burgerOpen, setBurgerOpen] = useState<boolean>(false);
+  const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
 
   const navBarRef = useClickOutside(() => {
     setFocusSearchBar(false);
@@ -79,6 +80,18 @@ const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const closeBurgerHandler = () => {
+    if (burgerOpen) {
+      setCloseAnimation(true);
+      setTimeout(() => {
+        setBurgerOpen(false);
+      }, 190);
+    } else {
+      setBurgerOpen(true);
+      setCloseAnimation(false);
+    }
+  };
+
   return (
     <div
       className={`h-[4rem]  flex items-center  justify-between px-5 semiSm:px-10 sticky top-0 z-10 bg-primary ${
@@ -89,10 +102,7 @@ const Navbar = () => {
     >
       <div className="flex items-center justify-between w-full semiSm:w-fit">
         <div className="w-fit flex items-center">
-          <div
-            onClick={() => setBurgerOpen(!burgerOpen)}
-            className=" semiSm:hidden"
-          >
+          <div onClick={closeBurgerHandler} className=" semiSm:hidden">
             <GiHamburgerMenu className="text-white w-5 h-5 xx:w-7 xxxs:h-7 mr-3 xxxs:mr-5" />
           </div>
           <Link
@@ -163,7 +173,11 @@ const Navbar = () => {
         }`}
       >
         <Suspense>
-          <BurgerList setBurgerOpen={setBurgerOpen} />
+          <BurgerList
+            closeAnimation={closeAnimation}
+            setCloseAnimation={setCloseAnimation}
+            setBurgerOpen={setBurgerOpen}
+          />
         </Suspense>
       </div>
     </div>
