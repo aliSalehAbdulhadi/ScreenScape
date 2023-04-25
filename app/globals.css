@@ -291,6 +291,20 @@ body {
   animation-duration: 0.5s;
 }
 
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation-name: fadeOut;
+  animation-duration: 0.2s;
+}
+
 .movie-page {
   position: relative;
 }
@@ -360,9 +374,11 @@ body {
 @keyframes burgerOpenAnimation {
   from {
     transform: translateX(-35rem);
+    opacity: 0;
   }
   to {
     transform: translateX(0rem);
+    opacity: 1;
   }
 }
 
@@ -373,8 +389,60 @@ body {
 @keyframes burgerLayoutOpenAnimation {
   from {
     transform: translateX(35rem);
+    opacity: 0;
   }
   to {
     transform: translateX(0rem);
+    opacity: 1;
   }
+}
+
+.burgerCloseAnimation {
+  animation: burgerCloseAnimation 0.2s linear;
+}
+
+@keyframes burgerCloseAnimation {
+  from {
+    transform: translateX(0rem);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-35rem);
+    opacity: 0;
+  }
+}
+
+.burgerLayoutCloseAnimation {
+  animation: burgerLayoutCloseAnimation 0.2s linear;
+}
+
+@keyframes burgerLayoutCloseAnimation {
+  from {
+    transform: translateX(0rem);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(35rem);
+    opacity: 0;
+  }
+}
+
+.shadow-top {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    z-index: 1;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1));
+  }
+}
+
+.transition-height {
+  transition-property: height;
+  transition-duration: 0.3s; /* adjust as needed */
+  transition-timing-function: ease-in-out; /* adjust as needed */
 }
