@@ -52,6 +52,7 @@ const BurgerList = ({
           closeAnimation ? 'burgerCloseAnimation' : ''
         }`}
       >
+
         <div className="flex flex-col">
           <div className="flex flex-col items-start ">
             <div className="cursor-pointer hover:text-opacity-80  transition-all mb-3">
@@ -111,6 +112,7 @@ const BurgerList = ({
         className={`w-[50vw] sm:w-[65vw] md:w-[70vw] burgerLayoutOpenAnimation bg-primary bg-opacity-80 burger-blur ${
           closeAnimation ? 'burgerLayoutCloseAnimation' : ''
         }`}
+
       />
     </div>
   );
