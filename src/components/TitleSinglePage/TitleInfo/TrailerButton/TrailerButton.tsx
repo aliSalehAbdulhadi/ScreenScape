@@ -27,6 +27,16 @@ const TrailerButton = () => {
     openTrailer && setStopTrailer(false);
   }, [openTrailer]);
 
+  useEffect(() => {
+    if (openTrailer) {
+      document.body.style.overflowY = 'hidden';
+      document.body.style.overflowX = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+      document.body.style.overflowX = 'hidden';
+    }
+  }, [openTrailer]);
+
   return (
     <div className=" flex self-start items-center transition-all">
       <button

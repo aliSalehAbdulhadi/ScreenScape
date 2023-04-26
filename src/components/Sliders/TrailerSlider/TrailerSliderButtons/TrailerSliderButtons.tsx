@@ -33,9 +33,9 @@ const TrailerSliderButtons = ({
           className={`flex flex-col visible ${isVideoReady || 'lg:invisible'}`}
         >
           <span className="text-white text-xl xs:text-3xl md:text-2xl xl:text-[2rem] font-bold">
-            Miday
+            The Equalizer 3
           </span>
-          <div className="mt-1 flex items-center">
+          <div className="mt-2 flex items-center">
             <Link href="/browse/sss">
               <div className="flex items-center rounded bg-white hover:bg-opacity-90 transition-all text-black px-2 py-[.40rem] xxxs:px-3 xxxs:py-2 md:px-2 md:py-[.40rem] xl:px-3 xl:py-2 ">
                 <GrCircleInformation className="mb-[2px] text-opacity-75 h-4 w-4  semiSm:h-5 semiSm:w-5" />

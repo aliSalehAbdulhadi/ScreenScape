@@ -52,6 +52,7 @@ const DisplaySliderContent = ({
                 index={index}
                 hoveredIndex={hoveredIndex}
                 trailerUrl="aaa"
+                imageUrl={imageUrl}
               />
             </div>
           </Suspense>
