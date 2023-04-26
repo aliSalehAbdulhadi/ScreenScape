@@ -25,15 +25,12 @@ const NavbarButtons = () => {
         </div>
       </div>
 
-      <div className="flex items-center">
-        <div className="cursor-pointer hover:text-opacity-80  transition-all">
-          Sign Up
-        </div>
-        <span className="mx-3">|</span>
-        <div className="cursor-pointer hover:text-opacity-80  transition-all">
-          Sign In
-        </div>
-      </div>
+      <Link
+        href="/auth"
+        className="cursor-pointer hover:text-opacity-80  transition-all"
+      >
+        Login In
+      </Link>
     </div>
   );
 };

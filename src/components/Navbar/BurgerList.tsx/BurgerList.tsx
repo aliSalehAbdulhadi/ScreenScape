@@ -43,49 +43,35 @@ const BurgerList = ({
         setCloseAnimation(false);
       }, 190);
     }
-  }, [closeAnimation, setBurgerOpen]);
+  }, [closeAnimation, setBurgerOpen, setCloseAnimation]);
 
   return (
-    <div className="w-full flex text-offWhite text-opacity-75 ">
+    <div
+      onClick={() => setCloseAnimation(true)}
+      className="w-full flex text-offWhite text-opacity-75 "
+    >
       <div
         className={`pl-5 pt-5 font-[500] burgerOpenAnimation  bg-primary w-[50vw] overflow-scroll scrollBar h-[100vh]  sm:w-[35vw] md:w-[30vw] ${
           closeAnimation ? 'burgerCloseAnimation' : ''
         }`}
       >
-
         <div className="flex flex-col">
-          <div className="flex flex-col items-start ">
-            <div className="cursor-pointer hover:text-opacity-80  transition-all mb-3">
-              Sign Up
-            </div>
-            <div className="cursor-pointer hover:text-opacity-80  transition-all">
-              Sign In
-            </div>
-          </div>
+          <Link href="/auth">
+            <div className="">Log In</div>
+          </Link>
 
           <div className="flex items-center justify-between my-5">
             <span className="text-secondary">Links</span>
             <div className="h-[1px] w-[50%] xxxs:w-[60%] bg-secondary bg-opacity-60 "></div>
           </div>
 
-          <Link
-            href={'/'}
-            className="cursor-pointer mb-3 hover:text-opacity-80  transition-all"
-          >
+          <Link href={'/'} className="mb-3">
             Home
           </Link>
-          <div className="cursor-pointer mb-3 hover:text-opacity-80  transition-all">
-            Movies
-          </div>
-          <div className="cursor-pointer mb-3 hover:text-opacity-80  transition-all">
-            TV Shows
-          </div>
-          <div className="cursor-pointer mb-3 hover:text-opacity-80  transition-all">
-            Actors
-          </div>
-          <div className="cursor-pointer hover:text-opacity-80  transition-all">
-            My List
-          </div>
+          <div className="mb-3">Movies</div>
+          <div className="mb-3">TV Shows</div>
+          <div className="mb-3">Actors</div>
+          <div className="">My List</div>
 
           <div className="flex items-center justify-between my-5">
             <span className="text-secondary">Genres</span>
@@ -112,7 +98,6 @@ const BurgerList = ({
         className={`w-[50vw] sm:w-[65vw] md:w-[70vw] burgerLayoutOpenAnimation bg-primary bg-opacity-80 burger-blur ${
           closeAnimation ? 'burgerLayoutCloseAnimation' : ''
         }`}
-
       />
     </div>
   );

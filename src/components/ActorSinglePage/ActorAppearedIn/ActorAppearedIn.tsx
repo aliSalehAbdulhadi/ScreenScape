@@ -15,6 +15,7 @@ const ActorAppearedIn = () => {
     { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
     { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
   ];
+
   return (
     <GridComp title="Appeared In">
       {images.map((cast, i) => (

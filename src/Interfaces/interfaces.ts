@@ -15,3 +15,8 @@ export interface videoPlayerInterface {
   height?: string;
   width?: string;
 }
+
+export interface SignInInterface {
+  email: string;
+  password: string;
+}
