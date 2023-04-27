@@ -7,7 +7,7 @@ const SingleGenres = ({
 }: {
   className?: string;
   underLine?: boolean;
-  genres: [];
+  genres?: [];
 }) => {
   return (
     <div
