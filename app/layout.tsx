@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+import { Providers } from '@/src/redux/store/provider';
 
 const Navbar = dynamic(() => import('@/src/components/Navbar/Navbar'));
 const Footer = dynamic(() => import('@/src/components/Footer/Footer'));
@@ -49,7 +50,8 @@ export default function RootLayout({
           <Navbar />
         </Suspense>
 
-        {children}
+        <Providers>{children}</Providers>
+
         <Suspense>
           <div className="self-center">
             <Footer />

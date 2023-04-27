@@ -5,6 +5,7 @@ import { HiMail } from 'react-icons/hi';
 import { BsShieldLockFill } from 'react-icons/bs';
 import { ImSpinner8 } from 'react-icons/im';
 import useClickOutside from '@/src/hooks/useClickOutside';
+import { FaUserAlt } from 'react-icons/fa';
 
 const SignUpSchema = Yup.object().shape({
   username: Yup.string().required('Please enter your username'),
@@ -78,7 +79,7 @@ const SignUp = () => {
                   >
                     Username
                   </label>
-                  <HiMail className=" absolute right-3 top-[13px] text-white text-opacity-30 h-[22px] w-[22px]" />
+                  <FaUserAlt className=" absolute right-3 top-[13px] text-white text-opacity-30 h-[20px] w-[20px]" />
                 </div>
                 <Field
                   innerRef={usernameRef}

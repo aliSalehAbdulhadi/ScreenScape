@@ -6,11 +6,11 @@ import useWindowSize from '@/src/hooks/useWindowsSize';
 const HoverExpand = lazy(() => import('../../../HoverExpand/HoverExpand'));
 
 const DisplaySliderContent = ({
-  imageUrl,
+  title,
   index,
   hoveredIndex,
 }: {
-  imageUrl: string;
+  title: any;
   index: number;
   hoveredIndex: number;
 }) => {
@@ -37,7 +37,7 @@ const DisplaySliderContent = ({
           <Image
             width={300}
             height={190}
-            src={imageUrl}
+            src={process.env.NEXT_PUBLIC_IMAGE_LINK + title?.backdrop_path}
             className=" object-contain md:rounded m-0 cursor-pointer "
             alt="poster"
             loading="lazy"
@@ -51,8 +51,7 @@ const DisplaySliderContent = ({
               <HoverExpand
                 index={index}
                 hoveredIndex={hoveredIndex}
-                trailerUrl="aaa"
-                imageUrl={imageUrl}
+                titleId={title.id}
               />
             </div>
           </Suspense>
@@ -72,7 +71,7 @@ const DisplaySliderContent = ({
               }}
               width={300}
               height={190}
-              src={imageUrl}
+              src={process.env.NEXT_PUBLIC_IMAGE_LINK + title?.backdrop_path}
               className={`object-contain md:rounded m-0 transition-all  ${
                 touch && touchedIndex === index ? 'opacity-60' : ''
               }`}

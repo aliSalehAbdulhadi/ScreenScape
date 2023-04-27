@@ -6,22 +6,20 @@ import SwiperCore, {
   Navigation,
   Pagination,
 } from 'swiper';
-import { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
-import { useInView } from 'react-intersection-observer';
 
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
-
-const VideoPlayer = lazy(() => import('../../VideoPlayer/VideoPlayer'));
+import AutoPlaySlide from './AutoPlaySlide/AutoPlaySlide';
 
 SwiperCore.use([Navigation, Autoplay]);
 
-const TrailerSlider = () => {
+const TrailerSlider = ({ data = [] }: { data: [] }) => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
   const [showArrows, setShowArrows] = useState<boolean>(false);
@@ -31,46 +29,12 @@ const TrailerSlider = () => {
   const [muteVideo, setMuteVideo] = useState<boolean>(true);
   const [reloadVideo, setReloadVideo] = useState<boolean>(false);
   const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
-  const [isVideoVisible, setIsVideoVisible] = useState<boolean>(false);
+  // const [data, setData] = useState<[]>([]);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
-  const [isInTab, setIsInTab] = useState(true);
-
-  const { ref, inView } = useInView({
-    threshold: 0.4,
-  });
-
-  const images = [
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    { url: '/images/x0pqq.jpg' },
-
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-  ];
 
   const width = useWindowSize();
-
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      setIsInTab(!document.hidden);
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    setIsVideoVisible(inView);
-  }, [inView]);
 
   useEffect(() => {
     setReloadVideo(false);
@@ -83,16 +47,6 @@ const TrailerSlider = () => {
     }
   }, [advanceSlide, swiper]);
 
-  const handleOnEnd = () => {
-    setAdvanceSlide(true);
-  };
-
-  const handleOnReady = () => {
-    setTimeout(() => {
-      setIsVideoReady(true);
-    }, 2800);
-  };
-
   const swiperStyle = {
     transform: 'translateZ(0)',
   };
@@ -101,6 +55,7 @@ const TrailerSlider = () => {
     <div
       onMouseEnter={() => setShowArrows(true)}
       onMouseLeave={() => setShowArrows(false)}
+      className="h-[200px] xxxs:h-[220px] xxs:h-[300px] xs:h-[340px] sm:h-[420px]  semiSm:h-[450px] md:h-[330px] lg:h-[350px] xl:h-[400px] xxl:h-[430px] xxxl:h-[520px]"
     >
       {
         <Swiper
@@ -146,63 +101,58 @@ const TrailerSlider = () => {
           }}
         >
           <div>
-            {images.map((image, i) => (
-              <SwiperSlide key={image.url + i} className=" md:rounded relative">
-                <div className={`relative rounded`}>
-                  {activeSlide === i && width > 1150 ? (
-                    <Suspense
-                      fallback={
+            {data?.map(
+              (title: any, i: any) =>
+                i <= 8 && (
+                  <SwiperSlide
+                    key={title?.id}
+                    className=" md:rounded h-[200px] xxxs:h-[220px] xxs:h-[300px] xs:h-[340px] sm:h-[420px]  semiSm:h-[450px] md:h-[330px] lg:h-[350px] xl:h-[400px] xxl:h-[430px] xxxl:h-[520px] relative"
+                  >
+                    <div className={`rounded`}>
+                      {activeSlide === i && width > 1150 ? (
+                        <AutoPlaySlide
+                          setAdvanceSlide={setAdvanceSlide}
+                          setIsVideoReady={setIsVideoReady}
+                          muteVideo={muteVideo}
+                          reloadVideo={reloadVideo}
+                          imageUrl={title?.backdrop_path}
+                          id={title?.id}
+                        />
+                      ) : (
                         <Image
-                          width={1100}
+                          width={1000}
                           height={500}
-                          src={image.url}
+                          src={
+                            process.env.NEXT_PUBLIC_IMAGE_LINK +
+                            title.backdrop_path
+                          }
                           className=" object-fit md:rounded "
                           alt="poster"
+                          loading="lazy"
+                          blurDataURL={
+                            process.env.NEXT_PUBLIC_IMAGE_LINK +
+                            title.backdrop_path
+                          }
                         />
-                      }
-                    >
-                      <div ref={ref}>
-                        <VideoPlayer
-                          onEnd={handleOnEnd}
-                          onReady={handleOnReady}
-                          mute={muteVideo}
-                          reloadVideo={reloadVideo}
-                          playVideo={isVideoVisible || isInTab}
-                          pauseVideo={!isVideoVisible || !isInTab}
-                          controls={false}
-                          autoplay={true}
-                          videoId="Tp_YZNqNBhw"
+                      )}
+                      <div
+                        className={`absolute bottom-[-5px]  left-0 h-full w-full `}
+                      >
+                        <TrailerSliderButtons
+                          title={title.title}
+                          id={title.id}
+                          muteVideo={muteVideo}
+                          setMuteVideo={setMuteVideo}
+                          setReloadVideo={setReloadVideo}
+                          activeSlide={activeSlide}
+                          isVideoReady={isVideoReady}
+                          i={i}
                         />
                       </div>
-                    </Suspense>
-                  ) : (
-                    <div>
-                      <Image
-                        width={1000}
-                        height={500}
-                        src={image.url}
-                        className=" object-fit md:rounded h-[200px] xxxs:h-[220px] xxs:h-[300px] xs:h-[340px] sm:h-[420px]  semiSm:h-[450px] md:h-[330px] lg:h-[350px] xl:h-[400px] xxl:h-[430px] xxxl:h-[520px] "
-                        alt="poster"
-                        loading="eager"
-                        priority={true}
-                        blurDataURL="https://e1.pxfuel.com/desktop-wallpaper/699/466/desktop-wallpaper-2560x1600-rampage-gorilla-wolf-chinese-poster-2018-movie-dual-wide-widescreen-16-10-widescreen-2560x1600-background-3976-gorilla-movie.jpg"
-                      />
                     </div>
-                  )}
-
-                  <div className={`absolute top-0  left-0 h-full w-full `}>
-                    <TrailerSliderButtons
-                      muteVideo={muteVideo}
-                      setMuteVideo={setMuteVideo}
-                      setReloadVideo={setReloadVideo}
-                      activeSlide={activeSlide}
-                      isVideoReady={isVideoReady}
-                      i={i}
-                    />
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                  </SwiperSlide>
+                )
+            )}
           </div>
 
           <div className=" transition-all">

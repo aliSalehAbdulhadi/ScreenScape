@@ -47,7 +47,11 @@ const BurgerList = ({
 
   return (
     <div
-      onClick={() => setCloseAnimation(true)}
+      onClick={() =>
+        setTimeout(() => {
+          setCloseAnimation(true);
+        }, 300)
+      }
       className="w-full flex text-offWhite text-opacity-75 "
     >
       <div

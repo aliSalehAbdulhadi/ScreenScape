@@ -65,7 +65,7 @@ const VideoPlayer = ({
             ref={playerRef}
             referrer={referrer}
             style={videoStyle}
-            url={`http://www.youtube.com/watch?v=DK8paAmQBK0?`}
+            url={`http://www.youtube.com/watch?v=${videoId}`}
             width="100%"
             height="100%"
             volume={0.5}
