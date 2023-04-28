@@ -11,7 +11,7 @@ import useWindowSize from '@/src/hooks/useWindowsSize';
 
 SwiperCore.use([Navigation, Autoplay]);
 
-const PosterSlider = () => {
+const PosterSlider = ({ posterUrl }: { posterUrl: string }) => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
   const [showArrows, setShowArrows] = useState<boolean>(false);
@@ -70,7 +70,7 @@ const PosterSlider = () => {
                 <Image
                   width={1500}
                   height={1500}
-                  src={image.url}
+                  src={`https://image.tmdb.org/t/p/original/${posterUrl}`}
                   alt="Actor Photo"
                   className="xs:rounded lg:rounded object-fit h-[25rem] xxxs:h-[31.5rem] xxs:h-[35rem] sm:h-[30rem] w-full "
                   loading="lazy"

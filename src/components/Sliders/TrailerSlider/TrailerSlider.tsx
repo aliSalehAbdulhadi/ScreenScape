@@ -101,8 +101,8 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
           }}
         >
           <div>
-            {data?.map(
-              (title: any, i: any) =>
+            {data?.map((title: any, i: any) => {
+              return (
                 i <= 8 && (
                   <SwiperSlide
                     key={title?.id}
@@ -116,23 +116,16 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
                           muteVideo={muteVideo}
                           reloadVideo={reloadVideo}
                           imageUrl={title?.backdrop_path}
-                          id={title?.id}
+                          trailer={title?.trailer}
                         />
                       ) : (
                         <Image
                           width={1000}
                           height={500}
-                          src={
-                            process.env.NEXT_PUBLIC_IMAGE_LINK +
-                            title.backdrop_path
-                          }
+                          src={`https://image.tmdb.org/t/p/original/${title?.backdrop_path}`}
                           className=" object-fit md:rounded "
                           alt="poster"
                           loading="lazy"
-                          blurDataURL={
-                            process.env.NEXT_PUBLIC_IMAGE_LINK +
-                            title.backdrop_path
-                          }
                         />
                       )}
                       <div
@@ -152,7 +145,8 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
                     </div>
                   </SwiperSlide>
                 )
-            )}
+              );
+            })}
           </div>
 
           <div className=" transition-all">

@@ -1,52 +1,43 @@
 import dynamic from 'next/dynamic';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import { Suspense } from 'react';
+import { getMoviesWithTrailers } from '@/src/fetch/getMoviesWithTrailer';
+import { getDisplaySlideData } from '@/src/fetch/getDisplaySlideData';
 
 const TrailerSlider = dynamic(
   () => import('../Sliders/TrailerSlider/TrailerSlider')
 );
-
 const DisplayComp = dynamic(() => import('./DisplayComp/DisplayComp'));
 
 const LandingPage = async () => {
   const displaySlideContent: { apiKey: any; name: string }[] = [
     {
       name: 'Now Playing Movies',
-      apiKey: process.env.NEXT_PUBLIC_NOW_PLAYING_MOVIES,
+      apiKey: `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=2`,
     },
     {
       name: 'Popular Movies',
-      apiKey: process.env.NEXT_PUBLIC_POPULAR_MOVIES,
+      apiKey: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=2`,
     },
     {
       name: 'Top Rated Movies',
-      apiKey: process.env.NEXT_PUBLIC_TOP_RATED_MOVIES,
+      apiKey: `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`,
     },
     {
       name: 'Upcoming Movies',
-      apiKey: process.env.NEXT_PUBLIC_UPCOMING_MOVIES,
+      apiKey: `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=2`,
     },
   ];
+  const displaySliderData = await getDisplaySlideData(displaySlideContent);
 
-  const trailerSliderRequest = await fetch(
-    String(process.env.NEXT_PUBLIC_TRENDING)
-  );
-  const TrailerSliderData = await trailerSliderRequest.json();
-
-  const displaySliderData = await Promise.all(
-    displaySlideContent.map(async (item) => {
-      const displaySliderRequest = await fetch(item.apiKey);
-      const displaySliderResponse = await displaySliderRequest.json();
-      return { name: item.name, displaySliderResponse };
-    })
-  );
+  const moviesWithTrailers: any = await getMoviesWithTrailers();
 
   return (
     <div className="flex flex-col items-center background-fade md:py-[6rem] fade-in">
       <LoadingComponent>
         <Suspense>
           <div className="w-[100%]">
-            <TrailerSlider data={TrailerSliderData.results} />
+            <TrailerSlider data={moviesWithTrailers} />
           </div>
         </Suspense>
 

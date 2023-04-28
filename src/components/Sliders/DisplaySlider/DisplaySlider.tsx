@@ -143,11 +143,13 @@ const DisplaySlider = ({
           momentum="false"
         >
           {data?.map((title: any, i: number) => {
-            return (
+            return title?.backdrop_path === null ? (
+              ''
+            ) : (
               <SwiperSlide
                 onMouseEnter={() => setHoveredIndex(i)}
                 key={title?.id}
-                className=""
+                className="overflow-hidden hover:overflow-visible"
               >
                 <Suspense
                   fallback={

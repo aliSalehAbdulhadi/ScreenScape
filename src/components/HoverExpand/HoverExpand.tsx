@@ -38,9 +38,7 @@ const HoverExpand = ({
       setData(results);
 
       setTrailer(
-        trailer.results.filter(
-          (title: any) => title.name === 'Official Trailer'
-        )
+        trailer.results.filter((title: any) => title.type === 'Trailer')
       );
     } catch (error) {}
   }, [titleId]);
@@ -68,11 +66,11 @@ const HoverExpand = ({
   return (
     <div
       onMouseLeave={handleOnMouseLeave}
-      className="flex flex-col items-center justify-center my-10 cursor-pointer rounded hover:scale-[1.3] hover:xl:scale-[1.5] opacity-0 hover:opacity-100 hover:delay-[.5s] cardHover relative"
+      className="flex flex-col items-center  justify-center my-10 cursor-pointer rounded hover:scale-[1.3] hover:xl:scale-[1.5] opacity-0 hover:opacity-100 hover:delay-[.5s] cardHover relative"
     >
       <div>
         {index === hoveredIndex && playVideo && trailer[0]?.key ? (
-          <div className="object-contain w-[288px] cursor-pointer relative">
+          <div className="object-contain w-[300px] cursor-pointer relative">
             <VideoPlayer
               videoId={trailer[0]?.key}
               mute={muteVideo}
@@ -82,7 +80,7 @@ const HoverExpand = ({
               playVideo={playVideo}
               onReady={HandleOnReady}
             />
-            <div className="absolute top-0 left-0 h-full px-3  w-[288px] flex items-end justify-end ">
+            <div className="absolute top-0 left-0 h-full px-3  w-[300px] flex items-end justify-end ">
               <div
                 onClick={() => setMuteVideo(!muteVideo)}
                 className={`w-fit border-[2px] border-white border-opacity-60 opacity-40 hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60  mb-3  ${
@@ -98,12 +96,12 @@ const HoverExpand = ({
             </div>
           </div>
         ) : (
-          <div className="relative w-[288px]">
+          <div className="relative w-[300px]">
             <Link href={`browse/${titleId}`}>
               <Image
-                width={288}
+                width={300}
                 height={150}
-                src={process.env.NEXT_PUBLIC_IMAGE_LINK + data?.backdrop_path}
+                src={`https://image.tmdb.org/t/p/original/${data?.backdrop_path}`}
                 className=" object-contain md:rounded m-0 cursor-pointer "
                 alt="poster"
                 loading="lazy"
@@ -128,10 +126,10 @@ const HoverExpand = ({
 
       <Link
         href={`/browse/${titleId}`}
-        className={`py-3 px-1 xl:px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px]  `}
+        className={`py-3 px-1 xl:px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px] `}
       >
         <div className="flex items-center justify-between">
-          <span className="text-xs xl:text-base">{data.title}</span>
+          <span className="text-xs xl:text-base ">{data.title}</span>
           <PlusButton size={width > 1300 ? 20 : 15} />
         </div>
 

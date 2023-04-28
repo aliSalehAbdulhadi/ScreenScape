@@ -8,7 +8,7 @@ const VideoPlayer = lazy(
   () => import('@/src/components/VideoPlayer/VideoPlayer')
 );
 
-const TrailerButton = () => {
+const TrailerButton = ({ trailerUrl }: { trailerUrl: string }) => {
   const [isClientSide, setIsClientSide] = useState<boolean>(false);
   const [openTrailer, setOpenTrailer] = useState<boolean>(false);
   const [stopTrailer, setStopTrailer] = useState<boolean>(false);
@@ -63,7 +63,7 @@ const TrailerButton = () => {
                   controls={true}
                   playVideo={openTrailer}
                   mute={false}
-                  videoId="Tp_YZNqNBhw"
+                  videoId={trailerUrl}
                   onEnd={handleOnEnd}
                   pauseVideo={!openTrailer}
                   stopVideo={stopTrailer}

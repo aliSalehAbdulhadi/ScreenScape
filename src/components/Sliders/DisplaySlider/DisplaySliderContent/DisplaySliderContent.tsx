@@ -37,22 +37,24 @@ const DisplaySliderContent = ({
           <Image
             width={300}
             height={190}
-            src={process.env.NEXT_PUBLIC_IMAGE_LINK + title?.backdrop_path}
+            src={`https://image.tmdb.org/t/p/original/${title?.backdrop_path}`}
             className=" object-contain md:rounded m-0 cursor-pointer "
             alt="poster"
             loading="lazy"
           />
           <Suspense>
             <div
-              className={`absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300 ${
+              className={`absolute  top-[-40px]   hover:top-[-90px] pointer-events-none  h-[10rem] transition-all duration-300 ${
                 sliderElementIndex(0).includes(index) && 'hover:left-14'
               } ${sliderElementIndex(5).includes(index) && 'hover:right-14'}`}
             >
-              <HoverExpand
-                index={index}
-                hoveredIndex={hoveredIndex}
-                titleId={title.id}
-              />
+              <div className=" pointer-events-auto">
+                <HoverExpand
+                  index={index}
+                  hoveredIndex={hoveredIndex}
+                  titleId={title.id}
+                />
+              </div>
             </div>
           </Suspense>
         </div>
@@ -71,7 +73,7 @@ const DisplaySliderContent = ({
               }}
               width={300}
               height={190}
-              src={process.env.NEXT_PUBLIC_IMAGE_LINK + title?.backdrop_path}
+              src={`https://image.tmdb.org/t/p/original/${title?.backdrop_path}`}
               className={`object-contain md:rounded m-0 transition-all  ${
                 touch && touchedIndex === index ? 'opacity-60' : ''
               }`}

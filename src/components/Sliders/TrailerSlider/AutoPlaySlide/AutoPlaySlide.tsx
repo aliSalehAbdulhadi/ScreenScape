@@ -1,7 +1,6 @@
-import React, { Suspense, lazy, useCallback, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useInView } from 'react-intersection-observer';
-import asyncFetch from '@/src/helper/asyncFetch';
 
 const VideoPlayer = lazy(() => import('../../../VideoPlayer/VideoPlayer'));
 
@@ -11,39 +10,21 @@ const AutoPlaySlide = ({
   muteVideo,
   reloadVideo,
   imageUrl,
-  id,
+  trailer,
 }: {
   setAdvanceSlide: React.Dispatch<React.SetStateAction<boolean>>;
   setIsVideoReady: React.Dispatch<React.SetStateAction<boolean>>;
   muteVideo: boolean;
   reloadVideo: boolean;
   imageUrl: string;
-  id: string;
+  trailer: any;
 }) => {
   const [isVideoVisible, setIsVideoVisible] = useState<boolean>(false);
   const [isInTab, setIsInTab] = useState(true);
-  const [data, setData] = useState<[]>([]);
 
   const { ref, inView } = useInView({
     threshold: 0.4,
   });
-
-  const asyncFunction = useCallback(async () => {
-    try {
-      const playingNowMovies = await asyncFetch(
-        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-      );
-      setData(
-        playingNowMovies.results.filter(
-          (title: any) => title.name === 'Official Trailer'
-        )
-      );
-    } catch (error) {}
-  }, [id]);
-
-  useEffect(() => {
-    asyncFunction();
-  }, [asyncFunction]);
 
   useEffect(() => {
     setIsVideoVisible(inView);
@@ -75,7 +56,7 @@ const AutoPlaySlide = ({
         <Image
           width={1100}
           height={500}
-          src={process.env.NEXT_PUBLIC_IMAGE_LINK + imageUrl}
+          src={`https://image.tmdb.org/t/p/original/${imageUrl}`}
           className="object-fit md:rounded"
           alt="poster"
         />
@@ -93,7 +74,7 @@ const AutoPlaySlide = ({
           controls={false}
           autoplay={true}
           // @ts-ignore
-          videoId={data[0]?.key}
+          videoId={trailer.key}
         />
       </div>
     </Suspense>
