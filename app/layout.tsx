@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${roboto.variable} ${averia.variable} flex flex-col  bg-primary  select-none`}
+        className={`${inter.className} ${roboto.variable} ${averia.variable} flex flex-col  bg-primary  select-none mainScrollBar`}
       >
         <Suspense
           fallback={<div className="bgFadeInEnter w-full h-[7vh]"></div>}

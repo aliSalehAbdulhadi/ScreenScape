@@ -43,6 +43,7 @@ const DisplaySlider = ({
   const [slideChanging, setSlideChanging] = useState<boolean>(false);
   const [showPag, setShowPag] = useState<boolean>(false);
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
+  const [overFlowHidden, setOverFlowHidden] = useState<boolean>(false);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
@@ -59,7 +60,13 @@ const DisplaySlider = ({
     if (inViewport && index >= slidersInView) {
       setSlidersInView(slidersInView + 2);
     }
-  }, [slidersInView, inViewport, index, setSlidersInView]);
+
+    if (!overFlowHidden) {
+      setTimeout(() => {
+        setOverFlowHidden(true);
+      }, 1000);
+    }
+  }, [slidersInView, inViewport, index, setSlidersInView, overFlowHidden]);
 
   useEffect(() => {
     setShowArrows(true);
@@ -149,7 +156,9 @@ const DisplaySlider = ({
               <SwiperSlide
                 onMouseEnter={() => setHoveredIndex(i)}
                 key={title?.id}
-                className="overflow-hidden hover:overflow-visible"
+                className={`hover:overflow-visible ${
+                  overFlowHidden && 'overflow-hidden '
+                }`}
               >
                 <Suspense
                   fallback={

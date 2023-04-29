@@ -59,7 +59,7 @@ const DisplaySliderContent = ({
           </Suspense>
         </div>
       ) : (
-        <Link href="/browse/sss">
+        <Link href={`/browse/movie/${title?.id}`}>
           <div>
             <Image
               onTouchStart={() => {

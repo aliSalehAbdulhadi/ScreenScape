@@ -14,7 +14,7 @@ const SingleGenres = ({
       className={`${
         className.length > 0
           ? className
-          : 'grid grid-cols-2 grid-rows-2 gap-x-3 gap-y-1 w-fit text-sm'
+          : 'grid grid-cols-2 grid-rows-2 gap-x-3 gap-y-1 w-fit text-sm '
       }`}
     >
       {genres?.map(
@@ -24,7 +24,7 @@ const SingleGenres = ({
               key={genre.id}
               className={`${
                 underLine ? 'underline' : ''
-              } cursor-pointer hover:opacity-90 transition-all`}
+              } cursor-pointer hover:opacity-90 transition-all mr-5`}
             >
               {genre.name}
             </span>

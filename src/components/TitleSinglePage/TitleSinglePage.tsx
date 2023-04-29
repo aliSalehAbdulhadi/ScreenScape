@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
+import moment from 'moment';
 import TitleInfo from './TitleInfo/TitleInfo';
 import { News } from '../News/News';
 import { TitleCast } from './TitleCast/TitleCast';
@@ -10,28 +11,53 @@ import BackgroundOverlay from './TitleInfo/BackgroundOverlay/BackgroundOverlay';
 import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
 
 const TitleSinglePage = () => {
+  const [year, setYear] = useState({
+    plusYear: '',
+    minusYear: '',
+  });
   const [loading, setLoading] = useState(true);
+  const [genres, setGenres] = useState<[]>([]);
   const [data, setData] = useState<any>({});
   const [trailer, setTrailer] = useState<any>([]);
   const [credits, setCredits] = useState<any>([]);
   const [relatedTitles, setRelatedTitles] = useState<any>([]);
 
   const param = useParams();
+  const pathName = usePathname();
+
+  console.log(data);
+
   const asyncFunction = useCallback(async () => {
     try {
       const [titleRequest, trailerRequest, creditsRequest, relatedRequest] =
         await Promise.all([
           fetch(
-            `https://api.themoviedb.org/3/movie/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            `https://api.themoviedb.org/3/${
+              pathName.includes('movie') ? 'movie' : 'tv'
+            }/${param.id}?api_key=${
+              process.env.NEXT_PUBLIC_API_KEY
+            }&language=en-US`
           ),
           fetch(
-            `https://api.themoviedb.org/3/movie/${param.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            `https://api.themoviedb.org/3/${
+              pathName.includes('movie') ? 'movie' : 'tv'
+            }/${param.id}/videos?api_key=${
+              process.env.NEXT_PUBLIC_API_KEY
+            }&language=en-US`
           ),
           fetch(
-            `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            `https://api.themoviedb.org/3/${
+              pathName.includes('movie') ? 'movie' : 'tv'
+            }/${param.id}/credits?api_key=${
+              process.env.NEXT_PUBLIC_API_KEY
+            }&language=en-US`
           ),
           fetch(
-            `https://api.themoviedb.org/3/movie/${param.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+            `https://api.themoviedb.org/3/${
+              pathName.includes('movie') ? 'movie' : 'tv'
+            }/${param.id}/similar?api_key=${
+              process.env.NEXT_PUBLIC_API_KEY
+            }&language=en-US&page=1`
           ),
         ]);
 
@@ -39,6 +65,20 @@ const TitleSinglePage = () => {
       const trailerResponse = await trailerRequest.json();
       const creditsResponse = await creditsRequest.json();
       const relatedResponse = await relatedRequest.json();
+
+      setGenres(
+        titleResponse?.genres
+          ?.map((genre: { id: number; name: string }) => genre?.id)
+          .join('&')
+      );
+      setYear({
+        plusYear: moment(data?.release_date)
+          .subtract(1, 'year')
+          .format('YYYY-MM-DD'),
+        minusYear: moment(data?.release_date)
+          .add(1, 'year')
+          .format('YYYY-MM-DD'),
+      });
 
       setData(titleResponse);
       setCredits(creditsResponse);
@@ -58,12 +98,13 @@ const TitleSinglePage = () => {
         }, 500);
       }
     } catch (error) {}
-  }, [param]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [genres, param.id]);
 
   useEffect(() => {
     setLoading(true);
     asyncFunction();
-  }, []);
+  }, [asyncFunction]);
 
   return (
     <div className="text-white background-fade flex flex-col justify-center items-center pb-10 xs:pt-5 semiSm:pt-10  relative ">
@@ -87,7 +128,10 @@ const TitleSinglePage = () => {
               </div>
 
               <div className="semiSm:w-[45%] mt-10 semiSm:mt-0">
-                <TitleRelated relatedTitles={relatedTitles?.results} />
+                <TitleRelated
+                  isMovies={pathName?.includes('movie')}
+                  relatedTitles={relatedTitles?.results}
+                />
               </div>
             </div>
           </div>

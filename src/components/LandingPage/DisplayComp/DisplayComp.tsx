@@ -63,7 +63,7 @@ const DisplayComp = ({ data }: { data: any }) => {
                     {slide.name}
                   </span>
                   <div
-                    className={`h-[1px] w-[60%] semiSm:w-[80%] bg-secondary self-center bg-opacity-50 fade-in mr-5 semiSm:mr-10 mb-2 ${
+                    className={`h-[1px] xxxs:w-[40%] semiSm:w-[65%] bg-secondary self-center bg-opacity-50 fade-in mr-5 semiSm:mr-10 mb-2 ${
                       slide.name === 'Action' ? 'hidden' : ''
                     }`}
                   />

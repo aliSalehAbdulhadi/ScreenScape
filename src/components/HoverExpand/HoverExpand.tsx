@@ -97,7 +97,7 @@ const HoverExpand = ({
           </div>
         ) : (
           <div className="relative w-[300px]">
-            <Link href={`browse/${titleId}`}>
+            <Link href={`browse/movie/${titleId}`}>
               <Image
                 width={300}
                 height={150}
@@ -125,7 +125,7 @@ const HoverExpand = ({
       </div>
 
       <Link
-        href={`/browse/${titleId}`}
+        href={`/browse/movie/${titleId}`}
         className={`py-3 px-1 xl:px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px] `}
       >
         <div className="flex items-center justify-between">
@@ -138,16 +138,22 @@ const HoverExpand = ({
             {hours + 'h ' + remainingMinutes + 'm'}
           </span>
           <div className="flex items-center ">
-            <span className="border-[1px] py-[1px] px-[5px]  border-white border-opacity-75 mr-3 text-[.6rem] xl:text-xs">
-              18+
-            </span>
+            {data?.adult ? (
+              <span className="border-[1px] rounded p-[2px] border-opacity-50 mr-3 font-averia text-[.6rem] xl:text-xs">
+                +18
+              </span>
+            ) : (
+              <span className="border-[1px] rounded py-[1px] px-1 border-opacity-50 mr-3 font-averia text-[.6rem] xl:text-xs">
+                G
+              </span>
+            )}
             <span>{data.release_date?.split('-')[0]}</span>
           </div>
         </div>
         <div>
           <SingleGenres
             underLine={false}
-            className="flex items-center justify-between text-[.65rem]"
+            className="flex items-center text-[.65rem]"
             genres={data.genres}
           />
         </div>

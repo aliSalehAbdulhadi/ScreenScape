@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import ActorInfo from './ActorInfo/ActorInfo';
 import { News } from '../News/News';
@@ -10,11 +10,28 @@ import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
 
 const ActorSinglePage = () => {
   const [loading, setLoading] = useState(true);
+  const [isMovies, setIsMovies] = useState(true);
   const [data, setData] = useState<any>({});
   const [appearedInMovies, setAppearedInMovies] = useState<any>([]);
   const [otherActors, setOtherActors] = useState<any>([]);
 
   const param = useParams();
+
+  const tvShows = useMemo(
+    () =>
+      appearedInMovies?.cast?.filter(
+        (title: any) => title?.media_type !== 'movie'
+      ),
+    [appearedInMovies]
+  );
+
+  const movies = useMemo(
+    () =>
+      appearedInMovies?.cast?.filter(
+        (title: any) => title?.media_type === 'movie'
+      ),
+    [appearedInMovies]
+  );
 
   const asyncFunction = useCallback(async () => {
     try {
@@ -49,6 +66,7 @@ const ActorSinglePage = () => {
 
   useEffect(() => {
     asyncFunction();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -68,7 +86,11 @@ const ActorSinglePage = () => {
 
           <div className="mt-14 flex flex-col semiSm:flex-row w-full justify-between px-2 xxxs:px-5 sm:px-0">
             <div className=" semiSm:w-[45%]">
-              <ActorAppearedIn appearedInMovies={appearedInMovies?.cast} />
+              <ActorAppearedIn
+                setIsMovies={setIsMovies}
+                isMovies={isMovies}
+                appearedInMovies={isMovies ? movies : tvShows}
+              />
             </div>
 
             <div className="semiSm:w-[45%] mt-10 semiSm:mt-0">

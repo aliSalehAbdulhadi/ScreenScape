@@ -367,6 +367,16 @@ body {
   border-radius: 3px;
 }
 
+.mainScrollBar::-webkit-scrollbar {
+  width: 8px;
+  direction: ltr;
+}
+
+.mainScrollBar::-webkit-scrollbar-thumb {
+  background: #f2f2f2;
+  border-radius: 3px;
+}
+
 .burgerOpenAnimation {
   animation: burgerOpenAnimation 0.3s linear;
 }
@@ -542,4 +552,30 @@ input:-webkit-autofill:focus {
 .checkbox-container input:disabled ~ label {
   color: #aaa;
   cursor: not-allowed;
+}
+
+.rating-bar {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.rating-bar svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.rating-bar text {
+  font-family: sans-serif;
+}
+
+.rating-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #00adb5;
+  transition: width 0.3s ease;
 }

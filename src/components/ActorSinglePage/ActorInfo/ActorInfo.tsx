@@ -7,6 +7,10 @@ import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture
 const ActorInfo = ({ data }: { data: any }) => {
   const [loading, setLoading] = useState(true);
 
+  const age = ` ${moment(data?.birthday).format(
+    'MMMM Do YYYY'
+  )} (${moment().diff(data?.birthday, 'years')} years)`;
+
   return (
     <div className="flex flex-col semiSm:flex-row">
       <div className="flex flex-col sm:flex-row">
@@ -25,7 +29,11 @@ const ActorInfo = ({ data }: { data: any }) => {
               className={`rounded h-full object-fit w-full xs:w-[28rem] sm:w-[21rem] ${
                 loading === false ? 'opacity-100' : 'opacity-0'
               }`}
-              onLoad={() => setLoading(false)}
+              onLoad={() =>
+                setTimeout(() => {
+                  setLoading(false);
+                }, 100)
+              }
             />
           </SinglePlaceholder>
         </div>
@@ -33,24 +41,42 @@ const ActorInfo = ({ data }: { data: any }) => {
         <div className="mx-5 w-fit">
           <div className="flex items-center">
             <span className="text-lg xxxs:text-2xl xs:text-3xl">
-              {data?.name}
+              {data?.name ? data?.name : 'Not Available'}
             </span>
           </div>
           <div className="text-offWhite text-opacity-75  mt-3 w-fit text-sm xx:text-xs xs:text-sm">
             <div className="mt-5">
-              <span>Born: {moment(data?.birthday).format('MMMM Do YYYY')}</span>
+              <span>
+                Born:
+                {data?.birthday ? age : ' Not Available'}
+              </span>
             </div>
 
             <div className="mt-2">
-              <span>Place of Birth: {data?.place_of_birth}</span>
+              <span>
+                Place of Birth:{' '}
+                {data?.place_of_birth ? data?.place_of_birth : 'Not Available'}
+              </span>
             </div>
 
             <div className="mt-2">
-              <span>Known for: {data?.known_for_department}</span>
+              <span>
+                Known for:{' '}
+                {data?.known_for_department
+                  ? data?.known_for_department
+                  : 'Not Available'}
+              </span>
             </div>
 
             <div className="mt-2">
-              <span>Gender: {data?.gender === 1 ? 'Female' : 'Male'}</span>
+              <span>
+                Gender:{' '}
+                {data?.gender
+                  ? data?.gender === 1
+                    ? 'Female'
+                    : 'Male'
+                  : 'Not Available'}
+              </span>
             </div>
           </div>
 
