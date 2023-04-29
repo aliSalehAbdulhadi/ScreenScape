@@ -501,6 +501,7 @@ input:-webkit-autofill:focus {
   font-size: 14px;
 }
 
+
 .checkbox-container {
   display: inline-block;
   position: relative;
@@ -579,3 +580,4 @@ input:-webkit-autofill:focus {
   background-color: #00adb5;
   transition: width 0.3s ease;
 }
+

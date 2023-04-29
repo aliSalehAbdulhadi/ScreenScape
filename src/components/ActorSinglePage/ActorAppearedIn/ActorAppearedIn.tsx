@@ -39,6 +39,7 @@ const ActorAppearedIn = ({
       seriesStatus,
     };
   };
+
   return (
     <GridComp title="Appeared In" className="relative">
       <div className=" absolute top-[1px] left-28 xxxs:left-32 flex items-center justify-center text-xs xs:text-sm ">

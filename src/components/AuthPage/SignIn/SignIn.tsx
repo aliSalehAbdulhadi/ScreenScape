@@ -42,7 +42,9 @@ const SignIn = () => {
         }}
       >
         {({ values, errors, touched, isSubmitting }) => (
+
           <Form className="flex flex-col items-center  h-[30.5rem]">
+
             <div className="my-10 text-lg text-white text-opacity-50">
               Enter your account information
             </div>
@@ -111,6 +113,7 @@ const SignIn = () => {
                   className="rounded py-3 bg-white bg-opacity-5 pl-2 outline-none text-sm"
                 />
               </div>
+
               <div className="h-[2rem] text-white text-opacity-50 text-sm mt-3 mr-20 flex items-center justify-center">
                 <label className="checkbox-container">
                   <input type="checkbox" />
@@ -118,6 +121,7 @@ const SignIn = () => {
                   Remember Me
                 </label>
               </div>
+
 
               <div className="h-[2rem] mt-1">
                 {errors.password && touched.password ? (
@@ -141,9 +145,11 @@ const SignIn = () => {
                 <span> Submit</span>
               )}
             </button>
+
             <div className="text-xs mt-4  text-white text-opacity-50 cursor-pointer transition-all hover:text-opacity-60">
               <span>Forgot password?</span>
             </div>
+
           </Form>
         )}
       </Formik>

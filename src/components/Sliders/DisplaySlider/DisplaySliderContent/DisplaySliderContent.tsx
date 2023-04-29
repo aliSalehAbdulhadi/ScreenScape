@@ -56,6 +56,7 @@ const DisplaySliderContent = ({
                   isMovie={title?.first_air_date ? false : true}
                 />
               </div>
+
             </div>
           </Suspense>
         </div>

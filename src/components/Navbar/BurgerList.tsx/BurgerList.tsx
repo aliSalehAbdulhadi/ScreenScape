@@ -52,6 +52,7 @@ const BurgerList = ({
           setCloseAnimation(true);
         }, 300)
       }
+
       className="w-full flex text-offWhite text-opacity-75 "
     >
       <div
