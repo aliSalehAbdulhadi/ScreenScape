@@ -29,10 +29,12 @@ const DisplaySlider = ({
   index,
   setSlidersInView,
   slidersInView,
+  data,
 }: {
   index: number;
   setSlidersInView: Dispatch<SetStateAction<number>>;
   slidersInView: number;
+  data: any;
 }) => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
@@ -41,55 +43,13 @@ const DisplaySlider = ({
   const [slideChanging, setSlideChanging] = useState<boolean>(false);
   const [showPag, setShowPag] = useState<boolean>(false);
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
+  const [overFlowHidden, setOverFlowHidden] = useState<boolean>(false);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
 
   const inViewPortRef = useRef(null);
   const { inViewport } = useInViewport(inViewPortRef);
-
-  const images = [
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-    { url: '/images/x0pqq.jpg' },
-    { url: '/images/ben-stiller-movie-poster-wallpaper-preview.jpg' },
-    {
-      url: '/images/Midway_2019_-_Hollywood_War_WW2_Original_Movie_Poster_f261718e-611c-4143-9a6c-9db2fa9bdf4d.jpg',
-    },
-  ];
 
   const hidedArrows = () => {
     return prevArrow || nextArrow || slideChanging || showArrows;
@@ -100,7 +60,13 @@ const DisplaySlider = ({
     if (inViewport && index >= slidersInView) {
       setSlidersInView(slidersInView + 2);
     }
-  }, [slidersInView, inViewport, index, setSlidersInView]);
+
+    if (!overFlowHidden) {
+      setTimeout(() => {
+        setOverFlowHidden(true);
+      }, 1000);
+    }
+  }, [slidersInView, inViewport, index, setSlidersInView, overFlowHidden]);
 
   useEffect(() => {
     setShowArrows(true);
@@ -183,12 +149,16 @@ const DisplaySlider = ({
           // @ts-ignore
           momentum="false"
         >
-          {images.map((image, i) => {
-            return (
+          {data?.map((title: any, i: number) => {
+            return title?.backdrop_path === null ? (
+              ''
+            ) : (
               <SwiperSlide
                 onMouseEnter={() => setHoveredIndex(i)}
-                key={image.url + i}
-                className=""
+                key={title?.id}
+                className={`hover:overflow-visible ${
+                  overFlowHidden && 'overflow-hidden '
+                }`}
               >
                 <Suspense
                   fallback={
@@ -199,7 +169,7 @@ const DisplaySlider = ({
                 >
                   <DelayDisplay delay={i < 8 ? i * 100 : 0}>
                     <DisplaySliderContent
-                      imageUrl={image.url}
+                      title={title}
                       index={i}
                       hoveredIndex={hoveredIndex}
                     />

@@ -367,6 +367,16 @@ body {
   border-radius: 3px;
 }
 
+.mainScrollBar::-webkit-scrollbar {
+  width: 8px;
+  direction: ltr;
+}
+
+.mainScrollBar::-webkit-scrollbar-thumb {
+  background: #f2f2f2;
+  border-radius: 3px;
+}
+
 .burgerOpenAnimation {
   animation: burgerOpenAnimation 0.3s linear;
 }
@@ -490,3 +500,84 @@ input:-webkit-autofill:focus {
 ::-webkit-search-results-decoration {
   font-size: 14px;
 }
+
+
+.checkbox-container {
+  display: inline-block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  border: 2px solid #bbb;
+  border-radius: 4px;
+  opacity: 0.5;
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+}
+
+.checkbox-container input:checked ~ .checkmark::after {
+  display: block;
+}
+
+.checkbox-container input:disabled ~ .checkmark {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.checkbox-container input:disabled ~ label {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.rating-bar {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.rating-bar svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.rating-bar text {
+  font-family: sans-serif;
+}
+
+.rating-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #00adb5;
+  transition: width 0.3s ease;
+}
+

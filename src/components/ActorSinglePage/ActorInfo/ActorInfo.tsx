@@ -1,61 +1,113 @@
+import moment from 'moment';
 import Image from 'next/image';
+import { useState } from 'react';
+import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
+import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
 
-const ActorInfo = () => {
+const ActorInfo = ({ data }: { data: any }) => {
+  const [loading, setLoading] = useState(true);
+
+  const age = ` ${moment(data?.birthday).format(
+    'MMMM Do YYYY'
+  )} (${moment().diff(data?.birthday, 'years')} years)`;
+
+  const deathDay = ` ${moment(data?.deathday).format('MMMM Do YYYY')}`;
+
   return (
-    <div className="flex flex-col semiSm:flex-row min-h-[30rem]">
+    <div className="flex flex-col semiSm:flex-row">
       <div className="flex flex-col sm:flex-row">
-        <div className=" rounded self-center sm:self-start mb-5 sm:mb-0">
-          <Image
-            width={1280}
-            height={1400}
-            src="/images/licensed-image.jpeg"
-            alt="Actor Photo"
-            className="rounded h-full object-fit w-[30rem] sm:w-[25rem] semiSm:w-[35rem]"
-          />
+        <div className=" rounded flex  justify-center sm:justify-start mb-5 sm:mb-0 w-full">
+          <SinglePlaceholder condition={data?.profile_path} isTitle={false}>
+            {loading && (
+              <div className="h-[30rem]">
+                <LoadingPicture />
+              </div>
+            )}
+            <Image
+              width={1000}
+              height={1000}
+              src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
+              alt="Actor Photo"
+              className={`rounded h-full object-fit w-full xs:w-[28rem] sm:w-[21rem] ${
+                loading === false ? 'opacity-100' : 'opacity-0'
+              }`}
+              onLoad={() =>
+                setTimeout(() => {
+                  setLoading(false);
+                }, 100)
+              }
+            />
+          </SinglePlaceholder>
         </div>
 
         <div className="mx-5 w-fit">
           <div className="flex items-center">
             <span className="text-lg xxxs:text-2xl xs:text-3xl">
-              Keanu Revees
+              {data?.name ? data?.name : 'Not Available'}
             </span>
           </div>
           <div className="text-offWhite text-opacity-75  mt-3 w-fit text-sm xx:text-xs xs:text-sm">
             <div className="mt-5">
-              <span>Born: September 2, 1964</span>
+              <span>
+                Born:
+                {data?.birthday ? age : ' Not Available'}
+              </span>
+            </div>
+
+            {data?.deathday ? (
+              <div className="mt-2">
+                <span>
+                  Died:
+                  {data?.deathDay ? deathDay : ' Not Available'}
+                </span>
+              </div>
+            ) : (
+              ''
+            )}
+
+            <div className="mt-2">
+              <span>
+                Place of Birth:{' '}
+                {data?.place_of_birth ? data?.place_of_birth : 'Not Available'}
+              </span>
             </div>
 
             <div className="mt-2">
-              <span>Nationality: Canadian</span>
+              <span>
+                Known for:{' '}
+                {data?.known_for_department
+                  ? data?.known_for_department
+                  : 'Not Available'}
+              </span>
             </div>
 
             <div className="mt-2">
-              <span>Height: 182cm</span>
+              <span>
+                Gender:{' '}
+                {data?.gender
+                  ? data?.gender === 1
+                    ? 'Female'
+                    : 'Male'
+                  : 'Not Available'}
+              </span>
             </div>
           </div>
 
-          <div className=" mt-12 w-full  xl:w-[90%] text-[17px] h-[13rem]  overflow-auto hidden semiSm:block">
+          <div className=" mt-12 semiSm:w-[20.5rem] md:w-[29rem] lg:w-[38.5rem] xl:w-[24rem] xxl:w-[30rem] xxxl:w-[38rem] h-[16rem]  text-[17px] scrollBar  overflow-auto hidden semiSm:block">
             <span className=" leading-7">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat
-              aliquam nisi pariatur unde quibusdam vitae blanditiis,
-              exercitationem impedit explicabo beatae porro. Quo eveniet magnam
-              cupiditate, voluptates incidunt dignissimos esse quasi! Aliquam,
-              exercitationem unde. Illo natus fuga nam cumque porro deserunt
-              vitae, voluptates similique, ex facere assumenda nisi pariatur
-              quas quia?
+              {data?.biography
+                ? data?.biography
+                : `${data?.name}'s biography is not available`}
             </span>
           </div>
         </div>
       </div>
 
-      <div className=" mt-12 mx-5 sm:mx-0 text-sm xxs:text-[17px]   semiSm:hidden">
+      <div className=" mt-12 mx-5 sm:mx-0 text-sm xxs:text-[17px] scrollBar h-[15rem] overflow-auto  semiSm:hidden">
         <span className=" leading-7">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat
-          aliquam nisi pariatur unde quibusdam vitae blanditiis, exercitationem
-          impedit explicabo beatae porro. Quo eveniet magnam cupiditate,
-          voluptates incidunt dignissimos esse quasi! Aliquam, exercitationem
-          unde. Illo natus fuga nam cumque porro deserunt vitae, voluptates
-          similique, ex facere assumenda nisi pariatur quas quia?
+          {data?.biography
+            ? data?.biography
+            : `${data?.name}'s biography is not available`}
         </span>
       </div>
     </div>

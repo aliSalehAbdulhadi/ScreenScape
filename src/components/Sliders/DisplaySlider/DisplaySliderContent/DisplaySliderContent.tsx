@@ -6,11 +6,11 @@ import useWindowSize from '@/src/hooks/useWindowsSize';
 const HoverExpand = lazy(() => import('../../../HoverExpand/HoverExpand'));
 
 const DisplaySliderContent = ({
-  imageUrl,
+  title,
   index,
   hoveredIndex,
 }: {
-  imageUrl: string;
+  title: any;
   index: number;
   hoveredIndex: number;
 }) => {
@@ -37,28 +37,35 @@ const DisplaySliderContent = ({
           <Image
             width={300}
             height={190}
-            src={imageUrl}
+            src={`https://image.tmdb.org/t/p/original/${title?.backdrop_path}`}
             className=" object-contain md:rounded m-0 cursor-pointer "
             alt="poster"
             loading="lazy"
           />
           <Suspense>
             <div
-              className={`absolute  top-[-40px] hover:top-[-90px]  h-[10rem] transition-all duration-300 ${
+              className={`absolute  top-[-40px]   hover:top-[-90px] pointer-events-none  h-[10rem] transition-all duration-300 ${
                 sliderElementIndex(0).includes(index) && 'hover:left-14'
               } ${sliderElementIndex(5).includes(index) && 'hover:right-14'}`}
             >
-              <HoverExpand
-                index={index}
-                hoveredIndex={hoveredIndex}
-                trailerUrl="aaa"
-                imageUrl={imageUrl}
-              />
+              <div className=" pointer-events-auto">
+                <HoverExpand
+                  index={index}
+                  hoveredIndex={hoveredIndex}
+                  titleId={title.id}
+                  isMovie={title?.first_air_date ? false : true}
+                />
+              </div>
+
             </div>
           </Suspense>
         </div>
       ) : (
-        <Link href="/browse/sss">
+        <Link
+          href={`/browse/${title?.first_air_date ? 'tv' : 'movie'}/${
+            title?.id
+          }`}
+        >
           <div>
             <Image
               onTouchStart={() => {
@@ -72,7 +79,7 @@ const DisplaySliderContent = ({
               }}
               width={300}
               height={190}
-              src={imageUrl}
+              src={`https://image.tmdb.org/t/p/original/${title?.backdrop_path}`}
               className={`object-contain md:rounded m-0 transition-all  ${
                 touch && touchedIndex === index ? 'opacity-60' : ''
               }`}

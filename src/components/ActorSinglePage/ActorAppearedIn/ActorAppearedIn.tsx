@@ -1,36 +1,89 @@
 'use client';
 
-import Image from 'next/image';
+import { Dispatch, SetStateAction } from 'react';
 import Link from 'next/link';
 import GridComp from '../../GridComp/GridComp';
 import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import PosterCard from '../../Cards/PosterCard/PosterCard';
 
-const ActorAppearedIn = () => {
-  const images = [
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-  ];
+const ActorAppearedIn = ({
+  appearedInMovies,
+  setIsMovies,
+  isMovies,
+}: {
+  appearedInMovies: any;
+  setIsMovies: Dispatch<SetStateAction<boolean>>;
+  isMovies: boolean;
+}) => {
+  const dataObject = (data: any) => {
+    let posterUrl = data?.poster_path;
+    let title = isMovies ? data?.title : data?.name;
+    let releaseDate = isMovies ? data?.release_date : data?.first_air_date;
+    let endedDate = data?.last_air_date;
+    let isAdult = data?.adult;
+    let voteAverage = data?.vote_average;
+    let overview = data?.overview;
+    let seasons = data?.number_of_seasons;
+    let episodes = data?.number_of_episodes;
+    let seriesStatus = data?.status;
+    return {
+      posterUrl,
+      title,
+      releaseDate,
+      endedDate,
+      isAdult,
+      voteAverage,
+      overview,
+      seasons,
+      episodes,
+      seriesStatus,
+    };
+  };
 
   return (
-    <GridComp title="Appeared In">
-      {images.map((cast, i) => (
-        <DelayDisplay key={cast.url + i} delay={i * 50}>
-          <Link href="/browse/sss" className=" mb-3 cursor-pointer w-fit">
-            <Image
-              src={cast.url}
-              width={150}
-              height={150}
-              alt="Actor Image"
-              className="h-[240px] w-[180px] object-fit rounded"
-            />
-          </Link>
-        </DelayDisplay>
-      ))}
+    <GridComp title="Appeared In" className="relative">
+      <div className=" absolute top-[1px] left-28 xxxs:left-32 flex items-center justify-center text-xs xs:text-sm ">
+        <span
+          onClick={() => setIsMovies(true)}
+          className={`mr-3 py-1 px-2  rounded cursor-pointer transition-all border-[1px]  ${
+            isMovies
+              ? 'text-primary bg-secondary border-secondary'
+              : 'border-white border-opacity-80 text-white text-opacity-80'
+          }`}
+        >
+          Movies
+        </span>
+        <span
+          onClick={() => setIsMovies(false)}
+          className={`py-1 px-2 transition-all  rounded cursor-pointer border-[1px]   ${
+            !isMovies
+              ? 'text-primary bg-secondary border-secondary'
+              : 'border-white border-opacity-80 text-white text-opacity-80'
+          }`}
+        >
+          TV Shows
+        </span>
+      </div>
+      {appearedInMovies?.map(
+        (title: any, i: any) =>
+          i < 10 && (
+            <DelayDisplay key={title?.id} delay={i * 50}>
+              <Link
+                href={`/browse/${isMovies ? 'movie/' : 'tv/'}${title?.id}`}
+                className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
+              >
+                <PosterCard
+                  index={i}
+                  imageUrl={dataObject(title)?.posterUrl}
+                  title={dataObject(title)?.title}
+                  releaseDate={dataObject(title)?.releaseDate}
+                  isAdult={dataObject(title)?.isAdult}
+                  rating={dataObject(title)?.voteAverage * 10}
+                />
+              </Link>
+            </DelayDisplay>
+          )
+      )}
     </GridComp>
   );
 };

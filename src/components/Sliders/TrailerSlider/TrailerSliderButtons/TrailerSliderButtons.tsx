@@ -7,6 +7,9 @@ import { Dispatch, SetStateAction } from 'react';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
 const TrailerSliderButtons = ({
+  title,
+  id,
+  isMovie,
   setReloadVideo,
   setMuteVideo,
   muteVideo,
@@ -14,6 +17,9 @@ const TrailerSliderButtons = ({
   isVideoReady,
   i,
 }: {
+  title: string;
+  id: string;
+  isMovie: boolean;
   setReloadVideo: Dispatch<SetStateAction<boolean>>;
   setMuteVideo: Dispatch<SetStateAction<boolean>>;
   muteVideo: boolean;
@@ -33,10 +39,10 @@ const TrailerSliderButtons = ({
           className={`flex flex-col visible ${isVideoReady || 'lg:invisible'}`}
         >
           <span className="text-white text-xl xs:text-3xl md:text-2xl xl:text-[2rem] font-bold">
-            The Equalizer 3
+            {title}
           </span>
           <div className="mt-2 flex items-center">
-            <Link href="/browse/sss">
+            <Link href={`/browse/${isMovie ? 'movie' : 'tv'}/${id}`}>
               <div className="flex items-center rounded bg-white hover:bg-opacity-90 transition-all text-black px-2 py-[.40rem] xxxs:px-3 xxxs:py-2 md:px-2 md:py-[.40rem] xl:px-3 xl:py-2 ">
                 <GrCircleInformation className="mb-[2px] text-opacity-75 h-4 w-4  semiSm:h-5 semiSm:w-5" />
                 <span className="ml-2 text-[10px] xs:text-sm xl:text-base">

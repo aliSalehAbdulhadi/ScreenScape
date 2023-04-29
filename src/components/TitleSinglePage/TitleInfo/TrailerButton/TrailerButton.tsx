@@ -8,7 +8,7 @@ const VideoPlayer = lazy(
   () => import('@/src/components/VideoPlayer/VideoPlayer')
 );
 
-const TrailerButton = () => {
+const TrailerButton = ({ trailerUrl }: { trailerUrl: string }) => {
   const [isClientSide, setIsClientSide] = useState<boolean>(false);
   const [openTrailer, setOpenTrailer] = useState<boolean>(false);
   const [stopTrailer, setStopTrailer] = useState<boolean>(false);
@@ -40,13 +40,19 @@ const TrailerButton = () => {
   return (
     <div className=" flex self-start items-center transition-all">
       <button
+        title={trailerUrl ? 'Trailer' : 'No Trailer Available'}
+        disabled={trailerUrl ? false : true}
         onClick={() => setOpenTrailer(true)}
-        className="mr-3 flex items-center bg-white rounded px-2 py-1 xs:py-2 xs:px-4 text-black md:hover:opacity-90 "
+        className={`mr-3 flex items-center bg-white rounded px-2 py-1 xs:py-2 xs:px-4 text-black ${
+          trailerUrl ? ' md:hover:opacity-90 bg-opacity-100' : 'bg-opacity-40'
+        } `}
       >
         <BsPlayFill size={25} className="" />
         <span className="mr-2 xs:text-lg">Trailer</span>
       </button>
-      <PlusButton size={25} />
+      <div title="Add to My List">
+        <PlusButton size={25} />
+      </div>
       <div
         className={`fixed inset-0  w-full h-[100vh] z-50 bg-primary bg-opacity-90 bg-blur   ${
           openTrailer ? '' : 'pointer-events-none hidden'
@@ -63,7 +69,7 @@ const TrailerButton = () => {
                   controls={true}
                   playVideo={openTrailer}
                   mute={false}
-                  videoId="Tp_YZNqNBhw"
+                  videoId={trailerUrl}
                   onEnd={handleOnEnd}
                   pauseVideo={!openTrailer}
                   stopVideo={stopTrailer}

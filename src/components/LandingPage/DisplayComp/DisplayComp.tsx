@@ -19,7 +19,27 @@ const movieGenres = [
   { id: 14, name: 'Fantasy' },
   { id: 10749, name: 'Romance' },
 ];
-const DisplayComp = () => {
+
+const displaySlideContent: { key: any; name: string }[] = [
+  {
+    name: 'Now Playing Movies',
+    key: process.env.NEXT_PUBLIC_NOW_PLAYING_MOVIES,
+  },
+  {
+    name: 'Popular Movies',
+    key: process.env.NEXT_PUBLIC_POPULAR_MOVIES,
+  },
+  {
+    name: 'Top Rated Movies',
+    key: process.env.NEXT_PUBLIC_TOP_RATED_MOVIES,
+  },
+  {
+    name: 'Upcoming Movies',
+    key: process.env.NEXT_PUBLIC_UPCOMING_MOVIES,
+  },
+];
+
+const DisplayComp = ({ data }: { data: any }) => {
   const [slidersInView, setSlidersInView] = useState<number>(3);
 
   useEffect(() => {
@@ -30,41 +50,42 @@ const DisplayComp = () => {
 
   return (
     <div className="flex flex-col">
-      {movieGenres.map((genre, i) => {
-        // to re-render the component to hide the last line
-        i++;
-        if (slidersInView >= i - 1) {
-          return (
-            <div
-              key={genre.id + i}
-              className=" mt-5 semiSm:mt-10 w-[100%]  flex flex-col transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <span className=" ml-5 semiSm:ml-10 text-opacity-75 semiSm:text-opacity-100 semiSm:text semiSm:text-xl md:text-2xl mb-3 text-secondary fade-in ">
-                  {genre.name}
-                </span>
-                <div
-                  className={`h-[1px] w-[60%] semiSm:w-[80%] bg-secondary self-center bg-opacity-50 fade-in mr-5 semiSm:mr-10 mb-2 ${
-                    genre.name === 'Action' ? 'hidden' : ''
-                  }`}
-                />
+      {data.map(
+        (slide: { displaySliderResponse: any; name: string }, i: any) => {
+          if (slidersInView >= i - 1) {
+            return (
+              <div
+                key={slide?.name}
+                className=" mt-5 semiSm:mt-10 w-[100%]  flex flex-col transition-all"
+              >
+                <div className="flex items-center justify-between">
+                  <span className=" ml-5 semiSm:ml-10 text-opacity-75 semiSm:text-opacity-100 semiSm:text semiSm:text-xl md:text-2xl mb-3 text-secondary fade-in ">
+                    {slide.name}
+                  </span>
+                  <div
+                    className={`h-[1px] xxxs:w-[40%] semiSm:w-[65%] bg-secondary self-center bg-opacity-50 fade-in mr-5 semiSm:mr-10 mb-2 ${
+                      slide.name === 'Action' ? 'hidden' : ''
+                    }`}
+                  />
+                </div>
+                <div className=" transition-all ">
+                  <DisplaySlider
+                    index={i}
+                    setSlidersInView={setSlidersInView}
+                    slidersInView={slidersInView}
+                    data={slide.displaySliderResponse.results}
+                  />
+                </div>
               </div>
-              <div className=" transition-all ">
-                <DisplaySlider
-                  index={i}
-                  setSlidersInView={setSlidersInView}
-                  slidersInView={slidersInView}
-                />
-              </div>
-            </div>
-          );
+            );
+          }
         }
-      })}
+      )}
 
       <div
         onClick={() => setSlidersInView(slidersInView + 4)}
         className={`self-center  ${
-          slidersInView < movieGenres.length ? '' : 'hidden'
+          slidersInView < displaySlideContent.length ? '' : 'hidden'
         } py-1 px-1 rotate-180 rounded-full bg-white bg-opacity-10 text-white border-[2px] border-opacity-10 border-white text-xs text-opacity-70 mt-5 cursor-pointer hover:opacity-90 transition-all`}
       >
         <IoIosArrowUp className="h-5 w-5 md:w-6 md:h-6" />
