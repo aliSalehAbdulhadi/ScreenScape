@@ -25,8 +25,6 @@ const TitleSinglePage = () => {
   const param = useParams();
   const pathName = usePathname();
 
-  console.log(data);
-
   const asyncFunction = useCallback(async () => {
     try {
       const [titleRequest, trailerRequest, creditsRequest, relatedRequest] =

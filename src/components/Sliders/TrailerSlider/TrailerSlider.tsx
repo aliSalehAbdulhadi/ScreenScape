@@ -133,6 +133,7 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
                       >
                         <TrailerSliderButtons
                           title={title.title}
+                          isMovie={title?.first_air_date ? false : true}
                           id={title.id}
                           muteVideo={muteVideo}
                           setMuteVideo={setMuteVideo}

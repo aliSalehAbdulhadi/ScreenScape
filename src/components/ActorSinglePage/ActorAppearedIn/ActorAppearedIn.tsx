@@ -41,7 +41,7 @@ const ActorAppearedIn = ({
   };
   return (
     <GridComp title="Appeared In" className="relative">
-      <div className=" absolute top-[1px] left-36 flex items-center justify-center text-sm ">
+      <div className=" absolute top-[1px] left-28 xxxs:left-32 flex items-center justify-center text-xs xs:text-sm ">
         <span
           onClick={() => setIsMovies(true)}
           className={`mr-3 py-1 px-2  rounded cursor-pointer transition-all border-[1px]  ${

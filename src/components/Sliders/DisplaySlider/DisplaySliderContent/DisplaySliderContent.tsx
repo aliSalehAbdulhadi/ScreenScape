@@ -53,13 +53,18 @@ const DisplaySliderContent = ({
                   index={index}
                   hoveredIndex={hoveredIndex}
                   titleId={title.id}
+                  isMovie={title?.first_air_date ? false : true}
                 />
               </div>
             </div>
           </Suspense>
         </div>
       ) : (
-        <Link href={`/browse/movie/${title?.id}`}>
+        <Link
+          href={`/browse/${title?.first_air_date ? 'tv' : 'movie'}/${
+            title?.id
+          }`}
+        >
           <div>
             <Image
               onTouchStart={() => {

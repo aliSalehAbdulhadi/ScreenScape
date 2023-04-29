@@ -121,7 +121,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
               </div>
             </div>
 
-            <div className="mb-5 whitespace-nowrap ">
+            <div className="mb-5 flex flex-col justify-center whitespace-nowrap ">
               {isMovie ? (
                 <span> {dataObject()?.runtime}</span>
               ) : (
@@ -136,9 +136,9 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
                       {dataObject()?.episodes > 1 ? 'Episodes' : 'Episode'}
                     </span>
                   </div>
-                  <span className="mt-1">{dataObject().seriesStatus}</span>
                 </div>
               )}
+              <span className="mt-1">{dataObject().seriesStatus}</span>
             </div>
 
             <div className="flex flex-col semiSm:flex-row  w-fit  mt-1 xxxs:mb-0 semiSm:mt-0">

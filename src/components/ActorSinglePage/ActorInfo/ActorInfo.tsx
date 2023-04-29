@@ -11,6 +11,8 @@ const ActorInfo = ({ data }: { data: any }) => {
     'MMMM Do YYYY'
   )} (${moment().diff(data?.birthday, 'years')} years)`;
 
+  const deathDay = ` ${moment(data?.deathday).format('MMMM Do YYYY')}`;
+
   return (
     <div className="flex flex-col semiSm:flex-row">
       <div className="flex flex-col sm:flex-row">
@@ -51,6 +53,17 @@ const ActorInfo = ({ data }: { data: any }) => {
                 {data?.birthday ? age : ' Not Available'}
               </span>
             </div>
+
+            {data?.deathday ? (
+              <div className="mt-2">
+                <span>
+                  Died:
+                  {data?.deathDay ? deathDay : ' Not Available'}
+                </span>
+              </div>
+            ) : (
+              ''
+            )}
 
             <div className="mt-2">
               <span>

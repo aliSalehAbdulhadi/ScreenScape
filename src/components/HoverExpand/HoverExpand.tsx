@@ -12,10 +12,12 @@ const HoverExpand = ({
   titleId,
   index,
   hoveredIndex,
+  isMovie,
 }: {
   titleId: string;
   index: number;
   hoveredIndex: number;
+  isMovie: boolean;
 }) => {
   const [muteVideo, setMuteVideo] = useState<boolean>(true);
   const [playVideo, setPlayVideo] = useState<boolean>(false);
@@ -28,11 +30,17 @@ const HoverExpand = ({
   const asyncFunction = useCallback(async () => {
     try {
       const results = await asyncFetch(
-        `https://api.themoviedb.org/3/movie/${titleId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${
+          isMovie ? 'movie' : 'tv'
+        }/${titleId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
       );
 
       const trailer = await asyncFetch(
-        `https://api.themoviedb.org/3/movie/${titleId}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${
+          isMovie ? 'movie' : 'tv'
+        }/${titleId}/videos?api_key=${
+          process.env.NEXT_PUBLIC_API_KEY
+        }&language=en-US`
       );
 
       setData(results);
@@ -41,11 +49,12 @@ const HoverExpand = ({
         trailer.results.filter((title: any) => title.type === 'Trailer')
       );
     } catch (error) {}
-  }, [titleId]);
+  }, [isMovie, titleId]);
 
   const minutes = data.runtime;
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
+  const runtime = hours + 'h ' + remainingMinutes + 'm';
 
   useEffect(() => {
     asyncFunction();
@@ -61,6 +70,31 @@ const HoverExpand = ({
     setPlayVideo(false);
     setIsVideoReady(false);
     setMuteVideo(true);
+  };
+
+  const dataObject = () => {
+    let posterUrl = data?.poster_path;
+    let title = isMovie ? data?.title : data?.name;
+    let releaseDate = isMovie ? data?.release_date : data?.first_air_date;
+    let endedDate = data?.last_air_date;
+    let isAdult = data?.adult;
+    let voteAverage = data?.vote_average;
+    let overview = data?.overview;
+    let seasons = data?.number_of_seasons;
+    let episodes = data?.number_of_episodes;
+    let seriesStatus = data?.status;
+    return {
+      posterUrl,
+      title,
+      releaseDate,
+      endedDate,
+      isAdult,
+      voteAverage,
+      overview,
+      seasons,
+      episodes,
+      seriesStatus,
+    };
   };
 
   return (
@@ -97,7 +131,7 @@ const HoverExpand = ({
           </div>
         ) : (
           <div className="relative w-[300px]">
-            <Link href={`browse/movie/${titleId}`}>
+            <Link href={`/browse/${isMovie ? 'movie' : 'tv'}/${titleId}`}>
               <Image
                 width={300}
                 height={150}
@@ -125,17 +159,24 @@ const HoverExpand = ({
       </div>
 
       <Link
-        href={`/browse/movie/${titleId}`}
+        href={`/browse/${isMovie ? 'movie' : 'tv'}/${titleId}`}
         className={`py-3 px-1 xl:px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px] `}
       >
         <div className="flex items-center justify-between">
-          <span className="text-xs xl:text-base ">{data.title}</span>
+          <span className="text-xs xl:text-base ">{dataObject()?.title}</span>
           <PlusButton size={width > 1300 ? 20 : 15} />
         </div>
 
         <div className="flex text-[.6rem] xl:text-xs my-3">
           <span className="mr-5 mt-[2px]">
-            {hours + 'h ' + remainingMinutes + 'm'}
+            {isMovie ? (
+              runtime
+            ) : (
+              <span className='className="flex items-center'>
+                {dataObject()?.seasons}{' '}
+                {dataObject()?.seasons > 1 ? 'Seasons' : 'Season'}
+              </span>
+            )}
           </span>
           <div className="flex items-center ">
             {data?.adult ? (
@@ -147,7 +188,7 @@ const HoverExpand = ({
                 G
               </span>
             )}
-            <span>{data.release_date?.split('-')[0]}</span>
+            <span>{dataObject()?.releaseDate?.split('-')[0]}</span>
           </div>
         </div>
         <div>
