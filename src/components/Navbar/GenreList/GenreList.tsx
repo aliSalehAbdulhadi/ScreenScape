@@ -6,32 +6,55 @@ import { IoMdArrowDropright } from 'react-icons/io';
 import GenreCard from './GenreCard/GenreCard';
 import GridComp from '../../GridComp/GridComp';
 import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import Link from 'next/link';
 
 const GenreList = () => {
-  const [genre, setGenre] = useState<string>('');
   const [open, setOpen] = useState<boolean>(false);
   const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
   const [hoverAnimation, setHoverAnimation] = useState<boolean>(false);
+  const [isMovies, setIsMovies] = useState<boolean>(true);
 
   const movieGenres = [
-    { title: 'Action', value: 28 },
-    { title: 'Adventure', value: 12 },
-    { title: 'Animation', value: 16 },
-    { title: 'Comedy', value: 35 },
-    { title: 'Crime', value: 80 },
-    { title: 'Documentary', value: 99 },
-    { title: 'Drama', value: 18 },
-    { title: 'Family', value: 10751 },
-    { title: 'Fantasy', value: 14 },
-    { title: 'History', value: 36 },
-    { title: 'Horror', value: 27 },
-    { title: 'Music', value: 10402 },
-    { title: 'Mystery', value: 9648 },
-    { title: 'Romance', value: 10749 },
-    { title: 'Science Fiction', value: 878 },
-    { title: 'Thriller', value: 53 },
-    { title: 'War', value: 10752 },
+    { id: 28, name: 'Action' },
+    { id: 12, name: 'Adventure' },
+    { id: 16, name: 'Animation' },
+    { id: 35, name: 'Comedy' },
+    { id: 80, name: 'Crime' },
+    { id: 99, name: 'Documentary' },
+    { id: 18, name: 'Drama' },
+    { id: 10751, name: 'Family' },
+    { id: 14, name: 'Fantasy' },
+    { id: 36, name: 'History' },
+    { id: 27, name: 'Horror' },
+    { id: 10402, name: 'Music' },
+    { id: 9648, name: 'Mystery' },
+    { id: 10749, name: 'Romance' },
+    { id: 878, name: 'Science Fiction' },
+    { id: 10770, name: 'TV Movie' },
+    { id: 53, name: 'Thriller' },
+    { id: 10752, name: 'War' },
+    { id: 37, name: 'Western' },
   ];
+
+  const tvGenres = [
+    { id: 10759, name: 'Action & Adventure' },
+    { id: 16, name: 'Animation' },
+    { id: 35, name: 'Comedy' },
+    { id: 80, name: 'Crime' },
+    { id: 99, name: 'Documentary' },
+    { id: 18, name: 'Drama' },
+    { id: 10751, name: 'Family' },
+    { id: 10762, name: 'Kids' },
+    { id: 9648, name: 'Mystery' },
+    { id: 10763, name: 'News' },
+    { id: 10764, name: 'Reality' },
+    { id: 10765, name: 'Sci-Fi & Fantasy' },
+    { id: 10766, name: 'Soap' },
+    { id: 10767, name: 'Talk' },
+    { id: 10768, name: 'War & Politics' },
+    { id: 37, name: 'Western' },
+  ];
+  const genres = [movieGenres, tvGenres];
 
   const genreRef = useClickOutside(() => {
     if (open) {
@@ -77,18 +100,52 @@ const GenreList = () => {
         }  fixed inset-0 w-full left-1/2 transform -translate-x-1/2 py-5 rounded  bg-primary bg-opacity-90 bg-blur transition-all z-10 px-10 overflow-y-auto`}
       >
         <div className={`fade-in pt-10 ${closeAnimation ? 'fade-out' : ''}`}>
-          <GridComp title="Search by Genre" wide={true}>
-            {movieGenres.map((genre, i) => {
+          <GridComp className="relative" title="Search by Genre" wide={true}>
+            <div
+              ref={genreRef}
+              className=" absolute top-[-1px] left-28 xxxs:left-44 flex items-center justify-center text-xs xs:text-sm "
+            >
+              <span
+                onClick={() => {
+                  setIsMovies(true);
+                  setOpen(true);
+                }}
+                className={`mr-3 py-1 px-2  rounded cursor-pointer transition-all border-[1px]  ${
+                  isMovies
+                    ? 'text-primary bg-secondary border-secondary'
+                    : 'border-white border-opacity-80 text-white text-opacity-80'
+                }`}
+              >
+                Movies
+              </span>
+              <span
+                onClick={() => {
+                  setIsMovies(false);
+                  setOpen(true);
+                }}
+                className={`py-1 px-2 transition-all  rounded cursor-pointer border-[1px]   ${
+                  !isMovies
+                    ? 'text-primary bg-secondary border-secondary'
+                    : 'border-white border-opacity-80 text-white text-opacity-80'
+                }`}
+              >
+                TV Shows
+              </span>
+            </div>
+            {genres[isMovies ? 0 : 1].map((genre, i) => {
               return (
-                <DelayDisplay key={genre.value} delay={i * 50}>
-                  <div
-                    ref={genreRef}
-                    className=" cursor-pointer  rounded overflow-hidden hover:text-opacity-80 text-white transition-all"
-                    onClick={() => setGenre(genre.title)}
-                  >
-                    <GenreCard genre={genre} />
-                  </div>
-                </DelayDisplay>
+                <Link
+                  key={genre.id}
+                  href={`search/genre/${isMovies ? 'movie' : 'tv'}/${
+                    genre?.id
+                  }`}
+                >
+                  <DelayDisplay delay={i * 50}>
+                    <div className=" cursor-pointer  rounded overflow-hidden hover:text-opacity-80 text-white transition-all">
+                      <GenreCard genre={genre} />
+                    </div>
+                  </DelayDisplay>
+                </Link>
               );
             })}
           </GridComp>

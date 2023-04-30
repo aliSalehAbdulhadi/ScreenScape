@@ -21,6 +21,7 @@ const Navbar = () => {
   const [focusSearchBar, setFocusSearchBar] = useState(false);
   const [burgerOpen, setBurgerOpen] = useState<boolean>(false);
   const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
+  const [prevPages, setPrevPages] = useState<string[]>([]);
 
   const navBarRef = useClickOutside(() => {
     setFocusSearchBar(false);
@@ -50,13 +51,28 @@ const Navbar = () => {
     }
   }, [focusSearchBar]);
 
+  function handleGoBack() {
+    const prevPage = prevPages[prevPages.length - 1];
+    setPrevPages((prev) => prev.slice(0, prev.length - 1));
+    if (prevPages?.length < 1) {
+      router?.push('/');
+    } else {
+      router?.push(prevPage);
+    }
+  }
+
   useEffect(() => {
     if (searchText) {
-      router.push('/search/sss');
+      router?.push(`/search?q=${searchText}`);
+    }
+
+    if (searchText && !pathName?.includes('search')) {
+      setPrevPages((prev) => [...prev, pathName]);
       setFirstSearch(true);
     }
+
     if (!searchText && firstSearch && goBack) {
-      router.back();
+      handleGoBack();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, searchText, firstSearch]);

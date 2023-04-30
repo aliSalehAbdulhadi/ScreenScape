@@ -2,16 +2,17 @@
 
 import { Dispatch, SetStateAction } from 'react';
 import Link from 'next/link';
+import { v4 as uuidv4 } from 'uuid';
 import GridComp from '../../GridComp/GridComp';
 import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
 
 const ActorAppearedIn = ({
-  appearedInMovies,
+  appearedInTitles,
   setIsMovies,
   isMovies,
 }: {
-  appearedInMovies: any;
+  appearedInTitles: any;
   setIsMovies: Dispatch<SetStateAction<boolean>>;
   isMovies: boolean;
 }) => {
@@ -64,10 +65,10 @@ const ActorAppearedIn = ({
           TV Shows
         </span>
       </div>
-      {appearedInMovies?.map(
+      {appearedInTitles?.map(
         (title: any, i: any) =>
           i < 10 && (
-            <DelayDisplay key={title?.id} delay={i * 50}>
+            <DelayDisplay key={uuidv4()} delay={i * 50}>
               <Link
                 href={`/browse/${isMovies ? 'movie/' : 'tv/'}${title?.id}`}
                 className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"

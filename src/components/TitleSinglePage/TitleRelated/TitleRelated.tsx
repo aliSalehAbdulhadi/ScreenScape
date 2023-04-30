@@ -1,9 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { v4 as uuidv4 } from 'uuid';
+
 import GridComp from '../../GridComp/GridComp';
 import DelayDisplay from '../../DelayDisplay/DelayDisplay';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
+import { IoIosArrowUp } from 'react-icons/io';
 
 const TitleRelated = ({
   relatedTitles,
@@ -41,7 +44,7 @@ const TitleRelated = ({
       {relatedTitles?.map(
         (title: any, i: number) =>
           i < 10 && (
-            <DelayDisplay key={title?.id} delay={i * 50}>
+            <DelayDisplay key={uuidv4()} delay={i * 50}>
               <Link
                 href={`/browse/${isMovies ? 'movie/' : 'tv/'}${title?.id}`}
                 className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
@@ -58,6 +61,9 @@ const TitleRelated = ({
             </DelayDisplay>
           )
       )}
+      <div className="flex items-center justify-end ml-0 h-full rounded-t-r rounded-tr rounded-br w-[3rem] transition-all hover:w-[4rem] bg-white bg-opacity-10 text-black cursor-pointer hover:bg-opacity-20">
+        <IoIosArrowUp className="h-10 w-10 md:w-6 md:h-6 rotate-90 text-white mr-2  cursor-pointer" />
+      </div>
     </GridComp>
   );
 };

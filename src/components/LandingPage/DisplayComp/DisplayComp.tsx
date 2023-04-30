@@ -20,25 +20,6 @@ const movieGenres = [
   { id: 10749, name: 'Romance' },
 ];
 
-const displaySlideContent: { key: any; name: string }[] = [
-  {
-    name: 'Now Playing Movies',
-    key: process.env.NEXT_PUBLIC_NOW_PLAYING_MOVIES,
-  },
-  {
-    name: 'Popular Movies',
-    key: process.env.NEXT_PUBLIC_POPULAR_MOVIES,
-  },
-  {
-    name: 'Top Rated Movies',
-    key: process.env.NEXT_PUBLIC_TOP_RATED_MOVIES,
-  },
-  {
-    name: 'Upcoming Movies',
-    key: process.env.NEXT_PUBLIC_UPCOMING_MOVIES,
-  },
-];
-
 const DisplayComp = ({ data }: { data: any }) => {
   const [slidersInView, setSlidersInView] = useState<number>(3);
 
@@ -73,7 +54,7 @@ const DisplayComp = ({ data }: { data: any }) => {
                     index={i}
                     setSlidersInView={setSlidersInView}
                     slidersInView={slidersInView}
-                    data={slide.displaySliderResponse.results}
+                    data={slide.displaySliderResponse}
                   />
                 </div>
               </div>
@@ -85,7 +66,7 @@ const DisplayComp = ({ data }: { data: any }) => {
       <div
         onClick={() => setSlidersInView(slidersInView + 4)}
         className={`self-center  ${
-          slidersInView < displaySlideContent.length ? '' : 'hidden'
+          slidersInView < data.length ? '' : 'hidden'
         } py-1 px-1 rotate-180 rounded-full bg-white bg-opacity-10 text-white border-[2px] border-opacity-10 border-white text-xs text-opacity-70 mt-5 cursor-pointer hover:opacity-90 transition-all`}
       >
         <IoIosArrowUp className="h-5 w-5 md:w-6 md:h-6" />

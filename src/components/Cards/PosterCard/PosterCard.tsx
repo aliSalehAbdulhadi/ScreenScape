@@ -29,7 +29,7 @@ const PosterCard = ({
       releaseDate={releaseDate}
     >
       {loading && (
-        <div className="h-[362px]  w-[195px] ">
+        <div className="h-[367px]  w-[195px] ">
           <LoadingPicture />
         </div>
       )}
@@ -48,7 +48,7 @@ const PosterCard = ({
         }
       />
 
-      <div className="px-2 flex flex-col  bg-white bg-opacity-10   w-[195px]  h-full rounded-b ">
+      <div className="px-2 flex flex-col     w-[195px]  h-full rounded-b ">
         <span className="mt-2 h-[4.8rem] w-fit">
           {title?.length <= 38 ? title : title?.slice(0, 38) + '...'}
         </span>

@@ -12,7 +12,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
   const [loading, setLoading] = useState(true);
 
   const pathName = usePathname();
-  const isMovie = pathName?.includes('movie');
+  const isMovies = pathName?.includes('movie');
 
   const minutes = data.runtime;
   const hours = Math.floor(minutes / 60);
@@ -21,8 +21,8 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
 
   const dataObject = () => {
     let posterUrl = data?.poster_path;
-    let title = isMovie ? data?.title : data?.name;
-    let releaseDate = isMovie ? data?.release_date : data?.first_air_date;
+    let title = isMovies ? data?.title : data?.name;
+    let releaseDate = isMovies ? data?.release_date : data?.first_air_date;
     let endedDate = data?.last_air_date;
     let runtime = movieRuntime;
     let isAdult = data?.adult;
@@ -87,7 +87,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
                 : dataObject().title?.slice(0, 40) + '...'}
             </span>
             <div className=" text-opacity-75 w-fit mb-5 mt-2">
-              <SingleGenres genres={data?.genres} />
+              <SingleGenres isMovies={isMovies} genres={data?.genres} />
             </div>
 
             <div className="  top-0 absolute hidden xxs:hidden xxxs:block right-0">
@@ -107,7 +107,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
               )}
 
               <div>
-                {isMovie ? (
+                {isMovies ? (
                   <span>{dataObject().releaseDate.split('-')[0]}</span>
                 ) : (
                   <div className="flex items-center justify-center">
@@ -122,7 +122,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
             </div>
 
             <div className="mb-5 flex flex-col justify-center whitespace-nowrap ">
-              {isMovie ? (
+              {isMovies ? (
                 <span> {dataObject()?.runtime}</span>
               ) : (
                 <div className='className="flex items-center'>
@@ -151,7 +151,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
             </div>
           </div>
 
-          <div className="text-[17px] h-[7rem]   semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem] xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem] scrollBar overflow-auto hidden  semiSm:block text-offWhite">
+          <div className="text-[17px]  h-[5rem] md:h-[7rem] xl:h-[5rem] xxl:h-[7rem]   semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem]  xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem] scrollBar overflow-auto hidden  semiSm:block text-offWhite">
             <span className="leading-7">{dataObject().overview}</span>
           </div>
 
