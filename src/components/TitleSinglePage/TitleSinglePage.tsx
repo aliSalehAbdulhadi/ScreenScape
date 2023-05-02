@@ -111,10 +111,10 @@ const TitleSinglePage = () => {
       ) : (
         <div className="w-full">
           <BackgroundOverlay imageUrl={data?.backdrop_path}>
-            <div className="w-full  xl:w-[70%]  sm:px-10 z-[3]">
+            <div className="w-full  xl:w-[70%]  sm:px-10">
               <TitleInfo data={data} trailerUrl={trailer} />
             </div>
-            <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-10 z-[2]">
+            <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-10 z-[1]">
               <News />
             </div>
           </BackgroundOverlay>

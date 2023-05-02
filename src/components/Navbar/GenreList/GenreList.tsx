@@ -1,15 +1,20 @@
 'use client';
 
 import useClickOutside from '@/src/hooks/useClickOutside';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { IoMdArrowDropright } from 'react-icons/io';
 import GenreCard from './GenreCard/GenreCard';
-import GridComp from '../../GridComp/GridComp';
-import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import GridComp from '../../WrapperComponents/GridComp/GridComp';
+import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import Link from 'next/link';
 
-const GenreList = () => {
-  const [open, setOpen] = useState<boolean>(false);
+const GenreList = ({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
   const [hoverAnimation, setHoverAnimation] = useState<boolean>(false);
   const [isMovies, setIsMovies] = useState<boolean>(true);
@@ -97,7 +102,7 @@ const GenreList = () => {
       <div
         className={`${
           !open ? 'hidden' : ''
-        }  fixed inset-0 w-full left-1/2 transform -translate-x-1/2 py-5 rounded  bg-primary bg-opacity-90 bg-blur transition-all z-10 px-10 overflow-y-auto`}
+        }  fixed inset-0 w-full left-1/2 transform -translate-x-1/2 py-5 rounded  bg-primary bg-opacity-90 bg-blur transition-all px-10 overflow-y-auto`}
       >
         <div className={`fade-in pt-10 ${closeAnimation ? 'fade-out' : ''}`}>
           <GridComp className="relative" title="Search by Genre" wide={true}>
@@ -112,7 +117,7 @@ const GenreList = () => {
                 }}
                 className={`mr-3 py-1 px-2  rounded cursor-pointer transition-all border-[1px]  ${
                   isMovies
-                    ? 'text-primary bg-secondary border-secondary'
+                    ? 'text-primary bg-secondary opacity-90 border-secondary'
                     : 'border-white border-opacity-80 text-white text-opacity-80'
                 }`}
               >
@@ -125,7 +130,7 @@ const GenreList = () => {
                 }}
                 className={`py-1 px-2 transition-all  rounded cursor-pointer border-[1px]   ${
                   !isMovies
-                    ? 'text-primary bg-secondary border-secondary'
+                    ? 'text-primary bg-secondary opacity-90 border-secondary'
                     : 'border-white border-opacity-80 text-white text-opacity-80'
                 }`}
               >

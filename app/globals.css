@@ -320,12 +320,11 @@ body {
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
   background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
     linear-gradient(
       to right,
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.3),
       rgba(0, 0, 0, 0.9)
     ),
     linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
@@ -501,7 +500,6 @@ input:-webkit-autofill:focus {
   font-size: 14px;
 }
 
-
 .checkbox-container {
   display: inline-block;
   position: relative;
@@ -581,3 +579,49 @@ input:-webkit-autofill:focus {
   transition: width 0.3s ease;
 }
 
+.masonry-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.masonry-grid_column {
+  background-clip: padding-box;
+}
+
+.masonry-grid_item {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+}
+
+.modal-enter {
+  animation: modal-enter 0.2s linear;
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(100rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+}
+
+.modal-exit {
+  animation: modal-exit 0.2s linear;
+}
+
+@keyframes modal-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0rem);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100rem);
+  }
+}

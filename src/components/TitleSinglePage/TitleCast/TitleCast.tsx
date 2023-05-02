@@ -2,8 +2,8 @@
 
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
-import GridComp from '../../GridComp/GridComp';
-import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import GridComp from '../../WrapperComponents/GridComp/GridComp';
+import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import CastCard from '../../Cards/CastCard/CastCard';
 
 export const TitleCast = ({ cast }: { cast: any }) => {

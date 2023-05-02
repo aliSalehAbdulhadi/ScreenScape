@@ -1,5 +1,3 @@
-// const genres = ['Action', 'Thriller', 'Crime Film', 'Adventure'];
-
 import Link from 'next/link';
 
 const SingleGenres = ({

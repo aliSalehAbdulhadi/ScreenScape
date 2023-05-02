@@ -20,6 +20,7 @@ const Navbar = () => {
   const [goBack, setGoBack] = useState(true);
   const [focusSearchBar, setFocusSearchBar] = useState(false);
   const [burgerOpen, setBurgerOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
   const [prevPages, setPrevPages] = useState<string[]>([]);
 
@@ -110,7 +111,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`h-[4rem]  flex items-center  justify-between px-5 semiSm:px-10 sticky top-0 z-10 bg-primary ${
+      className={`h-[4rem]  flex items-center  justify-between px-5 semiSm:px-10 sticky top-0  bg-primary z-[4] ${
         scrollY > 50
           ? `${width > 865 ? 'background-fade-bottom-exit shadow-md' : ''}`
           : `${width > 865 ? 'background-fade-bottom-enter' : ''} `
@@ -175,7 +176,7 @@ const Navbar = () => {
 
         <div className="ml-3 semiSm:block hidden">
           <Suspense>
-            <GenreList />
+            <GenreList open={open} setOpen={setOpen} />
           </Suspense>
         </div>
       </div>

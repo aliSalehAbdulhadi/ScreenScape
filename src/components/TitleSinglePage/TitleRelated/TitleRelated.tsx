@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
-
-import GridComp from '../../GridComp/GridComp';
-import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import { Suspense, lazy } from 'react';
+import GridComp from '../../WrapperComponents/GridComp/GridComp';
+import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
-import { IoIosArrowUp } from 'react-icons/io';
+import LoadingCard from '../../LoadingComponent/LoadingCard/LoadingCard';
+
+const ViewMoreComp = lazy(() => import('../../ViewMoreComp/ViewMoreComp'));
 
 const TitleRelated = ({
   relatedTitles,
@@ -40,7 +42,7 @@ const TitleRelated = ({
     };
   };
   return (
-    <GridComp title="Related">
+    <GridComp title="Related" className="relative">
       {relatedTitles?.map(
         (title: any, i: number) =>
           i < 10 && (
@@ -61,9 +63,10 @@ const TitleRelated = ({
             </DelayDisplay>
           )
       )}
-      <div className="flex items-center justify-end ml-0 h-full rounded-t-r rounded-tr rounded-br w-[3rem] transition-all hover:w-[4rem] bg-white bg-opacity-10 text-black cursor-pointer hover:bg-opacity-20">
-        <IoIosArrowUp className="h-10 w-10 md:w-6 md:h-6 rotate-90 text-white mr-2  cursor-pointer" />
-      </div>
+
+      <Suspense fallback={<LoadingCard />}>
+        <ViewMoreComp isMovies={isMovies} titles={relatedTitles} />
+      </Suspense>
     </GridComp>
   );
 };

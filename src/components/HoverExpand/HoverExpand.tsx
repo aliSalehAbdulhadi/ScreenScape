@@ -158,39 +158,40 @@ const HoverExpand = ({
         )}
       </div>
 
-      <Link
-        href={`/browse/${isMovie ? 'movie' : 'tv'}/${titleId}`}
+      <div
         className={`py-3 px-1 xl:px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px] `}
       >
-        <div className="flex items-center justify-between">
-          <span className="text-xs xl:text-base ">{dataObject()?.title}</span>
-          <PlusButton size={width > 1300 ? 20 : 15} />
-        </div>
-
-        <div className="flex text-[.6rem] xl:text-xs my-3">
-          <span className="mr-5 mt-[2px]">
-            {isMovie ? (
-              runtime
-            ) : (
-              <span className='className="flex items-center'>
-                {dataObject()?.seasons}{' '}
-                {dataObject()?.seasons > 1 ? 'Seasons' : 'Season'}
-              </span>
-            )}
-          </span>
-          <div className="flex items-center ">
-            {data?.adult ? (
-              <span className="border-[1px] rounded p-[2px] border-opacity-50 mr-3 font-averia text-[.6rem] xl:text-xs">
-                +18
-              </span>
-            ) : (
-              <span className="border-[1px] rounded py-[1px] px-1 border-opacity-50 mr-3 font-averia text-[.6rem] xl:text-xs">
-                G
-              </span>
-            )}
-            <span>{dataObject()?.releaseDate?.split('-')[0]}</span>
+        <Link href={`/browse/${isMovie ? 'movie' : 'tv'}/${titleId}`}>
+          <div className="flex items-center justify-between">
+            <span className="text-xs xl:text-base ">{dataObject()?.title}</span>
+            <PlusButton size={width > 1300 ? 20 : 15} />
           </div>
-        </div>
+
+          <div className="flex text-[.6rem] xl:text-xs my-3">
+            <span className="mr-5 mt-[2px]">
+              {isMovie ? (
+                runtime
+              ) : (
+                <span className='className="flex items-center'>
+                  {dataObject()?.seasons}{' '}
+                  {dataObject()?.seasons > 1 ? 'Seasons' : 'Season'}
+                </span>
+              )}
+            </span>
+            <div className="flex items-center ">
+              {data?.adult ? (
+                <span className="border-[1px] rounded p-[2px] border-opacity-50 mr-3 font-averia text-[.6rem] xl:text-xs">
+                  +18
+                </span>
+              ) : (
+                <span className="border-[1px] rounded py-[1px] px-1 border-opacity-50 mr-3 font-averia text-[.6rem] xl:text-xs">
+                  G
+                </span>
+              )}
+              <span>{dataObject()?.releaseDate?.split('-')[0]}</span>
+            </div>
+          </div>
+        </Link>
         <div>
           <SingleGenres
             underLine={false}
@@ -198,7 +199,7 @@ const HoverExpand = ({
             genres={data.genres}
           />
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

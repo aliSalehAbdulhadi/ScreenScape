@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import SingleGenres from './SingleGenres/SingleGenres';
 import Rating from './Rating/Rating';
 import StreamedOn from './StreamedOn/StreamedOn';
 import TrailerButton from './TrailerButton/TrailerButton';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
-import { usePathname } from 'next/navigation';
+import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
 
 const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
   const [loading, setLoading] = useState(true);
@@ -50,33 +51,37 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
     <div className="flex flex-col  items-start w-[100%]  sm:pr-5 ">
       <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]"></div>
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
-        <div className=" rounded self-center sm:self-start mb-5 sm:mb-0 h-full  w-full xs:w-[28rem]  sm:w-[20rem]">
-          <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
-            {loading && (
-              <div className="h-[30rem]">
-                <LoadingPicture />
-              </div>
-            )}
-            <Image
-              width={1000}
-              height={1000}
-              src={`https://image.tmdb.org/t/p/original/${
-                dataObject().posterUrl
-              }`}
-              alt="Poster Photo"
-              className={`rounded  object-fit w-full h-full ${
-                loading === false ? 'opacity-100' : 'opacity-0'
-              }`}
-              onLoad={() =>
-                setTimeout(() => {
-                  setLoading(false);
-                }, 100)
-              }
-            />
-          </SinglePlaceholder>
+        <div className="self-center">
+          <MasonryGridPics isMovies={isMovies} id={data?.id}>
+            <div className="rounded self-center sm:self-start mb-5 sm:mb-0 h-full  w-full xs:w-[28rem]  sm:w-[20rem]">
+              <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
+                {loading && (
+                  <div className="h-[30rem]">
+                    <LoadingPicture />
+                  </div>
+                )}
+                <Image
+                  width={1000}
+                  height={1000}
+                  src={`https://image.tmdb.org/t/p/original/${
+                    dataObject().posterUrl
+                  }`}
+                  alt="Poster Photo"
+                  className={`rounded  object-fit w-full h-full  ${
+                    loading === false ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  onLoad={() =>
+                    setTimeout(() => {
+                      setLoading(false);
+                    }, 100)
+                  }
+                />
+              </SinglePlaceholder>
+            </div>
+          </MasonryGridPics>
         </div>
 
-        <div className=" mx-2 xxxs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
+        <div className="z-[2] mx-2 xxxs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
           <div className=" w-full xxs:w-fit relative  ">
             <span
               title={dataObject().title}

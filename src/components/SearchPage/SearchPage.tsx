@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 import { useParams, useSearchParams } from 'next/navigation';
 import asyncFetch from '@/src/helper/asyncFetch';
-import GridComp from '@/src/components/GridComp/GridComp';
-import DelayDisplay from '../DelayDisplay/DelayDisplay';
+import GridComp from '@/src/components/WrapperComponents/GridComp/GridComp';
+import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
 import PosterCard from '../Cards/PosterCard/PosterCard';
 
 const SearchPage = () => {
@@ -62,7 +62,6 @@ const SearchPage = () => {
     String(genre.id) === params?.id ? genre : false
   );
 
-  console.log(title);
   const asyncFunction = useCallback(async () => {
     try {
       if (search) {
@@ -77,7 +76,7 @@ const SearchPage = () => {
           }&with_genres=${
             params.id
           }&sort_by=popularity.desc&page=1&vote_count.gte=${
-            params?.isMovie === 'movie' ? 200 : 0
+            params?.isMovie === 'movie' ? 200 : 25
           }`
         );
         setData(results);

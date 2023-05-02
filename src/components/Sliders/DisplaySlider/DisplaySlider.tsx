@@ -12,12 +12,10 @@ import {
   useState,
 } from 'react';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
-import { useInViewport } from 'react-in-viewport';
-import { v4 as uuidv4 } from 'uuid';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
-import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import LoadingCard from '../../LoadingComponent/LoadingCard/LoadingCard';
 
 const DisplaySliderContent = lazy(
@@ -49,25 +47,17 @@ const DisplaySlider = ({
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
 
-  const inViewPortRef = useRef(null);
-  const { inViewport } = useInViewport(inViewPortRef);
-
   const hidedArrows = () => {
     return prevArrow || nextArrow || slideChanging || showArrows;
   };
 
   useEffect(() => {
-    // lazy loading display components
-    if (inViewport && index >= slidersInView) {
-      setSlidersInView(slidersInView + 2);
-    }
-
     if (!overFlowHidden) {
       setTimeout(() => {
         setOverFlowHidden(true);
       }, 2000);
     }
-  }, [slidersInView, inViewport, index, setSlidersInView, overFlowHidden]);
+  }, [slidersInView, index, setSlidersInView, overFlowHidden]);
 
   useEffect(() => {
     setShowArrows(true);
@@ -107,7 +97,6 @@ const DisplaySlider = ({
 
   return (
     <div
-      ref={inViewPortRef}
       onMouseEnter={() => {
         setShowArrows(true);
         setShowPag(true);
