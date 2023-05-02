@@ -19,7 +19,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         fluidWide: 'repeat(auto-fit,minmax(25rem,1fr))',
-        fluid: 'repeat(auto-fit,minmax(12rem,1fr))',
+        fluid: 'repeat(auto-fit,minmax(12rem,min-content))',
       },
     },
 

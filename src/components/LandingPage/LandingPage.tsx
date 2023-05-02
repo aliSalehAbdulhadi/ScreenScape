@@ -17,36 +17,37 @@ const LandingPage = async () => {
   }[] = [
     {
       name: 'Now Playing Movies',
-      apiKey: `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=2`,
+      apiKey: `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc&vote_count.gte=500`,
       mediaType: 'movie',
     },
     {
       name: 'Popular Movies',
-      apiKey: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=2`,
+      apiKey: `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc&vote_count.gte=2500`,
       mediaType: 'movie',
     },
     {
       name: 'Top Rated Movies',
-      apiKey: `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`,
+      apiKey: `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc&vote_count.gte=2000`,
       mediaType: 'movie',
     },
     {
       name: 'Upcoming Movies',
-      apiKey: `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=2`,
+      apiKey: `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
       mediaType: 'movie',
     },
 
     {
       name: 'Popular TV Shows',
-      apiKey: ` https://api.themoviedb.org/3/tv/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`,
+      apiKey: ` https://api.themoviedb.org/3/tv/popular?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc&vote_count.gte=2500`,
       mediaType: 'tv',
     },
     {
       name: 'On Air TV Shows',
-      apiKey: `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=2`,
+      apiKey: `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc&vote_count.lte=100`,
       mediaType: 'tv',
     },
   ];
+
   const displaySliderData = await getDisplaySlideData(displaySlideContent);
 
   const moviesWithTrailers: any = await getMoviesWithTrailers();

@@ -7,11 +7,14 @@ import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture
 const ActorInfo = ({ data }: { data: any }) => {
   const [loading, setLoading] = useState(true);
 
-  const age = ` ${moment(data?.birthday).format(
-    'MMMM Do YYYY'
-  )} (${moment().diff(data?.birthday, 'years')} years)`;
+  const age = `${moment(data?.birthday).format('MMMM Do YYYY')} ${
+    data?.deathday ? '' : `(${moment().diff(data?.birthday, 'years')} years)`
+  }`;
 
-  const deathDay = ` ${moment(data?.deathday).format('MMMM Do YYYY')}`;
+  const deathDay = ` ${moment(data?.deathday).format('MMMM Do YYYY')} ${
+    data?.deathday &&
+    `(${moment(data?.deathday).diff(data?.birthday, 'years')} years)`
+  }`;
 
   return (
     <div className="flex flex-col semiSm:flex-row">
@@ -58,7 +61,7 @@ const ActorInfo = ({ data }: { data: any }) => {
               <div className="mt-2">
                 <span>
                   Died:
-                  {data?.deathDay ? deathDay : ' Not Available'}
+                  {data?.deathday ? deathDay : ' Not Available'}
                 </span>
               </div>
             ) : (

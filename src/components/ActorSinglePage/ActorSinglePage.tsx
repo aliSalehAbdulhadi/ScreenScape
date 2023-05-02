@@ -38,13 +38,13 @@ const ActorSinglePage = () => {
       const [actorInfoRequest, appearedInRequest, otherActorsRequest] =
         await Promise.all([
           fetch(
-            `https://api.themoviedb.org/3/person/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            `https://api.themoviedb.org/3/person/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
           ),
           fetch(
-            `https://api.themoviedb.org/3/person/${param.id}/combined_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            `https://api.themoviedb.org/3/person/${param.id}/combined_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
           ),
           fetch(
-            `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
           ),
         ]);
 
@@ -89,7 +89,7 @@ const ActorSinglePage = () => {
               <ActorAppearedIn
                 setIsMovies={setIsMovies}
                 isMovies={isMovies}
-                appearedInMovies={isMovies ? movies : tvShows}
+                appearedInTitles={isMovies ? movies : tvShows}
               />
             </div>
 

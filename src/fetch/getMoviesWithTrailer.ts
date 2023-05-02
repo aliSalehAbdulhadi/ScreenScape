@@ -1,6 +1,6 @@
 export async function getMoviesWithTrailers() {
   const trailerSliderRequest = await fetch(
-    `https://api.themoviedb.org/3/trending/all/day?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+    `https://api.themoviedb.org/3/trending/all/day?api_key=${process.env.NEXT_PUBLIC_API_KEY}&sort_by=popularity.desc`
   );
   const trailerSliderData = await trailerSliderRequest.json();
 

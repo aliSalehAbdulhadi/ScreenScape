@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import GridComp from '../../GridComp/GridComp';
-import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import GridComp from '../../WrapperComponents/GridComp/GridComp';
+import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 
 const OtherActors = () => {
   const images = [

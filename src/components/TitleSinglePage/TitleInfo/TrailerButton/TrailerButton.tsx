@@ -3,6 +3,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { BsPlayFill } from 'react-icons/bs';
 import PlusButton from '@/src/components/Buttons/PlusButton/PlusButton';
+import { MdVideoLibrary } from 'react-icons/md';
 
 const VideoPlayer = lazy(
   () => import('@/src/components/VideoPlayer/VideoPlayer')
@@ -12,6 +13,7 @@ const TrailerButton = ({ trailerUrl }: { trailerUrl: string }) => {
   const [isClientSide, setIsClientSide] = useState<boolean>(false);
   const [openTrailer, setOpenTrailer] = useState<boolean>(false);
   const [stopTrailer, setStopTrailer] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleOnEnd = () => {
     setOpenTrailer(false);
@@ -50,11 +52,15 @@ const TrailerButton = ({ trailerUrl }: { trailerUrl: string }) => {
         <BsPlayFill size={25} className="" />
         <span className="mr-2 xs:text-lg">Trailer</span>
       </button>
+      <MdVideoLibrary
+        size={30}
+        className="mr-2 cursor-pointer transition-all hover:opacity-80"
+      />
       <div title="Add to My List">
         <PlusButton size={25} />
       </div>
       <div
-        className={`fixed inset-0  w-full h-[100vh] z-50 bg-primary bg-opacity-90 bg-blur   ${
+        className={`fixed inset-0  w-full h-[100vh] bg-primary bg-opacity-90 bg-blur   ${
           openTrailer ? '' : 'pointer-events-none hidden'
         }`}
       >

@@ -1,9 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import GridComp from '../../GridComp/GridComp';
-import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import { v4 as uuidv4 } from 'uuid';
+import { Suspense, lazy } from 'react';
+import GridComp from '../../WrapperComponents/GridComp/GridComp';
+import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
+import LoadingCard from '../../LoadingComponent/LoadingCard/LoadingCard';
+
+const ViewMoreComp = lazy(() => import('../../ViewMoreComp/ViewMoreComp'));
 
 const TitleRelated = ({
   relatedTitles,
@@ -37,11 +42,11 @@ const TitleRelated = ({
     };
   };
   return (
-    <GridComp title="Related">
+    <GridComp title="Related" className="relative">
       {relatedTitles?.map(
         (title: any, i: number) =>
           i < 10 && (
-            <DelayDisplay key={title?.id} delay={i * 50}>
+            <DelayDisplay key={uuidv4()} delay={i * 50}>
               <Link
                 href={`/browse/${isMovies ? 'movie/' : 'tv/'}${title?.id}`}
                 className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
@@ -58,6 +63,10 @@ const TitleRelated = ({
             </DelayDisplay>
           )
       )}
+
+      <Suspense fallback={<LoadingCard />}>
+        <ViewMoreComp isMovies={isMovies} titles={relatedTitles} />
+      </Suspense>
     </GridComp>
   );
 };

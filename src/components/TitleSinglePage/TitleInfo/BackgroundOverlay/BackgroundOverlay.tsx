@@ -21,9 +21,9 @@ const BackgroundOverlay = ({
         >
           {children}
           <div
-            className={`w-full bg-black bg-opacity-50 absolute top-0 h-[32.5rem] pointer-events-none `}
+            className={`w-full bg-secondary bg-opacity-40 absolute top-0 h-[32.5rem] pointer-events-none`}
           ></div>
-          <div className="w-full overlay  absolute top-0 h-[32.5rem] pointer-events-none "></div>
+          <div className="w-full overlay  absolute top-0 h-[32.5rem] pointer-events-none"></div>
         </div>
       ) : (
         <div>{children}</div>

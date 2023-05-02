@@ -12,11 +12,10 @@ import {
   useState,
 } from 'react';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
-import { useInViewport } from 'react-in-viewport';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
-import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import LoadingCard from '../../LoadingComponent/LoadingCard/LoadingCard';
 
 const DisplaySliderContent = lazy(
@@ -48,25 +47,17 @@ const DisplaySlider = ({
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
 
-  const inViewPortRef = useRef(null);
-  const { inViewport } = useInViewport(inViewPortRef);
-
   const hidedArrows = () => {
     return prevArrow || nextArrow || slideChanging || showArrows;
   };
 
   useEffect(() => {
-    // lazy loading display components
-    if (inViewport && index >= slidersInView) {
-      setSlidersInView(slidersInView + 2);
-    }
-
     if (!overFlowHidden) {
       setTimeout(() => {
         setOverFlowHidden(true);
-      }, 1000);
+      }, 2000);
     }
-  }, [slidersInView, inViewport, index, setSlidersInView, overFlowHidden]);
+  }, [slidersInView, index, setSlidersInView, overFlowHidden]);
 
   useEffect(() => {
     setShowArrows(true);
@@ -106,7 +97,6 @@ const DisplaySlider = ({
 
   return (
     <div
-      ref={inViewPortRef}
       onMouseEnter={() => {
         setShowArrows(true);
         setShowPag(true);
@@ -150,33 +140,35 @@ const DisplaySlider = ({
           momentum="false"
         >
           {data?.map((title: any, i: number) => {
-            return title?.backdrop_path === null ? (
-              ''
-            ) : (
-              <SwiperSlide
-                onMouseEnter={() => setHoveredIndex(i)}
-                key={title?.id}
-                className={`hover:overflow-visible ${
-                  overFlowHidden && 'overflow-hidden '
-                }`}
-              >
-                <Suspense
-                  fallback={
-                    <div className="h-full">
-                      <LoadingCard />
-                    </div>
-                  }
+            if (i <= 35) {
+              return title?.backdrop_path === null ? (
+                ''
+              ) : (
+                <SwiperSlide
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  key={title?.id}
+                  className={`hover:overflow-visible ${
+                    overFlowHidden && 'overflow-hidden '
+                  }`}
                 >
-                  <DelayDisplay delay={i < 8 ? i * 100 : 0}>
-                    <DisplaySliderContent
-                      title={title}
-                      index={i}
-                      hoveredIndex={hoveredIndex}
-                    />
-                  </DelayDisplay>
-                </Suspense>
-              </SwiperSlide>
-            );
+                  <Suspense
+                    fallback={
+                      <div className="h-full">
+                        <LoadingCard />
+                      </div>
+                    }
+                  >
+                    <DelayDisplay delay={i < 8 ? i * 100 : 0}>
+                      <DisplaySliderContent
+                        title={title}
+                        index={i}
+                        hoveredIndex={hoveredIndex}
+                      />
+                    </DelayDisplay>
+                  </Suspense>
+                </SwiperSlide>
+              );
+            }
           })}
           <div />
           <div className=" transition-all">

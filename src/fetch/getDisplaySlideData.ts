@@ -1,11 +1,15 @@
 export async function getDisplaySlideData(
-  displaySlideContent: { apiKey: any; name: string }[]
+  displaySlideContent: { apiKey: string; name: string }[]
 ) {
   const displaySliderData = await Promise.all(
     displaySlideContent?.map(async (item) => {
-      const displaySliderRequest = await fetch(item.apiKey);
-      const displaySliderResponse = await displaySliderRequest?.json();
-      return { name: item.name, displaySliderResponse };
+      const allResponses = [];
+      for (let i = 1; i <= 2; i++) {
+        const response = await fetch(`${item.apiKey}&page=${i}`);
+        const data = await response.json();
+        allResponses?.push(...data.results);
+      }
+      return { name: item?.name, displaySliderResponse: allResponses };
     })
   );
 

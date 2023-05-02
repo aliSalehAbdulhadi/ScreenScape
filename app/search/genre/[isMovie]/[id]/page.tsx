@@ -5,7 +5,7 @@ const SearchPage = dynamic(
   () => import('@/src/components/SearchPage/SearchPage')
 );
 
-const Search = () => {
+const Search = async () => {
   return (
     <Suspense>
       <SearchPage />

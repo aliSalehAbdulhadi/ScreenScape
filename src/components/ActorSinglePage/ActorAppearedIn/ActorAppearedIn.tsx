@@ -1,17 +1,21 @@
 'use client';
 
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, Suspense, lazy } from 'react';
 import Link from 'next/link';
-import GridComp from '../../GridComp/GridComp';
-import DelayDisplay from '../../DelayDisplay/DelayDisplay';
+import { v4 as uuidv4 } from 'uuid';
+import GridComp from '../../WrapperComponents/GridComp/GridComp';
+import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
+import LoadingCard from '../../LoadingComponent/LoadingCard/LoadingCard';
+
+const ViewMoreComp = lazy(() => import('../../ViewMoreComp/ViewMoreComp'));
 
 const ActorAppearedIn = ({
-  appearedInMovies,
+  appearedInTitles,
   setIsMovies,
   isMovies,
 }: {
-  appearedInMovies: any;
+  appearedInTitles: any;
   setIsMovies: Dispatch<SetStateAction<boolean>>;
   isMovies: boolean;
 }) => {
@@ -47,7 +51,7 @@ const ActorAppearedIn = ({
           onClick={() => setIsMovies(true)}
           className={`mr-3 py-1 px-2  rounded cursor-pointer transition-all border-[1px]  ${
             isMovies
-              ? 'text-primary bg-secondary border-secondary'
+              ? 'text-primary bg-secondary bg-opacity-90 border-secondary'
               : 'border-white border-opacity-80 text-white text-opacity-80'
           }`}
         >
@@ -57,17 +61,17 @@ const ActorAppearedIn = ({
           onClick={() => setIsMovies(false)}
           className={`py-1 px-2 transition-all  rounded cursor-pointer border-[1px]   ${
             !isMovies
-              ? 'text-primary bg-secondary border-secondary'
+              ? 'text-primary bg-secondary opacity-90 border-secondary'
               : 'border-white border-opacity-80 text-white text-opacity-80'
           }`}
         >
           TV Shows
         </span>
       </div>
-      {appearedInMovies?.map(
+      {appearedInTitles?.map(
         (title: any, i: any) =>
           i < 10 && (
-            <DelayDisplay key={title?.id} delay={i * 50}>
+            <DelayDisplay key={uuidv4()} delay={i * 50}>
               <Link
                 href={`/browse/${isMovies ? 'movie/' : 'tv/'}${title?.id}`}
                 className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
@@ -83,6 +87,11 @@ const ActorAppearedIn = ({
               </Link>
             </DelayDisplay>
           )
+      )}
+      {appearedInTitles?.length > 10 && (
+        <Suspense fallback={<LoadingCard />}>
+          <ViewMoreComp isMovies={isMovies} titles={appearedInTitles} />
+        </Suspense>
       )}
     </GridComp>
   );

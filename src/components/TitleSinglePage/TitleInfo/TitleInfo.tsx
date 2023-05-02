@@ -1,18 +1,19 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import SingleGenres from './SingleGenres/SingleGenres';
 import Rating from './Rating/Rating';
 import StreamedOn from './StreamedOn/StreamedOn';
 import TrailerButton from './TrailerButton/TrailerButton';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
-import { usePathname } from 'next/navigation';
+import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
 
 const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
   const [loading, setLoading] = useState(true);
 
   const pathName = usePathname();
-  const isMovie = pathName?.includes('movie');
+  const isMovies = pathName?.includes('movie');
 
   const minutes = data.runtime;
   const hours = Math.floor(minutes / 60);
@@ -21,8 +22,8 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
 
   const dataObject = () => {
     let posterUrl = data?.poster_path;
-    let title = isMovie ? data?.title : data?.name;
-    let releaseDate = isMovie ? data?.release_date : data?.first_air_date;
+    let title = isMovies ? data?.title : data?.name;
+    let releaseDate = isMovies ? data?.release_date : data?.first_air_date;
     let endedDate = data?.last_air_date;
     let runtime = movieRuntime;
     let isAdult = data?.adult;
@@ -50,33 +51,37 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
     <div className="flex flex-col  items-start w-[100%]  sm:pr-5 ">
       <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]"></div>
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
-        <div className=" rounded self-center sm:self-start mb-5 sm:mb-0 h-full  w-full xs:w-[28rem]  sm:w-[20rem]">
-          <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
-            {loading && (
-              <div className="h-[30rem]">
-                <LoadingPicture />
-              </div>
-            )}
-            <Image
-              width={1000}
-              height={1000}
-              src={`https://image.tmdb.org/t/p/original/${
-                dataObject().posterUrl
-              }`}
-              alt="Poster Photo"
-              className={`rounded  object-fit w-full h-full ${
-                loading === false ? 'opacity-100' : 'opacity-0'
-              }`}
-              onLoad={() =>
-                setTimeout(() => {
-                  setLoading(false);
-                }, 100)
-              }
-            />
-          </SinglePlaceholder>
+        <div className="self-center">
+          <MasonryGridPics isMovies={isMovies} id={data?.id}>
+            <div className="rounded self-center sm:self-start mb-5 sm:mb-0 h-full  w-full xs:w-[28rem]  sm:w-[20rem]">
+              <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
+                {loading && (
+                  <div className="h-[30rem]">
+                    <LoadingPicture />
+                  </div>
+                )}
+                <Image
+                  width={1000}
+                  height={1000}
+                  src={`https://image.tmdb.org/t/p/original/${
+                    dataObject().posterUrl
+                  }`}
+                  alt="Poster Photo"
+                  className={`rounded  object-fit w-full h-full  ${
+                    loading === false ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  onLoad={() =>
+                    setTimeout(() => {
+                      setLoading(false);
+                    }, 100)
+                  }
+                />
+              </SinglePlaceholder>
+            </div>
+          </MasonryGridPics>
         </div>
 
-        <div className=" mx-2 xxxs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
+        <div className="z-[2] mx-2 xxxs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
           <div className=" w-full xxs:w-fit relative  ">
             <span
               title={dataObject().title}
@@ -87,7 +92,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
                 : dataObject().title?.slice(0, 40) + '...'}
             </span>
             <div className=" text-opacity-75 w-fit mb-5 mt-2">
-              <SingleGenres genres={data?.genres} />
+              <SingleGenres isMovies={isMovies} genres={data?.genres} />
             </div>
 
             <div className="  top-0 absolute hidden xxs:hidden xxxs:block right-0">
@@ -107,7 +112,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
               )}
 
               <div>
-                {isMovie ? (
+                {isMovies ? (
                   <span>{dataObject().releaseDate.split('-')[0]}</span>
                 ) : (
                   <div className="flex items-center justify-center">
@@ -122,7 +127,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
             </div>
 
             <div className="mb-5 flex flex-col justify-center whitespace-nowrap ">
-              {isMovie ? (
+              {isMovies ? (
                 <span> {dataObject()?.runtime}</span>
               ) : (
                 <div className='className="flex items-center'>
@@ -151,7 +156,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
             </div>
           </div>
 
-          <div className="text-[17px] h-[7rem]   semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem] xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem] scrollBar overflow-auto hidden  semiSm:block text-offWhite">
+          <div className="text-[17px]  h-[5rem] md:h-[7rem] xl:h-[5rem] xxl:h-[7rem]   semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem]  xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem] scrollBar overflow-auto hidden  semiSm:block text-offWhite">
             <span className="leading-7">{dataObject().overview}</span>
           </div>
 
