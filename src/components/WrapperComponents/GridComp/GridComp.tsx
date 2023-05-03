@@ -29,7 +29,7 @@ const GridComp = ({
         )}
       </div>
       <div
-        className={`mt-5 grid gap-2 place-items-center semiSm:place-items-start ${
+        className={`mt-5 grid gap-2 place-items-center semiSm:place-items-start justify-center sm:justify-start ${
           wide ? 'grid-cols-fluidWide ' : 'grid-cols-fluid'
         } `}
       >

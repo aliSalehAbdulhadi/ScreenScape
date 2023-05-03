@@ -16,7 +16,7 @@ const SingleGenres = ({
       className={`${
         className.length > 0
           ? className
-          : 'grid grid-cols-2 grid-rows-2 gap-x-0 gap-y-1 w-fit text-sm '
+          : 'grid grid-cols-2 grid-rows-2 gap-x-0 gap-y-1 w-fit text-xs xxxs:text-sm '
       }`}
     >
       {genres?.map(
