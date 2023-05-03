@@ -55,6 +55,7 @@ const TrailerButton = ({ trailerUrl }: { trailerUrl: string }) => {
       <MdVideoLibrary
         size={30}
         className="mr-3 cursor-pointer transition-all hover:opacity-80"
+
       />
       <div title="Add to My List">
         <PlusButton size={25} />

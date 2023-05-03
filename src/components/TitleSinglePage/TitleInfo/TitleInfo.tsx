@@ -52,10 +52,12 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
       <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]"></div>
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
         <div className="self-center">
+
           <MasonryGridPics
             mediaType={data?.first_air_date ? 'tv' : 'movie'}
             id={data?.id}
           >
+
             <div className="rounded self-center sm:self-start mb-5 sm:mb-0 h-full  w-full xs:w-[28rem]  sm:w-[20rem]">
               <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
                 {loading && (
@@ -96,6 +98,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
             </span>
             <div className=" text-opacity-75 w-fit mb-5 mt-2">
               <SingleGenres isMovies={isMovies} genres={data?.genres} />
+
             </div>
           </div>
           <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
