@@ -1,5 +1,6 @@
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { TfiViewGrid } from 'react-icons/tfi';
+import { IoGrid } from 'react-icons/io5';
 import Masonry from 'react-masonry-css';
 import { shuffleArray } from '@/src/helper/shuffleArray';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
@@ -13,11 +14,11 @@ import 'react-masonry-css';
 const PicturesComponent = ({
   children,
   id,
-  isMovies,
+  mediaType,
 }: {
   children: ReactNode;
   id: string;
-  isMovies: boolean;
+  mediaType: string;
 }) => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<any[]>([]);
@@ -31,22 +32,19 @@ const PicturesComponent = ({
     try {
       if (open) {
         const picturesRequest = await fetch(
-          `https://api.themoviedb.org/3/${
-            isMovies ? 'movie' : 'tv'
-          }/${id}/images?api_key=${
-            process.env.NEXT_PUBLIC_API_KEY
-          }&include_image_language=en`
+          `https://api.themoviedb.org/3/${mediaType}/${id}/images?api_key=${process.env.NEXT_PUBLIC_API_KEY}&include_image_language=en`
         );
         const picturesResponse = await picturesRequest.json();
 
         const posters = picturesResponse?.posters || [];
         const backdrops = picturesResponse?.backdrops || [];
         const combinedArray = shuffleArray([...posters, ...backdrops]);
-
-        setData(combinedArray);
+        setData(
+          mediaType === 'person' ? picturesResponse?.profiles : combinedArray
+        );
       }
     } catch (error) {}
-  }, [id, isMovies, open]);
+  }, [id, mediaType, open]);
 
   useEffect(() => {
     asyncFunction();
@@ -68,9 +66,9 @@ const PicturesComponent = ({
         {children}
         <div
           onClick={() => setOpen(true)}
-          className={`w-full h-full absolute top-0 left-0 transition-all text-opacity-0 hover:text-opacity-100 bg-primary bg-opacity-0 cursor-pointer rounded overflow-hidden hover:bg-opacity-90 text-white flex items-center justify-center `}
+          className="bg-white p-3 transition-all rounded-full opacity-70  absolute bottom-3 left-[50%] translate-x-[-50%] cursor-pointer hover:opacity-90"
         >
-          <TfiViewGrid className="h-14 w-14" />
+          <IoGrid className="h-[24px] w-[24px] text-primary" />
         </div>
       </div>
 
@@ -119,3 +117,12 @@ const PicturesComponent = ({
 };
 
 export default PicturesComponent;
+
+{
+  /* <div
+onClick={() => setOpen(true)}
+className="bg-primary p-3 transition-all rounded-full opacity-70  absolute bottom-3 left-3 cursor-pointer hover:opacity-90"
+>
+<IoGrid className="h-7 w-7" />
+</div> */
+}

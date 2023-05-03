@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
+import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
 
 const ActorInfo = ({ data }: { data: any }) => {
   const [loading, setLoading] = useState(true);
@@ -19,29 +20,31 @@ const ActorInfo = ({ data }: { data: any }) => {
   return (
     <div className="flex flex-col semiSm:flex-row">
       <div className="flex flex-col sm:flex-row">
-        <div className=" rounded flex  justify-center sm:justify-start mb-5 sm:mb-0 w-full">
-          <SinglePlaceholder condition={data?.profile_path} isTitle={false}>
-            {loading && (
-              <div className="h-[30rem]">
-                <LoadingPicture />
-              </div>
-            )}
-            <Image
-              width={1000}
-              height={1000}
-              src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
-              alt="Actor Photo"
-              className={`rounded h-full object-fit w-full xs:w-[28rem] sm:w-[21rem] ${
-                loading === false ? 'opacity-100' : 'opacity-0'
-              }`}
-              onLoad={() =>
-                setTimeout(() => {
-                  setLoading(false);
-                }, 100)
-              }
-            />
-          </SinglePlaceholder>
-        </div>
+        <MasonryGridPics mediaType="person" id={data?.id}>
+          <div className=" rounded flex  justify-center sm:justify-start mb-5 sm:mb-0 w-full">
+            <SinglePlaceholder condition={data?.profile_path} isTitle={false}>
+              {loading && (
+                <div className="h-[30rem]">
+                  <LoadingPicture />
+                </div>
+              )}
+              <Image
+                width={1000}
+                height={1000}
+                src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
+                alt="Actor Photo"
+                className={`rounded h-full object-fit w-full xs:w-[28rem] sm:w-[21rem] ${
+                  loading === false ? 'opacity-100' : 'opacity-0'
+                }`}
+                onLoad={() =>
+                  setTimeout(() => {
+                    setLoading(false);
+                  }, 100)
+                }
+              />
+            </SinglePlaceholder>
+          </div>
+        </MasonryGridPics>
 
         <div className="mx-5 w-fit">
           <div className="flex items-center">
@@ -51,10 +54,7 @@ const ActorInfo = ({ data }: { data: any }) => {
           </div>
           <div className="text-offWhite text-opacity-75  mt-3 w-fit text-sm xx:text-xs xs:text-sm">
             <div className="mt-5">
-              <span>
-                Born:
-                {data?.birthday ? age : ' Not Available'}
-              </span>
+              <span>Born: {data?.birthday ? age : ' Not Available'}</span>
             </div>
 
             {data?.deathday ? (

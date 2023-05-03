@@ -25,7 +25,7 @@ const SinglePicture = ({
         loading="lazy"
         blurDataURL="/images/imagePlaceholder.png"
         placeholder="blur"
-        className={`rounded-lg  object-fit w-full h-full masonry-grid_item cursor-pointer hover:opacity-`}
+        className={`rounded-lg  object-fit w-full h-full masonry-grid_item cursor-pointer transition-all hover:opacity-90`}
       />
     </div>
   );

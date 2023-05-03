@@ -13,7 +13,7 @@ const CastCardPlaceholder = ({
   characterName: string;
 }) => {
   return (
-    <div>
+    <div className="transition-all hover:opacity-90">
       {condition ? (
         children
       ) : (
