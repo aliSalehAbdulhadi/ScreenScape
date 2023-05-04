@@ -122,6 +122,7 @@ const SearchPage = () => {
   return (
     <div className="pt-10 background-fade px-10 fade-in">
       <GridComp
+        breakPointWidth={12}
         title="Looking For"
         changeableTitle={
           search ? search?.replaceAll('%20', ' ') : `${title[0]?.name} Genre`

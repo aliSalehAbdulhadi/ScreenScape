@@ -75,7 +75,7 @@ const ViewMoreComp = ({
         open={open}
         setOpen={setOpen}
       >
-        <GridComp className="relative">
+        <GridComp breakPointWidth={12} className="relative">
           {titles?.map(
             (title: any, i: number) =>
               slidersInView >= i && (

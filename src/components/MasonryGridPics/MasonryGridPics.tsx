@@ -62,7 +62,7 @@ const PicturesComponent = ({
   }, [open]);
   return (
     <div ref={ref}>
-      <div className="rounded self-center sm:self-start mb-5 sm:mb-0 h-full  z-[2] w-full xs:w-[28rem]  sm:w-[20rem] relative">
+      <div className="xs:rounded self-center  mb-5 sm:mb-0 h-full  w-full  relative">
         {children}
         <div
           onClick={() => setOpen(true)}

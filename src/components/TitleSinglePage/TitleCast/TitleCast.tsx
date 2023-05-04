@@ -8,7 +8,7 @@ import CastCard from '../../Cards/CastCard/CastCard';
 
 export const TitleCast = ({ cast }: { cast: any }) => {
   return (
-    <GridComp title="Cast">
+    <GridComp breakPointWidth={12} title="Cast">
       {cast?.map(
         (actor: any, i: number) =>
           i < 10 && (

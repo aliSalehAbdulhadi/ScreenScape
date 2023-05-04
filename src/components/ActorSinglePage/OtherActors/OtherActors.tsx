@@ -22,7 +22,7 @@ const OtherActors = () => {
     },
   ];
   return (
-    <GridComp title="Other Actors">
+    <GridComp breakPointWidth={12} title="Other Actors">
       {images.map((cast, i) => (
         <DelayDisplay key={cast.url + i} delay={i * 50}>
           <div className=" mb-3 cursor-pointer w-fit">

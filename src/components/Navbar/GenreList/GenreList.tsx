@@ -105,7 +105,11 @@ const GenreList = ({
         }  fixed inset-0 w-full left-1/2 transform -translate-x-1/2 py-5 rounded  bg-primary bg-opacity-90 bg-blur transition-all px-10 overflow-y-auto`}
       >
         <div className={`fade-in pt-10 ${closeAnimation ? 'fade-out' : ''}`}>
-          <GridComp className="relative" title="Search by Genre" wide={true}>
+          <GridComp
+            breakPointWidth={25}
+            className="relative"
+            title="Search by Genre"
+          >
             <div
               ref={genreRef}
               className=" absolute top-[-1px] left-28 xxxs:left-44 flex items-center justify-center text-xs xs:text-sm "

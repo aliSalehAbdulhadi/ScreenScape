@@ -18,7 +18,7 @@ const TitleSinglePage = () => {
   const [loading, setLoading] = useState(true);
   const [genres, setGenres] = useState<[]>([]);
   const [data, setData] = useState<any>({});
-  const [trailer, setTrailer] = useState<any>([]);
+  const [videos, setVideos] = useState<any>([]);
   const [credits, setCredits] = useState<any>([]);
   const [relatedTitles, setRelatedTitles] = useState<any>([]);
 
@@ -81,9 +81,7 @@ const TitleSinglePage = () => {
       setData(titleResponse);
       setCredits(creditsResponse);
       setRelatedTitles(relatedResponse);
-      setTrailer(
-        trailerResponse.results.filter((title: any) => title.type === 'Trailer')
-      );
+      setVideos(trailerResponse.results);
 
       if (
         titleRequest.status === 200 &&
@@ -111,10 +109,10 @@ const TitleSinglePage = () => {
       ) : (
         <div className="w-full">
           <BackgroundOverlay imageUrl={data?.backdrop_path}>
-            <div className="w-full  xl:w-[70%]  sm:px-10">
-              <TitleInfo data={data} trailerUrl={trailer} />
+            <div className="w-full  xl:w-[70%]  sm:px-10 ">
+              <TitleInfo data={data} videos={videos} />
             </div>
-            <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-10 z-[1]">
+            <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-10">
               <News />
             </div>
           </BackgroundOverlay>

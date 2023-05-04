@@ -30,7 +30,7 @@ const PosterCardPlaceholder = ({
             <div className="text-sm h-[4.8rem]">
               {title?.length <= 45 ? title : title?.slice(0, 45) + '...'}
             </div>
-            <div className="flex items-center justify-between text-sm opacity-75 w-full">
+            <div className="flex items-center justify-between text-xs opacity-75 w-full">
               <div className="flex items-center ">
                 {isAdult ? (
                   <span className="border-[1px] rounded p-[2px] bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">

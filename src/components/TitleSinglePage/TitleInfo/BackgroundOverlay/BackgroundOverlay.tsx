@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import useWindowSize from '@/src/hooks/useWindowsSize';
 
 const BackgroundOverlay = ({
   children,
@@ -8,26 +7,24 @@ const BackgroundOverlay = ({
   children: ReactNode;
   imageUrl: string;
 }) => {
-  const width = useWindowSize();
-
   return (
-    <div className="w-full">
-      {width > 864 ? (
+    <div className="w-full relative">
+      <div
+        style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/original/${imageUrl})`,
+          height: '32.5rem',
+        }}
+        className=" background-image justify-between w-full relative  bg-no-repeat bg-cover  py-5 hidden semiSm:flex"
+      >
         <div
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original/${imageUrl})`,
-          }}
-          className="flex background-image justify-between w-full relative  bg-no-repeat bg-cover  py-5"
-        >
-          {children}
-          <div
-            className={`w-full bg-secondary bg-opacity-40 absolute top-0 h-[32.5rem] pointer-events-none`}
-          ></div>
-          <div className="w-full overlay  absolute top-0 h-[32.5rem] pointer-events-none"></div>
-        </div>
-      ) : (
-        <div>{children}</div>
-      )}
+          className={`w-full bg-secondary bg-opacity-40 absolute top-0 h-[32.5rem] pointer-events-none`}
+        />
+        <div className="w-full overlay  absolute top-0 h-[32.5rem] pointer-events-none"></div>
+      </div>
+
+      <div className=" semiSm:absolute top-5 flex items-center justify-between w-full">
+        {children}
+      </div>
     </div>
   );
 };

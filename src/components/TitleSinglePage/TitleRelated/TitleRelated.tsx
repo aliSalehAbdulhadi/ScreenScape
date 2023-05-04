@@ -42,7 +42,7 @@ const TitleRelated = ({
     };
   };
   return (
-    <GridComp title="Related" className="relative">
+    <GridComp breakPointWidth={12} title="Related" className="relative">
       {relatedTitles?.map(
         (title: any, i: number) =>
           i < 10 && (
