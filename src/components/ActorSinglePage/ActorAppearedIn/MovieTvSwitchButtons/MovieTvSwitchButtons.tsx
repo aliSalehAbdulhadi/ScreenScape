@@ -27,7 +27,7 @@ const MovieTvSwitchButtons = ({
             : 'border-white border-opacity-80 text-white text-opacity-80'
         }`}
       >
-        TV Shows
+        Shows
       </span>
     </div>
   );

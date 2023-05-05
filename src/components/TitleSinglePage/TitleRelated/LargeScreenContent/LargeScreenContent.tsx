@@ -41,11 +41,7 @@ const LargeScreenContent = ({
     };
   };
   return (
-    <GridComp
-      breakPointWidth={12}
-      title="Related"
-      className="relative hidden sm:block"
-    >
+    <GridComp breakPointWidth={12} title="Related" className="relative">
       {relatedTitles?.map(
         (title: any, i: number) =>
           i < 10 && (

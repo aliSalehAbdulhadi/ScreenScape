@@ -84,8 +84,8 @@ const ActorSinglePage = () => {
             </div>
           </div>
 
-          <div className="mt-14 flex flex-col semiSm:flex-row w-full justify-between">
-            <div className=" semiSm:w-[45%]">
+          <div className="mt-14 flex flex-col md:flex-row w-full justify-between">
+            <div className=" md:w-[45%]">
               <ActorAppearedIn
                 setMediaType={setMediaType}
                 mediaType={mediaType}
@@ -93,7 +93,7 @@ const ActorSinglePage = () => {
               />
             </div>
 
-            <div className="semiSm:w-[45%] mt-10 semiSm:mt-0">
+            <div className="md:w-[45%] mt-10 semiSm:mt-0">
               <OtherActors />
             </div>
           </div>

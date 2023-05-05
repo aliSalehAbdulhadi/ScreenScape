@@ -126,8 +126,8 @@ const TitleSinglePage = () => {
           </BackgroundOverlay>
 
           <div className="sm:px-10 w-full">
-            <div className="mt-14 flex flex-col semiSm:flex-row  justify-between ">
-              <div className=" semiSm:w-[48%]">
+            <div className="mt-14 flex flex-col md:flex-row  justify-between ">
+              <div className=" md:w-[48%]">
                 <TitleCast
                   credits={creditsType === 'cast' ? cast : crew}
                   setCreditsType={setCreditsType}
@@ -135,7 +135,7 @@ const TitleSinglePage = () => {
                 />
               </div>
 
-              <div className="semiSm:w-[48%] mt-10 semiSm:mt-0">
+              <div className="md:w-[48%] mt-10 semiSm:mt-0">
                 <TitleRelated
                   mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                   relatedTitles={relatedTitles?.results}

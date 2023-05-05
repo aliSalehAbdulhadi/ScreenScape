@@ -4,9 +4,12 @@ import GridComp from '../../../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../../../WrapperComponents/DelayDisplay/DelayDisplay';
 import CastCard from '../../../Cards/CreditsCard/CreditsCard';
 import LoadingCard from '@/src/components/LoadingComponent/LoadingCard/LoadingCard';
-import { Dispatch, SetStateAction, Suspense } from 'react';
-import ViewMoreComp from '@/src/components/ViewMoreComp/ViewMoreComp';
+import { Dispatch, SetStateAction, Suspense, lazy } from 'react';
 import CastCrewSwitchButtons from '../CastCrewSwitchButtons/CastCrewSwitchButtons';
+
+const ViewMoreComp = lazy(
+  () => import('@/src/components/ViewMoreComp/ViewMoreComp')
+);
 
 const LargeScreenContent = ({
   credits,
@@ -18,11 +21,7 @@ const LargeScreenContent = ({
   setCreditsType: Dispatch<SetStateAction<string>>;
 }) => {
   return (
-    <GridComp
-      breakPointWidth={12}
-      title="Cast"
-      className="hidden sm:block relative"
-    >
+    <GridComp breakPointWidth={12} title="Cast" className="relative">
       <div className=" absolute top-[5px] left-10 xxxs:left-16 flex items-center justify-center text-xs xs:text-sm ">
         <CastCrewSwitchButtons
           setCreditsType={setCreditsType}
