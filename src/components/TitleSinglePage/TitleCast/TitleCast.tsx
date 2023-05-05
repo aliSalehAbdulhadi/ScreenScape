@@ -1,12 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, memo } from 'react';
 import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
 import SmallScreenContent from './SmallScreenContent/SmallScreenContent';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
-
 LargeScreenContent;
 
-export const TitleCast = ({
+const TitleCast = ({
   credits,
   setCreditsType,
   creditsType,
@@ -31,7 +30,8 @@ export const TitleCast = ({
           creditsType={creditsType}
         />
       )}
-
     </div>
   );
 };
+
+export default memo(TitleCast);

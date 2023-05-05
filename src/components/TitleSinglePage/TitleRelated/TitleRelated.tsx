@@ -4,6 +4,7 @@ import useWindowSize from '@/src/hooks/useWindowsSize';
 
 import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
 import SmallScreenContent from './SmallScreenContent/SmallScreenContent';
+import { memo } from 'react';
 
 const TitleRelated = ({
   relatedTitles,
@@ -27,9 +28,8 @@ const TitleRelated = ({
           mediaType={mediaType}
         />
       )}
-
     </div>
   );
 };
 
-export default TitleRelated;
+export default memo(TitleRelated);
