@@ -78,6 +78,7 @@ const Modal = ({
         </div>
         <div className="h-full w-full bg-white bg-opacity-10 absolute rounded-t-md " />
       </div>
+
     </div>
   );
 };

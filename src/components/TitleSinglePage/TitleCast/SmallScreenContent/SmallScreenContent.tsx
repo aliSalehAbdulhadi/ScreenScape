@@ -3,6 +3,7 @@ import CastCrewSwitchButtons from '../CastCrewSwitchButtons/CastCrewSwitchButton
 import { Dispatch, SetStateAction } from 'react';
 import ViewMoreComp from '@/src/components/ViewMoreComp/ViewMoreComp';
 
+
 const SmallScreenContent = ({
   credits,
   creditsType,
@@ -31,6 +32,7 @@ const SmallScreenContent = ({
             <ViewMoreComp titles={credits} mediaType="actor" />
           </div>
         ) : null}
+
       </div>
 
       <CardSlider isCast={true} data={credits} />

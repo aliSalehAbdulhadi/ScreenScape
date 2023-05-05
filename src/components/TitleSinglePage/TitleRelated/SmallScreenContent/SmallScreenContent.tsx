@@ -17,6 +17,7 @@ const SmallScreenContent = ({
             <ViewMoreComp titles={relatedTitles} mediaType={mediaType} />
           </div>
         ) : null}
+
       </div>
 
       <CardSlider mediaType={mediaType} isCast={false} data={relatedTitles} />

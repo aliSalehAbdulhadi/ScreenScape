@@ -12,6 +12,7 @@ import CreditsCard from '../Cards/CreditsCard/CreditsCard';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import { MdUnfoldMoreDouble } from 'react-icons/md';
 
+
 const ViewMoreComp = ({
   titles,
   mediaType,
@@ -70,7 +71,6 @@ const ViewMoreComp = ({
             alt="View more"
             className={`h-full w-full object-cover `}
           />
-
           <div className="absolute top-0 left-0 h-full w-full  bg-primary bg-blur bg-opacity-90 rounded overflow-hidden"></div>
           <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-white bg-blur bg-opacity-10 text-opacity-80 font-bold text-white rounded overflow-hidden transition-all hover:bg-opacity- hover:text-opacity-70  hover:pl-8 ">
             View More
@@ -86,6 +86,13 @@ const ViewMoreComp = ({
           <MdUnfoldMoreDouble className="w-6 h-6" />
         </div>
       )}
+
+      <div
+        onClick={() => setOpen(true)}
+        className="text-xs font-bold ml-4 text-white text-opacity-75 sm:hidden"
+      >
+        View More
+      </div>
 
       <Modal
         data={titles}

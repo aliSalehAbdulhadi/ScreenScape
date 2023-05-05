@@ -11,6 +11,7 @@ const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
 );
 
+
 const LargeScreenContent = ({
   credits,
   setCreditsType,
@@ -22,6 +23,7 @@ const LargeScreenContent = ({
 }) => {
   return (
     <GridComp breakPointWidth={12} title="Cast" className="relative">
+
       <div className=" absolute top-[5px] left-10 xxxs:left-16 flex items-center justify-center text-xs xs:text-sm ">
         <CastCrewSwitchButtons
           setCreditsType={setCreditsType}

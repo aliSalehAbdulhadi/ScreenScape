@@ -3,6 +3,7 @@ import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
 import SmallScreenContent from './SmallScreenContent/SmallScreenContent';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 
+
 LargeScreenContent;
 
 export const TitleCast = ({
@@ -30,6 +31,7 @@ export const TitleCast = ({
           creditsType={creditsType}
         />
       )}
+
     </div>
   );
 };

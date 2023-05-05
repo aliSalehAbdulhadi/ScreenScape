@@ -1,6 +1,7 @@
 'use client';
 
 import useWindowSize from '@/src/hooks/useWindowsSize';
+
 import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
 import SmallScreenContent from './SmallScreenContent/SmallScreenContent';
 
@@ -26,6 +27,7 @@ const TitleRelated = ({
           mediaType={mediaType}
         />
       )}
+
     </div>
   );
 };
