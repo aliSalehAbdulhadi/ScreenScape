@@ -56,11 +56,11 @@ const Modal = ({
     >
       <div
         ref={ref}
-        className="h-screen semiSm:h-[98vh] w-full sm:w-auto bg-primary bg-opacity-90 overflow-y-auto overflow-x-hidden  rounded-t-md px-5 sm:px-10 py-5 scrollBar z-[2]"
-        style={{ width: `${screenWidth > 600 ? width : 100}vw` }}
+        className="h-screen semiSm:h-[98vh] w-full sm:w-auto bg-primary bg-opacity-90 overflow-y-auto overflow-x-hidden  rounded-t-md px-5 sm:px-10 semiSm:py-5 scrollBar z-[2]"
+        style={{ width: `${screenWidth > 860 ? width : 100}vw` }}
       >
         <div>
-          <div className="w-full flex items-center justify-between mx-1 mb-2">
+          <div className="w-full flex items-center justify-between mx-1 mb-2 mt-3 semiSm:mt-0">
             <div>
               <span className="text-secondary mr-1">{data?.length}</span>
               <span>Matches</span>
@@ -77,8 +77,7 @@ const Modal = ({
       </div>
       <div
         className="absolute h-screen semiSm:h-[98vh] bg-white bg-opacity-40 overflow-hidden  rounded-t-md px-10 py-5 scrollBar z-[1]"
-        style={{ width: `${screenWidth > 600 ? width : 100}vw` }}
-
+        style={{ width: `${screenWidth > 860 ? width : 100}vw` }}
       />
     </div>
   );

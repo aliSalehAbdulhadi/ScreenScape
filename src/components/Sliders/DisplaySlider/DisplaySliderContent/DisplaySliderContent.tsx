@@ -53,7 +53,7 @@ const DisplaySliderContent = ({
                   index={index}
                   hoveredIndex={hoveredIndex}
                   titleId={title.id}
-                  isMovie={title?.first_air_date ? false : true}
+                  mediaType={title?.first_air_date ? 'tv' : 'movie'}
                 />
               </div>
             </div>

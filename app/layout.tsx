@@ -45,7 +45,7 @@ export default function RootLayout({
         className={`${inter.className} ${roboto.variable} ${averia.variable} flex flex-col  bg-primary  select-none mainScrollBar`}
       >
         <Suspense
-          fallback={<div className="bgFadeInEnter w-full h-[7vh]"></div>}
+          fallback={<div className="bgFadeInEnter w-full h-[4vh]"></div>}
         >
           <Navbar />
         </Suspense>

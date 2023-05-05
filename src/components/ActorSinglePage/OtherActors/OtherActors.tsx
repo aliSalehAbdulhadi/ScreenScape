@@ -1,42 +1,12 @@
 'use client';
 
-import Image from 'next/image';
-import GridComp from '../../WrapperComponents/GridComp/GridComp';
-import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
+import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
 
 const OtherActors = () => {
-  const images = [
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-    { url: '/images/d05a3f087fa57f6d41b865d53a42a5f5.jpeg' },
-    { url: '/images/81F5PF9oHhL._AC_UF894,1000_QL80_.jpg' },
-    {
-      url: '/images/716rIayrVWL._AC_SL1500_.jpg',
-    },
-  ];
   return (
-    <GridComp title="Other Actors">
-      {images.map((cast, i) => (
-        <DelayDisplay key={cast.url + i} delay={i * 50}>
-          <div className=" mb-3 cursor-pointer w-fit">
-            <Image
-              src={cast.url}
-              width={150}
-              height={150}
-              alt="Actor Image"
-              className="h-[240px] w-[180px] object-fit  rounded"
-            />
-          </div>
-        </DelayDisplay>
-      ))}
-    </GridComp>
+    <div>
+      <LargeScreenContent />
+    </div>
   );
 };
 

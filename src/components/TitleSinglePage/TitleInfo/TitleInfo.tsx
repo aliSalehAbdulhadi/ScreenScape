@@ -1,19 +1,23 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
 import SingleGenres from './SingleGenres/SingleGenres';
 import Rating from './Rating/Rating';
 import StreamedOn from './StreamedOn/StreamedOn';
-import TrailerButton from './TrailerButton/TrailerButton';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
 import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
+import Buttons from './Buttons/Buttons';
 
-const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
+const TitleInfo = ({
+  data,
+  videos,
+  mediaType,
+}: {
+  data: any;
+  videos: any[];
+  mediaType: string;
+}) => {
   const [loading, setLoading] = useState(true);
-
-  const pathName = usePathname();
-  const isMovies = pathName?.includes('movie');
 
   const minutes = data.runtime;
   const hours = Math.floor(minutes / 60);
@@ -22,8 +26,9 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
 
   const dataObject = () => {
     let posterUrl = data?.poster_path;
-    let title = isMovies ? data?.title : data?.name;
-    let releaseDate = isMovies ? data?.release_date : data?.first_air_date;
+    let title = mediaType === 'movie' ? data?.title : data?.name;
+    let releaseDate =
+      mediaType === 'movie' ? data?.release_date : data?.first_air_date;
     let endedDate = data?.last_air_date;
     let runtime = movieRuntime;
     let isAdult = data?.adult;
@@ -49,56 +54,50 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
 
   return (
     <div className="flex flex-col  items-start w-[100%]  sm:pr-5 ">
-      <div className="w-[95%] sm:w-[90%] semiSm:w-[80%] lg:w-[70%]"></div>
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
-        <div className="self-center">
-
+        <div className="xs:self-center">
           <MasonryGridPics
             mediaType={data?.first_air_date ? 'tv' : 'movie'}
             id={data?.id}
           >
-
-            <div className="rounded self-center sm:self-start mb-5 sm:mb-0 h-full  w-full xs:w-[28rem]  sm:w-[20rem]">
-              <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
-                {loading && (
-                  <div className="h-[30rem]">
-                    <LoadingPicture />
-                  </div>
-                )}
-                <Image
-                  width={1000}
-                  height={1000}
-                  src={`https://image.tmdb.org/t/p/original/${
-                    dataObject().posterUrl
-                  }`}
-                  alt="Poster Photo"
-                  className={`rounded  object-fit w-full h-full  ${
-                    loading === false ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  onLoad={() =>
-                    setTimeout(() => {
-                      setLoading(false);
-                    }, 100)
-                  }
-                />
-              </SinglePlaceholder>
-            </div>
+            <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
+              {loading && (
+                <div className="h-[30rem]">
+                  <LoadingPicture />
+                </div>
+              )}
+              <Image
+                width={1000}
+                height={1000}
+                src={`https://image.tmdb.org/t/p/original/${
+                  dataObject().posterUrl
+                }`}
+                alt="Poster Photo"
+                className={`xs:rounded  object-fit w-full h-full  ${
+                  loading === false ? 'opacity-100' : 'opacity-0'
+                }`}
+                onLoad={() =>
+                  setTimeout(() => {
+                    setLoading(false);
+                  }, 100)
+                }
+              />
+            </SinglePlaceholder>
           </MasonryGridPics>
         </div>
 
-        <div className="z-[2] mx-2 xxxs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
-          <div className=" w-full xxs:w-fit relative  ">
+        <div className="mx-2 xxxs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
+          <div className=" w-full xxs:w-fit relative ">
             <span
               title={dataObject().title}
-              className="text-lg xxxs:text-xl  semiSm:text-3xl  flex items-center xxxs:w-[11rem] sm:w-[10rem] semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem] xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem]  scrollBar"
+              className="text-lg xxxs:text-xl  semiSm:text-3xl  flex items-center  semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem] xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem]  scrollBar"
             >
               {dataObject().title?.length <= 40
                 ? dataObject().title
                 : dataObject().title?.slice(0, 40) + '...'}
             </span>
             <div className=" text-opacity-75 w-fit mb-5 mt-2">
-              <SingleGenres isMovies={isMovies} genres={data?.genres} />
-
+              <SingleGenres mediaType={mediaType} genres={data?.genres} />
             </div>
           </div>
           <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
@@ -114,7 +113,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
               )}
 
               <div>
-                {isMovies ? (
+                {mediaType === 'movie' ? (
                   <span>{dataObject().releaseDate.split('-')[0]}</span>
                 ) : (
                   <div className="flex items-center justify-center">
@@ -129,7 +128,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
             </div>
 
             <div className="mb-5 flex flex-col justify-center whitespace-nowrap ">
-              {isMovies ? (
+              {mediaType === 'movie' ? (
                 <span> {dataObject()?.runtime}</span>
               ) : (
                 <div className='className="flex items-center'>
@@ -164,7 +163,7 @@ const TitleInfo = ({ data, trailerUrl }: { data: any; trailerUrl: any }) => {
 
           <div className="bottom-0  flex sm:left-3 xxs:absolute w-full">
             <div className="flex items-center ">
-              <TrailerButton trailerUrl={trailerUrl[0]?.key} />
+              <Buttons videos={videos} />
               <div className="hidden semiSm:block w-[13rem] ml-5">
                 <StreamedOn />
               </div>

@@ -8,21 +8,23 @@ import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
 import PosterCard from '../Cards/PosterCard/PosterCard';
 import Modal from '../WrapperComponents/Modal/Modal';
 import LazyLoading from '../WrapperComponents/LazyLoading/LazyLoading';
+import CreditsCard from '../Cards/CreditsCard/CreditsCard';
 
 const ViewMoreComp = ({
   titles,
-  isMovies,
+  mediaType,
 }: {
   titles: any[];
-  isMovies: boolean;
+  mediaType: string;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [slidersInView, setSlidersInView] = useState<number>(20);
 
   const dataObject = (data: any) => {
     let posterUrl = data?.poster_path;
-    let title = isMovies ? data?.title : data?.name;
-    let releaseDate = isMovies ? data?.release_date : data?.first_air_date;
+    let title = mediaType === 'movie' ? data?.title : data?.name;
+    let releaseDate =
+      mediaType === 'movie' ? data?.release_date : data?.first_air_date;
     let endedDate = data?.last_air_date;
     let isAdult = data?.adult;
     let voteAverage = data?.vote_average;
@@ -51,14 +53,18 @@ const ViewMoreComp = ({
     >
       <div
         onClick={() => setOpen(true)}
-        className="relative overflow-hidden flex items-center justify-center h-full rounded w-full cursor-pointer"
+        className="relative overflow-hidden  items-center justify-center h-full rounded w-full cursor-pointer hidden sm:flex"
       >
         <Image
-          src={`https://image.tmdb.org/t/p/original/${titles[11]?.poster_path}`}
+          src={`https://image.tmdb.org/t/p/original/${
+            mediaType === 'actor'
+              ? titles[11]?.profile_path
+              : titles[11]?.poster_path
+          }`}
           width={150}
           height={250}
           alt="View more"
-          className={`h-full w-full object-fit `}
+          className={`h-full w-full object-cover `}
         />
 
         <div className="absolute top-0 left-0 h-full w-full  bg-primary bg-blur bg-opacity-90 rounded overflow-hidden"></div>
@@ -68,6 +74,13 @@ const ViewMoreComp = ({
         </div>
       </div>
 
+      <div
+        onClick={() => setOpen(true)}
+        className="text-xs font-bold ml-4 text-white text-opacity-75 sm:hidden"
+      >
+        View More
+      </div>
+
       <Modal
         data={titles}
         width={80}
@@ -75,7 +88,7 @@ const ViewMoreComp = ({
         open={open}
         setOpen={setOpen}
       >
-        <GridComp className="relative">
+        <GridComp breakPointWidth={12} className="relative">
           {titles?.map(
             (title: any, i: number) =>
               slidersInView >= i && (
@@ -89,19 +102,29 @@ const ViewMoreComp = ({
                   <div>
                     <DelayDisplay delay={i * 50}>
                       <Link
-                        href={`/browse/${isMovies ? 'movie/' : 'tv/'}${
-                          title?.id
-                        }`}
+                        href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
+                          mediaType === 'actor' ? 'person' : mediaType
+                        }/${title?.id}`}
                         className="flex flex-col  cursor-pointer bg-primary  h-[23rem] w-[12rem] rounded overflow-hidden"
                       >
-                        <PosterCard
-                          index={i}
-                          imageUrl={dataObject(title)?.posterUrl}
-                          title={dataObject(title)?.title}
-                          releaseDate={dataObject(title)?.releaseDate}
-                          isAdult={dataObject(title)?.isAdult}
-                          rating={dataObject(title)?.voteAverage * 10}
-                        />
+                        {mediaType === 'actor' ? (
+                          <CreditsCard
+                            index={i}
+                            imageUrl={title?.profile_path}
+                            characterName={title?.character}
+                            personName={title?.original_name}
+                            job={title?.job}
+                          />
+                        ) : (
+                          <PosterCard
+                            index={i}
+                            imageUrl={dataObject(title)?.posterUrl}
+                            title={dataObject(title)?.title}
+                            releaseDate={dataObject(title)?.releaseDate}
+                            isAdult={dataObject(title)?.isAdult}
+                            rating={dataObject(title)?.voteAverage * 10}
+                          />
+                        )}
                       </Link>
                     </DelayDisplay>
                   </div>

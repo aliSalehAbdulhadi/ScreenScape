@@ -19,31 +19,29 @@ const ActorInfo = ({ data }: { data: any }) => {
 
   return (
     <div className="flex flex-col semiSm:flex-row">
-      <div className="flex flex-col sm:flex-row">
+      <div className="flex flex-col sm:flex-row xs:self-center">
         <MasonryGridPics mediaType="person" id={data?.id}>
-          <div className=" rounded flex  justify-center sm:justify-start mb-5 sm:mb-0 w-full">
-            <SinglePlaceholder condition={data?.profile_path} isTitle={false}>
-              {loading && (
-                <div className="h-[30rem]">
-                  <LoadingPicture />
-                </div>
-              )}
-              <Image
-                width={1000}
-                height={1000}
-                src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
-                alt="Actor Photo"
-                className={`rounded h-full object-fit w-full xs:w-[28rem] sm:w-[21rem] ${
-                  loading === false ? 'opacity-100' : 'opacity-0'
-                }`}
-                onLoad={() =>
-                  setTimeout(() => {
-                    setLoading(false);
-                  }, 100)
-                }
-              />
-            </SinglePlaceholder>
-          </div>
+          <SinglePlaceholder condition={data?.profile_path} isTitle={false}>
+            {loading && (
+              <div className="h-[30rem]">
+                <LoadingPicture />
+              </div>
+            )}
+            <Image
+              width={1000}
+              height={1000}
+              src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
+              alt="Actor Photo"
+              className={`xs:rounded h-full object-fit w-full xs:w-[28rem] sm:w-[21rem] ${
+                loading === false ? 'opacity-100' : 'opacity-0'
+              }`}
+              onLoad={() =>
+                setTimeout(() => {
+                  setLoading(false);
+                }, 100)
+              }
+            />
+          </SinglePlaceholder>
         </MasonryGridPics>
 
         <div className="mx-5 w-fit">
