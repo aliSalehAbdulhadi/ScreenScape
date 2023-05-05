@@ -21,9 +21,13 @@ const TitleSinglePage = () => {
   const [videos, setVideos] = useState<any>([]);
   const [credits, setCredits] = useState<any>([]);
   const [relatedTitles, setRelatedTitles] = useState<any>([]);
+  const [creditsType, setCreditsType] = useState<string>('cast');
 
   const param = useParams();
   const pathName = usePathname();
+
+  const cast = credits?.cast;
+  const crew = credits?.crew;
 
   const asyncFunction = useCallback(async () => {
     try {
@@ -103,35 +107,43 @@ const TitleSinglePage = () => {
   }, [asyncFunction]);
 
   return (
-    <div className="text-white background-fade flex flex-col justify-center items-center pb-10 xs:pt-5 semiSm:pt-10  relative ">
+    <div className="">
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div className="w-full">
+        <div className="text-white background-fade flex flex-col justify-center items-center pb-10  semiSm:pt-10  ">
           <BackgroundOverlay imageUrl={data?.backdrop_path}>
             <div className="w-full  xl:w-[70%]  sm:px-10 ">
-              <TitleInfo data={data} videos={videos} />
+              <TitleInfo
+                mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                data={data}
+                videos={videos}
+              />
             </div>
             <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-10">
               <News />
             </div>
           </BackgroundOverlay>
 
-          <div className="px-2 xxxs:px-5 sm:px-10 w-full">
+          <div className="sm:px-10 w-full">
             <div className="mt-14 flex flex-col semiSm:flex-row  justify-between ">
-              <div className=" semiSm:w-[45%]">
-                <TitleCast cast={credits?.cast} />
+              <div className=" semiSm:w-[48%]">
+                <TitleCast
+                  credits={creditsType === 'cast' ? cast : crew}
+                  setCreditsType={setCreditsType}
+                  creditsType={creditsType}
+                />
               </div>
 
-              <div className="semiSm:w-[45%] mt-10 semiSm:mt-0">
+              <div className="semiSm:w-[48%] mt-10 semiSm:mt-0">
                 <TitleRelated
-                  isMovies={pathName?.includes('movie')}
+                  mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                   relatedTitles={relatedTitles?.results}
                 />
               </div>
             </div>
           </div>
-          <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden sm:px-10">
+          <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden">
             <News />
           </div>
         </div>

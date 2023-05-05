@@ -32,7 +32,7 @@ const ActorInfo = ({ data }: { data: any }) => {
               height={1000}
               src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
               alt="Actor Photo"
-              className={`rounded h-full object-fit w-full xs:w-[28rem] sm:w-[21rem] ${
+              className={`xs:rounded h-full object-fit w-full xs:w-[28rem] sm:w-[21rem] ${
                 loading === false ? 'opacity-100' : 'opacity-0'
               }`}
               onLoad={() =>

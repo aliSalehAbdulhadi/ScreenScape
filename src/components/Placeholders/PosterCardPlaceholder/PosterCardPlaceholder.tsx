@@ -17,7 +17,7 @@ const PosterCardPlaceholder = ({
   rating: any;
 }) => {
   return (
-    <div className="transition-all hover:opacity-90">
+    <div className="transition-all sm:hover:opacity-90">
       {condition ? (
         children
       ) : (

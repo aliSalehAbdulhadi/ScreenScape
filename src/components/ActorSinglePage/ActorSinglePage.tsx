@@ -10,7 +10,7 @@ import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
 
 const ActorSinglePage = () => {
   const [loading, setLoading] = useState(true);
-  const [isMovies, setIsMovies] = useState(true);
+  const [mediaType, setMediaType] = useState<string>('movie');
   const [data, setData] = useState<any>({});
   const [appearedInMovies, setAppearedInMovies] = useState<any>([]);
   const [otherActors, setOtherActors] = useState<any>([]);
@@ -84,12 +84,12 @@ const ActorSinglePage = () => {
             </div>
           </div>
 
-          <div className="mt-14 flex flex-col semiSm:flex-row w-full justify-between px-2 xxxs:px-5 sm:px-0">
+          <div className="mt-14 flex flex-col semiSm:flex-row w-full justify-between">
             <div className=" semiSm:w-[45%]">
               <ActorAppearedIn
-                setIsMovies={setIsMovies}
-                isMovies={isMovies}
-                appearedInTitles={isMovies ? movies : tvShows}
+                setMediaType={setMediaType}
+                mediaType={mediaType}
+                appearedInTitles={mediaType === 'movie' ? movies : tvShows}
               />
             </div>
 

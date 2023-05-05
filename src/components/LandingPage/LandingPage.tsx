@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
-import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import { Suspense } from 'react';
+import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import { getMoviesWithTrailers } from '@/src/fetch/getMoviesWithTrailer';
 import { getDisplaySlideData } from '@/src/fetch/getDisplaySlideData';
 
@@ -51,7 +51,8 @@ const LandingPage = async () => {
   const displaySliderData = await getDisplaySlideData(displaySlideContent);
 
   const moviesWithTrailers: any = await getMoviesWithTrailers();
-  https: return (
+
+  return (
     <div className="flex flex-col items-center background-fade md:py-[6rem] fade-in">
       <LoadingComponent>
         <Suspense>

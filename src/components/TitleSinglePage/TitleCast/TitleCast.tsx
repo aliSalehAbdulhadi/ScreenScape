@@ -1,32 +1,30 @@
-'use client';
+import { Dispatch, SetStateAction } from 'react';
+import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
+import SmallScreenContent from './SmallScreenContent/SmallScreenContent';
 
-import { v4 as uuidv4 } from 'uuid';
-import Link from 'next/link';
-import GridComp from '../../WrapperComponents/GridComp/GridComp';
-import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
-import CastCard from '../../Cards/CastCard/CastCard';
+LargeScreenContent;
 
-export const TitleCast = ({ cast }: { cast: any }) => {
+export const TitleCast = ({
+  credits,
+  setCreditsType,
+  creditsType,
+}: {
+  credits: any[];
+  creditsType: string;
+  setCreditsType: Dispatch<SetStateAction<string>>;
+}) => {
   return (
-    <GridComp breakPointWidth={12} title="Cast">
-      {cast?.map(
-        (actor: any, i: number) =>
-          i < 10 && (
-            <DelayDisplay key={uuidv4()} delay={i * 50}>
-              <Link
-                href={`/actor/${actor?.id}`}
-                className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
-              >
-                <CastCard
-                  index={i}
-                  imageUrl={actor?.profile_path}
-                  characterName={actor?.character}
-                  actorName={actor?.original_name}
-                />
-              </Link>
-            </DelayDisplay>
-          )
-      )}
-    </GridComp>
+    <div>
+      <LargeScreenContent
+        credits={credits}
+        setCreditsType={setCreditsType}
+        creditsType={creditsType}
+      />
+      <SmallScreenContent
+        credits={credits}
+        setCreditsType={setCreditsType}
+        creditsType={creditsType}
+      />
+    </div>
   );
 };

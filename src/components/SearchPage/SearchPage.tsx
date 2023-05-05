@@ -71,12 +71,12 @@ const SearchPage = () => {
         setData(results);
       } else {
         const results = await asyncFetch(
-          `https://api.themoviedb.org/3/discover/${params?.isMovie}?api_key=${
+          `https://api.themoviedb.org/3/discover/${params?.mediaType}?api_key=${
             process.env.NEXT_PUBLIC_API_KEY
           }&with_genres=${
             params.id
           }&sort_by=popularity.desc&page=1&vote_count.gte=${
-            params?.isMovie === 'movie' ? 200 : 25
+            params?.mediaType === 'movie' ? 200 : 25
           }`
         );
         setData(results);
@@ -91,10 +91,11 @@ const SearchPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const dataObject = (data: any, isMovies: boolean) => {
+  const dataObject = (data: any, mediaType: string) => {
     let posterUrl = data?.poster_path;
-    let title = isMovies ? data?.title : data?.name;
-    let releaseDate = isMovies ? data?.release_date : data?.first_air_date;
+    let title = mediaType === 'movie' ? data?.title : data?.name;
+    let releaseDate =
+      mediaType === 'movie' ? data?.release_date : data?.first_air_date;
     let endedDate = data?.last_air_date;
     let isAdult = data?.adult;
     let voteAverage = data?.vote_average;
@@ -139,23 +140,23 @@ const SearchPage = () => {
                 <PosterCard
                   index={i}
                   imageUrl={
-                    dataObject(title, title?.first_air_date ? false : true)
+                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
                       ?.posterUrl
                   }
                   title={
-                    dataObject(title, title?.first_air_date ? false : true)
+                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
                       ?.title
                   }
                   releaseDate={
-                    dataObject(title, title?.first_air_date ? false : true)
+                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
                       ?.releaseDate
                   }
                   isAdult={
-                    dataObject(title, title?.first_air_date ? false : true)
+                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
                       ?.isAdult
                   }
                   rating={
-                    dataObject(title, title?.first_air_date ? false : true)
+                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
                       ?.voteAverage * 10
                   }
                 />

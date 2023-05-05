@@ -17,7 +17,7 @@ const GenreList = ({
 }) => {
   const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
   const [hoverAnimation, setHoverAnimation] = useState<boolean>(false);
-  const [isMovies, setIsMovies] = useState<boolean>(true);
+  const [mediaType, setMediaType] = useState<string>('movie');
 
   const movieGenres = [
     { id: 28, name: 'Action' },
@@ -106,6 +106,7 @@ const GenreList = ({
       >
         <div className={`fade-in pt-10 ${closeAnimation ? 'fade-out' : ''}`}>
           <GridComp
+            center
             breakPointWidth={25}
             className="relative"
             title="Search by Genre"
@@ -116,11 +117,11 @@ const GenreList = ({
             >
               <span
                 onClick={() => {
-                  setIsMovies(true);
+                  setMediaType('movie');
                   setOpen(true);
                 }}
                 className={`mr-3 py-1 px-2  rounded cursor-pointer transition-all border-[1px]  ${
-                  isMovies
+                  mediaType === 'movie'
                     ? 'text-primary bg-secondary opacity-90 border-secondary'
                     : 'border-white border-opacity-80 text-white text-opacity-80'
                 }`}
@@ -129,11 +130,11 @@ const GenreList = ({
               </span>
               <span
                 onClick={() => {
-                  setIsMovies(false);
+                  setMediaType('tv');
                   setOpen(true);
                 }}
                 className={`py-1 px-2 transition-all  rounded cursor-pointer border-[1px]   ${
-                  !isMovies
+                  mediaType === 'tv'
                     ? 'text-primary bg-secondary opacity-90 border-secondary'
                     : 'border-white border-opacity-80 text-white text-opacity-80'
                 }`}
@@ -141,13 +142,11 @@ const GenreList = ({
                 TV Shows
               </span>
             </div>
-            {genres[isMovies ? 0 : 1].map((genre, i) => {
+            {genres[mediaType === 'movie' ? 0 : 1].map((genre, i) => {
               return (
                 <Link
                   key={genre.id}
-                  href={`search/genre/${isMovies ? 'movie' : 'tv'}/${
-                    genre?.id
-                  }`}
+                  href={`search/genre/${mediaType}/${genre?.id}`}
                 >
                   <DelayDisplay delay={i * 50}>
                     <div className=" cursor-pointer  rounded overflow-hidden hover:text-opacity-80 text-white transition-all">
