@@ -77,12 +77,7 @@ const Modal = ({
       </div>
       <div
         className="absolute h-screen semiSm:h-[98vh] bg-white bg-opacity-40 overflow-hidden  rounded-t-md px-10 py-5 scrollBar z-[1]"
-<<<<<<< HEAD
-        style={{ width: `${screenWidth > 600 ? width : 100}vw` }}
-
-=======
         style={{ width: `${screenWidth > 860 ? width : 100}vw` }}
->>>>>>> ccfbb852db5cf173fe905e4a75c127653f6fbcf7
       />
     </div>
   );
