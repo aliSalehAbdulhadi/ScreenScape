@@ -5,6 +5,8 @@ import Link from 'next/link';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
 import CreditsCard from '../../Cards/CreditsCard/CreditsCard';
 import 'swiper/swiper-bundle.css';
+import { memo } from 'react';
+
 
 const CardSlider = ({
   data,
@@ -44,6 +46,42 @@ const CardSlider = ({
       seriesStatus,
     };
   };
+
+  const breakpoints = {
+    600: {
+      slidesPerView: 3.1,
+      spaceBetween: 5,
+    },
+    550: {
+      slidesPerView: 2.8,
+      spaceBetween: 5,
+    },
+    500: {
+      slidesPerView: 2.6,
+      spaceBetween: 5,
+    },
+    480: {
+      slidesPerView: 2.3,
+      spaceBetween: 5,
+    },
+    420: {
+      slidesPerView: 2.1,
+      spaceBetween: 5,
+    },
+    350: {
+      slidesPerView: 1.8,
+      spaceBetween: 5,
+    },
+    330: {
+      slidesPerView: 1.6,
+      spaceBetween: 5,
+    },
+    0: {
+      slidesPerView: 1.4,
+      spaceBetween: 5,
+    },
+  };
+
   return (
     <div className="mt-6 pl-1 h-[25rem]">
       {
@@ -56,9 +94,8 @@ const CardSlider = ({
             loadOnTransitionStart: true,
           }}
           loop={true}
-          slidesPerView={1.8}
-          spaceBetween={5}
-          centeredSlides={true}
+          breakpoints={breakpoints}
+
         >
           <div>
             {data.map(
@@ -103,4 +140,5 @@ const CardSlider = ({
   );
 };
 
-export default CardSlider;
+export default memo(CardSlider);
+

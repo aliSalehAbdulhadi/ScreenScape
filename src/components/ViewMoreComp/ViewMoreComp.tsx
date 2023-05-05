@@ -9,6 +9,8 @@ import PosterCard from '../Cards/PosterCard/PosterCard';
 import Modal from '../WrapperComponents/Modal/Modal';
 import LazyLoading from '../WrapperComponents/LazyLoading/LazyLoading';
 import CreditsCard from '../Cards/CreditsCard/CreditsCard';
+import useWindowSize from '@/src/hooks/useWindowsSize';
+import { MdUnfoldMoreDouble } from 'react-icons/md';
 
 const ViewMoreComp = ({
   titles,
@@ -19,6 +21,7 @@ const ViewMoreComp = ({
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [slidersInView, setSlidersInView] = useState<number>(20);
+  const width = useWindowSize();
 
   const dataObject = (data: any) => {
     let posterUrl = data?.poster_path;
@@ -47,39 +50,41 @@ const ViewMoreComp = ({
   };
   return (
     <div
-      className={`h-full w-[192px]  rounded  ${
+      className={`h-full sm:w-[192px]  rounded  ${
         titles?.length < 10 && 'hidden'
       }`}
     >
-      <div
-        onClick={() => setOpen(true)}
-        className="relative overflow-hidden  items-center justify-center h-full rounded w-full cursor-pointer hidden sm:flex"
-      >
-        <Image
-          src={`https://image.tmdb.org/t/p/original/${
-            mediaType === 'actor'
-              ? titles[11]?.profile_path
-              : titles[11]?.poster_path
-          }`}
-          width={150}
-          height={250}
-          alt="View more"
-          className={`h-full w-full object-cover `}
-        />
-
-        <div className="absolute top-0 left-0 h-full w-full  bg-primary bg-blur bg-opacity-90 rounded overflow-hidden"></div>
-        <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-white bg-blur bg-opacity-10 text-opacity-80 font-bold text-white rounded overflow-hidden transition-all hover:bg-opacity- hover:text-opacity-70  hover:pl-8 ">
-          View More
-          <IoIosArrowUp className="rotate-90 h-5 w-5 ml-2 " />
+      {width > 640 ? (
+        <div
+          onClick={() => setOpen(true)}
+          className="relative overflow-hidden  items-center justify-center h-full rounded w-full cursor-pointer hidden sm:flex"
+        >
+          <Image
+            src={`https://image.tmdb.org/t/p/original/${
+              mediaType === 'actor'
+                ? titles[11]?.profile_path
+                : titles[11]?.poster_path
+            }`}
+            width={150}
+            height={250}
+            alt="View more"
+            className={`h-full w-full object-cover `}
+          />
+          <div className="absolute top-0 left-0 h-full w-full  bg-primary bg-blur bg-opacity-90 rounded overflow-hidden"></div>
+          <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-white bg-blur bg-opacity-10 text-opacity-80 font-bold text-white rounded overflow-hidden transition-all hover:bg-opacity- hover:text-opacity-70  hover:pl-8 ">
+            View More
+            <IoIosArrowUp className="rotate-90 h-5 w-5 ml-2 " />
+          </div>
         </div>
-      </div>
-
-      <div
-        onClick={() => setOpen(true)}
-        className="text-xs font-bold ml-4 text-white text-opacity-75 sm:hidden"
-      >
-        View More
-      </div>
+      ) : (
+        <div
+          onClick={() => setOpen(true)}
+          className="text-xs font-bold  text-white text-opacity-70 sm:hidden flex items-center justify-center"
+        >
+          <span>View More</span>
+          <MdUnfoldMoreDouble className="w-6 h-6" />
+        </div>
+      )}
 
       <Modal
         data={titles}

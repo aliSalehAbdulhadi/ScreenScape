@@ -9,12 +9,15 @@ const SmallScreenContent = ({
   mediaType: string;
 }) => {
   return (
-    <div className="sm:hidden">
-      <div className="flex items-center ">
-        <span className=" text-secondary ml-2 xxxs:ml-5">Related</span>
-        <div className="ml-3">
-          <ViewMoreComp titles={relatedTitles} mediaType={mediaType} />
-        </div>
+    <div>
+      <div className="flex items-center justify-between ">
+        <span className=" text-secondary ml-2 xs:ml-5">Related</span>
+        {relatedTitles?.length > 10 ? (
+          <div className="mr-2 xs:mr-5">
+            <ViewMoreComp titles={relatedTitles} mediaType={mediaType} />
+          </div>
+        ) : null}
+
       </div>
 
       <CardSlider mediaType={mediaType} isCast={false} data={relatedTitles} />

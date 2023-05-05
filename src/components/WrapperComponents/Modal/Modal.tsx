@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, memo, useEffect, useState } from 'react';
 import { RiCloseCircleFill } from 'react-icons/ri';
 import useClickOutside from '@/src/hooks/useClickOutside';
 import useWindowSize from '@/src/hooks/useWindowsSize';
@@ -54,33 +54,33 @@ const Modal = ({
         open || 'hidden'
       } ${animation && 'fade-out modal-exit'}`}
     >
-      <div
-        ref={ref}
-        className="h-screen semiSm:h-[98vh] w-full sm:w-auto bg-primary bg-opacity-90 overflow-y-auto overflow-x-hidden  rounded-t-md px-5 sm:px-10 semiSm:py-5 scrollBar z-[2]"
-        style={{ width: `${screenWidth > 860 ? width : 100}vw` }}
-      >
-        <div>
-          <div className="w-full flex items-center justify-between mx-1 mb-2 mt-3 semiSm:mt-0">
-            <div>
-              <span className="text-secondary mr-1">{data?.length}</span>
-              <span>Matches</span>
-            </div>
-            <div className="">
-              <RiCloseCircleFill
-                onClick={closeModalHandler}
-                className=" h-7 xxxs:h-10 w-7 xxxs:w-10 mr-1 cursor-pointer hover:text-red-400 transition-all"
-              />
-            </div>
+      <div className="relative flex flex-col items-center rounded-t-md  bg-primary bg-opacity-90  mt-[70px] semiSm:mt-0 h-[95vh] semiSm:h-[98vh]">
+        <div className="w-full flex items-center justify-between  my-2 z-[2]">
+          <div className="ml-5">
+            <span className="text-secondary mr-1">{data?.length}</span>
+            <span>Matches</span>
           </div>
-          <div>{children}</div>
+          <div className="mr-4 cursor-pointer ">
+            <RiCloseCircleFill
+              onClick={closeModalHandler}
+              className=" h-7 xxxs:h-10 w-7 xxxs:w-10 hover:text-red-400 transition-all"
+            />
+          </div>
         </div>
+        <div
+          ref={ref}
+          className="h-[93vh] semiSm:h-[100vh] w-full sm:w-auto  overflow-y-auto overflow-x-hidden  scrollBar z-[2] semiSm:px-5 "
+          style={{ width: `${screenWidth > 860 ? width : 100}vw` }}
+        >
+          <div>
+            <div>{children}</div>
+          </div>
+        </div>
+        <div className="h-full w-full bg-white bg-opacity-10 absolute rounded-t-md " />
       </div>
-      <div
-        className="absolute h-screen semiSm:h-[98vh] bg-white bg-opacity-40 overflow-hidden  rounded-t-md px-10 py-5 scrollBar z-[1]"
-        style={{ width: `${screenWidth > 860 ? width : 100}vw` }}
-      />
+
     </div>
   );
 };
 
-export default Modal;
+export default memo(Modal);

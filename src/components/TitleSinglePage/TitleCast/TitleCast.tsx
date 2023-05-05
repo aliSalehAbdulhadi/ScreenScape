@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, memo } from 'react';
 import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
 import SmallScreenContent from './SmallScreenContent/SmallScreenContent';
+import useWindowSize from '@/src/hooks/useWindowsSize';
 
 LargeScreenContent;
 
-export const TitleCast = ({
+const TitleCast = ({
   credits,
   setCreditsType,
   creditsType,
@@ -13,18 +14,24 @@ export const TitleCast = ({
   creditsType: string;
   setCreditsType: Dispatch<SetStateAction<string>>;
 }) => {
+  const width = useWindowSize();
   return (
     <div>
-      <LargeScreenContent
-        credits={credits}
-        setCreditsType={setCreditsType}
-        creditsType={creditsType}
-      />
-      <SmallScreenContent
-        credits={credits}
-        setCreditsType={setCreditsType}
-        creditsType={creditsType}
-      />
+      {width >= 640 ? (
+        <LargeScreenContent
+          credits={credits}
+          setCreditsType={setCreditsType}
+          creditsType={creditsType}
+        />
+      ) : (
+        <SmallScreenContent
+          credits={credits}
+          setCreditsType={setCreditsType}
+          creditsType={creditsType}
+        />
+      )}
     </div>
   );
 };
+
+export default memo(TitleCast);

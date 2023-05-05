@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useState } from 'react';
+import { Suspense, lazy, memo, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useWindowSize from '@/src/hooks/useWindowsSize';
@@ -78,7 +78,7 @@ const DisplaySliderContent = ({
               }}
               width={300}
               height={190}
-              src={`https://image.tmdb.org/t/p/original/${title?.backdrop_path}`}
+              src={`https://image.tmdb.org/t/p/original/${title?.poster_path}`}
               className={`object-contain md:rounded m-0 transition-all  ${
                 touch && touchedIndex === index ? 'opacity-60' : ''
               }`}
@@ -92,4 +92,4 @@ const DisplaySliderContent = ({
   );
 };
 
-export default DisplaySliderContent;
+export default memo(DisplaySliderContent);

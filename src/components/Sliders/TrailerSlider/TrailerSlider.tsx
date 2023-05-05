@@ -10,7 +10,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
-import { v4 as uuidv4 } from 'uuid';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
@@ -106,7 +105,7 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
                 i <= 8 && (
                   <SwiperSlide
                     key={title?.id}
-                    className=" md:rounded h-[200px] xxxs:h-[220px] xxs:h-[300px] xs:h-[340px] sm:h-[420px]  semiSm:h-[450px] md:h-[330px] lg:h-[350px] xl:h-[400px] xxl:h-[430px] xxxl:h-[520px] relative"
+                    className=" md:rounded h-[200px] xxxs:h-[220px] xxs:h-[300px] xs:h-[340px] sm:h-[450px]  semiSm:h-[450px] md:h-[330px] lg:h-[350px] xl:h-[400px] xxl:h-[430px] xxxl:h-[520px] relative"
                   >
                     <div className={`rounded`}>
                       {activeSlide === i && width > 1150 ? (

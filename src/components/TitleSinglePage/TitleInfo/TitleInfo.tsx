@@ -23,7 +23,6 @@ const TitleInfo = ({
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
   const movieRuntime = hours + 'h ' + remainingMinutes + 'm';
-
   const dataObject = () => {
     let posterUrl = data?.poster_path;
     let title = mediaType === 'movie' ? data?.title : data?.name;
@@ -86,7 +85,8 @@ const TitleInfo = ({
           </MasonryGridPics>
         </div>
 
-        <div className="mx-2 xxxs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
+        <div className="mx-2 xs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
+
           <div className=" w-full xxs:w-fit relative ">
             <span
               title={dataObject().title}
@@ -172,7 +172,7 @@ const TitleInfo = ({
         </div>
       </div>
 
-      <div className="text-sm xxs:text-[17px] scrollBar mx-2 xxxs:mx-5 sm:mx-0  mt-5 self-center  semiSm:hidden">
+      <div className="text-sm xxs:text-[17px] scrollBar mx-2 xs:mx-5 sm:mx-0  mt-5 self-center  semiSm:hidden">
         <span className="leading-7">{data?.overview}</span>
       </div>
     </div>
