@@ -13,6 +13,7 @@ import useWindowSize from '@/src/hooks/useWindowsSize';
 import { MdUnfoldMoreDouble } from 'react-icons/md';
 import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 
+
 const ViewMoreComp = ({
   titles,
   mediaType,
@@ -62,6 +63,7 @@ const ViewMoreComp = ({
         >
           <Image
             quality={imageQualityLargeScreen}
+
             src={`https://image.tmdb.org/t/p/original/${
               mediaType === 'actor'
                 ? titles[11]?.profile_path
