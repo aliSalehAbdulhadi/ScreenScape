@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import GridComp from '../../../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../../../WrapperComponents/DelayDisplay/DelayDisplay';
+import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 
 const LargeScreenContent = () => {
   const images = [
@@ -25,6 +26,7 @@ const LargeScreenContent = () => {
         <DelayDisplay key={cast.url + i} delay={i * 50}>
           <div className=" mb-3 cursor-pointer w-fit">
             <Image
+              quality={imageQualityLargeScreen}
               src={cast.url}
               width={150}
               height={150}

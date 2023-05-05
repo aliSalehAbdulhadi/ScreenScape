@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useInView } from 'react-intersection-observer';
+import { imageQualitySmallScreen } from '@/src/global/globalVariables';
 
 const VideoPlayer = lazy(() => import('../../../VideoPlayer/VideoPlayer'));
 
@@ -54,6 +55,7 @@ const AutoPlaySlide = ({
     <Suspense
       fallback={
         <Image
+          quality={imageQualitySmallScreen}
           width={1100}
           height={500}
           src={`https://image.tmdb.org/t/p/original/${imageUrl}`}

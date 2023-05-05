@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
 import CastCardPlaceholder from '../../Placeholders/CastCardPlaceholder/CastCardPlaceholder';
+import { imageQualitySmallScreen } from '@/src/global/globalVariables';
 
 const CastCard = ({
   imageUrl,
@@ -29,6 +30,7 @@ const CastCard = ({
           </div>
         )}
         <Image
+          quality={imageQualitySmallScreen}
           src={`https://image.tmdb.org/t/p/original/${imageUrl}`}
           width={150}
           height={250}

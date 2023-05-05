@@ -7,6 +7,7 @@ import PlusButton from '../Buttons/PlusButton/PlusButton';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import asyncFetch from '@/src/helper/asyncFetch';
+import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 
 const HoverExpand = ({
   titleId,
@@ -128,6 +129,7 @@ const HoverExpand = ({
           <div className="relative w-[300px]">
             <Link href={`/browse/${mediaType}/${titleId}`}>
               <Image
+                quality={imageQualityLargeScreen}
                 width={300}
                 height={150}
                 src={`https://image.tmdb.org/t/p/original/${data?.backdrop_path}`}

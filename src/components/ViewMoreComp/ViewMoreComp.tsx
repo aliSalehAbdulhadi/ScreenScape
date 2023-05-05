@@ -11,6 +11,7 @@ import LazyLoading from '../WrapperComponents/LazyLoading/LazyLoading';
 import CreditsCard from '../Cards/CreditsCard/CreditsCard';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import { MdUnfoldMoreDouble } from 'react-icons/md';
+import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 
 const ViewMoreComp = ({
   titles,
@@ -60,6 +61,7 @@ const ViewMoreComp = ({
           className="relative overflow-hidden  items-center justify-center h-full rounded w-full cursor-pointer hidden sm:flex"
         >
           <Image
+            quality={imageQualityLargeScreen}
             src={`https://image.tmdb.org/t/p/original/${
               mediaType === 'actor'
                 ? titles[11]?.profile_path
@@ -93,7 +95,7 @@ const ViewMoreComp = ({
         open={open}
         setOpen={setOpen}
       >
-        <GridComp breakPointWidth={12} className="relative">
+        <GridComp center={true} breakPointWidth={12} className="relative">
           {titles?.map(
             (title: any, i: number) =>
               slidersInView >= i && (

@@ -1,3 +1,4 @@
+import { imageQualitySmallScreen } from '@/src/global/globalVariables';
 import Image from 'next/image';
 
 const SinglePicture = ({
@@ -12,6 +13,7 @@ const SinglePicture = ({
   return (
     <div className="m-2 fade-in relative">
       <Image
+        quality={imageQualitySmallScreen}
         onClick={() =>
           window?.open(
             `https://image.tmdb.org/t/p/original/${imageUrl}`,

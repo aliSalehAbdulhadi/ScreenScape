@@ -13,7 +13,6 @@ const TrailerButton = ({ trailerUrl }: { trailerUrl: string }) => {
   const [isClientSide, setIsClientSide] = useState<boolean>(false);
   const [openTrailer, setOpenTrailer] = useState<boolean>(false);
   const [stopTrailer, setStopTrailer] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
 
   const handleOnEnd = () => {
     setOpenTrailer(false);
@@ -49,13 +48,12 @@ const TrailerButton = ({ trailerUrl }: { trailerUrl: string }) => {
           trailerUrl ? ' md:hover:opacity-90 bg-opacity-100' : 'bg-opacity-40'
         } `}
       >
-        <BsPlayFill size={25} className="" />
+        <BsPlayFill size={25} />
         <span className="mr-2 xs:text-lg">Trailer</span>
       </button>
       <MdVideoLibrary
         size={30}
         className="mr-3 cursor-pointer transition-all hover:opacity-80"
-
       />
       <div title="Add to My List">
         <PlusButton size={25} />

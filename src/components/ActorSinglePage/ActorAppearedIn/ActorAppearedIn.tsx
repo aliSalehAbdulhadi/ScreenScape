@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, memo } from 'react';
 import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
 import SmallScreenContent from './SmallScreenContent/SmallScreenContent';
 import useWindowSize from '@/src/hooks/useWindowsSize';
@@ -35,4 +35,4 @@ const ActorAppearedIn = ({
   );
 };
 
-export default ActorAppearedIn;
+export default memo(ActorAppearedIn);

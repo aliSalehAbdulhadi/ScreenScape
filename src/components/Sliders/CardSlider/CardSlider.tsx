@@ -7,7 +7,6 @@ import CreditsCard from '../../Cards/CreditsCard/CreditsCard';
 import 'swiper/swiper-bundle.css';
 import { memo } from 'react';
 
-
 const CardSlider = ({
   data,
   mediaType,
@@ -69,7 +68,7 @@ const CardSlider = ({
       spaceBetween: 5,
     },
     350: {
-      slidesPerView: 1.8,
+      slidesPerView: 1.9,
       spaceBetween: 5,
     },
     330: {
@@ -95,7 +94,6 @@ const CardSlider = ({
           }}
           loop={true}
           breakpoints={breakpoints}
-
         >
           <div>
             {data.map(
@@ -141,4 +139,3 @@ const CardSlider = ({
 };
 
 export default memo(CardSlider);
-

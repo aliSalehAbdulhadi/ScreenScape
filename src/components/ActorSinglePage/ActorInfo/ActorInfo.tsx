@@ -1,13 +1,10 @@
 import moment from 'moment';
 import Image from 'next/image';
-import { useState } from 'react';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
-import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
 import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
+import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 
 const ActorInfo = ({ data }: { data: any }) => {
-  const [loading, setLoading] = useState(true);
-
   const age = `${moment(data?.birthday).format('MMMM Do YYYY')} ${
     data?.deathday ? '' : `(${moment().diff(data?.birthday, 'years')} years)`
   }`;
@@ -22,24 +19,16 @@ const ActorInfo = ({ data }: { data: any }) => {
       <div className="flex flex-col sm:flex-row xs:self-center">
         <MasonryGridPics mediaType="person" id={data?.id}>
           <SinglePlaceholder condition={data?.profile_path} isTitle={false}>
-            {loading && (
-              <div className="h-[30rem]">
-                <LoadingPicture />
-              </div>
-            )}
             <Image
+              quality={imageQualityLargeScreen}
               width={1000}
               height={1000}
               src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
               alt="Actor Photo"
-              className={`xs:rounded h-full object-fit w-full xs:w-[28rem] sm:w-[21rem] ${
-                loading === false ? 'opacity-100' : 'opacity-0'
-              }`}
-              onLoad={() =>
-                setTimeout(() => {
-                  setLoading(false);
-                }, 100)
-              }
+              className={`xs:rounded object-fit h-[28rem] xxxs:h-[35rem] xxs:h-[37rem] sm:h-[30rem] xs:w-[28rem] sm:w-[21rem]`}
+              blurDataURL="/images/imagePlaceholder.png"
+              placeholder="blur"
+              priority={true}
             />
           </SinglePlaceholder>
         </MasonryGridPics>

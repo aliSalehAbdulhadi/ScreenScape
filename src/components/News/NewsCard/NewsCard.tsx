@@ -1,3 +1,4 @@
+import { imageQualitySmallScreen } from '@/src/global/globalVariables';
 import Image from 'next/image';
 import React from 'react';
 
@@ -12,6 +13,7 @@ const NewsCard = () => {
       </div>
       <div className="w-[30%] xxxs:w-[20%] h-full">
         <Image
+          quality={imageQualitySmallScreen}
           width={120}
           height={120}
           src="/images/716rIayrVWL._AC_SL1500_.jpg"
