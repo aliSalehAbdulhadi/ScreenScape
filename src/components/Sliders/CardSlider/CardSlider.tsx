@@ -69,7 +69,8 @@ const CardSlider = ({
       spaceBetween: 5,
     },
     350: {
-      slidesPerView: 1.8,
+      slidesPerView: 1.9,
+
       spaceBetween: 5,
     },
     330: {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
 import CreditsCardPlaceholder from '../../Placeholders/CreditsCardPlaceholder/CreditsCardPlaceholder';
+import { imageQualitySmallScreen } from '@/src/global/globalVariables';
 
 const CreditsCard = ({
   imageUrl,
@@ -32,6 +33,7 @@ const CreditsCard = ({
           </div>
         )}
         <Image
+          quality={imageQualitySmallScreen}
           src={`https://image.tmdb.org/t/p/original/${imageUrl}`}
           width={150}
           height={250}

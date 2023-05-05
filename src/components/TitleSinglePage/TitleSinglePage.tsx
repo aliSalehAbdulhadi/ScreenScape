@@ -111,7 +111,7 @@ const TitleSinglePage = () => {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div className="text-white background-fade flex flex-col justify-center items-center pb-10  semiSm:pt-10  ">
+        <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10  ">
           <BackgroundOverlay imageUrl={data?.backdrop_path}>
             <div className="w-full  xl:w-[70%]  sm:px-10 ">
               <TitleInfo

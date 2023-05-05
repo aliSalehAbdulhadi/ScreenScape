@@ -6,7 +6,7 @@ import SwiperCore, {
   Navigation,
   Pagination,
 } from 'swiper';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
@@ -15,6 +15,7 @@ import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
 import AutoPlaySlide from './AutoPlaySlide/AutoPlaySlide';
+import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 
 SwiperCore.use([Navigation, Autoplay]);
 
@@ -66,11 +67,11 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
             loadPrevNextAmount: 2,
             loadOnTransitionStart: true,
           }}
+          autoplay={width <= 1150 ? { delay: 5000 } : false}
           modules={[EffectCoverflow, Autoplay, Pagination]}
           pagination={false}
           scrollbar={{ draggable: true }}
           effect={'coverflow'}
-          autoplay={false}
           grabCursor={true}
           centeredSlides={true}
           coverflowEffect={{
@@ -119,6 +120,7 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
                         />
                       ) : (
                         <Image
+                          quality={imageQualityLargeScreen}
                           width={1000}
                           height={500}
                           src={`https://image.tmdb.org/t/p/original/${title?.backdrop_path}`}
@@ -187,4 +189,4 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
   );
 };
 
-export default TrailerSlider;
+export default memo(TrailerSlider);

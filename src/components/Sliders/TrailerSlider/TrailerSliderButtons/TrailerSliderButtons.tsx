@@ -57,7 +57,7 @@ const TrailerSliderButtons = ({
         </div>
 
         <div
-          className={`flex h-fit justify-center visible ${
+          className={` h-fit justify-center visible hidden lg:flex ${
             isVideoReady || 'invisible'
           }`}
         >

@@ -12,9 +12,7 @@ const SinglePlaceholder = ({
   isTitle: boolean;
 }) => {
   return (
-    <div
-      className={`${condition || 'w-full xs:w-fit'}  xs:h-[38rem] sm:h-[30rem]`}
-    >
+    <div className={`${condition || 'w-full xs:w-fit'} `}>
       {condition ? (
         children
       ) : (

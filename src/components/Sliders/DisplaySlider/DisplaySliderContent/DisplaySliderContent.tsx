@@ -2,6 +2,10 @@ import { Suspense, lazy, memo, useCallback, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useWindowSize from '@/src/hooks/useWindowsSize';
+import {
+  imageQualityLargeScreen,
+  imageQualitySmallScreen,
+} from '@/src/global/globalVariables';
 
 const HoverExpand = lazy(() => import('../../../HoverExpand/HoverExpand'));
 
@@ -35,6 +39,7 @@ const DisplaySliderContent = ({
       {width > 1150 ? (
         <div className="max-w-[300px] max-h-[190px]">
           <Image
+            quality={imageQualityLargeScreen}
             width={300}
             height={190}
             src={`https://image.tmdb.org/t/p/original/${title?.backdrop_path}`}
@@ -67,6 +72,7 @@ const DisplaySliderContent = ({
         >
           <div>
             <Image
+              quality={imageQualitySmallScreen}
               onTouchStart={() => {
                 setTouch(true);
                 setTouchedIndex(index);

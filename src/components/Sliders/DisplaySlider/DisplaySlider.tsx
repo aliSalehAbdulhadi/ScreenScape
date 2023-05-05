@@ -7,6 +7,7 @@ import {
   SetStateAction,
   Suspense,
   lazy,
+  memo,
   useEffect,
   useRef,
   useState,
@@ -216,4 +217,4 @@ const DisplaySlider = ({
   );
 };
 
-export default DisplaySlider;
+export default memo(DisplaySlider);

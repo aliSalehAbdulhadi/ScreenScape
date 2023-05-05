@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import PosterCardPlaceholder from '../../Placeholders/PosterCardPlaceholder/PosterCardPlaceholder';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
+import { imageQualitySmallScreen } from '@/src/global/globalVariables';
 
 const PosterCard = ({
   imageUrl,
@@ -35,6 +36,7 @@ const PosterCard = ({
           </div>
         )}
         <Image
+          quality={imageQualitySmallScreen}
           src={`https://image.tmdb.org/t/p/original/${imageUrl}`}
           width={150}
           height={250}

@@ -1,12 +1,11 @@
 import Image from 'next/image';
-import { useState } from 'react';
 import SingleGenres from './SingleGenres/SingleGenres';
 import Rating from './Rating/Rating';
 import StreamedOn from './StreamedOn/StreamedOn';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
-import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
 import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
 import Buttons from './Buttons/Buttons';
+import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 
 const TitleInfo = ({
   data,
@@ -17,8 +16,6 @@ const TitleInfo = ({
   videos: any[];
   mediaType: string;
 }) => {
-  const [loading, setLoading] = useState(true);
-
   const minutes = data.runtime;
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
@@ -60,26 +57,18 @@ const TitleInfo = ({
             id={data?.id}
           >
             <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
-              {loading && (
-                <div className="h-[30rem]">
-                  <LoadingPicture />
-                </div>
-              )}
               <Image
+                quality={imageQualityLargeScreen}
                 width={1000}
                 height={1000}
                 src={`https://image.tmdb.org/t/p/original/${
                   dataObject().posterUrl
                 }`}
                 alt="Poster Photo"
-                className={`xs:rounded  object-fit w-full h-full  ${
-                  loading === false ? 'opacity-100' : 'opacity-0'
-                }`}
-                onLoad={() =>
-                  setTimeout(() => {
-                    setLoading(false);
-                  }, 100)
-                }
+                className={`xs:rounded object-fit h-[28rem] xxxs:h-[35rem] xxs:h-[37rem] sm:h-[30rem] xs:w-[28rem] sm:w-[21rem]`}
+                blurDataURL="/images/imagePlaceholder.png"
+                placeholder="blur"
+                priority={true}
               />
             </SinglePlaceholder>
           </MasonryGridPics>
