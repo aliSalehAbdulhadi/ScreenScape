@@ -4,28 +4,26 @@ const SingleGenres = ({
   className = '',
   underLine = true,
   genres,
-  isMovies,
+  mediaType,
 }: {
   className?: string;
   underLine?: boolean;
   genres?: [];
-  isMovies?: boolean;
+  mediaType?: string;
 }) => {
   return (
     <div
       className={`${
         className.length > 0
           ? className
-
           : 'grid grid-cols-2 grid-rows-2 gap-x-0 gap-y-1 w-fit text-xs xxxs:text-sm '
-
       }`}
     >
       {genres?.map(
         (genre: { name: string; id: number }, i) =>
           i <= 3 && (
             <Link
-              href={`search/genre/${isMovies ? 'movie' : 'tv'}/${genre?.id}`}
+              href={`search/genre/${mediaType}/${genre?.id}`}
               key={genre.id}
             >
               <span

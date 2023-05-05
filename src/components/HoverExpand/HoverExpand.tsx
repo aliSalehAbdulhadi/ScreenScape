@@ -12,12 +12,12 @@ const HoverExpand = ({
   titleId,
   index,
   hoveredIndex,
-  isMovie,
+  mediaType,
 }: {
   titleId: string;
   index: number;
   hoveredIndex: number;
-  isMovie: boolean;
+  mediaType: string;
 }) => {
   const [muteVideo, setMuteVideo] = useState<boolean>(true);
   const [playVideo, setPlayVideo] = useState<boolean>(false);
@@ -30,17 +30,11 @@ const HoverExpand = ({
   const asyncFunction = useCallback(async () => {
     try {
       const results = await asyncFetch(
-        `https://api.themoviedb.org/3/${
-          isMovie ? 'movie' : 'tv'
-        }/${titleId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/${mediaType}/${titleId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
       );
 
       const trailer = await asyncFetch(
-        `https://api.themoviedb.org/3/${
-          isMovie ? 'movie' : 'tv'
-        }/${titleId}/videos?api_key=${
-          process.env.NEXT_PUBLIC_API_KEY
-        }&language=en-US`
+        `https://api.themoviedb.org/3/${mediaType}/${titleId}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
       );
 
       setData(results);
@@ -49,7 +43,7 @@ const HoverExpand = ({
         trailer.results.filter((title: any) => title.type === 'Trailer')
       );
     } catch (error) {}
-  }, [isMovie, titleId]);
+  }, [mediaType, titleId]);
 
   const minutes = data.runtime;
   const hours = Math.floor(minutes / 60);
@@ -74,8 +68,9 @@ const HoverExpand = ({
 
   const dataObject = () => {
     let posterUrl = data?.poster_path;
-    let title = isMovie ? data?.title : data?.name;
-    let releaseDate = isMovie ? data?.release_date : data?.first_air_date;
+    let title = mediaType === 'movie' ? data?.title : data?.name;
+    let releaseDate =
+      mediaType === 'movie' ? data?.release_date : data?.first_air_date;
     let endedDate = data?.last_air_date;
     let isAdult = data?.adult;
     let voteAverage = data?.vote_average;
@@ -131,7 +126,7 @@ const HoverExpand = ({
           </div>
         ) : (
           <div className="relative w-[300px]">
-            <Link href={`/browse/${isMovie ? 'movie' : 'tv'}/${titleId}`}>
+            <Link href={`/browse/${mediaType}/${titleId}`}>
               <Image
                 width={300}
                 height={150}
@@ -161,7 +156,7 @@ const HoverExpand = ({
       <div
         className={`py-3 px-1 xl:px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px] `}
       >
-        <Link href={`/browse/${isMovie ? 'movie' : 'tv'}/${titleId}`}>
+        <Link href={`/browse/${mediaType}/${titleId}`}>
           <div className="flex items-center justify-between">
             <span className="text-xs xl:text-base ">{dataObject()?.title}</span>
             <PlusButton size={width > 1300 ? 20 : 15} />
@@ -169,7 +164,7 @@ const HoverExpand = ({
 
           <div className="flex text-[.6rem] xl:text-xs my-3">
             <span className="mr-5 mt-[2px]">
-              {isMovie ? (
+              {mediaType === 'movie' ? (
                 runtime
               ) : (
                 <span className='className="flex items-center'>

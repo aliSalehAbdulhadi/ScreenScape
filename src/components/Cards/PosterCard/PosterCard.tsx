@@ -28,7 +28,7 @@ const PosterCard = ({
       rating={rating}
       releaseDate={releaseDate}
     >
-      <div className="transition-all hover:opacity-90">
+      <div className="transition-all sm:hover:opacity-90">
         {loading && (
           <div className="h-[367px]  w-[195px] ">
             <LoadingPicture />
