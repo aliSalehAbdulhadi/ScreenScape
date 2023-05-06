@@ -103,13 +103,13 @@ const TitleInfo = ({
 
               <div>
                 {mediaType === 'movie' ? (
-                  <span>{dataObject().releaseDate.split('-')[0]}</span>
+                  <span>{dataObject().releaseDate?.split('-')[0]}</span>
                 ) : (
                   <div className="flex items-center justify-center">
-                    <span>{dataObject().releaseDate.split('-')[0]}</span>
+                    <span>{dataObject().releaseDate?.split('-')[0]}</span>
                     <span className="mx-2">-</span>
                     <span>
-                      {dataObject().endedDate.split('-')[0]} Last Aired
+                      {dataObject().endedDate?.split('-')[0]} Last Aired
                     </span>
                   </div>
                 )}
