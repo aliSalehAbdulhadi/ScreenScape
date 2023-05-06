@@ -54,7 +54,7 @@ const Modal = ({
         open || 'hidden'
       } ${animation && 'fade-out modal-exit'}`}
     >
-      <div className="relative flex flex-col items-center rounded-t-md  bg-primary bg-opacity-90  mt-[70px] semiSm:mt-0 h-[95vh] semiSm:h-[98vh]">
+      <div className="relative flex flex-col items-center rounded-t-md  bg-primary bg-opacity-90  mt-[50px] semiSm:mt-0 h-[95vh] semiSm:h-[98vh]">
         <div className="w-full flex items-center justify-between  my-2 z-[2]">
           <div className="ml-5">
             <span className="text-secondary mr-1">{data?.length}</span>
@@ -78,7 +78,6 @@ const Modal = ({
         </div>
         <div className="h-full w-full bg-white bg-opacity-10 absolute rounded-t-md " />
       </div>
-
     </div>
   );
 };

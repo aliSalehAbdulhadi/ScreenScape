@@ -9,7 +9,7 @@ const ActorSinglePage = dynamic(
 const page = () => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <div className="fade-in">
+      <div className="fade-in  min-h-screen bg-primary">
         <ActorSinglePage />
       </div>
     </Suspense>

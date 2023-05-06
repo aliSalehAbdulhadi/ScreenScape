@@ -70,28 +70,29 @@ const DisplaySliderContent = ({
             title?.id
           }`}
         >
-          <div>
-            <Image
-              quality={imageQualitySmallScreen}
-              onTouchStart={() => {
-                setTouch(true);
-                setTouchedIndex(index);
-              }}
-              onTouchEnd={() => {
-                setTimeout(() => {
-                  setTouch(false);
-                }, 100);
-              }}
-              width={300}
-              height={190}
-              src={`https://image.tmdb.org/t/p/original/${title?.poster_path}`}
-              className={`object-contain md:rounded m-0 transition-all  ${
-                touch && touchedIndex === index ? 'opacity-60' : ''
-              }`}
-              alt="poster"
-              loading="lazy"
-            />
-          </div>
+          <Image
+            quality={imageQualitySmallScreen}
+            onTouchStart={() => {
+              setTouch(true);
+              setTouchedIndex(index);
+            }}
+            onTouchEnd={() => {
+              setTimeout(() => {
+                setTouch(false);
+              }, 100);
+            }}
+            width={300}
+            height={190}
+            src={`https://image.tmdb.org/t/p/original/${title?.poster_path}`}
+            className={`object-contain md:rounded m-0 transition-all h-[250px] w-[400px]  ${
+              touch && touchedIndex === index ? 'opacity-60' : ''
+            }`}
+            blurDataURL="/images/imagePlaceholder.png"
+            placeholder="blur"
+            alt="poster"
+            loading="lazy"
+          />
+
         </Link>
       )}
     </div>

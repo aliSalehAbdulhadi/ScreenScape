@@ -1,8 +1,7 @@
 'use client';
 
 import { Suspense, lazy, useEffect, useState } from 'react';
-import { BsPlayFill } from 'react-icons/bs';
-import PlusButton from '@/src/components/Buttons/PlusButton/PlusButton';
+import { BsPlayFill, BsPlus } from 'react-icons/bs';
 import { MdVideoLibrary } from 'react-icons/md';
 
 const VideoPlayer = lazy(
@@ -55,8 +54,8 @@ const TrailerButton = ({ trailerUrl }: { trailerUrl: string }) => {
         size={30}
         className="mr-3 cursor-pointer transition-all hover:opacity-80"
       />
-      <div title="Add to My List">
-        <PlusButton size={25} />
+      <div className="border-[2px] w-fit border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.2rem]  rounded-full text-white cursor-pointer bg-black bg-opacity-30">
+        <BsPlus className="w-7 h-7" />
       </div>
       <div
         className={`fixed inset-0  w-full h-[100vh] bg-primary bg-opacity-90 bg-blur   ${

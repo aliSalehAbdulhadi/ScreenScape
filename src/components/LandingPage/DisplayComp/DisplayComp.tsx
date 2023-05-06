@@ -41,8 +41,6 @@ const DisplayComp = ({ data }: { data: any }) => {
                   <div className=" transition-all ">
                     <DisplaySlider
                       index={i}
-                      setSlidersInView={setSlidersInView}
-                      slidersInView={slidersInView}
                       data={slide.displaySliderResponse}
                     />
                   </div>

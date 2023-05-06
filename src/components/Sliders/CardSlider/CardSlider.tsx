@@ -2,10 +2,10 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
+import { memo } from 'react';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
 import CreditsCard from '../../Cards/CreditsCard/CreditsCard';
 import 'swiper/swiper-bundle.css';
-import { memo } from 'react';
 
 
 const CardSlider = ({

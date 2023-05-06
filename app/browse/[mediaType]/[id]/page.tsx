@@ -1,6 +1,6 @@
-import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
 
 const TitleSinglePage = dynamic(
   () => import('@/src/components/TitleSinglePage/TitleSinglePage')
@@ -9,7 +9,7 @@ const TitleSinglePage = dynamic(
 const page = () => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <div className="fade-in">
+      <div className="fade-in min-h-screen bg-primary">
         <TitleSinglePage />
       </div>
     </Suspense>

@@ -1,4 +1,3 @@
-import LoadingCard from '@/src/components/LoadingComponent/LoadingCard/LoadingCard';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
@@ -8,8 +7,10 @@ const SearchPage = dynamic(
 
 const Search = async () => {
   return (
-    <Suspense fallback={<LoadingCard />}>
-      <SearchPage />
+    <Suspense>
+      <div className="fade-in min-h-screen bg-primary">
+        <SearchPage />
+      </div>
     </Suspense>
   );
 };

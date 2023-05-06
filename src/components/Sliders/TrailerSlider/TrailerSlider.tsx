@@ -29,7 +29,6 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
   const [muteVideo, setMuteVideo] = useState<boolean>(true);
   const [reloadVideo, setReloadVideo] = useState<boolean>(false);
   const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
-  // const [data, setData] = useState<[]>([]);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);

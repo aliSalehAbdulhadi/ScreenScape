@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { IoIosArrowUp } from 'react-icons/io';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
+import { MdOutlineExpandMore } from 'react-icons/md';
 import GridComp from '../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
 import PosterCard from '../Cards/PosterCard/PosterCard';
@@ -10,7 +11,6 @@ import Modal from '../WrapperComponents/Modal/Modal';
 import LazyLoading from '../WrapperComponents/LazyLoading/LazyLoading';
 import CreditsCard from '../Cards/CreditsCard/CreditsCard';
 import useWindowSize from '@/src/hooks/useWindowsSize';
-import { MdUnfoldMoreDouble } from 'react-icons/md';
 import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 
 
@@ -86,7 +86,7 @@ const ViewMoreComp = ({
           className="text-xs font-bold  text-white text-opacity-70 sm:hidden flex items-center justify-center"
         >
           <span>View More</span>
-          <MdUnfoldMoreDouble className="w-6 h-6" />
+          <MdOutlineExpandMore className="w-5 h-5 rotate-180" />
         </div>
       )}
 
