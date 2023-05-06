@@ -7,6 +7,7 @@ import PosterCard from '../../Cards/PosterCard/PosterCard';
 import CreditsCard from '../../Cards/CreditsCard/CreditsCard';
 import 'swiper/swiper-bundle.css';
 
+
 const CardSlider = ({
   data,
   mediaType,
@@ -69,6 +70,7 @@ const CardSlider = ({
     },
     350: {
       slidesPerView: 1.9,
+
       spaceBetween: 5,
     },
     330: {
@@ -94,6 +96,7 @@ const CardSlider = ({
           }}
           loop={true}
           breakpoints={breakpoints}
+
         >
           <div>
             {data.map(
@@ -139,3 +142,4 @@ const CardSlider = ({
 };
 
 export default memo(CardSlider);
+
