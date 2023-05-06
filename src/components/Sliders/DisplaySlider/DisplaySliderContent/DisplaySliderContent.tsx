@@ -92,6 +92,7 @@ const DisplaySliderContent = ({
             alt="poster"
             loading="lazy"
           />
+
         </Link>
       )}
     </div>

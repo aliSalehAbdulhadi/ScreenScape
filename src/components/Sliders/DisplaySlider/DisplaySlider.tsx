@@ -3,6 +3,7 @@
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Suspense, memo, useEffect, useRef, useState } from 'react';
+
 import { MdOutlineArrowBackIos } from 'react-icons/md';
 import dynamic from 'next/dynamic';
 import 'swiper/swiper-bundle.css';
