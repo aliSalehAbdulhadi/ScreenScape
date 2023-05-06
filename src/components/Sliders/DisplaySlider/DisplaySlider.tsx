@@ -2,40 +2,21 @@
 
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import {
-  Dispatch,
-  SetStateAction,
-  Suspense,
-  lazy,
-  memo,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { Suspense, memo, useEffect, useRef, useState } from 'react';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
+import dynamic from 'next/dynamic';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
-import LoadingCard from '../../LoadingComponent/LoadingCard/LoadingCard';
 
-const DisplaySliderContent = lazy(
+const DisplaySliderContent = dynamic(
   () => import('./DisplaySliderContent/DisplaySliderContent')
 );
 
 SwiperCore.use([Navigation]);
 
-const DisplaySlider = ({
-  index,
-  setSlidersInView,
-  slidersInView,
-  data,
-}: {
-  index: number;
-  setSlidersInView: Dispatch<SetStateAction<number>>;
-  slidersInView: number;
-  data: any;
-}) => {
+const DisplaySlider = ({ index, data }: { index: number; data: any }) => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
   const [showArrows, setShowArrows] = useState<boolean>(false);
@@ -58,7 +39,7 @@ const DisplaySlider = ({
         setOverFlowHidden(true);
       }, 2000);
     }
-  }, [slidersInView, index, setSlidersInView, overFlowHidden]);
+  }, [index, overFlowHidden]);
 
   useEffect(() => {
     setShowArrows(true);
@@ -152,13 +133,7 @@ const DisplaySlider = ({
                     overFlowHidden && 'overflow-hidden '
                   }`}
                 >
-                  <Suspense
-                    fallback={
-                      <div className="h-full">
-                        <LoadingCard />
-                      </div>
-                    }
-                  >
+                  <Suspense>
                     <DelayDisplay delay={i < 8 ? i * 100 : 0}>
                       <DisplaySliderContent
                         title={title}

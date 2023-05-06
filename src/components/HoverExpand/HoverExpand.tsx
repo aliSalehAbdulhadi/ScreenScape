@@ -3,11 +3,10 @@ import { FaPlay, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
 import SingleGenres from '../TitleSinglePage/TitleInfo/SingleGenres/SingleGenres';
-import PlusButton from '../Buttons/PlusButton/PlusButton';
-import useWindowSize from '@/src/hooks/useWindowsSize';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import asyncFetch from '@/src/helper/asyncFetch';
 import { imageQualityLargeScreen } from '@/src/global/globalVariables';
+import { BsPlus } from 'react-icons/bs';
 
 const HoverExpand = ({
   titleId,
@@ -25,8 +24,6 @@ const HoverExpand = ({
   const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
   const [data, setData] = useState<any>({});
   const [trailer, setTrailer] = useState<any>([]);
-
-  const width = useWindowSize();
 
   const asyncFunction = useCallback(async () => {
     try {
@@ -113,14 +110,14 @@ const HoverExpand = ({
             <div className="absolute top-0 left-0 h-full px-3  w-[300px] flex items-end justify-end ">
               <div
                 onClick={() => setMuteVideo(!muteVideo)}
-                className={`w-fit border-[2px] border-white border-opacity-60 opacity-40 hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60  mb-3  ${
+                className={`w-fit border-[2px] border-white border-opacity-60 opacity-40 hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60  mb-3 mr-[2px] ${
                   isVideoReady || 'hidden'
                 }`}
               >
                 {muteVideo ? (
-                  <FaVolumeMute size={width > 1300 ? 13 : 10} />
+                  <FaVolumeMute className="w-2 h-2 xl:w-3 xl:h-3" />
                 ) : (
-                  <FaVolumeUp size={width > 1300 ? 13 : 10} />
+                  <FaVolumeUp className="w-2 h-2 xl:w-3 xl:h-3" />
                 )}
               </div>
             </div>
@@ -148,7 +145,7 @@ const HoverExpand = ({
                 onClick={() => setPlayVideo(true)}
                 className={`w-fit border-[2px] border-white border-opacity-60  hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60 `}
               >
-                <FaPlay size={width > 1300 ? 13 : 10} />
+                <FaPlay className="w-[10px] h-[10px] xl:w-3 xl:h-3" />
               </div>
             </div>
           </div>
@@ -156,12 +153,14 @@ const HoverExpand = ({
       </div>
 
       <div
-        className={`py-3 px-1 xl:px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px] `}
+        className={`py-3 px-3 rounded-b background-fade-bottom-enter   w-full hover:shadow-2xl absolute -bottom-[100px]  xl:-bottom-[110px] `}
       >
         <Link href={`/browse/${mediaType}/${titleId}`}>
           <div className="flex items-center justify-between">
             <span className="text-xs xl:text-base ">{dataObject()?.title}</span>
-            <PlusButton size={width > 1300 ? 20 : 15} />
+            <div className="border-[2px] w-fit border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.2rem]  rounded-full text-white cursor-pointer bg-black bg-opacity-30">
+              <BsPlus className="w-4 h-4 xl:w-5 xl:h-5" />
+            </div>
           </div>
 
           <div className="flex text-[.6rem] xl:text-xs my-3">

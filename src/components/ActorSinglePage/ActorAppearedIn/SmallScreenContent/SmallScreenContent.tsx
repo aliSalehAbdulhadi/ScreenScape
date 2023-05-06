@@ -1,7 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, Suspense, lazy } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 import MovieTvSwitchButtons from '../MovieTvSwitchButtons/MovieTvSwitchButtons';
-import ViewMoreComp from '@/src/components/ViewMoreComp/ViewMoreComp';
+import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
+
+const ViewMoreComp = lazy(
+  () => import('@/src/components/ViewMoreComp/ViewMoreComp')
+);
 
 const SmallScreenContent = ({
   appearedInTitles,
@@ -16,7 +20,7 @@ const SmallScreenContent = ({
     <div>
       <div className="flex items-center justify-between">
         <div className="flex items-center justify-center">
-          <span className=" text-secondary  ml-2 xs:ml-5">Filmography</span>
+          <span className=" text-secondary  ml-2 xs:ml-5">Appeared In</span>
           <div className="text-xs ml-3">
             <MovieTvSwitchButtons
               setMediaType={setMediaType}
@@ -26,9 +30,11 @@ const SmallScreenContent = ({
         </div>
 
         {appearedInTitles?.length > 10 ? (
-          <div className="mr-2 xs:mr-5">
-            <ViewMoreComp titles={appearedInTitles} mediaType={mediaType} />
-          </div>
+          <Suspense fallback={<LoadingSpinner />}>
+            <div className="mr-2 xs:mr-5">
+              <ViewMoreComp titles={appearedInTitles} mediaType={mediaType} />
+            </div>
+          </Suspense>
         ) : null}
       </div>
 

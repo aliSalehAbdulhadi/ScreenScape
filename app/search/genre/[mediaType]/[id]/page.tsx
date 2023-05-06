@@ -8,7 +8,9 @@ const SearchPage = dynamic(
 const Search = async () => {
   return (
     <Suspense>
-      <SearchPage />
+      <div className="fade-in min-h-screen bg-primary">
+        <SearchPage />
+      </div>
     </Suspense>
   );
 };

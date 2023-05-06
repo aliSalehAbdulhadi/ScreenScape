@@ -1,5 +1,10 @@
+import { Suspense, lazy } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
-import ViewMoreComp from '@/src/components/ViewMoreComp/ViewMoreComp';
+import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
+
+const ViewMoreComp = lazy(
+  () => import('@/src/components/ViewMoreComp/ViewMoreComp')
+);
 
 const SmallScreenContent = ({
   relatedTitles,
@@ -13,11 +18,12 @@ const SmallScreenContent = ({
       <div className="flex items-center justify-between ">
         <span className=" text-secondary ml-2 xs:ml-5">Related</span>
         {relatedTitles?.length > 10 ? (
-          <div className="mr-2 xs:mr-5">
-            <ViewMoreComp titles={relatedTitles} mediaType={mediaType} />
-          </div>
+          <Suspense fallback={<LoadingSpinner />}>
+            <div className="mr-2 xs:mr-5">
+              <ViewMoreComp titles={relatedTitles} mediaType={mediaType} />
+            </div>
+          </Suspense>
         ) : null}
-
       </div>
 
       <CardSlider mediaType={mediaType} isCast={false} data={relatedTitles} />

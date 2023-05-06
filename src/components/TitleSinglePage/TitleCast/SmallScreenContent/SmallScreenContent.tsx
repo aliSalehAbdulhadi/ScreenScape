@@ -1,8 +1,11 @@
+import { Dispatch, SetStateAction, Suspense, lazy } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 import CastCrewSwitchButtons from '../CastCrewSwitchButtons/CastCrewSwitchButtons';
-import { Dispatch, SetStateAction } from 'react';
-import ViewMoreComp from '@/src/components/ViewMoreComp/ViewMoreComp';
+import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
 
+const ViewMoreComp = lazy(
+  () => import('@/src/components/ViewMoreComp/ViewMoreComp')
+);
 
 const SmallScreenContent = ({
   credits,
@@ -28,11 +31,12 @@ const SmallScreenContent = ({
         </div>
 
         {credits?.length > 10 ? (
-          <div className="mr-2 xs:mr-5">
-            <ViewMoreComp titles={credits} mediaType="actor" />
-          </div>
+          <Suspense fallback={<LoadingSpinner />}>
+            <div className="mr-2 xs:mr-5">
+              <ViewMoreComp titles={credits} mediaType="actor" />
+            </div>
+          </Suspense>
         ) : null}
-
       </div>
 
       <CardSlider isCast={true} data={credits} />
