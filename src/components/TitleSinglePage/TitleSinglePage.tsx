@@ -9,6 +9,7 @@ import TitleCast from './TitleCast/TitleCast';
 import TitleRelated from './TitleRelated/TitleRelated';
 import BackgroundOverlay from './TitleInfo/BackgroundOverlay/BackgroundOverlay';
 import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
+import TitleDetails from './TitleDetails/TitleDetails';
 
 const TitleSinglePage = () => {
   const [year, setYear] = useState({
@@ -125,22 +126,25 @@ const TitleSinglePage = () => {
             </div>
           </BackgroundOverlay>
 
-          <div className="sm:px-10 w-full">
-            <div className="mt-14 flex flex-col md:flex-row  justify-between ">
-              <div className=" md:w-[48%]">
+          <div className="w-full">
+            <div className="mt-14 flex flex-col md:flex-row-reverse  w-full">
+              <div className="w-full md:w-[30%] px-2 xs:px-5 md:px-0">
+                <TitleDetails data={data} />
+              </div>
+
+              <div className="md:w-[75%] md:pr-10">
                 <TitleCast
                   credits={creditsType === 'cast' ? cast : crew}
                   setCreditsType={setCreditsType}
                   creditsType={creditsType}
                 />
               </div>
-
-              <div className="md:w-[48%] mt-10 semiSm:mt-0">
+              {/* <div className="md:w-[48%] mt-10 semiSm:mt-0">
                 <TitleRelated
                   mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                   relatedTitles={relatedTitles?.results}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden">

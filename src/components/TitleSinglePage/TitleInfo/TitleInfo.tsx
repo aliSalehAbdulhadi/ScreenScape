@@ -52,10 +52,7 @@ const TitleInfo = ({
     <div className="flex flex-col  items-start w-[100%]  sm:pr-5 ">
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
         <div className="xs:self-center">
-          <MasonryGridPics
-            mediaType={data?.first_air_date ? 'tv' : 'movie'}
-            id={data?.id}
-          >
+          <MasonryGridPics mediaType={mediaType} id={data?.id}>
             <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
               <Image
                 quality={imageQualityLargeScreen}
@@ -75,7 +72,6 @@ const TitleInfo = ({
         </div>
 
         <div className="mx-2 xs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
-
           <div className=" w-full xxs:w-fit relative ">
             <span
               title={dataObject().title}

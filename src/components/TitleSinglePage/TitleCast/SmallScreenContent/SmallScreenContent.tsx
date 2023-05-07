@@ -18,11 +18,11 @@ const SmallScreenContent = ({
 }) => {
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between md:justify-start">
         <div className="flex items-center justify-center">
           <span className=" text-secondary ml-2 xs:ml-5">Cast</span>
 
-          <div className="text-xs ml-3">
+          <div className="text-xs ml-3 sm:text-base ">
             <CastCrewSwitchButtons
               setCreditsType={setCreditsType}
               creditsType={creditsType}
@@ -32,7 +32,7 @@ const SmallScreenContent = ({
 
         {credits?.length > 10 ? (
           <Suspense fallback={<LoadingSpinner />}>
-            <div className="mr-2 xs:mr-5">
+            <div className="mr-2 xs:mr-5 sm:mr-0">
               <ViewMoreComp titles={credits} mediaType="actor" />
             </div>
           </Suspense>

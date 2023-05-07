@@ -7,7 +7,6 @@ import PosterCard from '../../Cards/PosterCard/PosterCard';
 import CreditsCard from '../../Cards/CreditsCard/CreditsCard';
 import 'swiper/swiper-bundle.css';
 
-
 const CardSlider = ({
   data,
   mediaType,
@@ -48,6 +47,17 @@ const CardSlider = ({
   };
 
   const breakpoints = {
+    1750: { slidesPerView: 6.5, spaceBetween: 5 },
+    1650: { slidesPerView: 5.8, spaceBetween: 5 },
+    1550: { slidesPerView: 4.7, spaceBetween: 5 },
+    1450: { slidesPerView: 4.4, spaceBetween: 5 },
+    1350: { slidesPerView: 4.2, spaceBetween: 5 },
+    1250: { slidesPerView: 4.1, spaceBetween: 5 },
+    1150: { slidesPerView: 3.8, spaceBetween: 5 },
+    1050: { slidesPerView: 3.6, spaceBetween: 5 },
+    950: { slidesPerView: 3.4, spaceBetween: 5 },
+    850: { slidesPerView: 3.3, spaceBetween: 5 },
+    750: { slidesPerView: 3.2, spaceBetween: 5 },
     600: {
       slidesPerView: 3.1,
       spaceBetween: 5,
@@ -91,18 +101,17 @@ const CardSlider = ({
           // @ts-ignore
           lazy={{
             loadPrevNext: true,
-            loadPrevNextAmount: 2,
+            loadPrevNextAmount: 5,
             loadOnTransitionStart: true,
           }}
-          loop={true}
-          breakpoints={breakpoints}
-
+          slidesPerView="auto"
+          spaceBetween={5}
         >
           <div>
             {data.map(
               (info, i) =>
                 i <= 10 && (
-                  <SwiperSlide className="w-fit" key={uuidv4()}>
+                  <SwiperSlide className="!w-[12rem]" key={uuidv4()}>
                     {isCast ? (
                       <Link
                         href={`/person/${info?.id}`}
@@ -142,4 +151,3 @@ const CardSlider = ({
 };
 
 export default memo(CardSlider);
-

@@ -17,19 +17,11 @@ const TitleCast = ({
   const width = useWindowSize();
   return (
     <div>
-      {width >= 640 ? (
-        <LargeScreenContent
-          credits={credits}
-          setCreditsType={setCreditsType}
-          creditsType={creditsType}
-        />
-      ) : (
-        <SmallScreenContent
-          credits={credits}
-          setCreditsType={setCreditsType}
-          creditsType={creditsType}
-        />
-      )}
+      <SmallScreenContent
+        credits={credits}
+        setCreditsType={setCreditsType}
+        creditsType={creditsType}
+      />
     </div>
   );
 };
