@@ -8,7 +8,6 @@ import asyncFetch from '@/src/helper/asyncFetch';
 import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 import { BsPlus } from 'react-icons/bs';
 
-
 const HoverExpand = ({
   titleId,
   index,
@@ -44,11 +43,6 @@ const HoverExpand = ({
     } catch (error) {}
   }, [mediaType, titleId]);
 
-  const minutes = data.runtime;
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-  const runtime = hours + 'h ' + remainingMinutes + 'm';
-
   useEffect(() => {
     asyncFunction();
   }, [asyncFunction]);
@@ -64,6 +58,11 @@ const HoverExpand = ({
     setIsVideoReady(false);
     setMuteVideo(true);
   };
+
+  const minutes = data.runtime;
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  const runtime = hours + 'h ' + remainingMinutes + 'm';
 
   const dataObject = () => {
     let posterUrl = data?.poster_path;

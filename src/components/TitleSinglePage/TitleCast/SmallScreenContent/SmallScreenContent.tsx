@@ -20,9 +20,9 @@ const SmallScreenContent = ({
     <div>
       <div className="flex items-center justify-between md:justify-start">
         <div className="flex items-center justify-center">
-          <span className=" text-secondary ml-2 xs:ml-5">Cast</span>
+          <span className=" text-secondary text-lg ml-2 xs:ml-5">Cast</span>
 
-          <div className="text-xs ml-3 sm:text-base ">
+          <div className="text-xs ml-3 mr-5 sm:text-base ">
             <CastCrewSwitchButtons
               setCreditsType={setCreditsType}
               creditsType={creditsType}

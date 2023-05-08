@@ -52,11 +52,7 @@ const ViewMoreComp = ({
     };
   };
   return (
-    <div
-      className={`h-full sm:w-[192px]  rounded  ${
-        titles?.length < 10 && 'hidden'
-      }`}
-    >
+    <div className={`h-full   rounded  ${titles?.length < 10 && 'hidden'}`}>
       <SmallTextButton setOpen={setOpen} />
 
       <Modal

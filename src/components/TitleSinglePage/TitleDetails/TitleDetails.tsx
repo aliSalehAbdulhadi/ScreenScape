@@ -5,14 +5,13 @@ import { formatCurrency } from '@/src/helper/formatCurrency';
 
 const TitleDetails = ({ data }: { data: any }) => {
   const keywords = keywordsExtractHandler(data?.overview);
-  console.log(data);
   return (
     <div className="flex items-start justify-around flex-row-reverse md:flex-col w-full text-xs xxxs:text-sm xxs:text-base">
-      <div className="flex flex-col w-[30%] mr-5">
-        <div className="mb-5 flex flex-col">
+      <div className="flex flex-col  mr-5">
+        <div className="mb-5 flex flex-col w-full">
           <span className=" font-semibold">Tagline </span>
           <span className="text-white text-opacity-80">
-            {checkDataAvailability(data?.tagline)}
+            {`"${checkDataAvailability(data?.tagline)}"`}
           </span>
         </div>
 
