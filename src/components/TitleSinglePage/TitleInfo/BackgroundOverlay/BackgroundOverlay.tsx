@@ -22,7 +22,7 @@ const BackgroundOverlay = ({
         <div className="w-full overlay  absolute top-0 h-[32.5rem] pointer-events-none"></div>
       </div>
 
-      <div className=" semiSm:absolute top-5 flex items-center justify-between w-full">
+      <div className=" semiSm:absolute top-0 flex items-center justify-between w-full h-full">
         {children}
       </div>
     </div>

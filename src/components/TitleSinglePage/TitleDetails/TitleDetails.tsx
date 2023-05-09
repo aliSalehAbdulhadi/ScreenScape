@@ -16,13 +16,6 @@ const TitleDetails = ({ data }: { data: any }) => {
         </div>
 
         <div className="mb-5 flex flex-col">
-          <span className=" font-semibold">Status </span>
-          <span className="text-white text-opacity-80">
-            {checkDataAvailability(data?.status)}
-          </span>
-        </div>
-
-        <div className="mb-5 flex flex-col">
           <span className=" font-semibold">Type </span>
           <span className="text-white text-opacity-80">
             {checkDataAvailability(data?.type)}
@@ -40,16 +33,9 @@ const TitleDetails = ({ data }: { data: any }) => {
           </span>
         </div>
 
-        <div className="mb-5 flex flex-col">
-          <span className=" font-semibold">Original Languages </span>
-          <span className="text-white text-opacity-80">
-            {checkDataAvailability(data?.original_language)}
-          </span>
-        </div>
-
         <div className="mb-5 flex flex-col ">
           <span className=" font-semibold">Spoken Languages</span>
-          <div className="text-white text-opacity-80">
+          <div className="text-white text-opacity-80  grid col-span-1">
             {data?.spoken_languages
               ? data?.spoken_languages?.map((language: any) => (
                   <span key={uuidv4()}>{language?.name}</span>
@@ -106,7 +92,7 @@ const TitleDetails = ({ data }: { data: any }) => {
 
         <div className="mb-5 flex flex-col">
           <span className=" font-semibold mb-1">Keywords </span>
-          <div className="flex flex-wrap w-[70%] md:w-full">
+          <div className="flex flex-wrap w-[70%] md:w-[90%]">
             {keywords?.map(
               (word, i) =>
                 i <= 10 && (

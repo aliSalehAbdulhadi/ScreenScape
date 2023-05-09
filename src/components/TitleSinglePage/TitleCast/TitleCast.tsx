@@ -1,9 +1,11 @@
-import { Dispatch, SetStateAction, memo } from 'react';
-import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
-import SmallScreenContent from './SmallScreenContent/SmallScreenContent';
-import useWindowSize from '@/src/hooks/useWindowsSize';
+import { Dispatch, SetStateAction, Suspense, lazy, memo } from 'react';
+import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
+import CastCrewSwitchButtons from './CastCrewSwitchButtons/CastCrewSwitchButtons';
+import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
 
-LargeScreenContent;
+const ViewMoreComp = lazy(
+  () => import('@/src/components/ViewMoreComp/ViewMoreComp')
+);
 
 const TitleCast = ({
   credits,
@@ -14,14 +16,29 @@ const TitleCast = ({
   creditsType: string;
   setCreditsType: Dispatch<SetStateAction<string>>;
 }) => {
-  const width = useWindowSize();
+  console.log(credits);
   return (
     <div>
-      <SmallScreenContent
-        credits={credits}
-        setCreditsType={setCreditsType}
-        creditsType={creditsType}
-      />
+      <div className="flex items-center justify-between">
+        <div className="flex items-center justify-center">
+          <div className="text-xs ml-5 mr-5 sm:text-base ">
+            <CastCrewSwitchButtons
+              setCreditsType={setCreditsType}
+              creditsType={creditsType}
+            />
+          </div>
+        </div>
+
+        {credits?.length > 10 ? (
+          <Suspense fallback={<LoadingSpinner />}>
+            <div className="mr-2 xs:mr-5">
+              <ViewMoreComp titles={credits} mediaType="actor" />
+            </div>
+          </Suspense>
+        ) : null}
+      </div>
+
+      <CardSlider isCast={true} data={credits} />
     </div>
   );
 };

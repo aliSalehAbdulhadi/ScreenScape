@@ -1,4 +1,6 @@
-import { Suspense, lazy } from 'react';
+'use client';
+
+import { Suspense, lazy, memo } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
 
@@ -6,17 +8,17 @@ const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
 );
 
-const SmallScreenContent = ({
+const TitleRecommendation = ({
   relatedTitles,
   mediaType,
 }: {
-  relatedTitles: any[];
+  relatedTitles: any;
   mediaType: string;
 }) => {
   return (
     <div>
-      <div className="flex items-center justify-between ">
-        <span className=" text-secondary ml-2 xs:ml-5">Related</span>
+      <div className="flex items-center ">
+        <span className=" text-secondary text-lg ml-5 mr-5 ">Recommended</span>
         {relatedTitles?.length > 10 ? (
           <Suspense fallback={<LoadingSpinner />}>
             <div className="mr-2 xs:mr-5">
@@ -31,4 +33,4 @@ const SmallScreenContent = ({
   );
 };
 
-export default SmallScreenContent;
+export default memo(TitleRecommendation);

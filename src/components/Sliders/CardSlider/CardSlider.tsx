@@ -94,9 +94,10 @@ const CardSlider = ({
   };
 
   return (
-    <div className="mt-6 pl-1 h-[25rem]">
+    <div className="mt-6 h-[25rem]">
       {
         <Swiper
+          className="!pl-5 "
           style={swiperStyle}
           // @ts-ignore
           lazy={{
@@ -110,7 +111,7 @@ const CardSlider = ({
           <div>
             {data.map(
               (info, i) =>
-                i <= 10 && (
+                i <= 15 && (
                   <SwiperSlide className="!w-[12rem]" key={uuidv4()}>
                     {isCast ? (
                       <Link

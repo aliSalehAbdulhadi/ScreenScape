@@ -1,18 +1,13 @@
 import React, { memo, useState } from 'react';
-import Image from 'next/image';
-import { IoIosArrowUp } from 'react-icons/io';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
-import { MdOutlineExpandMore } from 'react-icons/md';
 import GridComp from '../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
 import PosterCard from '../Cards/PosterCard/PosterCard';
 import Modal from '../WrapperComponents/Modal/Modal';
 import LazyLoading from '../WrapperComponents/LazyLoading/LazyLoading';
 import CreditsCard from '../Cards/CreditsCard/CreditsCard';
-import useWindowSize from '@/src/hooks/useWindowsSize';
-import { imageQualityLargeScreen } from '@/src/global/globalVariables';
-import BigCardButton from './BigCardButton/BigCardButton';
+
 import SmallTextButton from './SmallTextButton/SmallTextButton';
 
 const ViewMoreComp = ({
@@ -24,8 +19,6 @@ const ViewMoreComp = ({
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [slidersInView, setSlidersInView] = useState<number>(20);
-  const width = useWindowSize();
-
   const dataObject = (data: any) => {
     let posterUrl = data?.poster_path;
     let title = mediaType === 'movie' ? data?.title : data?.name;
@@ -51,6 +44,7 @@ const ViewMoreComp = ({
       seriesStatus,
     };
   };
+
   return (
     <div className={`h-full   rounded  ${titles?.length < 10 && 'hidden'}`}>
       <SmallTextButton setOpen={setOpen} />

@@ -11,6 +11,9 @@ import BackgroundOverlay from './TitleInfo/BackgroundOverlay/BackgroundOverlay';
 import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
 import TitleDetails from './TitleDetails/TitleDetails';
 import TitleSeasons from './TitleSeasons/TitleSeasons';
+import TitleRecommendation from './TitleRecommendation/TitleRecommendation';
+import CollectionCard from '../Cards/CollectionCard/CollectionCard';
+import TitleCollection from './TitleCollection/TitleCollection';
 
 const TitleSinglePage = () => {
   const [year, setYear] = useState({
@@ -24,6 +27,7 @@ const TitleSinglePage = () => {
   const [credits, setCredits] = useState<any>([]);
   const [relatedTitles, setRelatedTitles] = useState<any>([]);
   const [creditsType, setCreditsType] = useState<string>('cast');
+  const [recommendation, setRecommendation] = useState<any[]>([]);
 
   const param = useParams();
   const pathName = usePathname();
@@ -105,10 +109,33 @@ const TitleSinglePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genres, param.id]);
 
+  const searchByGenre = useCallback(async () => {
+    try {
+      const byGenreRequest = await fetch(
+        ` https://api.themoviedb.org/3/discover/${mediaType}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=1&with_genres=${genres}&vote_count.gte=500&with_production_countries=us`
+      );
+
+      const byGenreResponse = await byGenreRequest?.json();
+
+      setRecommendation(
+        byGenreResponse?.results?.filter((title: any) => title?.id !== data?.id)
+      );
+    } catch (error) {}
+  }, [data?.id, genres, mediaType]);
+
   useEffect(() => {
     setLoading(true);
     asyncFunction();
   }, [asyncFunction]);
+
+  useEffect(() => {
+    if (genres) {
+      searchByGenre();
+    }
+  }, [genres, searchByGenre]);
+
+  console.log(data);
+
   return (
     <div className="">
       {loading ? (
@@ -124,32 +151,46 @@ const TitleSinglePage = () => {
             </div>
           </BackgroundOverlay>
 
-          <div className="mt-14 flex flex-col md:flex-row-reverse  w-full">
-            <div className="w-full md:w-[30%] px-2 xs:px-5 md:px-0">
-              <TitleDetails data={data} />
+          <div className="flex flex-col w-full">
+            <div className="mt-14 flex flex-col md:flex-row-reverse  w-full">
+              <div className="w-full md:w-[30%] px-2 xs:px-5 md:px-0">
+                <TitleDetails data={data} />
+              </div>
+
+              <div className="md:w-[75%] pt-1 md:pr-10 flex flex-col overflow-hidden">
+                <TitleCast
+                  credits={creditsType === 'cast' ? cast : crew}
+                  setCreditsType={setCreditsType}
+                  creditsType={creditsType}
+                />
+                {mediaType === 'tv' && (
+                  <div className=" mt-5">
+                    <TitleSeasons
+                      titleId={data?.id}
+                      numberOfSeasons={data?.number_of_seasons}
+                    />
+                  </div>
+                )}
+                {data?.belongs_to_collection && (
+                  <TitleCollection
+                    collectionId={data?.belongs_to_collection?.id}
+                  />
+                )}
+              </div>
+            </div>
+            <div className="pt-1 overflow-x-hidden flex flex-col">
+              <TitleRelated
+                mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                relatedTitles={relatedTitles?.results}
+              />
             </div>
 
-            <div className="md:w-[75%] pt-1 md:pr-10 overflow-x-hidden flex flex-col sm:px-5">
-              <TitleCast
-                credits={creditsType === 'cast' ? cast : crew}
-                setCreditsType={setCreditsType}
-                creditsType={creditsType}
+            <div className="pt-1 overflow-x-hidden flex flex-col">
+              <TitleRecommendation
+                mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                relatedTitles={recommendation}
               />
-              {mediaType === 'tv' && (
-                <div className="w-[90%] mt-5">
-                  <TitleSeasons
-                    titleId={data?.id}
-                    numberOfSeasons={data?.number_of_seasons}
-                  />
-                </div>
-              )}
             </div>
-            {/* <div className="md:w-[48%] mt-10 semiSm:mt-0">
-                <TitleRelated
-                  mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                  relatedTitles={relatedTitles?.results}
-                />
-              </div> */}
           </div>
           <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden">
             <News />

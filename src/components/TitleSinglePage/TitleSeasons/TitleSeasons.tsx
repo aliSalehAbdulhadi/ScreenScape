@@ -29,7 +29,6 @@ const TitleSeasons = ({
       setLastSeason(results);
     } catch (error) {}
   }, [numberOfSeasons, titleId]);
-
   const allSeasonsFetch = useCallback(async () => {
     try {
       const seasons = [];
@@ -58,11 +57,11 @@ const TitleSeasons = ({
   }, [allSeasonsFetch, open]);
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex items-center justify-between">
         <span className="text-secondary text-lg  mr-5">Latest Season</span>
         <span
           onClick={() => setOpen(true)}
-          className={` text-white text-opacity-80 cursor-pointer text-sm transition-all hover:text-opacity-90 ${
+          className={` text-white text-opacity-80 cursor-pointer text-sm transition-all hover:text-opacity-90 mr-5 ${
             numberOfSeasons <= 1 && 'hidden'
           }`}
         >
