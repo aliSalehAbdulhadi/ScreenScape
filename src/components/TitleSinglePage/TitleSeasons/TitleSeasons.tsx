@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { TiArrowBack } from 'react-icons/ti';
 import SeasonsCard from '../../Cards/SeasonsCard/SeasonsCard';
 import Modal from '../../WrapperComponents/Modal/Modal';
 import TitleEpisodes from '../TitleEpisodes/TitleEpisodes';
-import { TiArrowBack } from 'react-icons/ti';
 
 const TitleSeasons = ({
   titleId,
@@ -57,8 +57,10 @@ const TitleSeasons = ({
   }, [allSeasonsFetch, open]);
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <span className="text-secondary text-lg  mr-5">Latest Season</span>
+      <div className="flex items-center">
+        <span className="text-secondary text-sm xxxs:text-base sm:text-lg mr-5">
+          Latest Season
+        </span>
         <span
           onClick={() => setOpen(true)}
           className={` text-white text-opacity-80 cursor-pointer text-sm transition-all hover:text-opacity-90 mr-5 ${
@@ -96,7 +98,9 @@ const TitleSeasons = ({
               setEpisodes(season?.episodes);
             }}
           >
-            <SeasonsCard data={season} />
+            <div className=" px-1 xs:px-2 semiSm:px-0">
+              <SeasonsCard data={season} />
+            </div>
           </div>
         ))}
       </Modal>
@@ -112,10 +116,12 @@ const TitleSeasons = ({
           disableOnClose ? null : <TiArrowBack className="w-full h-full" />
         }
       >
-        <TitleEpisodes data={episodes} />
+        <div className=" px-1 xs:px-2 semiSm:px-0">
+          <TitleEpisodes data={episodes} />
+        </div>
       </Modal>
     </div>
   );
 };
 
-export default TitleSeasons;
+export default memo(TitleSeasons);

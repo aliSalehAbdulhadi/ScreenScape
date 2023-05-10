@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import EpisodeCard from '../../Cards/EpisodeCard/EpisodeCard';
 
 const TitleEpisodes = ({ data }: { data: any }) => {
@@ -11,4 +11,4 @@ const TitleEpisodes = ({ data }: { data: any }) => {
   );
 };
 
-export default TitleEpisodes;
+export default memo(TitleEpisodes);

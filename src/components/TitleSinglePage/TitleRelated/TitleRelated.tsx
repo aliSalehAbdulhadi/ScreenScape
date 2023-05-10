@@ -18,7 +18,9 @@ const TitleRelated = ({
   return (
     <div>
       <div className="flex items-center ">
-        <span className=" text-secondary text-lg ml-5 mr-5 ">Related</span>
+        <span className=" text-secondary  ml-2 sm:ml-5 mr-5 text-sm xxxs:text-base sm:text-lg">
+          Related
+        </span>
         {relatedTitles?.length > 10 ? (
           <Suspense fallback={<LoadingSpinner />}>
             <div className="mr-2 xs:mr-5">

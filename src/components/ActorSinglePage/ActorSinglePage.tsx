@@ -13,9 +13,12 @@ const ActorSinglePage = () => {
   const [mediaType, setMediaType] = useState<string>('movie');
   const [data, setData] = useState<any>({});
   const [appearedInMovies, setAppearedInMovies] = useState<any>([]);
+  const [personSocialMedia, setPersonSocialMedia] = useState<any>([]);
+
   const [otherActors, setOtherActors] = useState<any>([]);
 
   const param = useParams();
+  console.log(personSocialMedia);
 
   const tvShows = useMemo(
     () =>
@@ -35,26 +38,35 @@ const ActorSinglePage = () => {
 
   const asyncFunction = useCallback(async () => {
     try {
-      const [actorInfoRequest, appearedInRequest, otherActorsRequest] =
-        await Promise.all([
-          fetch(
-            `https://api.themoviedb.org/3/person/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/person/${param.id}/combined_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
-          ),
-        ]);
+      const [
+        actorInfoRequest,
+        appearedInRequest,
+        otherActorsRequest,
+        personSocialMediaRequest,
+      ] = await Promise.all([
+        fetch(
+          `https://api.themoviedb.org/3/person/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/person/${param.id}/combined_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/person/${param.id}/external_ids?api_key=397c42a96d2c187c2a4912fccc6be558&language=en-US`
+        ),
+      ]);
 
       const actorInfoResponse = await actorInfoRequest.json();
       const appearedInResponse = await appearedInRequest.json();
       const otherActorsResponse = await otherActorsRequest.json();
+      const personSocialMediaResponse = await personSocialMediaRequest.json();
 
       setData(actorInfoResponse);
       setAppearedInMovies(appearedInResponse);
       setOtherActors(otherActorsResponse);
+      setPersonSocialMedia(personSocialMediaResponse);
 
       if (actorInfoRequest.status === 200 && appearedInRequest.status === 200) {
         setTimeout(() => {
@@ -74,10 +86,10 @@ const ActorSinglePage = () => {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10 sm:px-10 ">
-          <div className="flex  justify-between w-full">
-            <div className="w-full  xl:w-[70%]">
-              <ActorInfo data={data} />
+        <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10 ">
+          <div className="flex  justify-between w-full   ">
+            <div className="w-full  xl:w-[70%] semiSm:px-5">
+              <ActorInfo data={data} personSocialMedia={personSocialMedia} />
             </div>
             <div className="md:w-[35%] xl:w-[30%] hidden xl:block">
               <News />
@@ -85,7 +97,7 @@ const ActorSinglePage = () => {
           </div>
 
           <div className="mt-14 flex flex-col md:flex-row w-full justify-between">
-            <div className=" md:w-[45%]">
+            <div className=" md:w-[45%] mx-2 xs:mx-5">
               <ActorAppearedIn
                 setMediaType={setMediaType}
                 mediaType={mediaType}
@@ -93,12 +105,12 @@ const ActorSinglePage = () => {
               />
             </div>
 
-            <div className="md:w-[45%] mt-10 semiSm:mt-0">
+            <div className="md:w-[45%] mt-10 semiSm:mt-0 mx-2 xs:mx-5">
               <OtherActors />
             </div>
           </div>
 
-          <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden ">
+          <div className="w-full xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden mx-2 xs:mx-5">
             <News />
           </div>
         </div>

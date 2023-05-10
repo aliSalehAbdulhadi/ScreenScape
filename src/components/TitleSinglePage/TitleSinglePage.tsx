@@ -12,7 +12,6 @@ import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
 import TitleDetails from './TitleDetails/TitleDetails';
 import TitleSeasons from './TitleSeasons/TitleSeasons';
 import TitleRecommendation from './TitleRecommendation/TitleRecommendation';
-import CollectionCard from '../Cards/CollectionCard/CollectionCard';
 import TitleCollection from './TitleCollection/TitleCollection';
 
 const TitleSinglePage = () => {
@@ -133,9 +132,6 @@ const TitleSinglePage = () => {
       searchByGenre();
     }
   }, [genres, searchByGenre]);
-
-  console.log(data);
-
   return (
     <div className="">
       {loading ? (
@@ -153,7 +149,7 @@ const TitleSinglePage = () => {
 
           <div className="flex flex-col w-full">
             <div className="mt-14 flex flex-col md:flex-row-reverse  w-full">
-              <div className="w-full md:w-[30%] px-2 xs:px-5 md:px-0">
+              <div className="w-full md:w-[30%] px-2 xs:px-5 sm:px-10 md:px-0">
                 <TitleDetails data={data} />
               </div>
 
@@ -164,7 +160,7 @@ const TitleSinglePage = () => {
                   creditsType={creditsType}
                 />
                 {mediaType === 'tv' && (
-                  <div className=" mt-5">
+                  <div className=" px-2 sm:px-5 md:pl-5 md:px-0">
                     <TitleSeasons
                       titleId={data?.id}
                       numberOfSeasons={data?.number_of_seasons}
@@ -172,25 +168,31 @@ const TitleSinglePage = () => {
                   </div>
                 )}
                 {data?.belongs_to_collection && (
-                  <TitleCollection
-                    collectionId={data?.belongs_to_collection?.id}
-                  />
+                  <div className="sm:pl-5 mb-10">
+                    <TitleCollection
+                      collectionId={data?.belongs_to_collection?.id}
+                    />
+                  </div>
                 )}
               </div>
             </div>
-            <div className="pt-1 overflow-x-hidden flex flex-col">
-              <TitleRelated
-                mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                relatedTitles={relatedTitles?.results}
-              />
-            </div>
+            {relatedTitles?.results?.length > 0 && (
+              <div className="pt-1 overflow-x-hidden flex flex-col">
+                <TitleRelated
+                  mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                  relatedTitles={relatedTitles?.results}
+                />
+              </div>
+            )}
 
-            <div className="pt-1 overflow-x-hidden flex flex-col">
-              <TitleRecommendation
-                mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                relatedTitles={recommendation}
-              />
-            </div>
+            {recommendation?.length > 0 && (
+              <div className="pt-1 overflow-x-hidden flex flex-col">
+                <TitleRecommendation
+                  mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                  relatedTitles={recommendation}
+                />
+              </div>
+            )}
           </div>
           <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden">
             <News />

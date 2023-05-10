@@ -16,17 +16,14 @@ const TitleCast = ({
   creditsType: string;
   setCreditsType: Dispatch<SetStateAction<string>>;
 }) => {
-  console.log(credits);
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center justify-center">
-          <div className="text-xs ml-5 mr-5 sm:text-base ">
-            <CastCrewSwitchButtons
-              setCreditsType={setCreditsType}
-              creditsType={creditsType}
-            />
-          </div>
+      <div className="flex items-center">
+        <div className="flex items-center justify-center text-xs sm:text-base mr-5 ml-2 sm:ml-5">
+          <CastCrewSwitchButtons
+            setCreditsType={setCreditsType}
+            creditsType={creditsType}
+          />
         </div>
 
         {credits?.length > 10 ? (
