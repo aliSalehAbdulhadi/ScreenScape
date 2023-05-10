@@ -3,15 +3,9 @@ import Image from 'next/image';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
 import { imageQualityLargeScreen } from '@/src/global/globalVariables';
-import SocialMedia from './SocialMedia/SocialMedia';
+import SocialMedia from '../../SocialMedia/SocialMedia';
 
-const ActorInfo = ({
-  data,
-  personSocialMedia,
-}: {
-  data: any;
-  personSocialMedia: any;
-}) => {
+const ActorInfo = ({ data }: { data: any }) => {
   const age = `${moment(data?.birthday).format('MMMM Do YYYY')} ${
     data?.deathday ? '' : `(${moment().diff(data?.birthday, 'years')} years)`
   }`;
@@ -90,7 +84,7 @@ const ActorInfo = ({
             </div>
           </div>
           <div className="mt-5">
-            <SocialMedia personSocialMedia={personSocialMedia} />
+            <SocialMedia mediaType="person" id={data?.id} />
           </div>
           <div className=" mt-6 semiSm:w-[20.5rem] md:w-[29rem] lg:w-[38.5rem] xl:w-[24rem] xxl:w-[30rem] xxxl:w-[38rem] h-[16rem]  text-[17px] scrollBar  overflow-auto hidden semiSm:block">
             <span className=" leading-7">

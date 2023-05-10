@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import PosterCardPlaceholder from '../../Placeholders/PosterCardPlaceholder/PosterCardPlaceholder';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
-import { imageQualitySmallScreen } from '@/src/global/globalVariables';
+import {
+  dataObject,
+  imageQualitySmallScreen,
+} from '@/src/global/globalVariables';
 
 const PosterCard = ({
   imageUrl,
@@ -11,6 +14,7 @@ const PosterCard = ({
   releaseDate = '',
   rating = 0,
   index,
+  mediaType,
 }: {
   imageUrl: string;
   title?: string;
@@ -18,9 +22,9 @@ const PosterCard = ({
   releaseDate?: string;
   rating?: any;
   index: number;
+  mediaType: string;
 }) => {
   const [loading, setLoading] = useState(true);
-
   return (
     <PosterCardPlaceholder
       condition={imageUrl}
@@ -57,15 +61,9 @@ const PosterCard = ({
           </span>
           <div className="flex  items-center justify-between opacity-75 w-full text-xs">
             <div className="flex items-center ">
-              {isAdult ? (
-                <span className="border-[1px] rounded p-[2px] bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
-                  +18
-                </span>
-              ) : (
-                <span className="border-[1px] rounded py-[2px] bg-white bg-opacity-20 px-2 border-white border-opacity-75 mr-3 font-averia">
-                  G
-                </span>
-              )}
+              <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                {dataObject(title, mediaType)?.rated}
+              </span>
 
               <span>{releaseDate?.split('-')[0]}</span>
             </div>

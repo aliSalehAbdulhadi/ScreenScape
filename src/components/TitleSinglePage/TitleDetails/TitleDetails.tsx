@@ -2,26 +2,34 @@ import { v4 as uuidv4 } from 'uuid';
 import { checkDataAvailability } from '@/src/helper/checkDataAvailability';
 import { formatCurrency } from '@/src/helper/formatCurrency';
 import { HiOutlineExternalLink } from 'react-icons/hi';
+import Link from 'next/link';
+import SocialMedia from '../../SocialMedia/SocialMedia';
 
-const TitleDetails = ({ data, keywords }: { data: any; keywords: any }) => {
+const TitleDetails = ({
+  data,
+  keywords,
+  mediaType,
+}: {
+  data: any;
+  keywords: any;
+  mediaType: string;
+}) => {
   return (
     <div>
       <div className="flex items-start justify-around flex-row md:flex-col w-full text-sm xxs:text-base">
         <div className="flex flex-col w-full  mr-5">
-          {data?.homepage && (
-            <div
-              onClick={() => window?.open(data?.homepage)}
-              className="mb-5 flex  w-full items-center cursor-pointer transition hover:opacity-90"
-            >
-              <span className=" font-semibold mr-1">Website</span>
-              <HiOutlineExternalLink className="w-4 sm:w-5 h-4 sm:h-5 mb-[2px]" />
-            </div>
-          )}
+          <div className="mb-5">
+            <SocialMedia
+              mediaType={mediaType}
+              id={data?.id}
+              homePage={data?.homepage}
+            />
+          </div>
 
           <div className="mb-5 flex flex-col w-full">
             <span className=" font-semibold">Tagline </span>
             <span className="text-white text-opacity-80 font-averia">
-              {`${checkDataAvailability(`"${data?.tagline}"`)}`}
+              {data?.tagline ? `"${data?.tagline}"` : '-'}
             </span>
           </div>
 
@@ -69,16 +77,16 @@ const TitleDetails = ({ data, keywords }: { data: any; keywords: any }) => {
             </div>
           </div>
 
-          <div className="mb-5 flex flex-col">
-            <span className=" font-semibold">Origin Country </span>
-            <div className="text-white text-opacity-80">
-              {data?.origin_country
-                ? data?.origin_country?.map((country: any) => (
-                    <span key={uuidv4()}>{country}, </span>
-                  ))
-                : '-'}
+          {data?.origin_country && (
+            <div className="mb-5 flex flex-col">
+              <span className=" font-semibold">Origin Country </span>
+              <div className="text-white text-opacity-80">
+                {data?.origin_country?.map((country: any) => (
+                  <span key={uuidv4()}>{country}, </span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className="flex flex-col w-full">
@@ -121,19 +129,24 @@ const TitleDetails = ({ data, keywords }: { data: any; keywords: any }) => {
 
       <div className="mb-5 flex flex-col">
         <span className=" font-semibold mb-1">Keywords </span>
-        <div className="flex flex-wrap  w-[100%] md:w-[90%]">
-          {keywords?.map(
-            (word: any, i: number) =>
-              i <= 10 && (
-                <span
-                  key={uuidv4()}
-                  className="bg-white text-white bg-opacity-30 p-2 text-xs sm:text-sm rounded mr-1 mb-1 cursor-pointer"
-                >
-                  {word?.name}
-                </span>
-              )
-          )}
-        </div>
+        {keywords?.length > 0 ? (
+          <div className="flex flex-wrap  w-[100%] md:w-[90%]">
+            {keywords?.map(
+              (word: any, i: number) =>
+                i <= 10 && (
+                  <Link
+                    href={`search/keyword/${mediaType}/${word?.id}-${word?.name}`}
+                    key={uuidv4()}
+                    className="bg-white text-white bg-opacity-30 p-2 text-xs sm:text-sm rounded mr-1 mb-1 cursor-pointer"
+                  >
+                    {word?.name}
+                  </Link>
+                )
+            )}
+          </div>
+        ) : (
+          '-'
+        )}
       </div>
     </div>
   );

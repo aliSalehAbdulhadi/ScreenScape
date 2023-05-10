@@ -6,6 +6,7 @@ import { memo } from 'react';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
 import CreditsCard from '../../Cards/CreditsCard/CreditsCard';
 import 'swiper/swiper-bundle.css';
+import { dataObject } from '@/src/global/globalVariables';
 
 const CardSlider = ({
   data,
@@ -13,37 +14,11 @@ const CardSlider = ({
   isCast,
 }: {
   data: any[];
-  mediaType?: string;
+  mediaType: string;
   isCast: boolean;
 }) => {
   const swiperStyle = {
     transform: 'translateZ(0)',
-  };
-
-  const dataObject = (data: any) => {
-    let posterUrl = data?.poster_path;
-    let title = mediaType === 'movie' ? data?.title : data?.name;
-    let releaseDate =
-      mediaType === 'movie' ? data?.release_date : data?.first_air_date;
-    let endedDate = data?.last_air_date;
-    let isAdult = data?.adult;
-    let voteAverage = data?.vote_average;
-    let overview = data?.overview;
-    let seasons = data?.number_of_seasons;
-    let episodes = data?.number_of_episodes;
-    let seriesStatus = data?.status;
-    return {
-      posterUrl,
-      title,
-      releaseDate,
-      endedDate,
-      isAdult,
-      voteAverage,
-      overview,
-      seasons,
-      episodes,
-      seriesStatus,
-    };
   };
 
   const breakpoints = {
@@ -133,11 +108,12 @@ const CardSlider = ({
                       >
                         <PosterCard
                           index={i}
-                          imageUrl={dataObject(info)?.posterUrl}
-                          title={dataObject(info)?.title}
-                          releaseDate={dataObject(info)?.releaseDate}
-                          isAdult={dataObject(info)?.isAdult}
-                          rating={dataObject(info)?.voteAverage * 10}
+                          imageUrl={dataObject(info, mediaType)?.posterUrl}
+                          title={dataObject(info, mediaType)?.title}
+                          releaseDate={dataObject(info, mediaType)?.releaseDate}
+                          isAdult={dataObject(info, mediaType)?.isAdult}
+                          rating={dataObject(info, mediaType)?.voteAverage * 10}
+                          mediaType={mediaType}
                         />
                       </Link>
                     )}

@@ -26,16 +26,16 @@ const EpisodeCard = ({ data }: { data: any }) => {
           </div>
         )}
 
-        <HiOutlineExternalLink
-          onClick={() =>
-            window?.open(
-              `https://image.tmdb.org/t/p/original/${data?.still_path}`
-            )
-          }
-          className={`h-6 w-6 absolute bottom-1 right-1 cursor-pointer ${
-            data?.still_path || 'hidden'
-          }`}
-        />
+        <a
+          href={`https://image.tmdb.org/t/p/original/${data?.still_path}`}
+          target="_blank"
+        >
+          <HiOutlineExternalLink
+            className={`h-6 w-6 absolute bottom-1 right-1 cursor-pointer ${
+              data?.still_path || 'hidden'
+            }`}
+          />
+        </a>
       </div>
 
       <div className="w-[80%] flex flex-col justify-around mx-1 xs:ml-5 ">

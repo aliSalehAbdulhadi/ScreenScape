@@ -28,14 +28,16 @@ const SinglePicture = ({
         onLoad={() => setLoaded(true)}
       />
 
-      <HiOutlineExternalLink
-        onClick={() =>
-          window?.open(`https://image.tmdb.org/t/p/original/${imageUrl}`)
-        }
-        className={`h-6 w-6 absolute bottom-2 right-2 cursor-pointer ${
-          !loaded ? 'hidden' : ''
-        }`}
-      />
+      <a
+        href={`https://image.tmdb.org/t/p/original/${imageUrl}`}
+        target="_blank"
+      >
+        <HiOutlineExternalLink
+          className={`h-6 w-6 absolute bottom-2 right-2 cursor-pointer ${
+            !loaded ? 'hidden' : ''
+          }`}
+        />
+      </a>
     </div>
   );
 };

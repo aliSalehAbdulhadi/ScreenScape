@@ -37,7 +37,7 @@ const TitleSinglePage = () => {
   const cast = credits?.cast;
   const crew = credits?.crew;
 
-  const asyncFunction = useCallback(async () => {
+  const singleDataFetch = useCallback(async () => {
     try {
       const [titleRequest, trailerRequest, creditsRequest, relatedRequest] =
         await Promise.all([
@@ -93,18 +93,21 @@ const TitleSinglePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genres, param.id]);
 
-  const recommendationAndKeywordsFetch = useCallback(async () => {
+  const singleMoreDataFetch = useCallback(async () => {
     try {
-      const [recommendedRequest, keywordsRequest] = await Promise.all([
-        fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${data?.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${data?.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-        ),
-      ]);
+      const [recommendedRequest, keywordsRequest, moreDataRequest] =
+        await Promise.all([
+          fetch(
+            `https://api.themoviedb.org/3/${mediaType}/${data?.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+          ),
+          fetch(
+            `https://api.themoviedb.org/3/${mediaType}/${data?.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+          ),
+          fetch(`http://www.omdbapi.com/?i=${data?.imdb_id}&apikey=b80e9853`),
+        ]);
       const recommendedResponse = await recommendedRequest?.json();
       const keywordsResponse = await keywordsRequest?.json();
+      const moreDataResponse = await moreDataRequest?.json();
 
       setRecommendation(
         recommendedResponse?.results?.filter(
@@ -116,16 +119,23 @@ const TitleSinglePage = () => {
           ? keywordsResponse?.keywords
           : keywordsResponse?.results
       );
+      setData((prev: any) => {
+        return {
+          ...prev,
+          ratings: moreDataResponse?.Ratings,
+          rated: moreDataResponse?.Rated,
+        };
+      });
     } catch (error) {}
-  }, [data?.id, mediaType]);
-  useEffect(() => {
-    setLoading(true);
-    asyncFunction();
-  }, [asyncFunction]);
+  }, [data?.id, data?.imdb_id, mediaType]);
 
   useEffect(() => {
-    recommendationAndKeywordsFetch();
-  }, [recommendationAndKeywordsFetch]);
+    setLoading(true);
+    singleDataFetch();
+  }, [singleDataFetch]);
+  useEffect(() => {
+    singleMoreDataFetch();
+  }, [singleMoreDataFetch]);
   return (
     <div className="">
       {loading ? (
@@ -144,7 +154,11 @@ const TitleSinglePage = () => {
           <div className="flex flex-col w-full">
             <div className="mt-14 flex flex-col md:flex-row-reverse  w-full">
               <div className="w-full md:w-[30%] px-2 xs:px-5 sm:px-10 md:px-0">
-                <TitleDetails data={data} keywords={keywords} />
+                <TitleDetails
+                  data={data}
+                  mediaType={mediaType}
+                  keywords={keywords}
+                />
               </div>
 
               <div className="md:w-[75%] pt-1 md:pr-10 flex flex-col overflow-hidden">

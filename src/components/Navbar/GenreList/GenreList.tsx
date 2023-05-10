@@ -146,7 +146,7 @@ const GenreList = ({
               return (
                 <Link
                   key={genre.id}
-                  href={`search/genre/${mediaType}/${genre?.id}`}
+                  href={`search/genre/${mediaType}/${genre?.id}-${genre?.name}`}
                 >
                   <DelayDisplay delay={i * 50}>
                     <div className=" cursor-pointer  rounded overflow-hidden hover:text-opacity-80 text-white transition-all">

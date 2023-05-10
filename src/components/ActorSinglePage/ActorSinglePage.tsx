@@ -13,7 +13,6 @@ const ActorSinglePage = () => {
   const [mediaType, setMediaType] = useState<string>('movie');
   const [data, setData] = useState<any>({});
   const [appearedInMovies, setAppearedInMovies] = useState<any>([]);
-  const [personSocialMedia, setPersonSocialMedia] = useState<any>([]);
 
   const [otherActors, setOtherActors] = useState<any>([]);
 
@@ -35,37 +34,28 @@ const ActorSinglePage = () => {
     [appearedInMovies]
   );
 
-  const asyncFunction = useCallback(async () => {
+  const actorDataFetch = useCallback(async () => {
     try {
-      const [
-        actorInfoRequest,
-        appearedInRequest,
-        otherActorsRequest,
-        personSocialMediaRequest,
-      ] = await Promise.all([
-        fetch(
-          `https://api.themoviedb.org/3/person/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/person/${param.id}/combined_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/person/${param.id}/external_ids?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-        ),
-      ]);
+      const [actorInfoRequest, appearedInRequest, otherActorsRequest] =
+        await Promise.all([
+          fetch(
+            `https://api.themoviedb.org/3/person/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
+          ),
+          fetch(
+            `https://api.themoviedb.org/3/person/${param.id}/combined_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
+          ),
+          fetch(
+            `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
+          ),
+        ]);
 
       const actorInfoResponse = await actorInfoRequest.json();
       const appearedInResponse = await appearedInRequest.json();
       const otherActorsResponse = await otherActorsRequest.json();
-      const personSocialMediaResponse = await personSocialMediaRequest.json();
 
       setData(actorInfoResponse);
       setAppearedInMovies(appearedInResponse);
       setOtherActors(otherActorsResponse);
-      setPersonSocialMedia(personSocialMediaResponse);
 
       if (actorInfoRequest.status === 200 && appearedInRequest.status === 200) {
         setTimeout(() => {
@@ -76,7 +66,7 @@ const ActorSinglePage = () => {
   }, [param]);
 
   useEffect(() => {
-    asyncFunction();
+    actorDataFetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -88,7 +78,7 @@ const ActorSinglePage = () => {
         <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10 ">
           <div className="flex  justify-between w-full   ">
             <div className="w-full  xl:w-[70%] semiSm:px-5">
-              <ActorInfo data={data} personSocialMedia={personSocialMedia} />
+              <ActorInfo data={data} />
             </div>
             <div className="md:w-[35%] xl:w-[30%] hidden xl:block">
               <News />
