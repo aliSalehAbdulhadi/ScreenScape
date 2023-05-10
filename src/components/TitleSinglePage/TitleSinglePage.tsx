@@ -27,6 +27,7 @@ const TitleSinglePage = () => {
   const [relatedTitles, setRelatedTitles] = useState<any>([]);
   const [creditsType, setCreditsType] = useState<string>('cast');
   const [recommendation, setRecommendation] = useState<any[]>([]);
+  const [keywords, setKeywords] = useState<any>([]);
 
   const param = useParams();
   const pathName = usePathname();
@@ -41,32 +42,16 @@ const TitleSinglePage = () => {
       const [titleRequest, trailerRequest, creditsRequest, relatedRequest] =
         await Promise.all([
           fetch(
-            `https://api.themoviedb.org/3/${
-              pathName.includes('movie') ? 'movie' : 'tv'
-            }/${param.id}?api_key=${
-              process.env.NEXT_PUBLIC_API_KEY
-            }&language=en-US`
+            `https://api.themoviedb.org/3/${mediaType}/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
           ),
           fetch(
-            `https://api.themoviedb.org/3/${
-              pathName.includes('movie') ? 'movie' : 'tv'
-            }/${param.id}/videos?api_key=${
-              process.env.NEXT_PUBLIC_API_KEY
-            }&language=en-US`
+            `https://api.themoviedb.org/3/${mediaType}/${param.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
           ),
           fetch(
-            `https://api.themoviedb.org/3/${
-              pathName.includes('movie') ? 'movie' : 'tv'
-            }/${param.id}/credits?api_key=${
-              process.env.NEXT_PUBLIC_API_KEY
-            }&language=en-US`
+            `https://api.themoviedb.org/3/${mediaType}/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
           ),
           fetch(
-            `https://api.themoviedb.org/3/${
-              pathName.includes('movie') ? 'movie' : 'tv'
-            }/${param.id}/similar?api_key=${
-              process.env.NEXT_PUBLIC_API_KEY
-            }&language=en-US&page=1`
+            `https://api.themoviedb.org/3/${mediaType}/${param.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
           ),
         ]);
 
@@ -108,30 +93,39 @@ const TitleSinglePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genres, param.id]);
 
-  const searchByGenre = useCallback(async () => {
+  const recommendationAndKeywordsFetch = useCallback(async () => {
     try {
-      const byGenreRequest = await fetch(
-        ` https://api.themoviedb.org/3/discover/${mediaType}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=false&page=1&with_genres=${genres}&vote_count.gte=500&with_production_countries=us`
-      );
-
-      const byGenreResponse = await byGenreRequest?.json();
+      const [recommendedRequest, keywordsRequest] = await Promise.all([
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${data?.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${data?.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+        ),
+      ]);
+      const recommendedResponse = await recommendedRequest?.json();
+      const keywordsResponse = await keywordsRequest?.json();
 
       setRecommendation(
-        byGenreResponse?.results?.filter((title: any) => title?.id !== data?.id)
+        recommendedResponse?.results?.filter(
+          (title: any) => title?.id !== data?.id
+        )
+      );
+      setKeywords(
+        mediaType === 'movie'
+          ? keywordsResponse?.keywords
+          : keywordsResponse?.results
       );
     } catch (error) {}
-  }, [data?.id, genres, mediaType]);
-
+  }, [data?.id, mediaType]);
   useEffect(() => {
     setLoading(true);
     asyncFunction();
   }, [asyncFunction]);
 
   useEffect(() => {
-    if (genres) {
-      searchByGenre();
-    }
-  }, [genres, searchByGenre]);
+    recommendationAndKeywordsFetch();
+  }, [recommendationAndKeywordsFetch]);
   return (
     <div className="">
       {loading ? (
@@ -150,7 +144,7 @@ const TitleSinglePage = () => {
           <div className="flex flex-col w-full">
             <div className="mt-14 flex flex-col md:flex-row-reverse  w-full">
               <div className="w-full md:w-[30%] px-2 xs:px-5 sm:px-10 md:px-0">
-                <TitleDetails data={data} />
+                <TitleDetails data={data} keywords={keywords} />
               </div>
 
               <div className="md:w-[75%] pt-1 md:pr-10 flex flex-col overflow-hidden">

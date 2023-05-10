@@ -1,11 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { checkDataAvailability } from '@/src/helper/checkDataAvailability';
-import keywordsExtractHandler from '@/src/helper/keywordsExtractHandler';
 import { formatCurrency } from '@/src/helper/formatCurrency';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 
-const TitleDetails = ({ data }: { data: any }) => {
-  const keywords = keywordsExtractHandler(data?.overview);
+const TitleDetails = ({ data, keywords }: { data: any; keywords: any }) => {
   return (
     <div>
       <div className="flex items-start justify-around flex-row md:flex-col w-full text-sm xxs:text-base">
@@ -125,13 +123,13 @@ const TitleDetails = ({ data }: { data: any }) => {
         <span className=" font-semibold mb-1">Keywords </span>
         <div className="flex flex-wrap  w-[100%] md:w-[90%]">
           {keywords?.map(
-            (word, i) =>
+            (word: any, i: number) =>
               i <= 10 && (
                 <span
                   key={uuidv4()}
                   className="bg-white text-white bg-opacity-30 p-2 text-xs sm:text-sm rounded mr-1 mb-1 cursor-pointer"
                 >
-                  {word}
+                  {word?.name}
                 </span>
               )
           )}

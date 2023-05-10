@@ -18,7 +18,6 @@ const ActorSinglePage = () => {
   const [otherActors, setOtherActors] = useState<any>([]);
 
   const param = useParams();
-  console.log(personSocialMedia);
 
   const tvShows = useMemo(
     () =>
@@ -54,7 +53,7 @@ const ActorSinglePage = () => {
           `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
         ),
         fetch(
-          `https://api.themoviedb.org/3/person/${param.id}/external_ids?api_key=397c42a96d2c187c2a4912fccc6be558&language=en-US`
+          `https://api.themoviedb.org/3/person/${param.id}/external_ids?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
         ),
       ]);
 
