@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { FaPlay, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
 import SingleGenres from '../TitleSinglePage/TitleInfo/SingleGenres/SingleGenres';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
-import asyncFetch from '@/src/helper/asyncFetch';
 import {
   dataObject,
   imageQualityLargeScreen,
@@ -28,27 +27,33 @@ const HoverExpand = ({
   const [data, setData] = useState<any>({});
   const [trailer, setTrailer] = useState<any>([]);
 
-  const asyncFunction = useCallback(async () => {
+  const hoverDataFetch = useCallback(async () => {
     try {
-      const results = await asyncFetch(
-        `https://api.themoviedb.org/3/${mediaType}/${titleId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-      );
+      const [dataRequest, trailerRequest] = await Promise.all([
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${titleId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${titleId}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        ),
+      ]);
 
-      const trailer = await asyncFetch(
-        `https://api.themoviedb.org/3/${mediaType}/${titleId}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-      );
+      const dataResponse = await dataRequest?.json();
+      const trailerResponse = await trailerRequest?.json();
 
-      setData(results);
+      setData(dataResponse);
 
       setTrailer(
-        trailer.results.filter((title: any) => title.type === 'Trailer')
+        trailerResponse.results.filter((title: any) => title.type === 'Trailer')
       );
     } catch (error) {}
   }, [mediaType, titleId]);
 
   useEffect(() => {
-    asyncFunction();
-  }, [asyncFunction]);
+    if (index === hoveredIndex) {
+      hoverDataFetch();
+    }
+  }, [hoverDataFetch, hoveredIndex, index]);
 
   const HandleOnReady = () => {
     setTimeout(() => {
@@ -66,7 +71,6 @@ const HoverExpand = ({
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
   const runtime = hours + 'h ' + remainingMinutes + 'm';
-
   return (
     <div
       onMouseLeave={handleOnMouseLeave}
@@ -156,15 +160,9 @@ const HoverExpand = ({
               )}
             </span>
             <div className="flex items-center ">
-              {data?.adult ? (
-                <span className="border-[1px] rounded p-[2px] border-opacity-50 mr-3 font-averia text-[.6rem] xl:text-xs">
-                  +18
-                </span>
-              ) : (
-                <span className="border-[1px] rounded py-[1px] px-1 border-opacity-50 mr-3 font-averia text-[.6rem] xl:text-xs">
-                  G
-                </span>
-              )}
+              <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                {dataObject(data, mediaType)?.isAdult ? '18+' : 'G'}
+              </span>
               <span>
                 {dataObject(data, mediaType)?.releaseDate?.split('-')[0]}
               </span>
@@ -183,4 +181,4 @@ const HoverExpand = ({
   );
 };
 
-export default HoverExpand;
+export default memo(HoverExpand);

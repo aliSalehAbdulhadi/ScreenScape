@@ -176,6 +176,7 @@ const TitleSinglePage = () => {
                   credits={creditsType === 'cast' ? cast : crew}
                   setCreditsType={setCreditsType}
                   creditsType={creditsType}
+                  mediaType={mediaType}
                 />
                 {mediaType === 'tv' && (
                   <div className=" px-2 sm:px-5 md:pl-5 md:px-0">

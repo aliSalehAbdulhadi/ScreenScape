@@ -11,10 +11,12 @@ const TitleCast = ({
   credits,
   setCreditsType,
   creditsType,
+  mediaType,
 }: {
   credits: any[];
   creditsType: string;
   setCreditsType: Dispatch<SetStateAction<string>>;
+  mediaType: string;
 }) => {
   return (
     <div>
@@ -35,7 +37,7 @@ const TitleCast = ({
         ) : null}
       </div>
 
-      <CardSlider isCast={true} data={credits} />
+      <CardSlider isCast={true} data={credits} mediaType={mediaType} />
     </div>
   );
 };
