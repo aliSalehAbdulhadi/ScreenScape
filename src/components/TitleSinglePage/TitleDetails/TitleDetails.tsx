@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { checkDataAvailability } from '@/src/helper/checkDataAvailability';
 import { formatCurrency } from '@/src/helper/formatCurrency';
-import { HiOutlineExternalLink } from 'react-icons/hi';
 import Link from 'next/link';
 import SocialMedia from '../../SocialMedia/SocialMedia';
 
