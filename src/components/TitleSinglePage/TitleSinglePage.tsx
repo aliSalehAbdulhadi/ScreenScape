@@ -46,7 +46,6 @@ const TitleSinglePage = () => {
         relatedRequest,
         recommendedRequest,
         keywordsRequest,
-        moreDataRequest,
       ] = await Promise.all([
         fetch(
           `https://api.themoviedb.org/3/${mediaType}/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
@@ -61,17 +60,10 @@ const TitleSinglePage = () => {
           `https://api.themoviedb.org/3/${mediaType}/${param.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
         ),
         fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${data?.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
         ),
         fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${data?.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-        ),
-        fetch(
-          `http://www.omdbapi.com/?t=${
-            mediaType === 'movie'
-              ? data?.title?.replaceAll(' ', '+')
-              : data?.name?.replaceAll(' ', '+')
-          }&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
         ),
       ]);
 
@@ -81,7 +73,6 @@ const TitleSinglePage = () => {
       const relatedResponse = await relatedRequest.json();
       const recommendedResponse = await recommendedRequest?.json();
       const keywordsResponse = await keywordsRequest?.json();
-      const moreDataResponse = await moreDataRequest?.json();
 
       setGenres(
         titleResponse?.genres
@@ -112,19 +103,6 @@ const TitleSinglePage = () => {
           ? keywordsResponse?.keywords
           : keywordsResponse?.results
       );
-      if (moreDataResponse) {
-        setData((prev: any) => {
-          return {
-            ...prev,
-            ratings: moreDataResponse?.Ratings,
-            rated: moreDataResponse?.Rated,
-            awards:
-              moreDataResponse?.Awards === 'N/A'
-                ? null
-                : moreDataResponse?.Awards,
-          };
-        });
-      }
 
       if (
         titleRequest.status === 200 &&
@@ -140,10 +118,37 @@ const TitleSinglePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genres, param.id]);
 
+  const omdbFetch = useCallback(async () => {
+    const omdbRequest = await fetch(
+      `http://www.omdbapi.com/?t=${
+        mediaType === 'movie'
+          ? data?.title?.replaceAll(' ', '+')
+          : data?.name?.replaceAll(' ', '+')
+      }&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
+    );
+
+    const omdbResponse = await omdbRequest?.json();
+
+    setData((prev: any) => {
+      return {
+        ...prev,
+        ratings: omdbResponse?.Ratings,
+        rated: omdbResponse?.Rated,
+        awards: omdbResponse?.Awards === 'N/A' ? null : omdbResponse?.Awards,
+      };
+    });
+  }, [data, mediaType]);
+
   useEffect(() => {
     setLoading(true);
     singleDataFetch();
   }, [singleDataFetch]);
+
+  useEffect(() => {
+    if (data) {
+      omdbFetch();
+    }
+  }, [data, omdbFetch]);
 
   return (
     <div className="">
