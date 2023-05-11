@@ -116,15 +116,11 @@ const SearchPage = () => {
                     dataObject(title, title?.first_air_date ? 'tv' : 'movie')
                       ?.releaseDate
                   }
-                  isAdult={
-                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
-                      ?.isAdult
-                  }
                   rating={
                     dataObject(title, title?.first_air_date ? 'tv' : 'movie')
                       ?.voteAverage * 10
                   }
-                  mediaType={params?.mediaType}
+                  mediaType={title?.first_air_date ? 'tv' : 'movie'}
                 />
               </Link>
             </div>

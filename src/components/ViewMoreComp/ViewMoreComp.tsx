@@ -67,7 +67,6 @@ const ViewMoreComp = ({
                             releaseDate={
                               dataObject(title, mediaType)?.releaseDate
                             }
-                            isAdult={dataObject(title, mediaType)?.isAdult}
                             rating={
                               dataObject(title, mediaType)?.voteAverage * 10
                             }

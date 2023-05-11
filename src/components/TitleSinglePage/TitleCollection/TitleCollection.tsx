@@ -8,7 +8,13 @@ import PosterCard from '../../Cards/PosterCard/PosterCard';
 import LazyLoading from '../../WrapperComponents/LazyLoading/LazyLoading';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 
-const TitleCollection = ({ collectionId }: { collectionId: string }) => {
+const TitleCollection = ({
+  collectionId,
+  mediaType,
+}: {
+  collectionId: string;
+  mediaType: string;
+}) => {
   const [collection, setCollection] = useState<any>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [slidersInView, setSlidersInView] = useState<number>(20);
@@ -61,8 +67,8 @@ const TitleCollection = ({ collectionId }: { collectionId: string }) => {
                           imageUrl={title?.poster_path}
                           title={title?.title}
                           releaseDate={title?.release_date}
-                          isAdult={title?.adult}
                           rating={title?.vote_average * 10}
+                          mediaType={mediaType}
                         />
                       </Link>
                     </DelayDisplay>

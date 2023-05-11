@@ -15,6 +15,7 @@ export const dataObject = (data: any, mediaType: string) => {
   let seriesStatus = data?.status;
   let rated = data?.rated;
   let ratings = data?.ratings;
+  let awards = data?.Awards;
   return {
     posterUrl,
     title,
@@ -28,5 +29,6 @@ export const dataObject = (data: any, mediaType: string) => {
     seriesStatus,
     rated,
     ratings,
+    awards,
   };
 };

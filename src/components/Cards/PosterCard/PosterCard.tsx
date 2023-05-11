@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import PosterCardPlaceholder from '../../Placeholders/PosterCardPlaceholder/PosterCardPlaceholder';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
-import {
-  dataObject,
-  imageQualitySmallScreen,
-} from '@/src/global/globalVariables';
+import { imageQualitySmallScreen } from '@/src/global/globalVariables';
 
 const PosterCard = ({
   imageUrl,
   title = '',
-  isAdult = false,
   releaseDate = '',
   rating = 0,
   index,
@@ -18,7 +14,6 @@ const PosterCard = ({
 }: {
   imageUrl: string;
   title?: string;
-  isAdult?: boolean;
   releaseDate?: string;
   rating?: any;
   index: number;
@@ -29,9 +24,9 @@ const PosterCard = ({
     <PosterCardPlaceholder
       condition={imageUrl}
       title={title}
-      isAdult={isAdult}
       rating={rating}
       releaseDate={releaseDate}
+      mediaType={mediaType}
     >
       <div className="transition-all sm:hover:opacity-90">
         {loading && (
@@ -61,8 +56,8 @@ const PosterCard = ({
           </span>
           <div className="flex  items-center justify-between opacity-75 w-full text-xs">
             <div className="flex items-center ">
-              <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
-                {dataObject(title, mediaType)?.rated}
+              <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] p-1 flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                {mediaType === 'tv' ? 'TV' : 'Movie'}
               </span>
 
               <span>{releaseDate?.split('-')[0]}</span>

@@ -1,5 +1,13 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cSpell.words": ["coverflow", "Formik", "IMDB", "Tiktok", "xxxs"]
+  "cSpell.words": [
+    "apikey",
+    "coverflow",
+    "Formik",
+    "IMDB",
+    "OMDB",
+    "Tiktok",
+    "xxxs"
+  ]
 }

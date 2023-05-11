@@ -23,7 +23,6 @@ const TitleInfo = ({
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
   const movieRuntime = hours + 'h ' + remainingMinutes + 'm';
-
   return (
     <div className="flex flex-col  items-start w-[100%]  sm:pr-5 ">
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
@@ -63,9 +62,15 @@ const TitleInfo = ({
           </div>
           <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
             <div className="flex items-center mb-5 ">
-              <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
-                {dataObject(data, mediaType)?.rated}
-              </span>
+              {dataObject(data, mediaType)?.rated !== 'N/A' ? (
+                <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] p-1 flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                  {dataObject(data, mediaType)?.rated}
+                </span>
+              ) : (
+                <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                  {dataObject(data, mediaType)?.isAdult ? '18+' : 'G'}
+                </span>
+              )}
 
               <div>
                 {mediaType === 'movie' ? (
@@ -115,7 +120,7 @@ const TitleInfo = ({
 
             <div className="flex flex-col semiSm:flex-row  w-fit  mt-1 xxxs:mb-0 semiSm:mt-0">
               <div className="mb-5 semiSm:mr-5 opacity-75">
-                <Rating rating={dataObject(data, mediaType).voteAverage} />
+                <Rating data={data} mediaType={mediaType} />
                 <div className="opacity-75 semiSm:hidden mt-4">
                   <StreamedOn />
                 </div>
@@ -123,7 +128,7 @@ const TitleInfo = ({
             </div>
           </div>
 
-          <div className="text-[17px]  h-[5rem] md:h-[7rem] xl:h-[5rem] xxl:h-[7rem]   semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem]  xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem] scrollBar overflow-auto hidden  semiSm:block text-offWhite">
+          <div className="text-[17px]  h-[5rem] md:h-[7rem] xl:h-[5rem] xxl:h-[5rem]   semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem]  xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem] scrollBar overflow-auto hidden  semiSm:block text-offWhite">
             <span className="leading-7">
               {dataObject(data, mediaType).overview}
             </span>

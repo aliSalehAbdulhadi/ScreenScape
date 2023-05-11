@@ -45,7 +45,6 @@ const LargeScreenContent = ({
                   imageUrl={dataObject(title, mediaType)?.posterUrl}
                   title={dataObject(title, mediaType)?.title}
                   releaseDate={dataObject(title, mediaType)?.releaseDate}
-                  isAdult={dataObject(title, mediaType)?.isAdult}
                   rating={dataObject(title, mediaType)?.voteAverage * 10}
                   mediaType={mediaType}
                 />

@@ -1,11 +1,28 @@
-import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { dataObject } from '@/src/global/globalVariables';
 
-const Rating = ({ rating }: { rating: number }) => {
+const Rating = ({ data, mediaType }: { data: any; mediaType: string }) => {
   return (
-    <div className="flex flex-col justify-center self-end">
-      <span className="mb-1">7.6 IMDB</span>
-      <span className="mb-1">7.2 Rotten Tomato</span>
-      <span>{parseInt(String(rating * 10))}% Community</span>
+    <div className="flex flex-col justify-center self-end ">
+      {dataObject(data, mediaType)?.ratings?.map((rating: any) => (
+        <div key={uuidv4()} className="mb-1">
+          <span className="mr-1">
+            {rating?.Value?.replaceAll('%', '')?.split('/')[0]}
+          </span>
+          <span>
+            {rating?.Source === 'Internet Movie Database'
+              ? 'IMDb'
+              : rating?.Source}
+          </span>
+        </div>
+      ))}
+
+      <div>
+        <span className="mr-1">
+          {parseInt(String(dataObject(data, mediaType)?.voteAverage * 10))}
+        </span>
+        <span>Community</span>
+      </div>
     </div>
   );
 };

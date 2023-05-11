@@ -37,28 +37,52 @@ const TitleSinglePage = () => {
   const cast = credits?.cast;
   const crew = credits?.crew;
 
+  const omdbTitleFetch =
+    mediaType === 'movie'
+      ? data?.title?.replaceAll(' ', '+')
+      : data?.name?.replaceAll(' ', '+');
+
   const singleDataFetch = useCallback(async () => {
     try {
-      const [titleRequest, trailerRequest, creditsRequest, relatedRequest] =
-        await Promise.all([
-          fetch(
-            `https://api.themoviedb.org/3/${mediaType}/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/${mediaType}/${param.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/${mediaType}/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/${mediaType}/${param.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
-          ),
-        ]);
+      const [
+        titleRequest,
+        trailerRequest,
+        creditsRequest,
+        relatedRequest,
+        recommendedRequest,
+        keywordsRequest,
+        moreDataRequest,
+      ] = await Promise.all([
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${data?.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${data?.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+        ),
+        fetch(
+          `http://www.omdbapi.com/?t=${omdbTitleFetch}&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
+        ),
+      ]);
 
       const titleResponse = await titleRequest.json();
       const trailerResponse = await trailerRequest.json();
       const creditsResponse = await creditsRequest.json();
       const relatedResponse = await relatedRequest.json();
+      const recommendedResponse = await recommendedRequest?.json();
+      const keywordsResponse = await keywordsRequest?.json();
+      const moreDataResponse = await moreDataRequest?.json();
 
       setGenres(
         titleResponse?.genres
@@ -79,6 +103,30 @@ const TitleSinglePage = () => {
       setRelatedTitles(relatedResponse);
       setVideos(trailerResponse.results);
 
+      setRecommendation(
+        recommendedResponse?.results?.filter(
+          (title: any) => title?.id !== data?.id
+        )
+      );
+      setKeywords(
+        mediaType === 'movie'
+          ? keywordsResponse?.keywords
+          : keywordsResponse?.results
+      );
+      if (moreDataResponse) {
+        setData((prev: any) => {
+          return {
+            ...prev,
+            ratings: moreDataResponse?.Ratings,
+            rated: moreDataResponse?.Rated,
+            awards:
+              moreDataResponse?.Awards === 'N/A'
+                ? null
+                : moreDataResponse?.Awards,
+          };
+        });
+      }
+
       if (
         titleRequest.status === 200 &&
         trailerRequest.status === 200 &&
@@ -93,49 +141,11 @@ const TitleSinglePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genres, param.id]);
 
-  const singleMoreDataFetch = useCallback(async () => {
-    try {
-      const [recommendedRequest, keywordsRequest, moreDataRequest] =
-        await Promise.all([
-          fetch(
-            `https://api.themoviedb.org/3/${mediaType}/${data?.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/${mediaType}/${data?.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-          ),
-          fetch(`http://www.omdbapi.com/?i=${data?.imdb_id}&apikey=b80e9853`),
-        ]);
-      const recommendedResponse = await recommendedRequest?.json();
-      const keywordsResponse = await keywordsRequest?.json();
-      const moreDataResponse = await moreDataRequest?.json();
-
-      setRecommendation(
-        recommendedResponse?.results?.filter(
-          (title: any) => title?.id !== data?.id
-        )
-      );
-      setKeywords(
-        mediaType === 'movie'
-          ? keywordsResponse?.keywords
-          : keywordsResponse?.results
-      );
-      setData((prev: any) => {
-        return {
-          ...prev,
-          ratings: moreDataResponse?.Ratings,
-          rated: moreDataResponse?.Rated,
-        };
-      });
-    } catch (error) {}
-  }, [data?.id, data?.imdb_id, mediaType]);
-
   useEffect(() => {
     setLoading(true);
     singleDataFetch();
   }, [singleDataFetch]);
-  useEffect(() => {
-    singleMoreDataFetch();
-  }, [singleMoreDataFetch]);
+
   return (
     <div className="">
       {loading ? (
@@ -143,17 +153,17 @@ const TitleSinglePage = () => {
       ) : (
         <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10  ">
           <BackgroundOverlay imageUrl={data?.backdrop_path}>
-            <div className="w-full  xl:w-[70%]  sm:px-10 ">
+            <div className="w-full  xl:w-[70%]  sm:px-5 ">
               <TitleInfo mediaType={mediaType} data={data} videos={videos} />
             </div>
-            <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-10">
+            <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-5">
               <News />
             </div>
           </BackgroundOverlay>
 
           <div className="flex flex-col w-full">
             <div className="mt-14 flex flex-col md:flex-row-reverse  w-full">
-              <div className="w-full md:w-[30%] px-2 xs:px-5 sm:px-10 md:px-0">
+              <div className="w-full md:w-[30%] px-2 xs:px-2 sm:px-5 md:px-0">
                 <TitleDetails
                   data={data}
                   mediaType={mediaType}
@@ -161,7 +171,7 @@ const TitleSinglePage = () => {
                 />
               </div>
 
-              <div className="md:w-[75%] pt-1 md:pr-10 flex flex-col overflow-hidden">
+              <div className="md:w-[75%] pt-2 md:pr-10 flex flex-col overflow-hidden">
                 <TitleCast
                   credits={creditsType === 'cast' ? cast : crew}
                   setCreditsType={setCreditsType}
@@ -179,6 +189,7 @@ const TitleSinglePage = () => {
                   <div className="sm:pl-5 mb-10">
                     <TitleCollection
                       collectionId={data?.belongs_to_collection?.id}
+                      mediaType={mediaType}
                     />
                   </div>
                 )}

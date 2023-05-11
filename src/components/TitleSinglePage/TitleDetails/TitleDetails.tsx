@@ -66,6 +66,13 @@ const TitleDetails = ({
             </span>
           </div>
 
+          <div className=" flex flex-col mb-5">
+            <span className=" font-semibold">Awards </span>
+            <span className="text-white text-opacity-80">
+              {checkDataAvailability(data?.awards)}
+            </span>
+          </div>
+
           <div className="mb-5 flex flex-col ">
             <span className=" font-semibold">Spoken Languages</span>
             <div className="text-white text-opacity-80  grid col-span-1">

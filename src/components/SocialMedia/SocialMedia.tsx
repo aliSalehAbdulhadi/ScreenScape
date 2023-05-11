@@ -7,7 +7,7 @@ import {
 } from 'react-icons/gr';
 import { FaTiktok } from 'react-icons/fa';
 import { useCallback, useEffect, useState } from 'react';
-import { TbHomeMove } from 'react-icons/tb';
+import { IoLinkSharp } from 'react-icons/io5';
 
 const SocialMedia = ({
   id,
@@ -28,17 +28,17 @@ const SocialMedia = ({
     const socialMediaResponse = await socialMediaRequest?.json();
 
     setSocialMediaIds(socialMediaResponse);
-  }, []);
+  }, [id, mediaType]);
 
   useEffect(() => {
     socialMediaFetch();
-  }, []);
+  }, [socialMediaFetch]);
 
   return (
     <div className="flex items-center flex-wrap">
       {homePage && (
         <a href={`${homePage}`} target="_blank" rel="noopener noreferrer">
-          <TbHomeMove className="h-5 w-5 mb-2 mr-[5px]" />
+          <IoLinkSharp className="h-5 w-5 mb-2 mr-[5px]" />
         </a>
       )}
 

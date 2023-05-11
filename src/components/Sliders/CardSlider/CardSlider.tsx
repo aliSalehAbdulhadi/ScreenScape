@@ -20,7 +20,6 @@ const CardSlider = ({
   const swiperStyle = {
     transform: 'translateZ(0)',
   };
-
   const breakpoints = {
     1750: { slidesPerView: 6.5, spaceBetween: 5 },
     1650: { slidesPerView: 5.8, spaceBetween: 5 },
@@ -67,7 +66,6 @@ const CardSlider = ({
       spaceBetween: 5,
     },
   };
-
   return (
     <div className="mt-4 h-[25rem]">
       {
@@ -111,7 +109,6 @@ const CardSlider = ({
                           imageUrl={dataObject(info, mediaType)?.posterUrl}
                           title={dataObject(info, mediaType)?.title}
                           releaseDate={dataObject(info, mediaType)?.releaseDate}
-                          isAdult={dataObject(info, mediaType)?.isAdult}
                           rating={dataObject(info, mediaType)?.voteAverage * 10}
                           mediaType={mediaType}
                         />
