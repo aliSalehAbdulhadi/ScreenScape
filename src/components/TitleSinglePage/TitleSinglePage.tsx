@@ -120,7 +120,7 @@ const TitleSinglePage = () => {
 
   const omdbFetch = useCallback(async () => {
     const omdbRequest = await fetch(
-      `http://www.omdbapi.com/?t=${
+      `https://www.omdbapi.com/?t=${
         mediaType === 'movie'
           ? data?.title?.replaceAll(' ', '+')
           : data?.name?.replaceAll(' ', '+')
