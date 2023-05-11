@@ -37,11 +37,6 @@ const TitleSinglePage = () => {
   const cast = credits?.cast;
   const crew = credits?.crew;
 
-  const omdbTitleFetch =
-    mediaType === 'movie'
-      ? data?.title?.replaceAll(' ', '+')
-      : data?.name?.replaceAll(' ', '+');
-
   const singleDataFetch = useCallback(async () => {
     try {
       const [
@@ -72,7 +67,11 @@ const TitleSinglePage = () => {
           `https://api.themoviedb.org/3/${mediaType}/${data?.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
         ),
         fetch(
-          `http://www.omdbapi.com/?t=${omdbTitleFetch}&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
+          `http://www.omdbapi.com/?t=${
+            mediaType === 'movie'
+              ? data?.title?.replaceAll(' ', '+')
+              : data?.name?.replaceAll(' ', '+')
+          }&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
         ),
       ]);
 
