@@ -8,7 +8,7 @@ const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
 );
 
-const TitleRelated = ({
+const TitleRecommendation = ({
   relatedTitles,
   mediaType,
 }: {
@@ -19,7 +19,7 @@ const TitleRelated = ({
     <div>
       <div className="flex items-center ">
         <span className=" text-secondary  ml-2 sm:ml-5 mr-5 text-sm xxxs:text-base sm:text-lg">
-          Related
+          Recommended
         </span>
         {relatedTitles?.length > 10 ? (
           <Suspense fallback={<LoadingSpinner />}>
@@ -35,4 +35,4 @@ const TitleRelated = ({
   );
 };
 
-export default memo(TitleRelated);
+export default memo(TitleRecommendation);

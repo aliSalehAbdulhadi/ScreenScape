@@ -18,20 +18,17 @@ const SmallScreenContent = ({
 }) => {
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center justify-center">
-          <span className=" text-secondary  ml-2 xs:ml-5">Appeared In</span>
-          <div className="text-xs ml-3">
-            <MovieTvSwitchButtons
-              setMediaType={setMediaType}
-              mediaType={mediaType}
-            />
-          </div>
+      <div className="flex items-center">
+        <div className="text-xs ">
+          <MovieTvSwitchButtons
+            setMediaType={setMediaType}
+            mediaType={mediaType}
+          />
         </div>
 
         {appearedInTitles?.length > 10 ? (
           <Suspense fallback={<LoadingSpinner />}>
-            <div className="mr-2 xs:mr-5">
+            <div className="ml-5">
               <ViewMoreComp titles={appearedInTitles} mediaType={mediaType} />
             </div>
           </Suspense>

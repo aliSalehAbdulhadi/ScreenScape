@@ -6,15 +6,15 @@ const PosterCardPlaceholder = ({
   condition,
   title = '',
   rating = 0,
-  isAdult,
   releaseDate,
+  mediaType,
 }: {
   condition: boolean | unknown;
   children: ReactNode;
   title: string;
-  isAdult: boolean;
   releaseDate: string;
   rating: any;
+  mediaType: string;
 }) => {
   return (
     <div className="transition-all sm:hover:opacity-90">
@@ -32,15 +32,9 @@ const PosterCardPlaceholder = ({
             </div>
             <div className="flex items-center justify-between text-xs opacity-75 w-full">
               <div className="flex items-center ">
-                {isAdult ? (
-                  <span className="border-[1px] rounded p-[2px] bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
-                    +18
-                  </span>
-                ) : (
-                  <span className="border-[1px] rounded py-[2px] bg-white bg-opacity-20 px-2 border-white border-opacity-75 mr-3 font-averia">
-                    G
-                  </span>
-                )}
+                <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] p-1 flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                  {mediaType === 'tv' ? 'TV' : 'Movie'}
+                </span>
 
                 <span>{releaseDate?.split('-')[0]}</span>
               </div>

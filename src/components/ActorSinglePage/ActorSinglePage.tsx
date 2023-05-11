@@ -13,6 +13,7 @@ const ActorSinglePage = () => {
   const [mediaType, setMediaType] = useState<string>('movie');
   const [data, setData] = useState<any>({});
   const [appearedInMovies, setAppearedInMovies] = useState<any>([]);
+
   const [otherActors, setOtherActors] = useState<any>([]);
 
   const param = useParams();
@@ -33,7 +34,7 @@ const ActorSinglePage = () => {
     [appearedInMovies]
   );
 
-  const asyncFunction = useCallback(async () => {
+  const actorDataFetch = useCallback(async () => {
     try {
       const [actorInfoRequest, appearedInRequest, otherActorsRequest] =
         await Promise.all([
@@ -65,7 +66,7 @@ const ActorSinglePage = () => {
   }, [param]);
 
   useEffect(() => {
-    asyncFunction();
+    actorDataFetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -74,9 +75,9 @@ const ActorSinglePage = () => {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10 sm:px-10 ">
-          <div className="flex  justify-between w-full">
-            <div className="w-full  xl:w-[70%]">
+        <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10 ">
+          <div className="flex  justify-between w-full   ">
+            <div className="w-full  xl:w-[70%] semiSm:px-5">
               <ActorInfo data={data} />
             </div>
             <div className="md:w-[35%] xl:w-[30%] hidden xl:block">
@@ -85,7 +86,7 @@ const ActorSinglePage = () => {
           </div>
 
           <div className="mt-14 flex flex-col md:flex-row w-full justify-between">
-            <div className=" md:w-[45%]">
+            <div className=" md:w-[45%] mx-2 xs:mx-5">
               <ActorAppearedIn
                 setMediaType={setMediaType}
                 mediaType={mediaType}
@@ -93,12 +94,12 @@ const ActorSinglePage = () => {
               />
             </div>
 
-            <div className="md:w-[45%] mt-10 semiSm:mt-0">
+            <div className="md:w-[45%] mt-10 semiSm:mt-0 mx-2 xs:mx-5">
               <OtherActors />
             </div>
           </div>
 
-          <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden ">
+          <div className="w-full xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden mx-2 xs:mx-5">
             <News />
           </div>
         </div>
