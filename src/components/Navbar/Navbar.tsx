@@ -64,7 +64,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (searchText) {
-      router?.push(`/search?q=${searchText}`);
+      router?.push(`/search/query/all/${searchText}`);
     }
 
     if (searchText && !pathName?.includes('search')) {

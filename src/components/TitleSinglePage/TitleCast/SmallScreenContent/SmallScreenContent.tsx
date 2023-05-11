@@ -11,10 +11,12 @@ const SmallScreenContent = ({
   credits,
   creditsType,
   setCreditsType,
+  mediaType,
 }: {
   credits: any[];
   creditsType: string;
   setCreditsType: Dispatch<SetStateAction<string>>;
+  mediaType: string;
 }) => {
   return (
     <div>
@@ -39,7 +41,7 @@ const SmallScreenContent = ({
         ) : null}
       </div>
 
-      <CardSlider isCast={true} data={credits} />
+      <CardSlider isCast={true} data={credits} mediaType={mediaType} />
     </div>
   );
 };

@@ -9,6 +9,10 @@ import TitleCast from './TitleCast/TitleCast';
 import TitleRelated from './TitleRelated/TitleRelated';
 import BackgroundOverlay from './TitleInfo/BackgroundOverlay/BackgroundOverlay';
 import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
+import TitleDetails from './TitleDetails/TitleDetails';
+import TitleSeasons from './TitleSeasons/TitleSeasons';
+import TitleRecommendation from './TitleRecommendation/TitleRecommendation';
+import TitleCollection from './TitleCollection/TitleCollection';
 
 const TitleSinglePage = () => {
   const [year, setYear] = useState({
@@ -22,51 +26,53 @@ const TitleSinglePage = () => {
   const [credits, setCredits] = useState<any>([]);
   const [relatedTitles, setRelatedTitles] = useState<any>([]);
   const [creditsType, setCreditsType] = useState<string>('cast');
+  const [recommendation, setRecommendation] = useState<any[]>([]);
+  const [keywords, setKeywords] = useState<any>([]);
 
   const param = useParams();
   const pathName = usePathname();
 
+  const mediaType = pathName?.includes('movie') ? 'movie' : 'tv';
+
   const cast = credits?.cast;
   const crew = credits?.crew;
 
-  const asyncFunction = useCallback(async () => {
+  const singleDataFetch = useCallback(async () => {
     try {
-      const [titleRequest, trailerRequest, creditsRequest, relatedRequest] =
-        await Promise.all([
-          fetch(
-            `https://api.themoviedb.org/3/${
-              pathName.includes('movie') ? 'movie' : 'tv'
-            }/${param.id}?api_key=${
-              process.env.NEXT_PUBLIC_API_KEY
-            }&language=en-US`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/${
-              pathName.includes('movie') ? 'movie' : 'tv'
-            }/${param.id}/videos?api_key=${
-              process.env.NEXT_PUBLIC_API_KEY
-            }&language=en-US`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/${
-              pathName.includes('movie') ? 'movie' : 'tv'
-            }/${param.id}/credits?api_key=${
-              process.env.NEXT_PUBLIC_API_KEY
-            }&language=en-US`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/${
-              pathName.includes('movie') ? 'movie' : 'tv'
-            }/${param.id}/similar?api_key=${
-              process.env.NEXT_PUBLIC_API_KEY
-            }&language=en-US&page=1`
-          ),
-        ]);
+      const [
+        titleRequest,
+        trailerRequest,
+        creditsRequest,
+        relatedRequest,
+        recommendedRequest,
+        keywordsRequest,
+      ] = await Promise.all([
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
+        ),
+        fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${param.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+        ),
+      ]);
 
       const titleResponse = await titleRequest.json();
       const trailerResponse = await trailerRequest.json();
       const creditsResponse = await creditsRequest.json();
       const relatedResponse = await relatedRequest.json();
+      const recommendedResponse = await recommendedRequest?.json();
+      const keywordsResponse = await keywordsRequest?.json();
 
       setGenres(
         titleResponse?.genres
@@ -87,6 +93,17 @@ const TitleSinglePage = () => {
       setRelatedTitles(relatedResponse);
       setVideos(trailerResponse.results);
 
+      setRecommendation(
+        recommendedResponse?.results?.filter(
+          (title: any) => title?.id !== data?.id
+        )
+      );
+      setKeywords(
+        mediaType === 'movie'
+          ? keywordsResponse?.keywords
+          : keywordsResponse?.results
+      );
+
       if (
         titleRequest.status === 200 &&
         trailerRequest.status === 200 &&
@@ -101,10 +118,37 @@ const TitleSinglePage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genres, param.id]);
 
+  const omdbFetch = useCallback(async () => {
+    const omdbRequest = await fetch(
+      `https://www.omdbapi.com/?t=${
+        mediaType === 'movie'
+          ? data?.title?.replaceAll(' ', '+')
+          : data?.name?.replaceAll(' ', '+')
+      }&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
+    );
+
+    const omdbResponse = await omdbRequest?.json();
+
+    setData((prev: any) => {
+      return {
+        ...prev,
+        ratings: omdbResponse?.Ratings,
+        rated: omdbResponse?.Rated,
+        awards: omdbResponse?.Awards === 'N/A' ? null : omdbResponse?.Awards,
+      };
+    });
+  }, [data, mediaType]);
+
   useEffect(() => {
     setLoading(true);
-    asyncFunction();
-  }, [asyncFunction]);
+    singleDataFetch();
+  }, [singleDataFetch]);
+
+  useEffect(() => {
+    if (data) {
+      omdbFetch();
+    }
+  }, [data, omdbFetch]);
 
   return (
     <div className="">
@@ -113,35 +157,66 @@ const TitleSinglePage = () => {
       ) : (
         <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10  ">
           <BackgroundOverlay imageUrl={data?.backdrop_path}>
-            <div className="w-full  xl:w-[70%]  sm:px-10 ">
-              <TitleInfo
-                mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                data={data}
-                videos={videos}
-              />
+            <div className="w-full  xl:w-[70%]  sm:px-5 ">
+              <TitleInfo mediaType={mediaType} data={data} videos={videos} />
             </div>
-            <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-10">
+            <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-5">
               <News />
             </div>
           </BackgroundOverlay>
 
-          <div className="sm:px-10 w-full">
-            <div className="mt-14 flex flex-col md:flex-row  justify-between ">
-              <div className=" md:w-[48%]">
+          <div className="flex flex-col w-full">
+            <div className="mt-14 flex flex-col md:flex-row-reverse  w-full">
+              <div className="w-full md:w-[30%] px-2 xs:px-2 sm:px-5 md:px-0">
+                <TitleDetails
+                  data={data}
+                  mediaType={mediaType}
+                  keywords={keywords}
+                />
+              </div>
+
+              <div className="md:w-[75%] pt-2 md:pr-10 flex flex-col overflow-hidden">
                 <TitleCast
                   credits={creditsType === 'cast' ? cast : crew}
                   setCreditsType={setCreditsType}
                   creditsType={creditsType}
+                  mediaType={mediaType}
                 />
+                {mediaType === 'tv' && (
+                  <div className=" px-2 sm:px-5 md:pl-5 md:px-0">
+                    <TitleSeasons
+                      titleId={data?.id}
+                      numberOfSeasons={data?.number_of_seasons}
+                    />
+                  </div>
+                )}
+                {data?.belongs_to_collection && (
+                  <div className="sm:pl-5 mb-10">
+                    <TitleCollection
+                      collectionId={data?.belongs_to_collection?.id}
+                      mediaType={mediaType}
+                    />
+                  </div>
+                )}
               </div>
-
-              <div className="md:w-[48%] mt-10 semiSm:mt-0">
+            </div>
+            {relatedTitles?.results?.length > 0 && (
+              <div className="pt-1 overflow-x-hidden flex flex-col">
                 <TitleRelated
                   mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                   relatedTitles={relatedTitles?.results}
                 />
               </div>
-            </div>
+            )}
+
+            {recommendation?.length > 0 && (
+              <div className="pt-1 overflow-x-hidden flex flex-col">
+                <TitleRecommendation
+                  mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                  relatedTitles={recommendation}
+                />
+              </div>
+            )}
           </div>
           <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden">
             <News />

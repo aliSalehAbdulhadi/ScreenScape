@@ -3,6 +3,7 @@ import Image from 'next/image';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
 import { imageQualityLargeScreen } from '@/src/global/globalVariables';
+import SocialMedia from '../../SocialMedia/SocialMedia';
 
 const ActorInfo = ({ data }: { data: any }) => {
   const age = `${moment(data?.birthday).format('MMMM Do YYYY')} ${
@@ -33,7 +34,7 @@ const ActorInfo = ({ data }: { data: any }) => {
           </SinglePlaceholder>
         </MasonryGridPics>
 
-        <div className=" pl-5  xs:ml-0 sm:w-[40%]">
+        <div className=" sm:pl-5  xs:ml-0 sm:w-[40%] mx-2 xs:mx-5">
           <div className="flex items-center">
             <span className="text-lg xxxs:text-2xl xs:text-3xl">
               {data?.name ? data?.name : 'Not Available'}
@@ -82,8 +83,10 @@ const ActorInfo = ({ data }: { data: any }) => {
               </span>
             </div>
           </div>
-
-          <div className=" mt-12 semiSm:w-[20.5rem] md:w-[29rem] lg:w-[38.5rem] xl:w-[24rem] xxl:w-[30rem] xxxl:w-[38rem] h-[16rem]  text-[17px] scrollBar  overflow-auto hidden semiSm:block">
+          <div className="mt-5">
+            <SocialMedia mediaType="person" id={data?.id} />
+          </div>
+          <div className=" mt-6 semiSm:w-[20.5rem] md:w-[29rem] lg:w-[38.5rem] xl:w-[24rem] xxl:w-[30rem] xxxl:w-[38rem] h-[16rem]  text-[17px] scrollBar  overflow-auto hidden semiSm:block">
             <span className=" leading-7">
               {data?.biography
                 ? data?.biography
@@ -93,7 +96,7 @@ const ActorInfo = ({ data }: { data: any }) => {
         </div>
       </div>
 
-      <div className=" mt-12 mx-2 xs:mx-5 sm:mx-0 text-sm xxs:text-[17px] scrollBar max-h-[15rem] overflow-auto  semiSm:hidden">
+      <div className=" mt-12 semiSm:mx-0 text-sm xxs:text-[17px] scrollBar max-h-[15rem] overflow-auto  semiSm:hidden mx-2 xs:mx-5">
         <span className=" leading-7">
           {data?.biography
             ? data?.biography

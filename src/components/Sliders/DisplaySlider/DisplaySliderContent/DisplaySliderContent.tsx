@@ -33,7 +33,7 @@ const DisplaySliderContent = ({
 
     return numbers;
   }, []);
-
+ 
   return (
     <div>
       {width > 1150 ? (
@@ -92,7 +92,6 @@ const DisplaySliderContent = ({
             alt="poster"
             loading="lazy"
           />
-
         </Link>
       )}
     </div>
