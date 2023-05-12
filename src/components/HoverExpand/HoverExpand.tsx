@@ -124,7 +124,7 @@ const HoverExpand = ({
             >
               <div
                 onClick={() => setPlayVideo(true)}
-                className={`w-fit border-[2px] border-white border-opacity-60  hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60 `}
+                className={`w-fit border-[2px] border-white border-opacity-60  hover:opacity-90 hover:border-opacity-90 transition-all p-[7px] rounded-full cursor-pointer bg-black bg-opacity-60 `}
               >
                 <FaPlay className="w-[10px] h-[10px] xl:w-3 xl:h-3" />
               </div>
@@ -160,7 +160,7 @@ const HoverExpand = ({
               )}
             </span>
             <div className="flex items-center ">
-              <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+              <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] flex justify-center items-center bg-white bg-opacity-5  border-white border-opacity-75 mr-3 font-averia">
                 {dataObject(data, mediaType)?.isAdult ? '18+' : 'G'}
               </span>
               <span>

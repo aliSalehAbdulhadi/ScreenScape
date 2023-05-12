@@ -56,7 +56,7 @@ const PosterCard = ({
           </span>
           <div className="flex  items-center justify-between opacity-75 w-full text-xs">
             <div className="flex items-center ">
-              <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] p-1 flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+              <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] p-1 flex justify-center items-center bg-black bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
                 {mediaType === 'tv' ? 'TV' : 'Movie'}
               </span>
 

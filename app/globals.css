@@ -625,3 +625,21 @@ input:-webkit-autofill:focus {
     transform: translateY(100rem);
   }
 }
+
+.slider-fade {
+  background-image: linear-gradient(to right, #161925, rgba(22, 25, 37, 1));
+
+  position: relative;
+}
+
+.slider-fade::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -20px; /* adjust this value to control the width of the fade */
+  width: 20px; /* adjust this value to control the width of the fade */
+  height: 100%;
+  background: #161925;
+  box-shadow: 0 0 20px 30px rgba(22, 25, 37, 1); /* adjust the box-shadow to control the size and opacity of the fade */
+  z-index: 3;
+}

@@ -3,6 +3,7 @@ import { checkDataAvailability } from '@/src/helper/checkDataAvailability';
 import { formatCurrency } from '@/src/helper/formatCurrency';
 import Link from 'next/link';
 import SocialMedia from '../../SocialMedia/SocialMedia';
+import Rating from '../TitleInfo/Rating/Rating';
 
 const TitleDetails = ({
   data,
@@ -32,12 +33,22 @@ const TitleDetails = ({
             </span>
           </div>
 
+          <div className="mb-5">
+            <span className=" font-semibold">Ratings </span>
+            <div className="text-white text-opacity-80">
+              <Rating data={data} mediaType={mediaType} />
+            </div>
+          </div>
+
           {data?.networks && (
             <div className="mb-5 flex flex-col w-full">
               <span className=" font-semibold">Networks</span>
               {data?.networks?.map((network: any) => {
                 return (
-                  <div className="col-span-1 text-opacity-80" key={network?.id}>
+                  <div
+                    className="col-span-1 text-white text-opacity-80"
+                    key={network?.id}
+                  >
                     <span>{network?.name}</span>
                   </div>
                 );
@@ -86,9 +97,9 @@ const TitleDetails = ({
           {data?.origin_country && (
             <div className="mb-5 flex flex-col">
               <span className=" font-semibold">Origin Country </span>
-              <div className="text-white text-opacity-80">
+              <div className="text-white text-opacity-80 grid col-span-1">
                 {data?.origin_country?.map((country: any) => (
-                  <span key={uuidv4()}>{country}, </span>
+                  <span key={uuidv4()}>{country}</span>
                 ))}
               </div>
             </div>
@@ -107,8 +118,8 @@ const TitleDetails = ({
           </div>
 
           <div className="mb-5 flex flex-col">
-            <span className=" font-semibold">Production Country</span>
-            <div className="text-white text-opacity-80">
+            <span className=" font-semibold">Production Countries</span>
+            <div className="text-white text-opacity-80 grid col-span-1">
               {data?.production_countries?.map((country: any) => (
                 <span key={uuidv4()}>{country?.name}</span>
               ))}
@@ -143,7 +154,7 @@ const TitleDetails = ({
                   <Link
                     href={`search/keyword/${mediaType}/${word?.id}-${word?.name}`}
                     key={uuidv4()}
-                    className="bg-white text-white bg-opacity-30 p-2 text-xs sm:text-sm rounded mr-1 mb-1 cursor-pointer"
+                    className="bg-white text-white bg-opacity-30 p-2 text-xs sm:text-sm rounded mr-1 mb-1 cursor-pointer transition-all hover:bg-opacity-25"
                   >
                     {word?.name}
                   </Link>

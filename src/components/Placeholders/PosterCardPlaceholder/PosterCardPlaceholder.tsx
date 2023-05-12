@@ -21,18 +21,18 @@ const PosterCardPlaceholder = ({
       {condition ? (
         children
       ) : (
-        <div className="h-[367px] w-[195px] rounded overflow-hidden">
-          <div className="h-[69%] bg-white bg-opacity-20 flex items-center justify-center">
+        <div className="h-[363px] w-[195px] rounded overflow-hidden">
+          <div className="h-[69%] bg-white bg-opacity-10 flex items-center justify-center">
             <SlPicture className="h-[3.5rem] w-[3.5rem] opacity-40" />
           </div>
 
-          <div className=" bg-white bg-opacity-10 h-full pt-1 px-2">
+          <div className="  h-full pt-2 px-2">
             <div className="text-sm h-[4.8rem]">
               {title?.length <= 45 ? title : title?.slice(0, 45) + '...'}
             </div>
             <div className="flex items-center justify-between text-xs opacity-75 w-full">
               <div className="flex items-center ">
-                <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] p-1 flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] p-1 flex justify-center items-center bg-black bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
                   {mediaType === 'tv' ? 'TV' : 'Movie'}
                 </span>
 

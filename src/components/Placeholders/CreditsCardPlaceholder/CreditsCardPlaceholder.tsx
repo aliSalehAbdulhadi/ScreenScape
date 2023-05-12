@@ -20,7 +20,7 @@ const CreditsCardPlaceholder = ({
         children
       ) : (
         <div className="h-[362px] w-[195px] rounded overflow-hidden">
-          <div className="h-[69%] bg-white bg-opacity-20 flex items-center justify-center">
+          <div className="h-[69%] bg-white bg-opacity-10 flex items-center justify-center">
             <RxPerson className="h-20 w-20 opacity-40 mr-2" />
           </div>
 
