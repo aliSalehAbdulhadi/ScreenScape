@@ -134,7 +134,10 @@ const TitleSinglePage = () => {
         ...prev,
         ratings: omdbResponse?.Ratings,
         rated: omdbResponse?.Rated,
-        awards: omdbResponse?.Awards === 'N/A' ? null : omdbResponse?.Awards,
+        awards:
+          omdbResponse?.Awards === 'N/A' || null || undefined
+            ? null
+            : omdbResponse?.Awards,
       };
     });
   }, [data, mediaType]);

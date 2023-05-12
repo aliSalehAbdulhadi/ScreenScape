@@ -40,7 +40,7 @@ const SearchPage = () => {
             ?.replace(/\b\w/g, (c) => c?.toUpperCase())
         );
 
-      return keyword[1];
+      return `${keyword[1]} Keyword`;
     }
   };
 
