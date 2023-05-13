@@ -145,7 +145,7 @@ const TitleSinglePage = () => {
   useEffect(() => {
     setLoading(true);
     singleDataFetch();
-  }, [singleDataFetch]);
+  }, [singleDataFetch, mediaType]);
 
   useEffect(() => {
     if (data) {
