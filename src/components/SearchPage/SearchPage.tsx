@@ -58,7 +58,7 @@ const SearchPage = () => {
           `https://api.themoviedb.org/3/discover/${params?.mediaType}?api_key=${
             process.env.NEXT_PUBLIC_API_KEY
           }&with_genres=${
-            params.id
+            params.id?.split('-')?.[0]
           }&sort_by=popularity.desc&page=1&vote_count.gte=${
             params?.mediaType === 'movie' ? 200 : 25
           }`

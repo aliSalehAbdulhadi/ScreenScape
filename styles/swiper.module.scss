@@ -62,3 +62,16 @@
 .customPrevArrow {
   left: 0;
 }
+
+.customNextCardsSliderArrow,
+.customPrevCardsSliderArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -12%;
+  right: 0%;
+
+  z-index: 20;
+  cursor: pointer;
+}

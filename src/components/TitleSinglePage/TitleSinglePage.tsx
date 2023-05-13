@@ -160,7 +160,7 @@ const TitleSinglePage = () => {
       ) : (
         <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10  ">
           <BackgroundOverlay imageUrl={data?.backdrop_path}>
-            <div className="w-full sm:px-5 ">
+            <div className="w-full sm:px-5">
               <TitleInfo mediaType={mediaType} data={data} videos={videos} />
             </div>
           </BackgroundOverlay>
@@ -176,8 +176,8 @@ const TitleSinglePage = () => {
                 <News />
               </div>
             </div>
-            <div className="md:w-[75%] pt-2 md:pr-10 flex flex-col overflow-hidden relative ">
-              <div className="slider-fade">
+            <div className="md:w-[75%]  md:pr-10 flex flex-col overflow-hidden relative ">
+              <div className="slider-fade overflow-hidden">
                 <TitleCast
                   credits={creditsType === 'cast' ? cast : crew}
                   setCreditsType={setCreditsType}
@@ -202,7 +202,7 @@ const TitleSinglePage = () => {
                 </div>
               )}
               {relatedTitles?.results?.length > 0 && (
-                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade">
+                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
                   <TitleRelated
                     mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                     relatedTitles={relatedTitles?.results}
@@ -210,7 +210,7 @@ const TitleSinglePage = () => {
                 </div>
               )}
               {recommendation?.length > 0 && (
-                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade">
+                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
                   <TitleRecommendation
                     mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                     relatedTitles={recommendation}

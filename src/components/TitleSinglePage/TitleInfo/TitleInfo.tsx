@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import SingleGenres from './SingleGenres/SingleGenres';
-import Rating from './Rating/Rating';
 import StreamedOn from './StreamedOn/StreamedOn';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';

@@ -21,7 +21,7 @@ const TitleCast = ({
   return (
     <div>
       <div className="flex items-center">
-        <div className="flex items-center justify-center text-xs sm:text-base mr-5 ml-2 sm:ml-5">
+        <div className="flex items-center justify-center text-xs sm:text-base mr-5 ml-2 sm:ml-5 py-1">
           <CastCrewSwitchButtons
             setCreditsType={setCreditsType}
             creditsType={creditsType}
