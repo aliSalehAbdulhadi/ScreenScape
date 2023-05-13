@@ -184,22 +184,6 @@ const TitleSinglePage = () => {
                   creditsType={creditsType}
                   mediaType={mediaType}
                 />
-                {mediaType === 'tv' && (
-                  <div className=" px-2 sm:px-5 md:pl-5 md:px-0">
-                    <TitleSeasons
-                      titleId={data?.id}
-                      numberOfSeasons={data?.number_of_seasons}
-                    />
-                  </div>
-                )}
-                {data?.belongs_to_collection && (
-                  <div className="sm:pl-5 mb-10">
-                    <TitleCollection
-                      collectionId={data?.belongs_to_collection?.id}
-                      mediaType={mediaType}
-                    />
-                  </div>
-                )}
               </div>
               {mediaType === 'tv' && (
                 <div className="px-2 sm:px-5 md:pl-5 md:px-0">
