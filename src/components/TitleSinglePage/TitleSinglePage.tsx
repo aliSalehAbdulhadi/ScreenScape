@@ -54,7 +54,7 @@ const TitleSinglePage = () => {
           `https://api.themoviedb.org/3/${mediaType}/${param.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
         ),
         fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+          `https:api.themoviedb.org/3/${mediaType}/${param.id}/aggregate_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
         ),
         fetch(
           `https://api.themoviedb.org/3/${mediaType}/${param.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
