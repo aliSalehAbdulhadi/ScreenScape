@@ -1,13 +1,27 @@
 'use client';
 
-import LargeScreenContent from './LargeScreenContent/LargeScreenContent';
+import { memo } from 'react';
+import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 
-const OtherActors = () => {
+const OtherActors = ({
+  appearedInTitles,
+  mediaType,
+}: {
+  appearedInTitles: any;
+  mediaType: string;
+}) => {
   return (
     <div>
-      <LargeScreenContent />
+      <div className=" text-secondary  ml-2 sm:ml-5 mr-5 text-sm xxxs:text-base sm:text-lg">
+        Other Actor
+      </div>
+      <CardSlider
+        mediaType={mediaType}
+        isCast={false}
+        data={appearedInTitles}
+      />
     </div>
   );
 };
 
-export default OtherActors;
+export default memo(OtherActors);

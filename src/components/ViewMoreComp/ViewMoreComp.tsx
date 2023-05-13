@@ -54,10 +54,10 @@ const ViewMoreComp = ({
                         {mediaType === 'actor' ? (
                           <CreditsCard
                             index={i}
-                            imageUrl={title?.profile_path}
-                            characterName={title?.character}
-                            personName={title?.original_name}
-                            job={title?.job}
+                            data={title}
+                            mediaType={
+                              title?.total_episode_count ? 'tv' : 'movie'
+                            }
                           />
                         ) : (
                           <PosterCard

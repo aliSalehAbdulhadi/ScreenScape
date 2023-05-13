@@ -23,7 +23,7 @@ const SingleGenres = ({
         (genre: { name: string; id: number }, i) =>
           i <= 3 && (
             <Link
-              href={`search/genre/${mediaType}/${genre?.id}`}
+              href={`search/genre/${mediaType}/${genre?.id}-${genre?.name}`}
               key={genre.id}
             >
               <span

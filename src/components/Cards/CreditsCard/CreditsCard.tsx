@@ -1,30 +1,27 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { v4 as uuidv4 } from 'uuid';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
 import CreditsCardPlaceholder from '../../Placeholders/CreditsCardPlaceholder/CreditsCardPlaceholder';
 import { imageQualitySmallScreen } from '@/src/global/globalVariables';
+import { charactersLengthHandler } from '@/src/helper/charactersLengthHandler';
 
 const CreditsCard = ({
-  imageUrl,
-  personName = '',
-  characterName = '',
+  data,
   index,
-  job,
+  mediaType,
 }: {
-  imageUrl: string;
-  personName: string;
-  characterName: string;
+  data: any;
   index: number;
-  job: string;
+  mediaType: string;
 }) => {
   const [loading, setLoading] = useState(true);
 
   return (
     <CreditsCardPlaceholder
-      condition={imageUrl}
-      characterName={characterName}
-      personName={personName}
-      job={job}
+      data={data}
+      condition={data?.profile_path}
+      mediaType={mediaType}
     >
       <div className="transition-all sm:hover:opacity-90">
         {loading && (
@@ -34,7 +31,7 @@ const CreditsCard = ({
         )}
         <Image
           quality={imageQualitySmallScreen}
-          src={`https://image.tmdb.org/t/p/original/${imageUrl}`}
+          src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
           width={150}
           height={250}
           alt="Title Image"
@@ -48,27 +45,42 @@ const CreditsCard = ({
           }
         />
 
-        {job ? (
+        {data?.jobs || data?.job ? (
           <div className="px-2 mt-2 flex flex-col w-[100%] h-[7rem]">
-            <span className="mt-2">
-              {personName.length <= 38
-                ? personName
-                : personName.slice(0, 38) + '...'}
+            <span>{charactersLengthHandler(data?.name, 38)}</span>
+            <span className=" text-sm text-white opacity-60  w-full">
+              {mediaType === 'movie'
+                ? data?.job
+                : data?.jobs?.map((job: any) => (
+                    <span key={uuidv4()} className="w-full">
+                      {job?.job}
+                    </span>
+                  ))}
             </span>
-            <span className=" text-sm opacity-75 w-full">{job}</span>
+
+            {mediaType === 'tv' && (
+              <span className="mt-10 text-xs text-white text-opacity-75">
+                {data?.total_episode_count} Episodes
+              </span>
+            )}
           </div>
         ) : (
           <div className="px-2 mt-2 flex flex-col w-[100%] h-[7rem]">
-            <span className="mt-2">
-              {characterName.length <= 38
-                ? characterName
-                : characterName.slice(0, 38) + '...'}
-            </span>
+            {mediaType === 'movie'
+              ? data?.character
+              : data?.roles?.map((role: any) => (
+                  <span key={uuidv4()} className="w-full">
+                    {charactersLengthHandler(role?.character, 38)}
+                  </span>
+                ))}
             <span className=" text-sm opacity-75 w-full">
-              {personName.length <= 38
-                ? personName
-                : personName.slice(0, 38) + '...'}
+              {charactersLengthHandler(data?.name, 38)}
             </span>
+            {mediaType === 'tv' && (
+              <span className="mt-10 text-xs text-white text-opacity-75">
+                {data?.total_episode_count} Episodes
+              </span>
+            )}
           </div>
         )}
       </div>

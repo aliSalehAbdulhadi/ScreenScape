@@ -1,18 +1,18 @@
 import { ReactNode } from 'react';
 import { RxPerson } from 'react-icons/rx';
+import { v4 as uuidv4 } from 'uuid';
+import { charactersLengthHandler } from '@/src/helper/charactersLengthHandler';
 
 const CreditsCardPlaceholder = ({
   children,
   condition,
-  personName = '',
-  characterName = '',
-  job,
+  data,
+  mediaType,
 }: {
   condition: boolean | unknown;
   children: ReactNode;
-  personName: string;
-  characterName: string;
-  job: string;
+  data: any;
+  mediaType: string;
 }) => {
   return (
     <div className="transition-all sm:hover:opacity-90">
@@ -24,29 +24,44 @@ const CreditsCardPlaceholder = ({
             <RxPerson className="h-20 w-20 opacity-40 mr-2" />
           </div>
 
-          {job ? (
+          {data?.jobs || data?.job ? (
             <div className="flex flex-col  h-full px-2 mt-2">
-              <span className="mt-2">
-                {personName.length <= 45
-                  ? personName
-                  : personName.slice(0, 45) + '...'}
-              </span>
+              <span>{charactersLengthHandler(data?.name, 38)}</span>
               <span className=" text-sm text-white opacity-60  w-full">
-                {job}
+                {mediaType === 'movie'
+                  ? data?.job
+                  : data?.jobs?.map((job: any) => (
+                      <span key={uuidv4()} className="w-full">
+                        {job?.job}
+                      </span>
+                    ))}
               </span>
+
+              {mediaType === 'tv' && (
+                <span className="mt-10 text-xs text-white text-opacity-75">
+                  {data?.total_episode_count} Episodes
+                </span>
+              )}
             </div>
           ) : (
             <div className="flex flex-col  h-full px-2 mt-2">
-              <span className="mt-2">
-                {characterName.length <= 45
-                  ? characterName
-                  : characterName.slice(0, 45) + '...'}
-              </span>
+              <div>
+                {mediaType === 'movie'
+                  ? data?.character
+                  : data?.roles?.map((role: any) => (
+                      <span key={uuidv4()} className="w-full">
+                        {charactersLengthHandler(role?.character, 38)}
+                      </span>
+                    ))}
+              </div>
               <span className=" text-sm text-white opacity-60  w-full">
-                {personName.length <= 45
-                  ? personName
-                  : personName.slice(0, 45) + '...'}
+                {charactersLengthHandler(data?.name, 38)}
               </span>
+              {mediaType === 'tv' && (
+                <span className="mt-10 text-xs text-white text-opacity-75">
+                  {data?.total_episode_count} Episodes
+                </span>
+              )}
             </div>
           )}
         </div>

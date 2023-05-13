@@ -18,23 +18,25 @@ const ActorInfo = ({ data }: { data: any }) => {
   return (
     <div className="flex flex-col semiSm:flex-row">
       <div className="flex flex-col sm:flex-row xs:self-center">
-        <MasonryGridPics mediaType="person" id={data?.id}>
-          <SinglePlaceholder condition={data?.profile_path} isTitle={false}>
-            <Image
-              quality={imageQualityLargeScreen}
-              width={1000}
-              height={1000}
-              src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
-              alt="Actor Photo"
-              className={`xs:rounded object-fit h-[28rem] xxxs:h-[35rem] xxs:h-[37rem] sm:h-[30rem] xs:w-[28rem] sm:w-[21rem]`}
-              blurDataURL="/images/imagePlaceholder.png"
-              placeholder="blur"
-              priority={true}
-            />
-          </SinglePlaceholder>
-        </MasonryGridPics>
+        <div className={`xs:w-[28rem] sm:w-[21rem]`}>
+          <MasonryGridPics mediaType="person" id={data?.id}>
+            <SinglePlaceholder condition={data?.profile_path} isTitle={false}>
+              <Image
+                quality={imageQualityLargeScreen}
+                width={1000}
+                height={1000}
+                src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
+                alt="Actor Photo"
+                className={`xs:rounded object-fit h-[28rem] xxxs:h-[35rem] xxs:h-[37rem] sm:h-[30rem] xs:w-[28rem] sm:w-[21rem]`}
+                blurDataURL="/images/imagePlaceholder.png"
+                placeholder="blur"
+                priority={true}
+              />
+            </SinglePlaceholder>
+          </MasonryGridPics>
+        </div>
 
-        <div className=" sm:pl-5  xs:ml-0 sm:w-[40%] mx-2 xs:mx-5">
+        <div className=" sm:pl-5  xs:ml-0  mx-2 xs:mx-5 semiSm:max-w-[70%] ">
           <div className="flex items-center">
             <span className="text-lg xxxs:text-2xl xs:text-3xl">
               {data?.name ? data?.name : 'Not Available'}
@@ -86,7 +88,7 @@ const ActorInfo = ({ data }: { data: any }) => {
           <div className="mt-5">
             <SocialMedia mediaType="person" id={data?.id} />
           </div>
-          <div className=" mt-6 semiSm:w-[20.5rem] md:w-[29rem] lg:w-[38.5rem] xl:w-[24rem] xxl:w-[30rem] xxxl:w-[38rem] h-[16rem]  text-[17px] scrollBar  overflow-auto hidden semiSm:block">
+          <div className=" mt-6  max-h-[15rem]  text-[17px] scrollBar  overflow-auto hidden semiSm:block">
             <span className=" leading-7">
               {data?.biography
                 ? data?.biography

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import PosterCardPlaceholder from '../../Placeholders/PosterCardPlaceholder/PosterCardPlaceholder';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
 import { imageQualitySmallScreen } from '@/src/global/globalVariables';
+import { charactersLengthHandler } from '@/src/helper/charactersLengthHandler';
 
 const PosterCard = ({
   imageUrl,
@@ -52,12 +53,11 @@ const PosterCard = ({
 
         <div className="px-2 flex flex-col w-[195px] h-full rounded-b">
           <span className="mt-2 h-[4.8rem] w-fit">
-            {title?.length <= 38 ? title : title?.slice(0, 38) + '...'}
+            {charactersLengthHandler(title, 38)}
           </span>
           <div className="flex  items-center justify-between opacity-75 w-full text-xs">
             <div className="flex items-center ">
               <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] p-1 flex justify-center items-center bg-black bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
-
                 {mediaType === 'tv' ? 'TV' : 'Movie'}
               </span>
 
