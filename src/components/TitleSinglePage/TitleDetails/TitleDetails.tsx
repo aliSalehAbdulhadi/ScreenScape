@@ -32,14 +32,12 @@ const TitleDetails = ({
               {data?.tagline ? `"${data?.tagline}"` : '-'}
             </span>
           </div>
-
           <div className="mb-5">
             <span className=" font-semibold">Ratings </span>
             <div className="text-white text-opacity-80">
               <Rating data={data} mediaType={mediaType} />
             </div>
           </div>
-
           {data?.networks && (
             <div className="mb-5 flex flex-col w-full">
               <span className=" font-semibold">Networks</span>

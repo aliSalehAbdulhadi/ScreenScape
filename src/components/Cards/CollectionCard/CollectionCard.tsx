@@ -14,6 +14,7 @@ const CollectionCard = ({
         <div className="flex flex-col justify-center   px-5 w-full h-full">
           <div>
             <span className="text-lg sm:text-2xl font-bold">{`Belongs to the ${data?.name}`}</span>
+
           </div>
           <div className="text-white text-opacity-90 mt-1 text-sm sm:text-base w-full sm:w-[90%] max-h-[7.5rem] overflow-y-auto scrollBar">
             <span>{checkDataAvailability(data?.overview)}</span>

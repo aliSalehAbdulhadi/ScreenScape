@@ -42,6 +42,7 @@ const CardSlider = ({
             loadOnTransitionStart: true,
           }}
           slidesPerView="auto"
+
           slidesPerGroup={2}
           spaceBetween={5}
           navigation={{

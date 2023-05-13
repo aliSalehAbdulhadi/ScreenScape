@@ -32,7 +32,6 @@ const SinglePicture = ({
           onLoad={() => setLoaded(true)}
         />
       </a>
-
       <a
         href={`https://image.tmdb.org/t/p/original/${imageUrl}`}
         target="_blank"
