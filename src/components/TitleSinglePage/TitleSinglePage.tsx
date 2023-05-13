@@ -117,8 +117,7 @@ const TitleSinglePage = () => {
         }, 500);
       }
     } catch (error) {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [genres, param.id]);
+  }, [data?.id, data?.release_date, mediaType, param.id]);
 
   const omdbFetch = useCallback(async () => {
     const omdbRequest = await fetch(
@@ -128,7 +127,6 @@ const TitleSinglePage = () => {
           : data?.name?.replaceAll(' ', '+')
       }&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
     );
-
     const omdbResponse = await omdbRequest?.json();
 
     setData((prev: any) => {
