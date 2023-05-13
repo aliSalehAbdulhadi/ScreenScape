@@ -19,7 +19,7 @@ const TitleSinglePage = () => {
     plusYear: '',
     minusYear: '',
   });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [genres, setGenres] = useState<[]>([]);
   const [data, setData] = useState<any>({});
   const [videos, setVideos] = useState<any>([]);
@@ -143,7 +143,7 @@ const TitleSinglePage = () => {
   }, [data, mediaType]);
 
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
     singleDataFetch();
   }, [singleDataFetch, mediaType]);
 
