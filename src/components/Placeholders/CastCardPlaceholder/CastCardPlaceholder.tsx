@@ -1,3 +1,4 @@
+import { charactersLengthHandler } from '@/src/helper/charactersLengthHandler';
 import { ReactNode } from 'react';
 import { RxPerson } from 'react-icons/rx';
 
@@ -24,14 +25,10 @@ const CastCardPlaceholder = ({
 
           <div className="flex flex-col  h-full px-2">
             <span className="mt-2">
-              {characterName.length <= 45
-                ? characterName
-                : characterName.slice(0, 45) + '...'}
+              {charactersLengthHandler(characterName, 38)}
             </span>
             <span className=" text-sm text-white opacity-60  w-full">
-              {actorName.length <= 45
-                ? actorName
-                : actorName.slice(0, 45) + '...'}
+              {charactersLengthHandler(actorName, 38)}
             </span>
           </div>
         </div>

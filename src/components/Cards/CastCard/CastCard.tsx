@@ -3,6 +3,7 @@ import Image from 'next/image';
 import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
 import CastCardPlaceholder from '../../Placeholders/CastCardPlaceholder/CastCardPlaceholder';
 import { imageQualitySmallScreen } from '@/src/global/globalVariables';
+import { charactersLengthHandler } from '@/src/helper/charactersLengthHandler';
 
 const CastCard = ({
   imageUrl,
@@ -47,14 +48,10 @@ const CastCard = ({
 
         <div className="px-2 mt-2 flex flex-col w-[100%] h-[7rem]">
           <span className="mt-2">
-            {characterName.length <= 38
-              ? characterName
-              : characterName.slice(0, 38) + '...'}
+            {charactersLengthHandler(characterName, 38)}
           </span>
           <span className=" text-sm opacity-75 w-full">
-            {actorName.length <= 38
-              ? actorName
-              : actorName.slice(0, 38) + '...'}
+            {charactersLengthHandler(actorName, 38)}
           </span>
         </div>
       </div>

@@ -22,7 +22,7 @@ const TitleCollection = ({
   const collectionFetch = useCallback(async () => {
     try {
       const collectionRequest = await fetch(
-        ` https://api.themoviedb.org/3/collection/${collectionId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/collection/${collectionId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
       );
 
       const collectionResponse = await collectionRequest?.json();

@@ -1,3 +1,4 @@
+import { charactersLengthHandler } from '@/src/helper/charactersLengthHandler';
 import { ReactNode } from 'react';
 import { SlPicture } from 'react-icons/sl';
 
@@ -28,7 +29,7 @@ const PosterCardPlaceholder = ({
 
           <div className="  h-full pt-2 px-2">
             <div className="text-sm h-[4.8rem]">
-              {title?.length <= 45 ? title : title?.slice(0, 45) + '...'}
+              {charactersLengthHandler(title, 38)}
             </div>
             <div className="flex items-center justify-between text-xs opacity-75 w-full">
               <div className="flex items-center ">

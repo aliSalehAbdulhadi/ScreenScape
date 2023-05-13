@@ -42,7 +42,6 @@ const CardSlider = ({
             loadOnTransitionStart: true,
           }}
           slidesPerView="auto"
-
           slidesPerGroup={2}
           spaceBetween={5}
           navigation={{
@@ -69,11 +68,9 @@ const CardSlider = ({
                         className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
                       >
                         <CreditsCard
+                          data={info}
                           index={i}
-                          imageUrl={info?.profile_path}
-                          characterName={info?.character}
-                          personName={info?.original_name}
-                          job={info?.job}
+                          mediaType={mediaType}
                         />
                       </Link>
                     ) : (
