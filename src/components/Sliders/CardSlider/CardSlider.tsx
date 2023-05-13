@@ -1,12 +1,15 @@
 'use client';
+import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
-import { memo } from 'react';
+import { memo, useRef } from 'react';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
 import CreditsCard from '../../Cards/CreditsCard/CreditsCard';
 import 'swiper/swiper-bundle.css';
 import { dataObject } from '@/src/global/globalVariables';
+import { MdOutlineArrowBackIos } from 'react-icons/md';
+import styles from '../../../../styles/swiper.module.scss';
 
 const CardSlider = ({
   data,
@@ -17,60 +20,20 @@ const CardSlider = ({
   mediaType: string;
   isCast: boolean;
 }) => {
+  const swiperImagePrevRef = useRef<HTMLDivElement>(null);
+  const swiperImageNextRef = useRef<HTMLDivElement>(null);
+
   const swiperStyle = {
     transform: 'translateZ(0)',
   };
-  const breakpoints = {
-    1750: { slidesPerView: 6.5, spaceBetween: 5 },
-    1650: { slidesPerView: 5.8, spaceBetween: 5 },
-    1550: { slidesPerView: 4.7, spaceBetween: 5 },
-    1450: { slidesPerView: 4.4, spaceBetween: 5 },
-    1350: { slidesPerView: 4.2, spaceBetween: 5 },
-    1250: { slidesPerView: 4.1, spaceBetween: 5 },
-    1150: { slidesPerView: 3.8, spaceBetween: 5 },
-    1050: { slidesPerView: 3.6, spaceBetween: 5 },
-    950: { slidesPerView: 3.4, spaceBetween: 5 },
-    850: { slidesPerView: 3.3, spaceBetween: 5 },
-    750: { slidesPerView: 3.2, spaceBetween: 5 },
-    600: {
-      slidesPerView: 3.1,
-      spaceBetween: 5,
-    },
-    550: {
-      slidesPerView: 2.8,
-      spaceBetween: 5,
-    },
-    500: {
-      slidesPerView: 2.6,
-      spaceBetween: 5,
-    },
-    480: {
-      slidesPerView: 2.3,
-      spaceBetween: 5,
-    },
-    420: {
-      slidesPerView: 2.1,
-      spaceBetween: 5,
-    },
-    350: {
-      slidesPerView: 1.9,
 
-      spaceBetween: 5,
-    },
-    330: {
-      slidesPerView: 1.6,
-      spaceBetween: 5,
-    },
-    0: {
-      slidesPerView: 1.4,
-      spaceBetween: 5,
-    },
-  };
+  SwiperCore.use([Navigation]);
+
   return (
     <div className="mt-4 h-[25rem]">
       {
         <Swiper
-          className="!pl-2 sm:!pl-5 "
+          className="!pl-2 sm:!pl-5 z-10 !overflow-visible"
           style={swiperStyle}
           // @ts-ignore
           lazy={{
@@ -79,7 +42,21 @@ const CardSlider = ({
             loadOnTransitionStart: true,
           }}
           slidesPerView="auto"
+
+          slidesPerGroup={2}
           spaceBetween={5}
+          navigation={{
+            prevEl: swiperImagePrevRef.current,
+            nextEl: swiperImageNextRef.current,
+          }}
+          onInit={(swiper) => {
+            // @ts-ignore
+            swiper.params.navigation.prevEl = swiperImagePrevRef.current;
+            // @ts-ignore
+            swiper.params.navigation.nextEl = swiperImageNextRef.current;
+            swiper.navigation.init();
+            swiper.navigation.update();
+          }}
         >
           <div>
             {data.map(
@@ -117,6 +94,28 @@ const CardSlider = ({
                   </SwiperSlide>
                 )
             )}
+          </div>
+
+          <div
+            className={` transition-all hidden  ${
+              data?.length < 7 ? 'hidden' : ' semiSm:block '
+            }`}
+          >
+            <div
+              ref={swiperImagePrevRef}
+              className={`${styles.customPrevCardsSliderArrow} mr-[75px] border-[2px] border-white border-opacity-50 hover:border-opacity-80 transition-all p-1 rounded-full `}
+            >
+              <MdOutlineArrowBackIos className="opacity-90" size={16} />
+            </div>
+            <div
+              ref={swiperImageNextRef}
+              className={`${styles.customNextCardsSliderArrow} mr-8 ml-1 border-[2px] border-white border-opacity-50 hover:border-opacity-80 transition-all p-1 rounded-full `}
+            >
+              <MdOutlineArrowBackIos
+                className={`rotate-180 opacity-90`}
+                size={16}
+              />
+            </div>
           </div>
         </Swiper>
       }

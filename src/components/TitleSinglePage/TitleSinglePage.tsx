@@ -134,7 +134,10 @@ const TitleSinglePage = () => {
         ...prev,
         ratings: omdbResponse?.Ratings,
         rated: omdbResponse?.Rated,
-        awards: omdbResponse?.Awards === 'N/A' ? null : omdbResponse?.Awards,
+        awards:
+          omdbResponse?.Awards === 'N/A' || null || undefined
+            ? null
+            : omdbResponse?.Awards,
       };
     });
   }, [data, mediaType]);
@@ -148,8 +151,8 @@ const TitleSinglePage = () => {
     if (data) {
       omdbFetch();
     }
-  }, [data, omdbFetch]);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.title || data?.name]);
   return (
     <div className="">
       {loading ? (
@@ -157,67 +160,66 @@ const TitleSinglePage = () => {
       ) : (
         <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10  ">
           <BackgroundOverlay imageUrl={data?.backdrop_path}>
-            <div className="w-full  xl:w-[70%]  sm:px-5 ">
+            <div className="w-full sm:px-5">
               <TitleInfo mediaType={mediaType} data={data} videos={videos} />
-            </div>
-            <div className="md:w-[35%] xl:w-[30%]  hidden xl:block sm:px-5">
-              <News />
             </div>
           </BackgroundOverlay>
 
-          <div className="flex flex-col w-full">
-            <div className="mt-14 flex flex-col md:flex-row-reverse  w-full">
-              <div className="w-full md:w-[30%] px-2 xs:px-2 sm:px-5 md:px-0">
-                <TitleDetails
-                  data={data}
-                  mediaType={mediaType}
-                  keywords={keywords}
-                />
+          <div className="mt-14 flex flex-col md:flex-row-reverse  w-full relative ">
+            <div className="w-full md:w-[30%] px-2 xs:px-2 sm:px-5 md:px-0 ">
+              <TitleDetails
+                data={data}
+                mediaType={mediaType}
+                keywords={keywords}
+              />
+              <div className="hidden xl:block sm:pr-5">
+                <News />
               </div>
-
-              <div className="md:w-[75%] pt-2 md:pr-10 flex flex-col overflow-hidden">
+            </div>
+            <div className="md:w-[75%]  md:pr-10 flex flex-col overflow-hidden relative ">
+              <div className="slider-fade overflow-hidden">
                 <TitleCast
                   credits={creditsType === 'cast' ? cast : crew}
                   setCreditsType={setCreditsType}
                   creditsType={creditsType}
                   mediaType={mediaType}
                 />
-                {mediaType === 'tv' && (
-                  <div className=" px-2 sm:px-5 md:pl-5 md:px-0">
-                    <TitleSeasons
-                      titleId={data?.id}
-                      numberOfSeasons={data?.number_of_seasons}
-                    />
-                  </div>
-                )}
-                {data?.belongs_to_collection && (
-                  <div className="sm:pl-5 mb-10">
-                    <TitleCollection
-                      collectionId={data?.belongs_to_collection?.id}
-                      mediaType={mediaType}
-                    />
-                  </div>
-                )}
               </div>
+              {mediaType === 'tv' && (
+                <div className="px-2 sm:px-5 md:pl-5 md:px-0">
+                  <TitleSeasons
+                    titleId={data?.id}
+                    numberOfSeasons={data?.number_of_seasons}
+                  />
+                </div>
+              )}
+              {data?.belongs_to_collection && (
+                <div className="sm:pl-5 mb-10 ">
+                  <TitleCollection
+                    collectionId={data?.belongs_to_collection?.id}
+                    mediaType={mediaType}
+                  />
+                </div>
+              )}
+              {relatedTitles?.results?.length > 0 && (
+                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
+                  <TitleRelated
+                    mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                    relatedTitles={relatedTitles?.results}
+                  />
+                </div>
+              )}
+              {recommendation?.length > 0 && (
+                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
+                  <TitleRecommendation
+                    mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                    relatedTitles={recommendation}
+                  />
+                </div>
+              )}
             </div>
-            {relatedTitles?.results?.length > 0 && (
-              <div className="pt-1 overflow-x-hidden flex flex-col">
-                <TitleRelated
-                  mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                  relatedTitles={relatedTitles?.results}
-                />
-              </div>
-            )}
-
-            {recommendation?.length > 0 && (
-              <div className="pt-1 overflow-x-hidden flex flex-col">
-                <TitleRecommendation
-                  mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                  relatedTitles={recommendation}
-                />
-              </div>
-            )}
           </div>
+
           <div className="w-full px-2 xxs:px-0 xxs:w-[80%] md:w-[70%] mt-10 xl:hidden">
             <News />
           </div>

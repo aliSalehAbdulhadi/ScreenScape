@@ -32,7 +32,7 @@ const ViewMoreComp = ({
         open={open}
         setOpen={setOpen}
       >
-        <GridComp center={true} breakPointWidth={12} className="relative">
+        <GridComp center={true} breakPointWidth={12} className="relative pb-5">
           {titles?.map(
             (title: any, i: number) =>
               slidersInView >= i && (
@@ -49,7 +49,7 @@ const ViewMoreComp = ({
                         href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
                           mediaType === 'actor' ? 'person' : mediaType
                         }/${title?.id}`}
-                        className="flex flex-col  cursor-pointer bg-primary  h-[23rem] w-[12rem] rounded overflow-hidden"
+                        className="flex flex-col  cursor-pointer h-[23rem] w-[12rem] rounded overflow-hidden bg-primary bg-opacity-7  0"
                       >
                         {mediaType === 'actor' ? (
                           <CreditsCard

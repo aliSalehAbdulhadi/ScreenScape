@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import SingleGenres from './SingleGenres/SingleGenres';
-import Rating from './Rating/Rating';
 import StreamedOn from './StreamedOn/StreamedOn';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
@@ -26,7 +25,7 @@ const TitleInfo = ({
   return (
     <div className="flex flex-col  items-start w-[100%]  sm:pr-5 ">
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
-        <div className="xs:self-center">
+        <div className="xs:self-center  xs:w-[28rem] sm:w-[21rem]">
           <MasonryGridPics mediaType={mediaType} id={data?.id}>
             <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
               <Image
@@ -46,7 +45,7 @@ const TitleInfo = ({
           </MasonryGridPics>
         </div>
 
-        <div className="mx-2 xs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white">
+        <div className="mx-2 xs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white w-[70%]">
           <div className=" w-full xxs:w-fit relative ">
             <span
               title={dataObject(data, mediaType).title}
@@ -57,17 +56,21 @@ const TitleInfo = ({
                 : dataObject(data, mediaType).title?.slice(0, 40) + '...'}
             </span>
             <div className=" text-opacity-75 w-fit mb-5 mt-2">
-              <SingleGenres mediaType={mediaType} genres={data?.genres} />
+              <SingleGenres
+                mediaType={mediaType}
+                genres={data?.genres}
+                className="flex"
+              />
             </div>
           </div>
           <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
             <div className="flex items-center mb-5 ">
               {dataObject(data, mediaType)?.rated !== 'N/A' ? (
-                <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] p-1 flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                <span className="border-[1px] rounded  py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
                   {dataObject(data, mediaType)?.rated}
                 </span>
               ) : (
-                <span className="border-[1px] rounded min-w-[1.5rem] min-h-[1rem] flex justify-center items-center bg-white bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                <span className="border-[1px] rounded py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
                   {dataObject(data, mediaType)?.isAdult ? '18+' : 'G'}
                 </span>
               )}
@@ -120,15 +123,13 @@ const TitleInfo = ({
 
             <div className="flex flex-col semiSm:flex-row  w-fit  mt-1 xxxs:mb-0 semiSm:mt-0">
               <div className="mb-5 semiSm:mr-5 opacity-75">
-                <Rating data={data} mediaType={mediaType} />
                 <div className="opacity-75 semiSm:hidden mt-4">
                   <StreamedOn />
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="text-[17px]  h-[5rem] md:h-[7rem] xl:h-[5rem] xxl:h-[5rem]   semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem]  xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem] scrollBar overflow-auto hidden  semiSm:block text-offWhite">
+          <div className="text-[17px]  scrollBar overflow-auto hidden max-h-[15rem] w-full xl:w-[80%] semiSm:block text-offWhite">
             <span className="leading-7">
               {dataObject(data, mediaType).overview}
             </span>

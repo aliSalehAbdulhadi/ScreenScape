@@ -10,16 +10,21 @@ const EpisodeCard = ({ data }: { data: any }) => {
     <div className="flex flex-row  my-5 w-full shadow-lg rounded overflow-hidden bg-white bg-opacity-10 ">
       <div className="h-[200px] w-[200px] xxxs:w-[300px] xs:w-[350px] relative">
         {data?.still_path ? (
-          <Image
-            width={350}
-            height={200}
-            src={`https://image.tmdb.org/t/p/original/${data?.still_path}`}
-            alt="Season"
-            className="h-[200px] w-[200px] xxxs:w-[300px] xs:w-[350px] rounded-l xs:object-fill object-cover"
-            placeholder="blur"
-            blurDataURL="/images/imagePlaceholder.png"
-            loading="lazy"
-          />
+          <a
+            href={`https://image.tmdb.org/t/p/original/${data?.still_path}`}
+            target="_blank"
+          >
+            <Image
+              width={350}
+              height={200}
+              src={`https://image.tmdb.org/t/p/original/${data?.still_path}`}
+              alt="Season"
+              className="h-[200px] w-[200px] xxxs:w-[300px] xs:w-[350px] rounded-l xs:object-fill object-cover transition-all hover:opacity-90"
+              placeholder="blur"
+              blurDataURL="/images/imagePlaceholder.png"
+              loading="lazy"
+            />
+          </a>
         ) : (
           <div className="h-full bg-white bg-opacity-20 flex items-center justify-center">
             <SlPicture className="h-[3.5rem] w-[3.5rem] opacity-40" />
