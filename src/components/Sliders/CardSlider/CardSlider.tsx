@@ -58,7 +58,7 @@ const CardSlider = ({
           }}
         >
           <div>
-            {data.map(
+            {data?.map(
               (info, i) =>
                 i <= 15 && (
                   <SwiperSlide className="!w-[12rem]" key={uuidv4()}>

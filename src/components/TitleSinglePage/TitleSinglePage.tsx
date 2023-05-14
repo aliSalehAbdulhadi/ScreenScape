@@ -55,7 +55,7 @@ const TitleSinglePage = () => {
         ),
         fetch(
           mediaType === 'tv'
-            ? `https:api.themoviedb.org/3/tv/${param.id}/aggregate_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            ? `https://api.themoviedb.org/3/tv/${param.id}/aggregate_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
             : `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
         ),
         fetch(
@@ -114,7 +114,7 @@ const TitleSinglePage = () => {
       ) {
         setTimeout(() => {
           setLoading(false);
-        }, 500);
+        }, 100);
       }
     } catch (error) {}
   }, [data?.id, data?.release_date, mediaType, param.id]);
