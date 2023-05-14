@@ -66,6 +66,7 @@ const CreditsCard = ({
           </div>
         ) : (
           <div className="px-2 mt-2 flex flex-col w-[100%] h-[7rem] overflow-auto scrollBar">
+
             {mediaType === 'movie'
               ? data?.character
               : data?.roles?.map((role: any) => (
@@ -78,6 +79,7 @@ const CreditsCard = ({
             </span>
             {mediaType === 'tv' && (
               <span className="mt-10 mb-3 text-xs text-white text-opacity-75">
+
                 {data?.total_episode_count} Episodes
               </span>
             )}
