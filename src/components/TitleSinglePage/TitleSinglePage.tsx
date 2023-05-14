@@ -19,7 +19,7 @@ const TitleSinglePage = () => {
     plusYear: '',
     minusYear: '',
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [genres, setGenres] = useState<[]>([]);
   const [data, setData] = useState<any>({});
   const [videos, setVideos] = useState<any>([]);
@@ -54,7 +54,9 @@ const TitleSinglePage = () => {
           `https://api.themoviedb.org/3/${mediaType}/${param.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
         ),
         fetch(
-          `https:api.themoviedb.org/3/${mediaType}/${param.id}/aggregate_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+          mediaType === 'tv'
+            ? `https://api.themoviedb.org/3/tv/${param.id}/aggregate_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
+            : `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
         ),
         fetch(
           `https://api.themoviedb.org/3/${mediaType}/${param.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
@@ -112,7 +114,7 @@ const TitleSinglePage = () => {
       ) {
         setTimeout(() => {
           setLoading(false);
-        }, 500);
+        }, 100);
       }
     } catch (error) {}
   }, [data?.id, data?.release_date, mediaType, param.id]);
@@ -141,7 +143,7 @@ const TitleSinglePage = () => {
   }, [data, mediaType]);
 
   useEffect(() => {
-    setLoading(false);
+    setLoading(true);
     singleDataFetch();
   }, [singleDataFetch, mediaType]);
 
