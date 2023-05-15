@@ -34,8 +34,8 @@ const VideoLibraryButton = ({ videos }: { videos: any[] }) => {
             (video: any, i: number) =>
               slidersInView >= i && (
                 <LazyLoading
-                  setSlidersInView={setSlidersInView}
-                  slidersInView={slidersInView}
+                  setItemsInView={setSlidersInView}
+                  itemsInView={slidersInView}
                   perView={20}
                   index={i}
                   key={video?.id}

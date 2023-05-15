@@ -96,8 +96,8 @@ const PicturesComponent = ({
                   perView={20}
                   key={img?.file_path}
                   index={i}
-                  setSlidersInView={setSlidersInView}
-                  slidersInView={slidersInView}
+                  setItemsInView={setSlidersInView}
+                  itemsInView={slidersInView}
                 >
                   <DelayDisplay delay={i * 50}>
                     <SinglePicture

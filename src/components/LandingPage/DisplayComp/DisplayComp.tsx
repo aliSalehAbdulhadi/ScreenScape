@@ -24,8 +24,8 @@ const DisplayComp = ({ data }: { data: any }) => {
                 key={slide?.name}
                 perView={3}
                 index={i}
-                setSlidersInView={setSlidersInView}
-                slidersInView={slidersInView}
+                setItemsInView={setSlidersInView}
+                itemsInView={slidersInView}
               >
                 <div className=" mt-5 semiSm:mt-10 w-[100%]  flex flex-col transition-all">
                   <div className="flex items-center justify-between">

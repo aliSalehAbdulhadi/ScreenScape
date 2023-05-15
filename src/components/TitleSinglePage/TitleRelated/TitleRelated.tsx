@@ -1,24 +1,29 @@
 'use client';
 
-import { Suspense, lazy, memo } from 'react';
+import { Suspense, lazy, memo, useState } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
+import { useRelatedTitlesFetch } from '@/src/fetch/getRelatedTitles';
 
 const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
 );
 
 const TitleRelated = ({
-  relatedTitles,
   mediaType,
+  param,
 }: {
-  relatedTitles: any;
   mediaType: string;
+  param: any;
 }) => {
+  const [relatedTitles, setRelatedTitles] = useState<any>([]);
+
+  useRelatedTitlesFetch(mediaType, param, setRelatedTitles);
+
   return (
     <div>
       <div className="flex items-center ">
-        <span className=" text-secondary  ml-2 sm:ml-5 mr-5 text-sm xxxs:text-base sm:text-lg">
+        <span className=" text-secondary  ml-2 sm:ml-10 mr-5 text-sm xxxs:text-base sm:text-lg">
           Related
         </span>
         {relatedTitles?.length > 10 ? (

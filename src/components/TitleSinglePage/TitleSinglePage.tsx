@@ -13,6 +13,7 @@ import TitleSeasons from './TitleSeasons/TitleSeasons';
 import TitleRecommendation from './TitleRecommendation/TitleRecommendation';
 import TitleCollection from './TitleCollection/TitleCollection';
 import { useSingleTitleDataFetch } from '@/src/fetch/getSingleTitleData';
+import LazyLoadComponents from '../WrapperComponents/LazyLoadComponents/LazyLoadComponents';
 
 const TitleSinglePage = () => {
   const [year, setYear] = useState({
@@ -24,11 +25,8 @@ const TitleSinglePage = () => {
   const [data, setData] = useState<any>({});
   const [videos, setVideos] = useState<any>([]);
   const [credits, setCredits] = useState<any>([]);
-  const [relatedTitles, setRelatedTitles] = useState<any>([]);
   const [creditsType, setCreditsType] = useState<string>('cast');
-  const [recommendation, setRecommendation] = useState<any[]>([]);
   const [keywords, setKeywords] = useState<any>([]);
-  const [loadMore, setLoadMore] = useState(1);
 
   const param = useParams();
   const pathName = usePathname();
@@ -66,14 +64,11 @@ const TitleSinglePage = () => {
     param,
     setData,
     setCredits,
-    setRelatedTitles,
     setVideos,
-    setRecommendation,
     setKeywords,
     setGenres,
     setYear,
-    setLoading,
-    loadMore
+    setLoading
   );
 
   useEffect(() => {
@@ -89,19 +84,19 @@ const TitleSinglePage = () => {
       ) : (
         <div className="text-white background-fade flex flex-col justify-center items-center pb-10  xs:pt-5 semiSm:pt-10  ">
           <BackgroundOverlay imageUrl={data?.backdrop_path}>
-            <div className="w-full sm:px-5">
+            <div className="w-full sm:px-10">
               <TitleInfo mediaType={mediaType} data={data} videos={videos} />
             </div>
           </BackgroundOverlay>
 
           <div className="mt-14 flex flex-col md:flex-row-reverse  w-full relative ">
-            <div className="w-full md:w-[30%] px-2 xs:px-2 sm:px-5 md:px-0 ">
+            <div className="w-full md:w-[30%] px-2 xs:px-2 sm:px-10 md:px-0 ">
               <TitleDetails
                 data={data}
                 mediaType={mediaType}
                 keywords={keywords}
               />
-              <div className="hidden xl:block sm:pr-5">
+              <div className="hidden xl:block sm:pr-10">
                 <News />
               </div>
             </div>
@@ -115,7 +110,7 @@ const TitleSinglePage = () => {
                 />
               </div>
               {mediaType === 'tv' && (
-                <div className="px-2 sm:px-5 md:pl-5 md:px-0">
+                <div className="px-2 sm:px-10 md:pl-10 md:px-0">
                   <TitleSeasons
                     titleId={data?.id}
                     numberOfSeasons={data?.number_of_seasons}
@@ -123,30 +118,29 @@ const TitleSinglePage = () => {
                 </div>
               )}
               {data?.belongs_to_collection && (
-                <div className="sm:pl-5 mb-10 ">
+                <div className="sm:pl-10 mb-10 ">
                   <TitleCollection
                     collectionId={data?.belongs_to_collection?.id}
                     mediaType={mediaType}
                   />
                 </div>
               )}
-              {relatedTitles?.length > 0 && (
-                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
-                  <TitleRelated
-                    mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                    relatedTitles={relatedTitles}
-                  />
-                </div>
-              )}
-              {recommendation?.length > 0 && (
+
+              <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
+                <TitleRelated
+                  mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                  param={param}
+                />
+              </div>
+
+              <LazyLoadComponents key="recommendation">
                 <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
                   <TitleRecommendation
                     mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                    relatedTitles={recommendation}
-                    setLoadMore={setLoadMore}
+                    param={param}
                   />
                 </div>
-              )}
+              </LazyLoadComponents>
             </div>
           </div>
 

@@ -1,28 +1,28 @@
-import React, { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { useInViewport } from 'react-in-viewport';
 
 const LazyLoading = ({
   children,
   index,
-  setSlidersInView,
-  slidersInView,
+  setItemsInView,
+  itemsInView,
   perView,
 }: {
   children: ReactNode;
   index: number;
   perView: number;
-  slidersInView: number;
-  setSlidersInView: React.Dispatch<React.SetStateAction<number>>;
+  itemsInView: number;
+  setItemsInView: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const inViewPortRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(inViewPortRef);
 
   useEffect(() => {
     // lazy loading display components
-    if (inViewport && index >= slidersInView) {
-      setSlidersInView(slidersInView + perView);
+    if (inViewport && index >= itemsInView) {
+      setItemsInView(itemsInView + perView);
     }
-  }, [slidersInView, inViewport, index, setSlidersInView, perView]);
+  }, [itemsInView, inViewport, index, setItemsInView, perView]);
 
   return <div ref={inViewPortRef}>{children}</div>;
 };
@@ -30,4 +30,4 @@ const LazyLoading = ({
 export default LazyLoading;
 
 // Put this inside map method
-// (slidersInView >= i) && Returning Elements
+// (itemsInView >= i) && Returning Elements

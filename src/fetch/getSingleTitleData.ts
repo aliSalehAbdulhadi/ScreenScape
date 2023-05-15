@@ -7,16 +7,13 @@ export const useSingleTitleDataFetch = (
   param: any,
   setData: React.Dispatch<React.SetStateAction<any>>,
   setCredits: React.Dispatch<React.SetStateAction<any>>,
-  setRelatedTitles: React.Dispatch<React.SetStateAction<any[]>>,
   setVideos: React.Dispatch<React.SetStateAction<any[]>>,
-  setRecommendation: React.Dispatch<React.SetStateAction<any[]>>,
   setKeywords: React.Dispatch<React.SetStateAction<any[]>>,
   setGenres: React.Dispatch<React.SetStateAction<any>>,
   setYear: React.Dispatch<
     React.SetStateAction<{ plusYear: string; minusYear: string }>
   >,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  loadMore: number
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const singleDataFetch = useCallback(async () => {
     const generateUrl = (endpoint: string) =>
@@ -28,8 +25,6 @@ export const useSingleTitleDataFetch = (
         titleResponse,
         trailerResponse,
         creditsResponse,
-        relatedResponse,
-        recommendedResponse,
         keywordsResponse,
       ] = await Promise.all([
         axios.get(generateUrl('')),
@@ -39,16 +34,7 @@ export const useSingleTitleDataFetch = (
             ? generateUrl('aggregate_credits')
             : generateUrl('credits')
         ),
-        axios({
-          method: 'GET',
-          url: generateUrl('similar'),
-          params: { page: loadMore },
-        }),
-        axios({
-          method: 'GET',
-          url: generateUrl('recommendations'),
-          params: { page: loadMore },
-        }),
+
         axios.get(generateUrl('keywords')),
       ]);
       setGenres(
@@ -69,22 +55,6 @@ export const useSingleTitleDataFetch = (
       setCredits(creditsResponse?.data);
       setVideos(trailerResponse.data?.results);
 
-      setRelatedTitles((prevRelatedTitles) => {
-        const newRelatedTitles = [
-          ...prevRelatedTitles,
-          ...relatedResponse?.data?.results,
-        ];
-        return Array.from(new Set(newRelatedTitles));
-      });
-
-      setRecommendation((prevRecommendation) => {
-        const newRecommendations = [
-          ...prevRecommendation,
-          ...recommendedResponse?.data?.results,
-        ];
-
-        return Array.from(new Set(newRecommendations));
-      });
       setKeywords(
         mediaType === 'movie'
           ? keywordsResponse?.data?.keywords
@@ -94,8 +64,7 @@ export const useSingleTitleDataFetch = (
       if (
         titleResponse?.request?.status === 200 &&
         trailerResponse?.request?.status === 200 &&
-        creditsResponse?.request?.status === 200 &&
-        relatedResponse?.request?.status === 200
+        creditsResponse?.request?.status === 200
       ) {
         setTimeout(() => {
           setLoading(false);
@@ -103,7 +72,7 @@ export const useSingleTitleDataFetch = (
       }
     } catch (error) {}
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mediaType, param.id, loadMore]);
+  }, [mediaType, param.id]);
 
   useEffect(() => {
     singleDataFetch();
