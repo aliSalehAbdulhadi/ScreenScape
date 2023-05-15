@@ -1,8 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { useParams, usePathname } from 'next/navigation';
-import moment from 'moment';
 import TitleInfo from './TitleInfo/TitleInfo';
 import { News } from '../News/News';
 import TitleCast from './TitleCast/TitleCast';
@@ -13,6 +12,7 @@ import TitleDetails from './TitleDetails/TitleDetails';
 import TitleSeasons from './TitleSeasons/TitleSeasons';
 import TitleRecommendation from './TitleRecommendation/TitleRecommendation';
 import TitleCollection from './TitleCollection/TitleCollection';
+import { useSingleTitleDataFetch } from '@/src/fetch/getSingleTitleData';
 
 const TitleSinglePage = () => {
   const [year, setYear] = useState({
@@ -28,6 +28,7 @@ const TitleSinglePage = () => {
   const [creditsType, setCreditsType] = useState<string>('cast');
   const [recommendation, setRecommendation] = useState<any[]>([]);
   const [keywords, setKeywords] = useState<any>([]);
+  const [loadMore, setLoadMore] = useState(1);
 
   const param = useParams();
   const pathName = usePathname();
@@ -36,88 +37,6 @@ const TitleSinglePage = () => {
 
   const cast = credits?.cast;
   const crew = credits?.crew;
-
-  const singleDataFetch = useCallback(async () => {
-    try {
-      const [
-        titleRequest,
-        trailerRequest,
-        creditsRequest,
-        relatedRequest,
-        recommendedRequest,
-        keywordsRequest,
-      ] = await Promise.all([
-        fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${param.id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-        ),
-        fetch(
-          mediaType === 'tv'
-            ? `https://api.themoviedb.org/3/tv/${param.id}/aggregate_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-            : `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${param.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${param.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${param.id}/keywords?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
-        ),
-      ]);
-
-      const titleResponse = await titleRequest.json();
-      const trailerResponse = await trailerRequest.json();
-      const creditsResponse = await creditsRequest.json();
-      const relatedResponse = await relatedRequest.json();
-      const recommendedResponse = await recommendedRequest?.json();
-      const keywordsResponse = await keywordsRequest?.json();
-
-      setGenres(
-        titleResponse?.genres
-          ?.map((genre: { id: number; name: string }) => genre?.id)
-          .join('&')
-      );
-      setYear({
-        plusYear: moment(data?.release_date)
-          .subtract(1, 'year')
-          .format('YYYY-MM-DD'),
-        minusYear: moment(data?.release_date)
-          .add(1, 'year')
-          .format('YYYY-MM-DD'),
-      });
-
-      setData(titleResponse);
-      setCredits(creditsResponse);
-      setRelatedTitles(relatedResponse);
-      setVideos(trailerResponse.results);
-
-      setRecommendation(
-        recommendedResponse?.results?.filter(
-          (title: any) => title?.id !== data?.id
-        )
-      );
-      setKeywords(
-        mediaType === 'movie'
-          ? keywordsResponse?.keywords
-          : keywordsResponse?.results
-      );
-
-      if (
-        titleRequest.status === 200 &&
-        trailerRequest.status === 200 &&
-        creditsRequest.status === 200 &&
-        relatedRequest.status === 200
-      ) {
-        setTimeout(() => {
-          setLoading(false);
-        }, 100);
-      }
-    } catch (error) {}
-  }, [data?.id, data?.release_date, mediaType, param.id]);
 
   const omdbFetch = useCallback(async () => {
     const omdbRequest = await fetch(
@@ -142,10 +61,20 @@ const TitleSinglePage = () => {
     });
   }, [data, mediaType]);
 
-  useEffect(() => {
-    setLoading(true);
-    singleDataFetch();
-  }, [singleDataFetch, mediaType]);
+  useSingleTitleDataFetch(
+    mediaType,
+    param,
+    setData,
+    setCredits,
+    setRelatedTitles,
+    setVideos,
+    setRecommendation,
+    setKeywords,
+    setGenres,
+    setYear,
+    setLoading,
+    loadMore
+  );
 
   useEffect(() => {
     if (data) {
@@ -201,11 +130,11 @@ const TitleSinglePage = () => {
                   />
                 </div>
               )}
-              {relatedTitles?.results?.length > 0 && (
+              {relatedTitles?.length > 0 && (
                 <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
                   <TitleRelated
                     mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                    relatedTitles={relatedTitles?.results}
+                    relatedTitles={relatedTitles}
                   />
                 </div>
               )}
@@ -214,6 +143,7 @@ const TitleSinglePage = () => {
                   <TitleRecommendation
                     mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                     relatedTitles={recommendation}
+                    setLoadMore={setLoadMore}
                   />
                 </div>
               )}
@@ -229,4 +159,4 @@ const TitleSinglePage = () => {
   );
 };
 
-export default TitleSinglePage;
+export default memo(TitleSinglePage);

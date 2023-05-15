@@ -14,9 +14,11 @@ import { dataObject } from '@/src/global/globalVariables';
 const ViewMoreComp = ({
   titles,
   mediaType,
+  setLoadMore,
 }: {
   titles: any[];
   mediaType: string;
+  setLoadMore?: any;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [slidersInView, setSlidersInView] = useState<number>(20);
@@ -79,6 +81,12 @@ const ViewMoreComp = ({
                 </LazyLoading>
               )
           )}
+          <div
+            className="py-3 px-3 bg-black text-white rounded cursor-pointer"
+            onClick={() => setLoadMore((prev: number) => prev + 1)}
+          >
+            Load more
+          </div>
         </GridComp>
       </Modal>
     </div>

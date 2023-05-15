@@ -108,12 +108,11 @@ const GenreList = ({
           <GridComp
             center
             breakPointWidth={25}
-            className="relative"
-            title="Search by Genre"
+            className="relative text-opacity-0"
           >
             <div
               ref={genreRef}
-              className=" absolute top-[-1px] left-28 xxxs:left-44 flex items-center justify-center text-xs xs:text-sm "
+              className=" absolute top-[-1px] left-[50%] translate-x-[-50%] flex items-center justify-center text-xs xs:text-sm "
             >
               <span
                 onClick={() => {

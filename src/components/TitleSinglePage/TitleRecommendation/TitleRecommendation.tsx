@@ -11,9 +11,11 @@ const ViewMoreComp = lazy(
 const TitleRecommendation = ({
   relatedTitles,
   mediaType,
+  setLoadMore,
 }: {
   relatedTitles: any;
   mediaType: string;
+  setLoadMore: any;
 }) => {
   return (
     <div>
@@ -24,7 +26,11 @@ const TitleRecommendation = ({
         {relatedTitles?.length > 10 ? (
           <Suspense fallback={<LoadingSpinner />}>
             <div className="mr-2 xs:mr-5">
-              <ViewMoreComp titles={relatedTitles} mediaType={mediaType} />
+              <ViewMoreComp
+                titles={relatedTitles}
+                mediaType={mediaType}
+                setLoadMore={setLoadMore}
+              />
             </div>
           </Suspense>
         ) : null}
