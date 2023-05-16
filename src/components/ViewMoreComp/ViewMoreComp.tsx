@@ -1,13 +1,10 @@
-import React, { memo, useState, useRef } from 'react';
+import React, { memo, useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { v4 as uuidv4 } from 'uuid';
 import GridComp from '../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
 import PosterCard from '../Cards/PosterCard/PosterCard';
 import Modal from '../WrapperComponents/Modal/Modal';
-
 import CreditsCard from '../Cards/CreditsCard/CreditsCard';
-
 import SmallTextButton from './SmallTextButton/SmallTextButton';
 import { dataObject } from '@/src/global/globalVariables';
 import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
@@ -16,10 +13,16 @@ const ViewMoreComp = ({
   titles,
   mediaType,
   setPageNum,
+  pageNum,
+  loading,
+  totalPages,
 }: {
   titles: any[];
   mediaType: string;
   setPageNum?: any;
+  pageNum?: number;
+  loading?: boolean;
+  totalPages?: number;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [visibleCount, setVisibleCount] = useState(3);
@@ -32,8 +35,34 @@ const ViewMoreComp = ({
     setPageNum((prev: number) => prev + 1);
   };
 
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const loadMoreCurren = loadMoreRef?.current;
+    if (totalPages && pageNum) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !loading && totalPages > pageNum) {
+            loadMoreDataHandler();
+          }
+        });
+      });
+      if (loadMoreCurren) {
+        observer.observe(loadMoreCurren);
+      }
+      return () => {
+        if (loadMoreCurren) {
+          observer.unobserve(loadMoreCurren);
+        }
+      };
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, pageNum, totalPages]);
+
   return (
-    <div className={`h-full   rounded  ${titles?.length < 10 && 'hidden'}`}>
+    <div
+      className={`h-full relative  rounded  ${titles?.length < 10 && 'hidden'}`}
+    >
       <SmallTextButton setOpen={setOpen} />
 
       <Modal
@@ -75,13 +104,16 @@ const ViewMoreComp = ({
               </div>
             </LazyLoad>
           ))}
-          <div
-            className="py-3 px-3 bg-black text-white rounded cursor-pointer"
-            onClick={loadMoreDataHandler}
-          >
-            Load more
-          </div>
+          <div ref={loadMoreRef} />
         </GridComp>
+
+        {loading && (
+          <div className="absolute bottom-1 translate-x-[-50%] left-[50%] scale-50">
+            <div className="spinner scale-50">
+              <div className="spinner-inner"></div>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   );

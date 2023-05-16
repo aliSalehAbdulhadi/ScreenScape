@@ -3,7 +3,7 @@
 import { Suspense, lazy, memo, useState } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
-import { useRecommendedTitlesFetch } from '@/src/fetch/getRecommendedTitles';
+import { useDataFetch } from '@/src/fetch/getData';
 
 const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
@@ -18,34 +18,40 @@ const TitleRecommendation = ({
 }) => {
   const [pageNum, setPageNum] = useState(1);
 
-  const [recommendedTitles, setRecommendedTitles] = useState<any[]>([]);
+  const recommendedEndPoint = `https://api.themoviedb.org/3/${mediaType}/${param?.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`;
 
-  useRecommendedTitlesFetch(mediaType, param, setRecommendedTitles, pageNum);
+  const [data, error, loading, totalPages] = useDataFetch(
+    recommendedEndPoint,
+    pageNum
+  );
 
   return (
     <div>
-      <div className="flex items-center ">
-        <span className=" text-secondary  ml-2 sm:ml-10 mr-5 text-sm xxxs:text-base sm:text-lg">
-          Recommended
-        </span>
-        {recommendedTitles?.length > 10 ? (
-          <Suspense fallback={<LoadingSpinner />}>
-            <div className="mr-2 xs:mr-5">
-              <ViewMoreComp
-                titles={recommendedTitles}
-                mediaType={mediaType}
-                setPageNum={setPageNum}
-              />
-            </div>
-          </Suspense>
-        ) : null}
-      </div>
+      {data?.length >= 1 && (
+        <div>
+          <div className="flex items-center ">
+            <span className=" text-secondary  ml-2 sm:ml-10 mr-5 text-sm xxxs:text-base sm:text-lg">
+              Recommended
+            </span>
+            {data?.length > 10 ? (
+              <Suspense fallback={<LoadingSpinner />}>
+                <div className="mr-2 xs:mr-5">
+                  <ViewMoreComp
+                    titles={data}
+                    mediaType={mediaType}
+                    setPageNum={setPageNum}
+                    pageNum={pageNum}
+                    totalPages={totalPages}
+                    loading={loading}
+                  />
+                </div>
+              </Suspense>
+            ) : null}
+          </div>
 
-      <CardSlider
-        mediaType={mediaType}
-        isCast={false}
-        data={recommendedTitles}
-      />
+          <CardSlider mediaType={mediaType} isCast={false} data={data} />
+        </div>
+      )}
     </div>
   );
 };
