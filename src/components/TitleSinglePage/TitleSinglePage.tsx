@@ -36,6 +36,7 @@ const TitleSinglePage = () => {
   const cast = credits?.cast;
   const crew = credits?.crew;
 
+
   const omdbFetch = useCallback(async () => {
     const omdbRequest = await fetch(
       `https://www.omdbapi.com/?t=${
