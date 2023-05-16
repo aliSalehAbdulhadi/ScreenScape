@@ -1,14 +1,14 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { IoGrid } from 'react-icons/io5';
 import Masonry from 'react-masonry-css';
 import { shuffleArray } from '@/src/helper/shuffleArray';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
-import LazyLoading from '../WrapperComponents/LazyLoading/LazyLoading';
 import SinglePicture from '../SinglePicture/SinglePicture';
 import useClickOutside from '@/src/hooks/useClickOutside';
 import Modal from '../WrapperComponents/Modal/Modal';
 
 import 'react-masonry-css';
+import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
 
 const PicturesComponent = ({
   children,
@@ -21,7 +21,11 @@ const PicturesComponent = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<any[]>([]);
-  const [slidersInView, setSlidersInView] = useState<number>(20);
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  const handleVisible = useRef(() => {
+    setVisibleCount((count) => count + 2);
+  });
 
   const ref = useClickOutside(() => {
     setOpen(false);
@@ -89,26 +93,17 @@ const PicturesComponent = ({
           className="masonry-grid"
           columnClassName="masonry-grid_column"
         >
-          {data?.map(
-            (img, i) =>
-              slidersInView >= i && (
-                <LazyLoading
-                  perView={20}
-                  key={img?.file_path}
-                  index={i}
-                  setSlidersInView={setSlidersInView}
-                  slidersInView={slidersInView}
-                >
-                  <DelayDisplay delay={i * 50}>
-                    <SinglePicture
-                      height={img?.height}
-                      width={img?.width}
-                      imageUrl={img?.file_path}
-                    />
-                  </DelayDisplay>
-                </LazyLoading>
-              )
-          )}
+          {data?.slice(0, visibleCount).map((img, i) => (
+            <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
+              <DelayDisplay delay={i * 50}>
+                <SinglePicture
+                  height={img?.height}
+                  width={img?.width}
+                  imageUrl={img?.file_path}
+                />
+              </DelayDisplay>
+            </LazyLoad>
+          ))}
         </Masonry>
       </Modal>
     </div>

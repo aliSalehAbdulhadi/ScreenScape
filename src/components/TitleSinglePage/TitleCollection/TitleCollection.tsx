@@ -1,12 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import CollectionCard from '../../Cards/CollectionCard/CollectionCard';
 import Modal from '../../WrapperComponents/Modal/Modal';
 import GridComp from '../../WrapperComponents/GridComp/GridComp';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
-import LazyLoading from '../../WrapperComponents/LazyLoading/LazyLoading';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
+import LazyLoad from '../../WrapperComponents/LazyLoad/LazyLoad';
 
 const TitleCollection = ({
   collectionId,
@@ -17,7 +16,11 @@ const TitleCollection = ({
 }) => {
   const [collection, setCollection] = useState<any>([]);
   const [open, setOpen] = useState<boolean>(false);
-  const [slidersInView, setSlidersInView] = useState<number>(20);
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  const handleVisible = useRef(() => {
+    setVisibleCount((count) => count + 2);
+  });
 
   const collectionFetch = useCallback(async () => {
     try {
@@ -46,36 +49,33 @@ const TitleCollection = ({
         animationCloseTime={190}
       >
         <GridComp center={true} breakPointWidth={12} className="relative">
-          {collection?.parts?.map(
-            (title: any, i: number) =>
-              slidersInView >= i && (
-                <LazyLoading
-                  setSlidersInView={setSlidersInView}
-                  slidersInView={slidersInView}
-                  perView={20}
-                  index={i}
-                  key={uuidv4()}
-                >
-                  <div>
-                    <DelayDisplay delay={i * 50}>
-                      <Link
-                        href={`/browse/movie/${title?.id}`}
-                        className="flex flex-col  cursor-pointer bg-primary  h-[23rem] w-[12rem] rounded overflow-hidden"
-                      >
-                        <PosterCard
-                          index={i}
-                          imageUrl={title?.poster_path}
-                          title={title?.title}
-                          releaseDate={title?.release_date}
-                          rating={title?.vote_average * 10}
-                          mediaType={mediaType}
-                        />
-                      </Link>
-                    </DelayDisplay>
-                  </div>
-                </LazyLoading>
-              )
-          )}
+          {collection?.parts
+            ?.slice(0, visibleCount)
+            .map((title: any, i: number) => (
+              <LazyLoad
+                key={i}
+                threshold={0.8}
+                onVisible={handleVisible.current}
+              >
+                <div>
+                  <DelayDisplay delay={i * 50}>
+                    <Link
+                      href={`/browse/movie/${title?.id}`}
+                      className="flex flex-col  cursor-pointer bg-primary  h-[23rem] w-[12rem] rounded overflow-hidden"
+                    >
+                      <PosterCard
+                        index={i}
+                        imageUrl={title?.poster_path}
+                        title={title?.title}
+                        releaseDate={title?.release_date}
+                        rating={title?.vote_average * 10}
+                        mediaType={mediaType}
+                      />
+                    </Link>
+                  </DelayDisplay>
+                </div>
+              </LazyLoad>
+            ))}
         </GridComp>
       </Modal>
     </div>

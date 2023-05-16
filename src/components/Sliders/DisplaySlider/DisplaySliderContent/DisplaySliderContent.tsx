@@ -33,7 +33,7 @@ const DisplaySliderContent = ({
 
     return numbers;
   }, []);
- 
+
   return (
     <div>
       {width > 1150 ? (

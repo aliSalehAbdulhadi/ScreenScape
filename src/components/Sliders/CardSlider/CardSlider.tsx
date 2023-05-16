@@ -33,7 +33,7 @@ const CardSlider = ({
     <div className="mt-4 h-[25rem]">
       {
         <Swiper
-          className="!pl-2 sm:!pl-5 z-10 !overflow-visible"
+          className="!pl-2 sm:!pl-10 z-10 !overflow-visible"
           style={swiperStyle}
           // @ts-ignore
           lazy={{

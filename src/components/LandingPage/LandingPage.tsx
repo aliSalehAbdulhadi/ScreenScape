@@ -49,7 +49,6 @@ const LandingPage = async () => {
   ];
 
   const displaySliderData = await getDisplaySlideData(displaySlideContent);
-
   const moviesWithTrailers: any = await getMoviesWithTrailers();
 
   return (

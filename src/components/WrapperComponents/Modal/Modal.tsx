@@ -1,4 +1,4 @@
-import React, { ReactNode, memo, useEffect, useState } from 'react';
+import React, { ReactNode, memo, useEffect, useRef, useState } from 'react';
 import { RiCloseCircleFill } from 'react-icons/ri';
 import useClickOutside from '@/src/hooks/useClickOutside';
 import useWindowSize from '@/src/hooks/useWindowsSize';
@@ -24,9 +24,11 @@ const Modal = ({
 }) => {
   const [animation, setAnimation] = useState(false);
 
-  const ref = useClickOutside(() => {
+  const closeRef = useClickOutside(() => {
     closeModalHandler();
   });
+
+  const scrollToTopRef = useRef<HTMLDivElement>(null);
 
   const closeModalHandler = () => {
     if (open) {
@@ -36,6 +38,7 @@ const Modal = ({
       setTimeout(() => {
         setOpen(false);
         setAnimation(false);
+        scrollToTopRef?.current?.scrollTo(0, 0);
         onClose && onClose();
       }, animationCloseTime + 190);
     }
@@ -58,7 +61,10 @@ const Modal = ({
         open || 'hidden'
       } ${animation && 'fade-out modal-exit'}`}
     >
-      <div className="relative flex flex-col items-center rounded-t-md  bg-primary bg-opacity-90  mt-[50px] semiSm:mt-0 h-[95vh] semiSm:h-[98vh]">
+      <div
+        ref={closeRef}
+        className="relative flex flex-col items-center rounded-t-md  bg-primary bg-opacity-90  mt-[50px] semiSm:mt-0 h-[95vh] semiSm:h-[98vh]"
+      >
         <div className="w-full flex items-center justify-between  my-2 z-[2]">
           <div className={`ml-5 ${data || 'invisible'}`}>
             <span className="text-secondary mr-1">{data?.length}</span>
@@ -74,14 +80,15 @@ const Modal = ({
           </div>
         </div>
         <div
-          ref={ref}
-          className="h-[93vh] semiSm:h-[100vh] w-full sm:w-auto  overflow-y-auto overflow-x-hidden  scrollBar z-[2] semiSm:px-5 "
-          style={{ width: `${screenWidth > 860 ? width : 100}vw` }}
+          ref={scrollToTopRef}
+          className="h-[93vh] semiSm:h-[100vh] w-full sm:w-auto overflow-y-scroll overflow-x-hidden scrollBar z-[2] semiSm:px-5 modal-content"
+          style={{
+            width: `${screenWidth > 860 ? width : 100}vw`,
+          }}
         >
-          <div>
-            <div>{children}</div>
-          </div>
+          {children}
         </div>
+
         <div className="h-full w-full bg-white bg-opacity-10 absolute rounded-t-md " />
       </div>
     </div>

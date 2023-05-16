@@ -46,7 +46,6 @@ const TitleInfo = ({
         </div>
 
         <div className="mx-2 xs:ml-5 sm:mx-0 sm:pl-3 xxs:flex sm:block justify-between relative text-sm xx:text-xs xs:text-sm mt-5 xs:mt-14 sm:mt-0 text-white semiSm:w-[70%]">
-
           <div className=" w-full xxs:w-fit relative ">
             <span
               title={dataObject(data, mediaType).title}

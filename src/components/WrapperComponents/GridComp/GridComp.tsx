@@ -21,14 +21,14 @@ const GridComp = ({
         <span className="text-sm xs:text-xl text-secondary xs:self-center xxs:self-start">
           {title}
         </span>
-        {changeableTitle ? (
-          <div className=" flex items-center text-lg xxs:text-xl xs:self-center xxs:self-start">
-            <span className=" text-secondary mr-1 hidden xs:block">:</span>
-            <span className="text-offWhite ">{changeableTitle}</span>
-          </div>
-        ) : (
-          ''
-        )}
+        <div
+          className={`flex items-center text-lg xxs:text-xl xs:self-center xxs:self-start ${
+            changeableTitle ? '' : 'invisible'
+          }`}
+        >
+          <span className=" text-secondary mr-1 hidden xs:block">:</span>
+          <span className="text-offWhite ">{changeableTitle}</span>
+        </div>
       </div>
       <div
         className={`mt-5 grid gap-2 place-items-center justify-center ${
