@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef, useEffect } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import Link from 'next/link';
 import GridComp from '../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
@@ -10,7 +10,6 @@ import { dataObject } from '@/src/global/globalVariables';
 import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
 
 import { LoadMoreData } from '@/src/helper/loadMoreData';
-
 
 const ViewMoreComp = ({
   titles,

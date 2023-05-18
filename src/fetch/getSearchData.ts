@@ -33,7 +33,7 @@ export const useSearchDataFetch = (params: any, pageNum: number) => {
             params?.mediaType === 'movie' ? 200 : 25
           }`
         );
-        setData(results?.data);
+        setData(results?.data?.results);
       }
 
       if (params?.searchType === 'keyword') {

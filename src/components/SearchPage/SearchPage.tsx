@@ -58,7 +58,6 @@ const SearchPage = () => {
       return `${keyword[1]} Keyword`;
     }
   };
-
   return (
     <div className="pt-10 background-fade px-10 fade-in">
       <GridComp
