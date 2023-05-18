@@ -9,6 +9,7 @@ import Modal from '../WrapperComponents/Modal/Modal';
 
 import 'react-masonry-css';
 import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
+import { useMasonryGridPicsDataFetch } from '@/src/fetch/getmasonryGridPicsData';
 
 const PicturesComponent = ({
   children,
@@ -31,28 +32,21 @@ const PicturesComponent = ({
     setOpen(false);
   });
 
-  const asyncFunction = useCallback(async () => {
-    try {
-      if (open) {
-        const picturesRequest = await fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${id}/images?api_key=${process.env.NEXT_PUBLIC_API_KEY}&include_image_language=en`
-        );
-        const picturesResponse = await picturesRequest.json();
-
-        const posters = picturesResponse?.posters || [];
-        const backdrops = picturesResponse?.backdrops || [];
-        const combinedArray = shuffleArray([...posters, ...backdrops]);
-        setData(
-          mediaType === 'person' ? picturesResponse?.profiles : combinedArray
-        );
-      }
-    } catch (error) {}
-  }, [id, mediaType, open]);
+  const [picturesResponse] = useMasonryGridPicsDataFetch(mediaType, id, open);
 
   useEffect(() => {
-    asyncFunction();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, id]);
+    const posters = picturesResponse?.posters || [];
+    const backdrops = picturesResponse?.backdrops || [];
+    const combinedArray = shuffleArray([...posters, ...backdrops]);
+    setData(
+      mediaType === 'person' ? picturesResponse?.profiles : combinedArray
+    );
+  }, [
+    mediaType,
+    picturesResponse?.backdrops,
+    picturesResponse?.posters,
+    picturesResponse?.profiles,
+  ]);
 
   useEffect(() => {
     if (open) {

@@ -1,20 +1,19 @@
 import axios from 'axios';
 import moment from 'moment';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-export const useSingleTitleDataFetch = (
-  mediaType: string,
-  param: any,
-  setData: React.Dispatch<React.SetStateAction<any>>,
-  setCredits: React.Dispatch<React.SetStateAction<any>>,
-  setVideos: React.Dispatch<React.SetStateAction<any[]>>,
-  setKeywords: React.Dispatch<React.SetStateAction<any[]>>,
-  setGenres: React.Dispatch<React.SetStateAction<any>>,
-  setYear: React.Dispatch<
-    React.SetStateAction<{ plusYear: string; minusYear: string }>
-  >,
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
+  const [data, setData] = useState<any>({});
+  const [credits, setCredits] = useState<any>([]);
+  const [videos, setVideos] = useState<any>([]);
+  const [keywords, setKeywords] = useState<any>([]);
+  const [genres, setGenres] = useState<[]>([]);
+  const [year, setYear] = useState({
+    plusYear: '',
+    minusYear: '',
+  });
+  const [loading, setLoading] = useState(true);
+
   const singleDataFetch = useCallback(async () => {
     const generateUrl = (endpoint: string) =>
       `https://api.themoviedb.org/3/${mediaType}/${param.id}${
@@ -37,6 +36,7 @@ export const useSingleTitleDataFetch = (
 
         axios.get(generateUrl('keywords')),
       ]);
+
       setGenres(
         titleResponse?.data?.genres
           ?.map((genre: { id: number; name: string }) => genre?.id)
@@ -60,21 +60,47 @@ export const useSingleTitleDataFetch = (
           ? keywordsResponse?.data?.keywords
           : keywordsResponse?.data?.results
       );
-
-      if (
-        titleResponse?.request?.status === 200 &&
-        trailerResponse?.request?.status === 200 &&
-        creditsResponse?.request?.status === 200
-      ) {
-        setTimeout(() => {
-          setLoading(false);
-        }, 100);
-      }
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mediaType, param.id]);
+
+  const omdbFetch = useCallback(async () => {
+    try {
+      const omdbRequest = await axios.get(
+        `https://www.omdbapi.com/?t=${
+          mediaType === 'movie'
+            ? data?.title?.replaceAll(' ', '+')
+            : data?.name?.replaceAll(' ', '+')
+        }&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
+      );
+
+      setData((prev: any) => {
+        return {
+          ...prev,
+          ratings: omdbRequest?.data?.Ratings,
+          rated: omdbRequest?.data?.Rated,
+          awards:
+            omdbRequest?.data?.Awards === 'N/A' || null || undefined
+              ? null
+              : omdbRequest?.data?.Awards,
+        };
+      });
+    } catch (error) {
+    } finally {
+    }
+  }, [data, mediaType]);
 
   useEffect(() => {
     singleDataFetch();
   }, [singleDataFetch]);
+
+  useEffect(() => {
+    if (data) {
+      omdbFetch();
+    }
+  }, [data, omdbFetch]);
+  return [data, credits, videos, keywords, genres, year, loading];
 };

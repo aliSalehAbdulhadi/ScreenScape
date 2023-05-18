@@ -1,22 +1,23 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import ActorInfo from './ActorInfo/ActorInfo';
 import { News } from '../News/News';
 import ActorAppearedIn from './ActorAppearedIn/ActorAppearedIn';
 import OtherActors from './OtherActors/OtherActors';
 import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
+import { useSingleActorDataFetch } from '@/src/fetch/getSingleActorData';
 
 const ActorSinglePage = () => {
-  const [loading, setLoading] = useState(true);
   const [mediaType, setMediaType] = useState<string>('movie');
-  const [data, setData] = useState<any>({});
-  const [appearedInMovies, setAppearedInMovies] = useState<any>([]);
-
-  const [otherActors, setOtherActors] = useState<any>([]);
 
   const param = useParams();
+
+  const [data, appearedInMovies, loading] = useSingleActorDataFetch(
+    mediaType,
+    param
+  );
 
   const tvShows = useMemo(
     () =>
@@ -34,41 +35,6 @@ const ActorSinglePage = () => {
     [appearedInMovies]
   );
 
-  const actorDataFetch = useCallback(async () => {
-    try {
-      const [actorInfoRequest, appearedInRequest, otherActorsRequest] =
-        await Promise.all([
-          fetch(
-            `https://api.themoviedb.org/3/person/${param.id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/person/${param.id}/combined_credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
-          ),
-          fetch(
-            `https://api.themoviedb.org/3/movie/${param.id}/credits?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&sort_by=popularity.desc`
-          ),
-        ]);
-
-      const actorInfoResponse = await actorInfoRequest.json();
-      const appearedInResponse = await appearedInRequest.json();
-      const otherActorsResponse = await otherActorsRequest.json();
-
-      setData(actorInfoResponse);
-      setAppearedInMovies(appearedInResponse);
-      setOtherActors(otherActorsResponse);
-
-      if (actorInfoRequest.status === 200 && appearedInRequest.status === 200) {
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-      }
-    } catch (error) {}
-  }, [param]);
-
-  useEffect(() => {
-    actorDataFetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <div>
       {loading ? (

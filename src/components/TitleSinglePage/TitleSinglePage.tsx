@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import { useParams, usePathname } from 'next/navigation';
 import TitleInfo from './TitleInfo/TitleInfo';
 import { News } from '../News/News';
@@ -16,68 +16,19 @@ import { useSingleTitleDataFetch } from '@/src/fetch/getSingleTitleData';
 import LazyLoadComponents from '../WrapperComponents/LazyLoadComponents/LazyLoadComponents';
 
 const TitleSinglePage = () => {
-  const [year, setYear] = useState({
-    plusYear: '',
-    minusYear: '',
-  });
-  const [loading, setLoading] = useState(true);
-  const [genres, setGenres] = useState<[]>([]);
-  const [data, setData] = useState<any>({});
-  const [videos, setVideos] = useState<any>([]);
-  const [credits, setCredits] = useState<any>([]);
   const [creditsType, setCreditsType] = useState<string>('cast');
-  const [keywords, setKeywords] = useState<any>([]);
 
   const param = useParams();
   const pathName = usePathname();
 
   const mediaType = pathName?.includes('movie') ? 'movie' : 'tv';
 
+  const [data, credits, videos, keywords, genres, year, loading] =
+    useSingleTitleDataFetch(mediaType, param);
+
   const cast = credits?.cast;
   const crew = credits?.crew;
 
-
-  const omdbFetch = useCallback(async () => {
-    const omdbRequest = await fetch(
-      `https://www.omdbapi.com/?t=${
-        mediaType === 'movie'
-          ? data?.title?.replaceAll(' ', '+')
-          : data?.name?.replaceAll(' ', '+')
-      }&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
-    );
-    const omdbResponse = await omdbRequest?.json();
-
-    setData((prev: any) => {
-      return {
-        ...prev,
-        ratings: omdbResponse?.Ratings,
-        rated: omdbResponse?.Rated,
-        awards:
-          omdbResponse?.Awards === 'N/A' || null || undefined
-            ? null
-            : omdbResponse?.Awards,
-      };
-    });
-  }, [data, mediaType]);
-
-  useSingleTitleDataFetch(
-    mediaType,
-    param,
-    setData,
-    setCredits,
-    setVideos,
-    setKeywords,
-    setGenres,
-    setYear,
-    setLoading
-  );
-
-  useEffect(() => {
-    if (data) {
-      omdbFetch();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.title || data?.name]);
   return (
     <div className="">
       {loading ? (

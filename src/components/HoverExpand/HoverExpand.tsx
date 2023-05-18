@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 import { FaPlay, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,6 +9,7 @@ import {
   imageQualityLargeScreen,
 } from '@/src/global/globalVariables';
 import { BsPlus } from 'react-icons/bs';
+import { useHoverDataFetch } from '@/src/fetch/getHoverData';
 
 const HoverExpand = ({
   titleId,
@@ -24,36 +25,8 @@ const HoverExpand = ({
   const [muteVideo, setMuteVideo] = useState<boolean>(true);
   const [playVideo, setPlayVideo] = useState<boolean>(false);
   const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
-  const [data, setData] = useState<any>({});
-  const [trailer, setTrailer] = useState<any>([]);
 
-  const hoverDataFetch = useCallback(async () => {
-    try {
-      const [dataRequest, trailerRequest] = await Promise.all([
-        fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${titleId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-        ),
-        fetch(
-          `https://api.themoviedb.org/3/${mediaType}/${titleId}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-        ),
-      ]);
-
-      const dataResponse = await dataRequest?.json();
-      const trailerResponse = await trailerRequest?.json();
-
-      setData(dataResponse);
-
-      setTrailer(
-        trailerResponse.results.filter((title: any) => title.type === 'Trailer')
-      );
-    } catch (error) {}
-  }, [mediaType, titleId]);
-
-  useEffect(() => {
-    if (index === hoveredIndex) {
-      hoverDataFetch();
-    }
-  }, [hoverDataFetch, hoveredIndex, index]);
+  const [data, trailer] = useHoverDataFetch(mediaType, titleId);
 
   const HandleOnReady = () => {
     setTimeout(() => {

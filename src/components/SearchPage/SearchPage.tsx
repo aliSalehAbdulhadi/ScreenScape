@@ -1,20 +1,35 @@
 'use client';
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'next/navigation';
-import asyncFetch from '@/src/helper/asyncFetch';
 import GridComp from '@/src/components/WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
 import PosterCard from '../Cards/PosterCard/PosterCard';
 import { dataObject } from '@/src/global/globalVariables';
+import { useSearchDataFetch } from '@/src/fetch/getSearchData';
+import { LoadMoreData } from '@/src/helper/loadMoreData';
 
 const SearchPage = () => {
-  const [data, setData] = useState<any>({});
+  const [pageNum, setPageNum] = useState<number>(1);
 
   const params = useParams();
 
   const decodedString = decodeURIComponent(params?.id);
+
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  const [data, loading, totalPages] = useSearchDataFetch(params, pageNum);
+
+  const loadMoreDataHandler = useCallback(() => {
+    setPageNum((prev) => prev + 1);
+  }, [setPageNum]);
+
+  LoadMoreData(loadMoreRef, totalPages, pageNum, loading, loadMoreDataHandler);
+
+  const filteredData = useMemo(() => {
+    return data?.filter((title: any) => title?.media_type !== 'person');
+  }, [data]);
 
   const lookingForTitleHandler = () => {
     if (params?.searchType === 'query') {
@@ -43,50 +58,6 @@ const SearchPage = () => {
       return `${keyword[1]} Keyword`;
     }
   };
-
-  const searchFetchHandler = useCallback(async () => {
-    try {
-      if (params?.searchType === 'query') {
-        const results = await asyncFetch(
-          ` https://api.themoviedb.org/3/search/multi?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${params?.id}&media_type=movie,tv&language=en-US&sort_by=popularity.desc&vote_count.gte=100`
-        );
-        setData(results);
-      }
-
-      if (params?.searchType === 'genre') {
-        const results = await asyncFetch(
-          `https://api.themoviedb.org/3/discover/${params?.mediaType}?api_key=${
-            process.env.NEXT_PUBLIC_API_KEY
-          }&with_genres=${
-            params.id?.split('-')?.[0]
-          }&sort_by=popularity.desc&page=1&vote_count.gte=${
-            params?.mediaType === 'movie' ? 200 : 25
-          }`
-        );
-        setData(results);
-      }
-
-      if (params?.searchType === 'keyword') {
-        const results = await asyncFetch(
-          `https://api.themoviedb.org/3/discover/${params?.mediaType}?api_key=${
-            process.env.NEXT_PUBLIC_API_KEY
-          }&with_keywords=${parseInt(params?.id)}`
-        );
-        setData(results);
-      }
-    } catch (error) {}
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    searchFetchHandler();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const filteredData = data?.results?.filter(
-    (title: any) => title?.media_type !== 'person'
-  );
   return (
     <div className="pt-10 background-fade px-10 fade-in">
       <GridComp
@@ -126,9 +97,18 @@ const SearchPage = () => {
             </div>
           </DelayDisplay>
         ))}
+        <div ref={loadMoreRef} />
       </GridComp>
+
+      {loading && (
+        <div className="absolute bottom-1 translate-x-[-50%] left-[50%] scale-50">
+          <div className="spinner scale-50">
+            <div className="spinner-inner"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default SearchPage;
+export default memo(SearchPage);
