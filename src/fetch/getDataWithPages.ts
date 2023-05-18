@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 
 export const useDataFetch = (endpoint: string, pageNum: number) => {

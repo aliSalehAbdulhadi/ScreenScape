@@ -6,8 +6,8 @@ import {
   GrFacebookOption,
 } from 'react-icons/gr';
 import { FaTiktok } from 'react-icons/fa';
-import { useCallback, useEffect, useState } from 'react';
 import { IoLinkSharp } from 'react-icons/io5';
+import { useSocialMediaIds } from '@/src/fetch/getSocialMediaData';
 
 const SocialMedia = ({
   id,
@@ -18,21 +18,7 @@ const SocialMedia = ({
   mediaType: string;
   homePage?: string;
 }) => {
-  const [socialMediaIds, setSocialMediaIds] = useState<any>({});
-
-  const socialMediaFetch = useCallback(async () => {
-    const socialMediaRequest = await fetch(
-      `https://api.themoviedb.org/3/${mediaType}/${id}/external_ids?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-    );
-
-    const socialMediaResponse = await socialMediaRequest?.json();
-
-    setSocialMediaIds(socialMediaResponse);
-  }, [id, mediaType]);
-
-  useEffect(() => {
-    socialMediaFetch();
-  }, [socialMediaFetch]);
+  const [socialMediaIds] = useSocialMediaIds(mediaType, id);
 
   return (
     <div className="flex items-center flex-wrap">

@@ -8,6 +8,7 @@ import CreditsCard from '../Cards/CreditsCard/CreditsCard';
 import SmallTextButton from './SmallTextButton/SmallTextButton';
 import { dataObject } from '@/src/global/globalVariables';
 import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
+import { LoadMoreData } from '@/src/helper/loadMoreData';
 
 const ViewMoreComp = ({
   titles,
@@ -37,27 +38,17 @@ const ViewMoreComp = ({
 
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const loadMoreCurren = loadMoreRef?.current;
-    if (totalPages && pageNum) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !loading && totalPages > pageNum) {
-            loadMoreDataHandler();
-          }
-        });
-      });
-      if (loadMoreCurren) {
-        observer.observe(loadMoreCurren);
-      }
-      return () => {
-        if (loadMoreCurren) {
-          observer.unobserve(loadMoreCurren);
-        }
-      };
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, pageNum, totalPages]);
+  const currTotalPages = totalPages ? totalPages : 1;
+  const currPageNum = pageNum ? pageNum : 1;
+  const currLoading = loading ? loading : false;
+
+  LoadMoreData(
+    loadMoreRef,
+    currTotalPages,
+    currPageNum,
+    currLoading,
+    loadMoreDataHandler
+  );
 
   return (
     <div
