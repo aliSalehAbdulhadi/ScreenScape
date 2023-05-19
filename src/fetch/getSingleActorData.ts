@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import axios, { CancelTokenSource } from 'axios';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useSingleActorDataFetch = (mediaType: string, param: any) => {
   const [data, setData] = useState<any>({});
@@ -7,7 +7,11 @@ export const useSingleActorDataFetch = (mediaType: string, param: any) => {
   const [loading, setLoading] = useState(true);
   const [otherActors, setOtherActors] = useState<any>([]);
 
+  const cancelTokenRef = useRef<CancelTokenSource | null>(null);
+
   const singleActorDataFetch = useCallback(async () => {
+    const source = axios.CancelToken.source();
+    cancelTokenRef.current = source;
     try {
       const [actorInfoResponse, appearedInResponse, otherActorsResponse] =
         await Promise.all([
@@ -35,6 +39,13 @@ export const useSingleActorDataFetch = (mediaType: string, param: any) => {
 
   useEffect(() => {
     singleActorDataFetch();
+
+    return () => {
+      if (cancelTokenRef.current) {
+        cancelTokenRef.current.cancel('Request canceled by cleanup');
+        cancelTokenRef.current = null;
+      }
+    };
   }, [singleActorDataFetch]);
 
   return [data, appearedInMovies, loading];

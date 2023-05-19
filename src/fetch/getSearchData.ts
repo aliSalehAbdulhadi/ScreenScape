@@ -1,11 +1,16 @@
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import axios, { CancelTokenSource } from 'axios';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useSearchDataFetch = (params: any, pageNum: number) => {
   const [data, setData] = useState<any>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState(true);
+
+  const cancelTokenRef = useRef<CancelTokenSource | null>(null);
+
   const searchDataFetch = useCallback(async () => {
+    const source = axios.CancelToken.source();
+    cancelTokenRef.current = source;
     setLoading(true);
 
     try {
@@ -59,6 +64,13 @@ export const useSearchDataFetch = (params: any, pageNum: number) => {
 
   useEffect(() => {
     searchDataFetch();
+
+    return () => {
+      if (cancelTokenRef.current) {
+        cancelTokenRef.current.cancel('Request canceled by cleanup');
+        cancelTokenRef.current = null;
+      }
+    };
   }, [searchDataFetch]);
 
   return [data, loading, totalPages];

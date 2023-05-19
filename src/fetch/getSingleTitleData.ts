@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { CancelTokenSource } from 'axios';
 import moment from 'moment';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
   const [data, setData] = useState<any>({});
@@ -13,8 +13,13 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
     minusYear: '',
   });
   const [loading, setLoading] = useState(true);
+  const cancelTokenRef = useRef<CancelTokenSource | null>(null);
+  const cancelTokenRefOmdb = useRef<CancelTokenSource | null>(null);
 
   const singleDataFetch = useCallback(async () => {
+    const source = axios.CancelToken.source();
+    cancelTokenRef.current = source;
+
     const generateUrl = (endpoint: string) =>
       `https://api.themoviedb.org/3/${mediaType}/${param.id}${
         endpoint && `/${endpoint}`
@@ -68,6 +73,9 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
   }, [mediaType, param.id]);
 
   const omdbFetch = useCallback(async () => {
+    const source = axios.CancelToken.source();
+    cancelTokenRefOmdb.current = source;
+
     try {
       const omdbRequest = await axios.get(
         `https://www.omdbapi.com/?t=${
@@ -95,12 +103,28 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
 
   useEffect(() => {
     singleDataFetch();
+
+    return () => {
+      if (cancelTokenRef.current) {
+        cancelTokenRef.current.cancel('Request canceled by cleanup');
+        cancelTokenRef.current = null;
+      }
+    };
   }, [singleDataFetch]);
 
   useEffect(() => {
     if (data) {
       omdbFetch();
     }
-  }, [data, omdbFetch]);
+
+    return () => {
+      if (cancelTokenRefOmdb.current) {
+        cancelTokenRefOmdb.current.cancel('Request canceled by cleanup');
+        cancelTokenRefOmdb.current = null;
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.id]);
+
   return [data, credits, videos, keywords, genres, year, loading];
 };

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import axios, { CancelTokenSource } from 'axios';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useDataFetch = (endpoint: string, pageNum: number) => {
   const [data, setData] = useState<any[]>([]);
@@ -7,7 +7,11 @@ export const useDataFetch = (endpoint: string, pageNum: number) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number>(0);
 
+  const cancelTokenRef = useRef<CancelTokenSource | null>(null);
+
   const fetchData = useCallback(async () => {
+    const source = axios.CancelToken.source();
+    cancelTokenRef.current = source;
     setLoading(true);
     try {
       const response = await axios.get(endpoint, {
@@ -28,6 +32,13 @@ export const useDataFetch = (endpoint: string, pageNum: number) => {
 
   useEffect(() => {
     fetchData();
+
+    return () => {
+      if (cancelTokenRef.current) {
+        cancelTokenRef.current.cancel('Request canceled by cleanup');
+        cancelTokenRef.current = null;
+      }
+    };
   }, [fetchData]);
 
   return [data, error, loading, totalPages];
