@@ -1,6 +1,13 @@
 'use client';
 
-import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import React, {
+  Suspense,
+  lazy,
+  memo,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { usePathname } from 'next/navigation';
 import { videoPlayerInterface } from '@/src/Interfaces/interfaces';
 
@@ -100,4 +107,4 @@ const VideoPlayer = ({
   );
 };
 
-export default VideoPlayer;
+export default memo(VideoPlayer);

@@ -36,9 +36,18 @@ export const useSearchDataFetch = (params: any, pageNum: number) => {
             params.id?.split('-')?.[0]
           }&sort_by=popularity.desc&page=1&vote_count.gte=${
             params?.mediaType === 'movie' ? 200 : 25
-          }`
+          }
+          `,
+
+          {
+            params: { page: pageNum },
+          }
         );
-        setData(results?.data?.results);
+        setData((prevData: any) => {
+          const newData = [...prevData, ...results?.data?.results];
+          return Array.from(new Set(newData));
+        });
+        setTotalPages(results?.data?.total_pages);
       }
 
       if (params?.searchType === 'keyword') {

@@ -6,7 +6,6 @@ import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/Loa
 
 import { useDataFetch } from '@/src/fetch/getDataWithPages';
 
-
 const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
 );
