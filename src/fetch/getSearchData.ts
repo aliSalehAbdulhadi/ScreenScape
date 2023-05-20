@@ -26,9 +26,7 @@ export const useSearchDataFetch = (params: any, pageNum: number) => {
           return Array.from(new Set(newData));
         });
         setTotalPages(results?.data?.total_pages);
-      }
-
-      if (params?.searchType === 'genre') {
+      } else if (params?.searchType === 'genre') {
         const results = await axios.get(
           `https://api.themoviedb.org/3/discover/${params?.mediaType}?api_key=${
             process.env.NEXT_PUBLIC_API_KEY
@@ -48,9 +46,7 @@ export const useSearchDataFetch = (params: any, pageNum: number) => {
           return Array.from(new Set(newData));
         });
         setTotalPages(results?.data?.total_pages);
-      }
-
-      if (params?.searchType === 'keyword') {
+      } else if (params?.searchType === 'keyword') {
         const results = await axios.get(
           `https://api.themoviedb.org/3/discover/${params?.mediaType}?api_key=${
             process.env.NEXT_PUBLIC_API_KEY

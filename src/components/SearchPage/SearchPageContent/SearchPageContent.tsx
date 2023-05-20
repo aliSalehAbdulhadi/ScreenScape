@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { v4 as uuidv4 } from 'uuid';
+import { Dispatch, SetStateAction, memo, useRef, useState } from 'react';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import GridComp from '../../WrapperComponents/GridComp/GridComp';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
 import { dataObject } from '@/src/global/globalVariables';
-import { Dispatch, SetStateAction, memo, useCallback, useRef } from 'react';
 import { LoadMoreData } from '@/src/helper/loadMoreData';
+import LazyLoad from '../../WrapperComponents/LazyLoad/LazyLoad';
 
 const SearchPageContent = ({
   filteredData,
@@ -22,9 +23,14 @@ const SearchPageContent = ({
   totalPages: number;
   loading: boolean;
 }) => {
-  const loadMoreDataHandler = useCallback(() => {
-    setPageNum((prev) => prev + 1);
-  }, [setPageNum]);
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  const handleVisible = useRef(() => {
+    setVisibleCount((count) => count + 2);
+  });
+  const loadMoreDataHandler = () => {
+    setPageNum((prev: number) => prev + 1);
+  };
 
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
@@ -60,14 +66,14 @@ const SearchPageContent = ({
   };
 
   return (
-    <div>
-      <GridComp
-        breakPointWidth={12}
-        title="Looking For"
-        changeableTitle={String(lookingForTitleHandler())}
-      >
-        {filteredData?.map((title: any, i: number) => (
-          <DelayDisplay key={uuidv4()} delay={i * 50}>
+    <GridComp
+      breakPointWidth={12}
+      title="Looking For"
+      changeableTitle={String(lookingForTitleHandler())}
+    >
+      {filteredData?.slice(0, visibleCount)?.map((title: any, i: number) => (
+        <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
+          <DelayDisplay key={uuidv4()} delay={i > 10 ? i * 50 : 500}>
             <div className="flex flex-col  cursor-pointer bg-white text-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden">
               <Link
                 href={`/browse/${title?.first_air_date ? 'tv/' : 'movie/'}${
@@ -97,10 +103,10 @@ const SearchPageContent = ({
               </Link>
             </div>
           </DelayDisplay>
-        ))}
-        <div ref={loadMoreRef} />
-      </GridComp>
-    </div>
+        </LazyLoad>
+      ))}
+      <div ref={loadMoreRef} />
+    </GridComp>
   );
 };
 

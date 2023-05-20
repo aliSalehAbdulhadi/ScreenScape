@@ -70,13 +70,11 @@ const Modal = ({
             <span className="text-secondary mr-1">{data?.length}</span>
             <span>Matches</span>
           </div>
-          <div className="mr-4 cursor-pointer h-7 xxxs:h-10 w-7 xxxs:w-10 hover:text-red-400 transition-all">
-            {closeIcon || (
-              <RiCloseCircleFill
-                onClick={closeModalHandler}
-                className=" w-full h-full"
-              />
-            )}
+          <div
+            onClick={closeModalHandler}
+            className="mr-4 cursor-pointer h-7 xxxs:h-10 w-7 xxxs:w-10 hover:text-red-400 transition-all"
+          >
+            {closeIcon || <RiCloseCircleFill className=" w-full h-full" />}
           </div>
         </div>
         <div

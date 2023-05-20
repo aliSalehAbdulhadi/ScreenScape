@@ -12,6 +12,7 @@ export const useDataFetch = (endpoint: string, pageNum: number) => {
   const fetchData = useCallback(async () => {
     const source = axios.CancelToken.source();
     cancelTokenRef.current = source;
+
     setLoading(true);
     try {
       const response = await axios.get(endpoint, {
@@ -24,7 +25,12 @@ export const useDataFetch = (endpoint: string, pageNum: number) => {
       });
       setTotalPages(response?.data?.total_pages);
     } catch (error) {
-      setError(error);
+      if (axios.isCancel(error)) {
+        // Ignore cancel token error
+      } else {
+        setError(error);
+        setLoading(false);
+      }
     } finally {
       setLoading(false);
     }
