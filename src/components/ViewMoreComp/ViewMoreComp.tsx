@@ -10,6 +10,8 @@ import { dataObject } from '@/src/global/globalVariables';
 import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
 import { LoadMoreData } from '@/src/helper/loadMoreData';
 
+import { LoadMoreData } from '@/src/helper/loadMoreData';
+
 const ViewMoreComp = ({
   titles,
   mediaType,

@@ -25,7 +25,6 @@ const HoverExpand = ({
   const [muteVideo, setMuteVideo] = useState<boolean>(true);
   const [playVideo, setPlayVideo] = useState<boolean>(false);
   const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
-
   const [data, trailer] = useHoverDataFetch(
     mediaType,
     titleId,
