@@ -1,11 +1,16 @@
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import axios, { CancelTokenSource } from 'axios';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useSearchDataFetch = (params: any, pageNum: number) => {
   const [data, setData] = useState<any>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [loading, setLoading] = useState(true);
+
+  const cancelTokenRef = useRef<CancelTokenSource | null>(null);
+
   const searchDataFetch = useCallback(async () => {
+    const source = axios.CancelToken.source();
+    cancelTokenRef.current = source;
     setLoading(true);
 
     try {
@@ -21,9 +26,7 @@ export const useSearchDataFetch = (params: any, pageNum: number) => {
           return Array.from(new Set(newData));
         });
         setTotalPages(results?.data?.total_pages);
-      }
-
-      if (params?.searchType === 'genre') {
+      } else if (params?.searchType === 'genre') {
         const results = await axios.get(
           `https://api.themoviedb.org/3/discover/${params?.mediaType}?api_key=${
             process.env.NEXT_PUBLIC_API_KEY
@@ -31,12 +34,19 @@ export const useSearchDataFetch = (params: any, pageNum: number) => {
             params.id?.split('-')?.[0]
           }&sort_by=popularity.desc&page=1&vote_count.gte=${
             params?.mediaType === 'movie' ? 200 : 25
-          }`
-        );
-        setData(results?.data?.results);
-      }
+          }
+          `,
 
-      if (params?.searchType === 'keyword') {
+          {
+            params: { page: pageNum },
+          }
+        );
+        setData((prevData: any) => {
+          const newData = [...prevData, ...results?.data?.results];
+          return Array.from(new Set(newData));
+        });
+        setTotalPages(results?.data?.total_pages);
+      } else if (params?.searchType === 'keyword') {
         const results = await axios.get(
           `https://api.themoviedb.org/3/discover/${params?.mediaType}?api_key=${
             process.env.NEXT_PUBLIC_API_KEY
@@ -59,6 +69,13 @@ export const useSearchDataFetch = (params: any, pageNum: number) => {
 
   useEffect(() => {
     searchDataFetch();
+
+    return () => {
+      if (cancelTokenRef.current) {
+        cancelTokenRef.current.cancel('Request canceled by cleanup');
+        cancelTokenRef.current = null;
+      }
+    };
   }, [searchDataFetch]);
 
   return [data, loading, totalPages];

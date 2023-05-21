@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef } from 'react';
+import React, { memo, useState, useRef, SetStateAction, Dispatch } from 'react';
 import Link from 'next/link';
 import GridComp from '../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
@@ -8,7 +8,6 @@ import CreditsCard from '../Cards/CreditsCard/CreditsCard';
 import SmallTextButton from './SmallTextButton/SmallTextButton';
 import { dataObject } from '@/src/global/globalVariables';
 import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
-
 import { LoadMoreData } from '@/src/helper/loadMoreData';
 
 const ViewMoreComp = ({
@@ -21,7 +20,7 @@ const ViewMoreComp = ({
 }: {
   titles: any[];
   mediaType: string;
-  setPageNum?: any;
+  setPageNum?: Dispatch<SetStateAction<number>>;
   pageNum?: number;
   loading?: boolean;
   totalPages?: number;
@@ -34,7 +33,7 @@ const ViewMoreComp = ({
   });
 
   const loadMoreDataHandler = () => {
-    setPageNum((prev: number) => prev + 1);
+    setPageNum && setPageNum((prev: number) => prev + 1);
   };
 
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -65,35 +64,33 @@ const ViewMoreComp = ({
         setOpen={setOpen}
       >
         <GridComp center={true} breakPointWidth={12} className="relative pb-5">
-          {titles?.slice(0, visibleCount).map((title: any, i: number) => (
+          {titles?.slice(0, visibleCount)?.map((title: any, i: number) => (
             <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
-              <div>
-                <DelayDisplay delay={i * 50}>
-                  <Link
-                    href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
-                      mediaType === 'actor' ? 'person' : mediaType
-                    }/${title?.id}`}
-                    className="flex flex-col  cursor-pointer h-[23rem] w-[12rem] rounded overflow-hidden bg-primary bg-opacity-7  0"
-                  >
-                    {mediaType === 'actor' ? (
-                      <CreditsCard
-                        index={i}
-                        data={title}
-                        mediaType={title?.total_episode_count ? 'tv' : 'movie'}
-                      />
-                    ) : (
-                      <PosterCard
-                        index={i}
-                        imageUrl={dataObject(title, mediaType)?.posterUrl}
-                        title={dataObject(title, mediaType)?.title}
-                        releaseDate={dataObject(title, mediaType)?.releaseDate}
-                        rating={dataObject(title, mediaType)?.voteAverage * 10}
-                        mediaType={mediaType}
-                      />
-                    )}
-                  </Link>
-                </DelayDisplay>
-              </div>
+              <DelayDisplay delay={i > 10 ? i * 50 : 500}>
+                <Link
+                  href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
+                    mediaType === 'actor' ? 'person' : mediaType
+                  }/${title?.id}`}
+                  className="flex flex-col  cursor-pointer h-[23rem] w-[12rem] rounded overflow-hidden bg-primary bg-opacity-7  0"
+                >
+                  {mediaType === 'actor' ? (
+                    <CreditsCard
+                      index={i}
+                      data={title}
+                      mediaType={title?.total_episode_count ? 'tv' : 'movie'}
+                    />
+                  ) : (
+                    <PosterCard
+                      index={i}
+                      imageUrl={dataObject(title, mediaType)?.posterUrl}
+                      title={dataObject(title, mediaType)?.title}
+                      releaseDate={dataObject(title, mediaType)?.releaseDate}
+                      rating={dataObject(title, mediaType)?.voteAverage * 10}
+                      mediaType={mediaType}
+                    />
+                  )}
+                </Link>
+              </DelayDisplay>
             </LazyLoad>
           ))}
           <div ref={loadMoreRef} />

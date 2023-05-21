@@ -4,6 +4,7 @@ import { formatCurrency } from '@/src/helper/formatCurrency';
 import Link from 'next/link';
 import SocialMedia from '../../SocialMedia/SocialMedia';
 import Rating from '../TitleInfo/Rating/Rating';
+import { memo } from 'react';
 
 const TitleDetails = ({
   data,
@@ -167,4 +168,4 @@ const TitleDetails = ({
   );
 };
 
-export default TitleDetails;
+export default memo(TitleDetails);

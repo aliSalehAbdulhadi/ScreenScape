@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { FaPlay, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -25,22 +25,30 @@ const HoverExpand = ({
   const [muteVideo, setMuteVideo] = useState<boolean>(true);
   const [playVideo, setPlayVideo] = useState<boolean>(false);
   const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
+  const [data, trailer] = useHoverDataFetch(
+    mediaType,
+    titleId,
+    index,
+    hoveredIndex
+  );
 
-  const [data, trailer] = useHoverDataFetch(mediaType, titleId);
+  const HandleOnReady = useCallback(() => {
+    if (hoveredIndex === index) {
+      setTimeout(() => {
+        setIsVideoReady(true);
+      }, 1000);
+    }
+  }, [hoveredIndex, index]);
 
-  const HandleOnReady = () => {
-    setTimeout(() => {
-      setIsVideoReady(true);
-    }, 1000);
-  };
+  const handleOnMouseLeave = useCallback(() => {
+    if (hoveredIndex === index) {
+      setPlayVideo(false);
+      setMuteVideo(true);
+      setIsVideoReady(false);
+    }
+  }, [hoveredIndex, index]);
 
-  const handleOnMouseLeave = () => {
-    setPlayVideo(false);
-    setIsVideoReady(false);
-    setMuteVideo(true);
-  };
-
-  const minutes = data.runtime;
+  const minutes = data?.runtime;
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
   const runtime = hours + 'h ' + remainingMinutes + 'm';
@@ -146,7 +154,7 @@ const HoverExpand = ({
           <SingleGenres
             underLine={false}
             className="flex items-center text-[.65rem]"
-            genres={data.genres}
+            genres={data?.genres}
           />
         </div>
       </div>
