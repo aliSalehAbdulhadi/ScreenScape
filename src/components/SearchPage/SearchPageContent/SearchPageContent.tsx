@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { v4 as uuidv4 } from 'uuid';
 import { Dispatch, SetStateAction, memo, useRef, useState } from 'react';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import GridComp from '../../WrapperComponents/GridComp/GridComp';
@@ -73,7 +72,7 @@ const SearchPageContent = ({
     >
       {filteredData?.slice(0, visibleCount)?.map((title: any, i: number) => (
         <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
-          <DelayDisplay key={uuidv4()} delay={i > 10 ? i * 50 : 500}>
+          <DelayDisplay delay={i > 10 ? i * 50 : 500}>
             <div className="flex flex-col  cursor-pointer bg-white text-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden">
               <Link
                 href={`/browse/${title?.first_air_date ? 'tv/' : 'movie/'}${

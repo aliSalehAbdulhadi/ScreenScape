@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef } from 'react';
+import React, { memo, useState, useRef, SetStateAction, Dispatch } from 'react';
 import Link from 'next/link';
 import GridComp from '../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
@@ -20,7 +20,7 @@ const ViewMoreComp = ({
 }: {
   titles: any[];
   mediaType: string;
-  setPageNum?: any;
+  setPageNum?: Dispatch<SetStateAction<number>>;
   pageNum?: number;
   loading?: boolean;
   totalPages?: number;
@@ -33,7 +33,7 @@ const ViewMoreComp = ({
   });
 
   const loadMoreDataHandler = () => {
-    setPageNum((prev: number) => prev + 1);
+    setPageNum && setPageNum((prev: number) => prev + 1);
   };
 
   const loadMoreRef = useRef<HTMLDivElement>(null);
