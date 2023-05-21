@@ -5,6 +5,7 @@ import DelayDisplay from '@/src/components/WrapperComponents/DelayDisplay/DelayD
 import GridComp from '@/src/components/WrapperComponents/GridComp/GridComp';
 import Modal from '@/src/components/WrapperComponents/Modal/Modal';
 import LazyLoad from '@/src/components/WrapperComponents/LazyLoad/LazyLoad';
+import { delay } from '@/src/global/globalVariables';
 
 const VideoLibraryButton = ({ videos }: { videos: any[] }) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -36,7 +37,7 @@ const VideoLibraryButton = ({ videos }: { videos: any[] }) => {
         <GridComp center={true} breakPointWidth={28}>
           {videos?.slice(0, visibleCount).map((video: any, i: number) => (
             <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
-              <DelayDisplay delay={i * 50}>
+              <DelayDisplay delay={delay(i)}>
                 <div className="w-[15rem] xxxs:w-[21rem] xs:w-[28rem] sm:w-[30rem] overflow-hidden  rounded mb-10">
                   <VideoPlayer
                     videoId={video?.key}

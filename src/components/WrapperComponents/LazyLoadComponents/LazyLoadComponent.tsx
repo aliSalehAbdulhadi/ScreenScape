@@ -1,7 +1,7 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, memo, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-const InViewWrapper = ({ children }: { children: ReactNode }) => {
+const LazyLoadComponent = ({ children }: { children: ReactNode }) => {
   const [isInView, setIsInView] = useState(false);
   const { ref, inView } = useInView();
 
@@ -14,4 +14,4 @@ const InViewWrapper = ({ children }: { children: ReactNode }) => {
   return <div ref={ref}>{isInView ? children : null}</div>;
 };
 
-export default InViewWrapper;
+export default memo(LazyLoadComponent);

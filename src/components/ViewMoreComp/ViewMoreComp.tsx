@@ -6,7 +6,7 @@ import PosterCard from '../Cards/PosterCard/PosterCard';
 import Modal from '../WrapperComponents/Modal/Modal';
 import CreditsCard from '../Cards/CreditsCard/CreditsCard';
 import SmallTextButton from './SmallTextButton/SmallTextButton';
-import { dataObject } from '@/src/global/globalVariables';
+import { dataObject, delay } from '@/src/global/globalVariables';
 import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
 import { LoadMoreData } from '@/src/helper/loadMoreData';
 
@@ -66,7 +66,11 @@ const ViewMoreComp = ({
         <GridComp center={true} breakPointWidth={12} className="relative pb-5">
           {titles?.slice(0, visibleCount)?.map((title: any, i: number) => (
             <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
+<<<<<<< HEAD
               <DelayDisplay delay={i > 10 ? i * 50 : 500}>
+=======
+              <DelayDisplay delay={delay(i)}>
+>>>>>>> f1f174008d29bede45f61002bb6ba6c19bc0b8ad
                 <Link
                   href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
                     mediaType === 'actor' ? 'person' : mediaType

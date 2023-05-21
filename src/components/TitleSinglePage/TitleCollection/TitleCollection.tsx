@@ -6,6 +6,7 @@ import GridComp from '../../WrapperComponents/GridComp/GridComp';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import LazyLoad from '../../WrapperComponents/LazyLoad/LazyLoad';
+import { delay } from '@/src/global/globalVariables';
 
 const TitleCollection = ({
   collectionId,
@@ -58,7 +59,7 @@ const TitleCollection = ({
                 onVisible={handleVisible.current}
               >
                 <div>
-                  <DelayDisplay delay={i * 50}>
+                  <DelayDisplay delay={delay(i)}>
                     <Link
                       href={`/browse/movie/${title?.id}`}
                       className="flex flex-col  cursor-pointer bg-primary  h-[23rem] w-[12rem] rounded overflow-hidden"

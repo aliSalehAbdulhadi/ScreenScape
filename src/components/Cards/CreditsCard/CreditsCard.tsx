@@ -25,7 +25,7 @@ const CreditsCard = ({
     >
       <div className="transition-all sm:hover:opacity-90">
         {loading && (
-          <div className="h-[362px]  w-[195px] ">
+          <div className="h-[365px]  w-[195px] ">
             <LoadingPicture />
           </div>
         )}
@@ -38,11 +38,7 @@ const CreditsCard = ({
           className={`h-[250px] w-[195px] object-fit rounded-t ${
             loading === false ? 'opacity-100' : 'opacity-0'
           }`}
-          onLoad={() =>
-            setTimeout(() => {
-              setLoading(false);
-            }, index * 100)
-          }
+          onLoad={() => setLoading(false)}
         />
 
         {data?.jobs || data?.job ? (
@@ -66,7 +62,6 @@ const CreditsCard = ({
           </div>
         ) : (
           <div className="px-2 mt-2 flex flex-col w-[100%] h-[7rem] overflow-auto scrollBar">
-
             {mediaType === 'movie'
               ? data?.character
               : data?.roles?.map((role: any) => (
@@ -79,7 +74,6 @@ const CreditsCard = ({
             </span>
             {mediaType === 'tv' && (
               <span className="mt-10 mb-3 text-xs text-white text-opacity-75">
-
                 {data?.total_episode_count} Episodes
               </span>
             )}

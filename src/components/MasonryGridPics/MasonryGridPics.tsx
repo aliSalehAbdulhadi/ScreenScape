@@ -9,7 +9,8 @@ import Modal from '../WrapperComponents/Modal/Modal';
 
 import 'react-masonry-css';
 import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
-import { useMasonryGridPicsDataFetch } from '@/src/fetch/getmasonryGridPicsData';
+import { useMasonryGridPicsDataFetch } from '@/src/fetch/getMasonryGridPicsData';
+import { delay } from '@/src/global/globalVariables';
 
 const PicturesComponent = ({
   children,
@@ -89,7 +90,7 @@ const PicturesComponent = ({
         >
           {data?.slice(0, visibleCount).map((img, i) => (
             <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
-              <DelayDisplay delay={i * 50}>
+              <DelayDisplay delay={delay(i)}>
                 <SinglePicture
                   height={img?.height}
                   width={img?.width}

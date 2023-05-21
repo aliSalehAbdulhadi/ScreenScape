@@ -13,7 +13,7 @@ import TitleSeasons from './TitleSeasons/TitleSeasons';
 import TitleRecommendation from './TitleRecommendation/TitleRecommendation';
 import TitleCollection from './TitleCollection/TitleCollection';
 import { useSingleTitleDataFetch } from '@/src/fetch/getSingleTitleData';
-import LazyLoadComponents from '../WrapperComponents/LazyLoadComponents/LazyLoadComponents';
+import LazyLoadComponent from '../WrapperComponents/LazyLoadComponents/LazyLoadComponent';
 
 const TitleSinglePage = () => {
   const [creditsType, setCreditsType] = useState<string>('cast');
@@ -77,22 +77,20 @@ const TitleSinglePage = () => {
                   />
                 </div>
               )}
-
-              <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
-                <TitleRelated
-                  mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                  param={param}
-                />
-              </div>
-
-              <LazyLoadComponents key="recommendation">
-                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden">
+              <LazyLoadComponent>
+                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in">
+                  <TitleRelated
+                    mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                    param={param}
+                  />
+                </div>
+                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in">
                   <TitleRecommendation
                     mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                     param={param}
                   />
                 </div>
-              </LazyLoadComponents>
+              </LazyLoadComponent>
             </div>
           </div>
 

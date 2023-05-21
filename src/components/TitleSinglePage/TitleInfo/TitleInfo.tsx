@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { memo } from 'react';
 import SingleGenres from './SingleGenres/SingleGenres';
 import StreamedOn from './StreamedOn/StreamedOn';
 import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
@@ -66,15 +67,17 @@ const TitleInfo = ({
           </div>
           <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
             <div className="flex items-center mb-5 ">
-              {dataObject(data, mediaType)?.rated !== 'N/A' ? (
-                <span className="border-[1px] rounded  py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
-                  {dataObject(data, mediaType)?.rated}
-                </span>
-              ) : (
-                <span className="border-[1px] rounded py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
-                  {dataObject(data, mediaType)?.isAdult ? '18+' : 'G'}
-                </span>
-              )}
+              <div className=" h-[2rem] flex items-center ">
+                {dataObject(data, mediaType)?.rated !== 'N/A' ? (
+                  <span className="border-[1px] rounded  py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                    {dataObject(data, mediaType)?.rated}
+                  </span>
+                ) : (
+                  <span className="border-[1px] rounded py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                    {dataObject(data, mediaType)?.isAdult ? '18+' : 'G'}
+                  </span>
+                )}
+              </div>
 
               <div>
                 {mediaType === 'movie' ? (
