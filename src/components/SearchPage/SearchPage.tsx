@@ -29,16 +29,6 @@ const SearchPage = () => {
           loading={loading}
         />
       </Suspense>
-<<<<<<< HEAD
-      {loading && (
-        <div className="absolute bottom-1 translate-x-[-50%] left-[50%] scale-50">
-          <div className="spinner scale-50">
-            <div className="spinner-inner"></div>
-          </div>
-        </div>
-      )}
-=======
->>>>>>> f1f174008d29bede45f61002bb6ba6c19bc0b8ad
     </div>
   );
 };

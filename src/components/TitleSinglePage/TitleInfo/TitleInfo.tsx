@@ -9,7 +9,6 @@ import {
   dataObject,
   imageQualityLargeScreen,
 } from '@/src/global/globalVariables';
-import { memo } from 'react';
 
 const TitleInfo = ({
   data,
