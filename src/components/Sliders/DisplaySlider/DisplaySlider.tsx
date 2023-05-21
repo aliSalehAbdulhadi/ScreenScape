@@ -10,6 +10,7 @@ import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
+import { delay } from '@/src/global/globalVariables';
 
 const DisplaySliderContent = dynamic(
   () => import('./DisplaySliderContent/DisplaySliderContent')
@@ -138,7 +139,7 @@ const DisplaySlider = ({ index, data }: { index: number; data: any }) => {
                   }`}
                 >
                   <Suspense>
-                    <DelayDisplay delay={i < 8 ? i * 100 : 0}>
+                    <DelayDisplay delay={delay(i)}>
                       <DisplaySliderContent
                         title={title}
                         index={i}

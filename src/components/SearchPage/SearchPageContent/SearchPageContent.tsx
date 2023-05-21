@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, memo, useRef, useState } from 'react';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import GridComp from '../../WrapperComponents/GridComp/GridComp';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
-import { dataObject } from '@/src/global/globalVariables';
+import { dataObject, delay } from '@/src/global/globalVariables';
 import { LoadMoreData } from '@/src/helper/loadMoreData';
 import LazyLoad from '../../WrapperComponents/LazyLoad/LazyLoad';
 
@@ -69,10 +69,11 @@ const SearchPageContent = ({
       breakPointWidth={12}
       title="Looking For"
       changeableTitle={String(lookingForTitleHandler())}
+      className="relative"
     >
       {filteredData?.slice(0, visibleCount)?.map((title: any, i: number) => (
         <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
-          <DelayDisplay delay={i > 10 ? i * 50 : 500}>
+          <DelayDisplay delay={delay(i)}>
             <div className="flex flex-col  cursor-pointer bg-white text-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden">
               <Link
                 href={`/browse/${title?.first_air_date ? 'tv/' : 'movie/'}${
@@ -105,6 +106,13 @@ const SearchPageContent = ({
         </LazyLoad>
       ))}
       <div ref={loadMoreRef} />
+      {loading && (
+        <div className="absolute bottom-1 translate-x-[-50%] left-[50%] scale-50">
+          <div className="spinner scale-50">
+            <div className="spinner-inner"></div>
+          </div>
+        </div>
+      )}
     </GridComp>
   );
 };
