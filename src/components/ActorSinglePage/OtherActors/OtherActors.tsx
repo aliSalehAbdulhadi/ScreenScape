@@ -12,7 +12,7 @@ const OtherActors = ({
 }) => {
   return (
     <div>
-      <div className=" text-secondary  ml-2 sm:ml-5 mr-5 text-sm xxxs:text-base sm:text-lg">
+      <div className=" text-secondary  ml-2 sm:ml-10 mr-5 text-sm xxxs:text-base sm:text-lg">
         Other Actor
       </div>
       <CardSlider

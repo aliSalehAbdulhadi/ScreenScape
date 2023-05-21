@@ -32,3 +32,7 @@ export const dataObject = (data: any, mediaType: string) => {
     awards,
   };
 };
+
+export const delay = (index: number) => {
+  return index < 30 ? index * 50 : 500;
+};

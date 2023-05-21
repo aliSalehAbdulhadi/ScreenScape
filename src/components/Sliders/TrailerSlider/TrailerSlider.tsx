@@ -54,7 +54,6 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
     <div
       onMouseEnter={() => setShowArrows(true)}
       onMouseLeave={() => setShowArrows(false)}
-      className="h-[200px] xxxs:h-[220px] xxs:h-[300px] xs:h-[340px] sm:h-[420px]  semiSm:h-[450px] md:h-[330px] lg:h-[350px] xl:h-[400px] xxl:h-[430px] xxxl:h-[520px]"
     >
       {
         <Swiper
@@ -81,7 +80,7 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
             slideShadows: true,
           }}
           loop={true}
-          slidesPerView={width > 1000 ? 2 : 1}
+          slidesPerView="auto"
           onSlideChange={(e) => setActiveSlide(e.realIndex)}
           onSwiper={(s) => {
             setSwiper(s);
@@ -105,7 +104,7 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
                 i <= 8 && (
                   <SwiperSlide
                     key={title?.id}
-                    className=" md:rounded h-[200px] xxxs:h-[220px] xxs:h-[300px] xs:h-[340px] sm:h-[450px]  semiSm:h-[450px] md:h-[330px] lg:h-[350px] xl:h-[400px] xxl:h-[430px] xxxl:h-[520px] relative"
+                    className="!max-w-[60rem]  relative"
                   >
                     <div className={`rounded`}>
                       {activeSlide === i && width > 1150 ? (

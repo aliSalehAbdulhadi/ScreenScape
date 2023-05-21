@@ -44,11 +44,7 @@ const PosterCard = ({
           className={`h-[250px] w-[195px] object-fit rounded-t ${
             loading === false ? 'opacity-100' : 'opacity-0'
           }`}
-          onLoad={() =>
-            setTimeout(() => {
-              setLoading(false);
-            }, index * 100)
-          }
+          onLoad={() => setLoading(false)}
         />
 
         <div className="px-2 flex flex-col w-[195px] h-full rounded-b">

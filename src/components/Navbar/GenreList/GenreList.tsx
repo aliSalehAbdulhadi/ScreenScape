@@ -7,6 +7,7 @@ import GenreCard from './GenreCard/GenreCard';
 import GridComp from '../../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import Link from 'next/link';
+import { delay } from '@/src/global/globalVariables';
 
 const GenreList = ({
   open,
@@ -147,7 +148,7 @@ const GenreList = ({
                   key={genre.id}
                   href={`search/genre/${mediaType}/${genre?.id}-${genre?.name}`}
                 >
-                  <DelayDisplay delay={i * 50}>
+                  <DelayDisplay delay={delay(i)}>
                     <div className=" cursor-pointer  rounded overflow-hidden hover:text-opacity-80 text-white transition-all">
                       <GenreCard genre={genre} />
                     </div>

@@ -21,7 +21,7 @@ const ActorAppearedIn = ({
   return (
     <div className="">
       <div className="flex items-center pt-2 ">
-        <div className="ml-2 sm:ml-5 text-xs sm:text-base ">
+        <div className="ml-2 sm:ml-10 text-xs sm:text-base ">
           <MovieTvSwitchButtons
             setMediaType={setMediaType}
             mediaType={mediaType}

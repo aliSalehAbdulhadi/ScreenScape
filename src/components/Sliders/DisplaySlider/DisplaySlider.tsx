@@ -10,6 +10,7 @@ import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
+import { delay } from '@/src/global/globalVariables';
 
 const DisplaySliderContent = dynamic(
   () => import('./DisplaySliderContent/DisplaySliderContent')
@@ -64,18 +65,21 @@ const DisplaySlider = ({ index, data }: { index: number; data: any }) => {
 
   const width = useWindowSize();
 
-  const widthHandler = () => {
-    if (width >= 1000) {
-      return 6.1;
-    } else if (width >= 850) {
-      return 5.1;
-    } else if (width >= 640) {
-      return 4.1;
-    } else if (width >= 500) {
-      return 3.1;
-    } else {
-      return 2.2;
-    }
+  const breakpoints = {
+    default: {
+      slidesPerGroup: 2,
+    },
+
+    865: {
+      slidesPerGroup: 3,
+    },
+
+    1150: {
+      slidesPerGroup: 4,
+    },
+    1280: {
+      slidesPerGroup: 5,
+    },
   };
 
   return (
@@ -88,7 +92,7 @@ const DisplaySlider = ({ index, data }: { index: number; data: any }) => {
         setShowArrows(false);
         setShowPag(false);
       }}
-      className=" min-h-[6.5rem] xxxs:min-h-[7rem] sm:min-h-[7.6rem] semiSm:min-h-[8rem] xl:min-h-[8.7rem] xxl:min-h-[9.7rem] xxxl:min-h-[12rem]"
+      className="h-[250px] lg:h-[165px]"
     >
       {
         <Swiper
@@ -98,10 +102,10 @@ const DisplaySlider = ({ index, data }: { index: number; data: any }) => {
           pagination={showPag}
           draggable={false}
           // @ts-ignore
-          slidesPerGroup={parseInt(widthHandler())}
-          spaceBetween={width > 1650 ? 3 : 10}
+          spaceBetween={10}
+          breakpoints={breakpoints}
           loop={true}
-          slidesPerView={widthHandler()}
+          slidesPerView="auto"
           speed={width > 640 ? 700 : 400}
           onSliderFirstMove={() => firstSlideHandler()}
           onSlideChangeTransitionStart={() => setSlideChanging(true)}
@@ -130,12 +134,12 @@ const DisplaySlider = ({ index, data }: { index: number; data: any }) => {
                 <SwiperSlide
                   onMouseEnter={() => setHoveredIndex(i)}
                   key={title?.id}
-                  className={`hover:overflow-visible ${
+                  className={`hover:overflow-visible !w-[10rem] lg:!w-[18rem] ${
                     overFlowHidden && 'overflow-hidden '
                   }`}
                 >
                   <Suspense>
-                    <DelayDisplay delay={i < 8 ? i * 100 : 0}>
+                    <DelayDisplay delay={delay(i)}>
                       <DisplaySliderContent
                         title={title}
                         index={i}

@@ -36,7 +36,7 @@ const ActorInfo = ({ data }: { data: any }) => {
           </MasonryGridPics>
         </div>
 
-        <div className=" sm:pl-5  xs:ml-0  mx-2 xs:mx-5 semiSm:max-w-[70%] ">
+        <div className=" sm:pl-5  xs:ml-0  mx-2 xs:mx-5 semiSm:max-w-[60%] md:max-w-[70%] ">
           <div className="flex items-center">
             <span className="text-lg xxxs:text-2xl xs:text-3xl">
               {data?.name ? data?.name : 'Not Available'}
@@ -98,7 +98,10 @@ const ActorInfo = ({ data }: { data: any }) => {
         </div>
       </div>
 
-      <div className=" mt-12 semiSm:mx-0 text-sm xxs:text-[17px] scrollBar max-h-[15rem] overflow-auto  semiSm:hidden mx-2 xs:mx-5">
+      <div className=" mt-12 semiSm:mx-0 text-sm xxs:text-[17px] semiSm:hidden mx-2 xs:mx-10 flex flex-col">
+        <span className=" text-secondary   text-sm xxxs:text-base sm:text-lg mb-2">
+          Biography
+        </span>
         <span className=" leading-7">
           {data?.biography
             ? data?.biography

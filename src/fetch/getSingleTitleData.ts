@@ -67,7 +67,9 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
       );
     } catch (error) {
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 100);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mediaType, param.id]);

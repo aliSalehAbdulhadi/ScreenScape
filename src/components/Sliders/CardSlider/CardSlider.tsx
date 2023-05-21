@@ -29,6 +29,23 @@ const CardSlider = ({
 
   SwiperCore.use([Navigation]);
 
+  const breakpoints = {
+    default: {
+      slidesPerGroup: 2,
+    },
+
+    865: {
+      slidesPerGroup: 3,
+    },
+
+    1150: {
+      slidesPerGroup: 4,
+    },
+    1280: {
+      slidesPerGroup: 5,
+    },
+  };
+
   return (
     <div className="mt-4 h-[25rem]">
       {
@@ -41,8 +58,8 @@ const CardSlider = ({
             loadPrevNextAmount: 5,
             loadOnTransitionStart: true,
           }}
+          breakpoints={breakpoints}
           slidesPerView="auto"
-          slidesPerGroup={2}
           spaceBetween={5}
           navigation={{
             prevEl: swiperImagePrevRef.current,
