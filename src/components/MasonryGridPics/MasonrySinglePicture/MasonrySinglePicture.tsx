@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { HiOutlineExternalLink } from 'react-icons/hi';
 
-const SinglePicture = ({
+const MasonrySinglePicture = ({
   imageUrl,
   width,
   height,
@@ -46,4 +46,4 @@ const SinglePicture = ({
   );
 };
 
-export default SinglePicture;
+export default MasonrySinglePicture;

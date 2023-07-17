@@ -132,7 +132,7 @@ const TitleInfo = ({
               </div>
             </div>
           </div>
-          <div className="text-[17px]  scrollBar overflow-auto hidden max-h-[13rem] xxl:max-h-[15rem] w-full xl:w-[80%] semiSm:block text-offWhite">
+          <div className="text-[17px]  scrollBar overflow-auto hidden max-h-[13rem] w-full xl:w-[80%] semiSm:block text-offWhite">
             <span className="leading-7">
               {dataObject(data, mediaType).overview}
             </span>

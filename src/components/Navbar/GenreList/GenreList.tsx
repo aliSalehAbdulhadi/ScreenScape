@@ -1,12 +1,12 @@
 'use client';
 
-import useClickOutside from '@/src/hooks/useClickOutside';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { IoMdArrowDropright } from 'react-icons/io';
+import Link from 'next/link';
+import useClickOutside from '@/src/hooks/useClickOutside';
 import GenreCard from './GenreCard/GenreCard';
 import GridComp from '../../WrapperComponents/GridComp/GridComp';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
-import Link from 'next/link';
 import { delay } from '@/src/global/globalVariables';
 
 const GenreList = ({

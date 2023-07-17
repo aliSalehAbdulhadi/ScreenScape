@@ -77,19 +77,27 @@ const TitleSinglePage = () => {
                   />
                 </div>
               )}
-              <LazyLoadComponent>
-                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in">
-                  <TitleRelated
-                    mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                    param={param}
-                  />
-                </div>
-                <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in">
-                  <TitleRecommendation
-                    mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
-                    param={param}
-                  />
-                </div>
+
+              <LazyLoadComponent key="related">
+                {TitleRelated && (
+                  <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in">
+                    <TitleRelated
+                      mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                      param={param}
+                    />
+                  </div>
+                )}
+              </LazyLoadComponent>
+
+              <LazyLoadComponent key="recommended">
+                {TitleRecommendation && (
+                  <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in">
+                    <TitleRecommendation
+                      mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
+                      param={param}
+                    />
+                  </div>
+                )}
               </LazyLoadComponent>
             </div>
           </div>
