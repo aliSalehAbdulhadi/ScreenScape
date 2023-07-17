@@ -71,7 +71,9 @@ const TitleDetails = ({
           >
             <span className=" font-semibold">Episode runtime </span>
             <span className="text-white text-opacity-80">
-              {checkDataAvailability(data?.episode_run_time) + 'm'}
+              {data?.episode_run_time
+                ? data?.episode_run_time + ' Minutes'
+                : '-'}
             </span>
           </div>
 
@@ -95,7 +97,7 @@ const TitleDetails = ({
 
           {data?.origin_country && (
             <div className="mb-5 flex flex-col">
-              <span className=" font-semibold">Origin Country </span>
+              <span className=" font-semibold">Origin Countries </span>
               <div className="text-white text-opacity-80 grid col-span-1">
                 {data?.origin_country?.map((country: any) => (
                   <span key={uuidv4()}>{country}</span>
@@ -110,18 +112,22 @@ const TitleDetails = ({
             <span className=" font-semibold">Production Companies </span>
 
             <div className="text-white text-opacity-80 grid col-span-1">
-              {data?.production_companies?.map((company: any) => (
-                <span key={uuidv4()}>{company?.name} </span>
-              ))}
+              {data?.production_companies?.length > 0
+                ? data?.production_companies?.map((company: any) => (
+                    <span key={uuidv4()}>{company?.name} </span>
+                  ))
+                : '-'}
             </div>
           </div>
 
           <div className="mb-5 flex flex-col">
             <span className=" font-semibold">Production Countries</span>
             <div className="text-white text-opacity-80 grid col-span-1">
-              {data?.production_countries?.map((country: any) => (
-                <span key={uuidv4()}>{country?.name}</span>
-              ))}
+              {data?.production_countries?.length > 0
+                ? data?.production_countries?.map((country: any) => (
+                    <span key={uuidv4()}>{country?.name}</span>
+                  ))
+                : '-'}
             </div>
           </div>
 

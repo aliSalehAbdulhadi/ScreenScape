@@ -42,9 +42,7 @@ const SignIn = () => {
         }}
       >
         {({ values, errors, touched, isSubmitting }) => (
-
           <Form className="flex flex-col items-center  h-[30.5rem]">
-
             <div className="my-10 text-lg text-white text-opacity-50">
               Enter your account information
             </div>
@@ -122,7 +120,6 @@ const SignIn = () => {
                 </label>
               </div>
 
-
               <div className="h-[2rem] mt-1">
                 {errors.password && touched.password ? (
                   <div className="text-red-500 text-sm ml-1 flex items-center">
@@ -149,7 +146,6 @@ const SignIn = () => {
             <div className="text-xs mt-4  text-white text-opacity-50 cursor-pointer transition-all hover:text-opacity-60">
               <span>Forgot password?</span>
             </div>
-
           </Form>
         )}
       </Formik>

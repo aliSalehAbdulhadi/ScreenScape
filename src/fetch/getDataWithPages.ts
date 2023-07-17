@@ -1,13 +1,12 @@
 import axios, { CancelTokenSource } from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-
 export const useDataFetch = (endpoint: string, pageNum: number) => {
   const [data, setData] = useState<any[]>([]);
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number>(0);
-  
+
   const cancelTokenRef = useRef<CancelTokenSource | null>(null);
 
   const fetchData = useCallback(async () => {
@@ -32,7 +31,6 @@ export const useDataFetch = (endpoint: string, pageNum: number) => {
         setError(error);
         setLoading(false);
       }
-
     } finally {
       setLoading(false);
     }

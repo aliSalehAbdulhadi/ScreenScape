@@ -1,9 +1,9 @@
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { IoGrid } from 'react-icons/io5';
 import Masonry from 'react-masonry-css';
 import { shuffleArray } from '@/src/helper/shuffleArray';
 import DelayDisplay from '../WrapperComponents/DelayDisplay/DelayDisplay';
-import SinglePicture from '../SinglePicture/SinglePicture';
+import MasonrySinglePicture from './MasonrySinglePicture/MasonrySinglePicture';
 import useClickOutside from '@/src/hooks/useClickOutside';
 import Modal from '../WrapperComponents/Modal/Modal';
 
@@ -91,7 +91,7 @@ const PicturesComponent = ({
           {data?.slice(0, visibleCount).map((img, i) => (
             <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
               <DelayDisplay delay={delay(i)}>
-                <SinglePicture
+                <MasonrySinglePicture
                   height={img?.height}
                   width={img?.width}
                   imageUrl={img?.file_path}

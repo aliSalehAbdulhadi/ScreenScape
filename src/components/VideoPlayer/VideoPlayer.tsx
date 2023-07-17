@@ -75,7 +75,7 @@ const VideoPlayer = ({
             url={`http://www.youtube.com/watch?v=${videoId}`}
             width="100%"
             height="100%"
-            volume={0.5}
+            volume={0.4}
             controls={controls}
             muted={mute}
             allowFullScreen={true}
@@ -90,7 +90,6 @@ const VideoPlayer = ({
                 cache: true,
                 playerVars: {
                   autoplay: autoplay,
-                  hd: 1,
                   iv_load_policy: 3,
                   modestbranding: 1,
                   rel: 0,

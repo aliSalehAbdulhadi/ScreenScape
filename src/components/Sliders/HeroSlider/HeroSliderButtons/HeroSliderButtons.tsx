@@ -1,17 +1,22 @@
 import { GrCircleInformation } from 'react-icons/gr';
-import { FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
+import { FaPlay, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import { TbReload } from 'react-icons/tb';
 import Link from 'next/link';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { Dispatch, SetStateAction } from 'react';
 import useWindowSize from '@/src/hooks/useWindowsSize';
+import { BsFillPauseFill } from 'react-icons/bs';
 
-const TrailerSliderButtons = ({
+const HeroSliderButtons = ({
   title,
   id,
   mediaType,
   setReloadVideo,
   setMuteVideo,
+  setPlayVideo,
+  setPauseVideo,
+  pauseVideo,
+  playVideo,
   muteVideo,
   activeSlide,
   isVideoReady,
@@ -22,6 +27,10 @@ const TrailerSliderButtons = ({
   mediaType: string;
   setReloadVideo: Dispatch<SetStateAction<boolean>>;
   setMuteVideo: Dispatch<SetStateAction<boolean>>;
+  setPlayVideo: Dispatch<SetStateAction<boolean>>;
+  setPauseVideo: Dispatch<SetStateAction<boolean>>;
+  pauseVideo: boolean;
+  playVideo: boolean;
   muteVideo: boolean;
   isVideoReady: boolean;
   activeSlide: number;
@@ -34,10 +43,17 @@ const TrailerSliderButtons = ({
         width > 1150 && 'sliderButtonsBgFade'
       } ${activeSlide === i ? '' : 'hidden'} flex items-end justify-between `}
     >
+      <div
+        onClick={() => setPlayVideo(true)}
+        className={` items-center justify-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] border-[2px] border-white border-opacity-60 hover:border-opacity-90 transition-all rounded-full h-14 w-14 cursor-pointer ${
+          !playVideo ? 'flex' : 'hidden'
+        }`}
+      >
+        <FaPlay className="  xl:w-6 xl:h-6" />
+      </div>
+
       <div className="flex items-end justify-between px-5  pb-5 w-full ">
-        <div
-          className={`flex flex-col visible ${isVideoReady || 'lg:invisible'}`}
-        >
+        <div className={`flex flex-col`}>
           <span className="text-white text-xl xs:text-3xl md:text-2xl xl:text-[2rem] font-bold">
             {title}
           </span>
@@ -57,10 +73,20 @@ const TrailerSliderButtons = ({
         </div>
 
         <div
-          className={` h-fit justify-center visible hidden lg:flex ${
+          className={` h-fit justify-center visible  lg:flex ${
             isVideoReady || 'invisible'
           }`}
         >
+          <div
+            onClick={() => setPauseVideo(!pauseVideo)}
+            className="mr-2 border-[2px] border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
+          >
+            {pauseVideo ? (
+              <FaPlay className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
+            ) : (
+              <BsFillPauseFill className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
+            )}
+          </div>
           <div
             onClick={() => setReloadVideo(true)}
             className="border-[2px] border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
@@ -83,4 +109,4 @@ const TrailerSliderButtons = ({
   );
 };
 
-export default TrailerSliderButtons;
+export default HeroSliderButtons;

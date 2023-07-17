@@ -4,12 +4,12 @@ import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { RiCloseFill } from 'react-icons/ri';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import useClickOutside from '@/src/hooks/useClickOutside';
 import NavbarButtons from './NavbarButtons/NavbarButtons';
 import { useScrollY } from '@/src/hooks/useScrollY';
 import useWindowSize from '@/src/hooks/useWindowsSize';
+import { GrFormClose } from 'react-icons/gr';
 
 const BurgerList = lazy(() => import('./BurgerList.tsx/BurgerList'));
 const GenreList = lazy(() => import('./GenreList/GenreList'));
@@ -162,7 +162,7 @@ const Navbar = () => {
               searchText ? '' : 'hidden'
             }`}
           >
-            <RiCloseFill size={22} />
+            <GrFormClose size={22} />
           </div>
 
           <div

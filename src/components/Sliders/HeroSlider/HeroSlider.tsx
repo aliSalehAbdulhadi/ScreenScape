@@ -1,43 +1,27 @@
 'use client';
 
-import SwiperCore, {
-  Autoplay,
-  EffectCoverflow,
-  Navigation,
-  Pagination,
-} from 'swiper';
 import { memo, useEffect, useRef, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import Image from 'next/image';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
+import { Autoplay, EffectCoverflow, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
-import TrailerSliderButtons from './TrailerSliderButtons/TrailerSliderButtons';
-import AutoPlaySlide from './AutoPlaySlide/AutoPlaySlide';
-import { imageQualityLargeScreen } from '@/src/global/globalVariables';
+import HeroSliderVideo from './HerSliderVideo/HeroSliderVideo';
 
-SwiperCore.use([Navigation, Autoplay]);
-
-const TrailerSlider = ({ data = [] }: { data: [] }) => {
+const HeroSlider = ({ data = [] }: { data: [] }) => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
   const [showArrows, setShowArrows] = useState<boolean>(false);
   const [activeSlide, setActiveSlide] = useState<number>(0);
   const [advanceSlide, setAdvanceSlide] = useState<boolean>(false);
   const [swiper, setSwiper] = useState<any>(null);
-  const [muteVideo, setMuteVideo] = useState<boolean>(true);
-  const [reloadVideo, setReloadVideo] = useState<boolean>(false);
-  const [isVideoReady, setIsVideoReady] = useState<boolean>(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const swiperImagePrevRef = useRef<HTMLDivElement>(null);
   const swiperImageNextRef = useRef<HTMLDivElement>(null);
 
   const width = useWindowSize();
-
-  useEffect(() => {
-    setReloadVideo(false);
-  }, [reloadVideo]);
 
   useEffect(() => {
     if (advanceSlide) {
@@ -65,8 +49,10 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
             loadPrevNextAmount: 2,
             loadOnTransitionStart: true,
           }}
-          autoplay={width <= 1150 ? { delay: 5000 } : false}
-          modules={[EffectCoverflow, Autoplay, Pagination]}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          allowSlideNext={!isVideoPlaying}
+          allowSlidePrev={!isVideoPlaying}
+          modules={[EffectCoverflow, Pagination, Autoplay]}
           pagination={false}
           scrollbar={{ draggable: true }}
           effect={'coverflow'}
@@ -106,43 +92,13 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
                     key={title?.id}
                     className="!max-w-[60rem]  relative"
                   >
-                    <div className={`rounded`}>
-                      {activeSlide === i && width > 1150 ? (
-                        <AutoPlaySlide
-                          setAdvanceSlide={setAdvanceSlide}
-                          setIsVideoReady={setIsVideoReady}
-                          muteVideo={muteVideo}
-                          reloadVideo={reloadVideo}
-                          imageUrl={title?.backdrop_path}
-                          trailer={title?.trailer}
-                        />
-                      ) : (
-                        <Image
-                          quality={imageQualityLargeScreen}
-                          width={1000}
-                          height={500}
-                          src={`https://image.tmdb.org/t/p/original/${title?.backdrop_path}`}
-                          className=" object-fit md:rounded "
-                          alt="poster"
-                          loading="lazy"
-                        />
-                      )}
-                      <div
-                        className={`absolute bottom-[-5px]  left-0 h-full w-full `}
-                      >
-                        <TrailerSliderButtons
-                          title={title.title}
-                          mediaType={title?.first_air_date ? 'tv' : 'movie'}
-                          id={title.id}
-                          muteVideo={muteVideo}
-                          setMuteVideo={setMuteVideo}
-                          setReloadVideo={setReloadVideo}
-                          activeSlide={activeSlide}
-                          isVideoReady={isVideoReady}
-                          i={i}
-                        />
-                      </div>
-                    </div>
+                    <HeroSliderVideo
+                      index={i}
+                      activeSlide={activeSlide}
+                      title={title}
+                      setAdvanceSlide={setAdvanceSlide}
+                      setIsVideoPlaying={setIsVideoPlaying}
+                    />
                   </SwiperSlide>
                 )
               );
@@ -153,6 +109,12 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
             <div
               onMouseEnter={() => setPrevArrow(true)}
               onMouseLeave={() => setPrevArrow(false)}
+              onClick={() => {
+                setIsVideoPlaying(false);
+                setTimeout(() => {
+                  swiper.slidePrev();
+                }, 100);
+              }}
               ref={swiperImagePrevRef}
               className={
                 showArrows && width > 1150
@@ -168,6 +130,12 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
             <div
               onMouseEnter={() => setNextArrow(true)}
               onMouseLeave={() => setNextArrow(false)}
+              onClick={() => {
+                setIsVideoPlaying(false);
+                setTimeout(() => {
+                  swiper.slideNext();
+                }, 100);
+              }}
               ref={swiperImageNextRef}
               className={
                 showArrows && width > 1150
@@ -187,4 +155,4 @@ const TrailerSlider = ({ data = [] }: { data: [] }) => {
   );
 };
 
-export default memo(TrailerSlider);
+export default memo(HeroSlider);

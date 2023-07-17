@@ -5,7 +5,7 @@ import { getMoviesWithTrailers } from '@/src/fetch/getMoviesWithTrailer';
 import { getDisplaySlideData } from '@/src/fetch/getDisplaySlideData';
 
 const TrailerSlider = dynamic(
-  () => import('../Sliders/TrailerSlider/TrailerSlider')
+  () => import('../Sliders/HeroSlider/HeroSlider')
 );
 const DisplayComp = dynamic(() => import('./DisplayComp/DisplayComp'));
 
