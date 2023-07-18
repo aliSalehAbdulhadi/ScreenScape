@@ -1,17 +1,44 @@
-import React, { ReactNode, memo, useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import React, { useState, useEffect, useRef } from 'react';
 
-const LazyLoadComponent = ({ children }: { children: ReactNode }) => {
-  const [isInView, setIsInView] = useState(false);
-  const { ref, inView } = useInView();
+function LazyLoadComponent({
+  once,
+  threshold,
+  children,
+}: {
+  once: boolean;
+  threshold: number;
+  children: any;
+}) {
+  const [intersecting, setIntersecting] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (inView) {
-      setIsInView(true);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setIntersecting(entries[0].isIntersecting);
+        if (intersecting && once) {
+          observer.unobserve(containerRef.current!);
+        }
+      },
+      {
+        threshold: threshold,
+      }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    } else {
+      setIntersecting(false);
     }
-  }, [inView]);
 
-  return <div ref={ref}>{isInView ? children : null}</div>;
-};
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, [intersecting, once, threshold]);
 
-export default memo(LazyLoadComponent);
+  return <div ref={containerRef}>{intersecting ? children : null}</div>;
+}
+
+export default LazyLoadComponent;

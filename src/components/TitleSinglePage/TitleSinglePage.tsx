@@ -61,26 +61,32 @@ const TitleSinglePage = () => {
                   mediaType={mediaType}
                 />
               </div>
-              {mediaType === 'tv' && (
-                <div className="px-2 sm:px-10 md:pl-10 md:px-0">
-                  <TitleSeasons
-                    titleId={data?.id}
-                    numberOfSeasons={data?.number_of_seasons}
-                  />
-                </div>
-              )}
-              {data?.belongs_to_collection && (
-                <div className="sm:pl-10 mb-10 ">
-                  <TitleCollection
-                    collectionId={data?.belongs_to_collection?.id}
-                    mediaType={mediaType}
-                  />
-                </div>
-              )}
 
-              <LazyLoadComponent key="related">
+              <LazyLoadComponent key="seasons" threshold={0} once={true}>
+                {mediaType === 'tv' && (
+                  <div className="px-2 sm:px-10 md:pl-10 md:px-0">
+                    <TitleSeasons
+                      titleId={data?.id}
+                      numberOfSeasons={data?.number_of_seasons}
+                    />
+                  </div>
+                )}
+              </LazyLoadComponent>
+
+              <LazyLoadComponent key="collection" threshold={0} once={true}>
+                {data?.belongs_to_collection && (
+                  <div className="sm:pl-10 mb-10 ">
+                    <TitleCollection
+                      collectionId={data?.belongs_to_collection?.id}
+                      mediaType={mediaType}
+                    />
+                  </div>
+                )}
+              </LazyLoadComponent>
+
+              <LazyLoadComponent key="related" threshold={0.7} once={true}>
                 {TitleRelated && (
-                  <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in">
+                  <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in ">
                     <TitleRelated
                       mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                       param={param}
@@ -89,9 +95,9 @@ const TitleSinglePage = () => {
                 )}
               </LazyLoadComponent>
 
-              <LazyLoadComponent key="recommended">
+              <LazyLoadComponent key="recommended" threshold={0.7} once={true}>
                 {TitleRecommendation && (
-                  <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in">
+                  <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in ">
                     <TitleRecommendation
                       mediaType={pathName?.includes('movie') ? 'movie' : 'tv'}
                       param={param}
