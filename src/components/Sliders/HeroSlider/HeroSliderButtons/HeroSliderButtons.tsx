@@ -73,13 +73,13 @@ const HeroSliderButtons = ({
         </div>
 
         <div
-          className={` h-fit justify-center visible  lg:flex ${
+          className={` h-fit justify-center visible flex-col items-center  xxxs:flex-row flex ${
             isVideoReady || 'invisible'
           }`}
         >
           <div
             onClick={() => setPauseVideo(!pauseVideo)}
-            className="mr-2 border-[2px] border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
+            className="xxxs:mr-2 border-[2px] border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
           >
             {pauseVideo ? (
               <FaPlay className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
@@ -89,13 +89,13 @@ const HeroSliderButtons = ({
           </div>
           <div
             onClick={() => setReloadVideo(true)}
-            className="border-[2px] border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
+            className="border-[2px] my-1 xxxs:my-0 border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
           >
-            <TbReload className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
+            <TbReload className="h-3 w-3  xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
           </div>
           <div
             onClick={() => setMuteVideo(!muteVideo)}
-            className="ml-2 border-[2px] border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
+            className="xxxs:ml-2 border-[2px] border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60"
           >
             {muteVideo ? (
               <FaVolumeMute className="h-3 w-3 xs:h-4 xs:w-4 xl:h-5 xl:w-5" />
