@@ -12,6 +12,7 @@ module.exports = {
         primary: '#161925',
         secondary: '#DFD260',
         offWhite: '#f5f5f5',
+        placeholder: '#43454f',
       },
       fontFamily: {
         averia: ['var(--font-averia)'],
