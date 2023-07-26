@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { memo } from 'react';
+import { SlPicture } from 'react-icons/sl';
 import SingleGenres from './SingleGenres/SingleGenres';
 import StreamedOn from './StreamedOn/StreamedOn';
-import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
 import Buttons from './Buttons/Buttons';
 import {
@@ -28,7 +28,7 @@ const TitleInfo = ({
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
         <div className="xs:self-center  xs:w-[28rem] sm:w-[21rem]">
           <MasonryGridPics mediaType={mediaType} id={data?.id}>
-            <SinglePlaceholder condition={data?.poster_path} isTitle={true}>
+            {dataObject(data, mediaType).posterUrl?.length > 0 ? (
               <Image
                 quality={imageQualityLargeScreen}
                 width={1000}
@@ -42,7 +42,11 @@ const TitleInfo = ({
                 placeholder="blur"
                 priority={true}
               />
-            </SinglePlaceholder>
+            ) : (
+              <div className=" flex items-center justify-center h-[30rem] w-full rounded overflow-hidden bg-placeholder">
+                <SlPicture className="h-[3.5rem] w-[3.5rem]" />
+              </div>
+            )}
           </MasonryGridPics>
         </div>
 

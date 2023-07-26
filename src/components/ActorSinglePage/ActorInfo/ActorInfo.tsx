@@ -1,9 +1,9 @@
 import moment from 'moment';
 import Image from 'next/image';
-import SinglePlaceholder from '../../Placeholders/SinglePlaceholder/SinglePlaceholder';
 import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
 import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 import SocialMedia from '../../SocialMedia/SocialMedia';
+import { RxPerson } from 'react-icons/rx';
 
 const ActorInfo = ({ data }: { data: any }) => {
   const age = `${moment(data?.birthday).format('MMMM Do YYYY')} ${
@@ -20,7 +20,7 @@ const ActorInfo = ({ data }: { data: any }) => {
       <div className="flex flex-col sm:flex-row xs:self-center">
         <div className={`xs:w-[28rem] sm:w-[21rem]`}>
           <MasonryGridPics mediaType="person" id={data?.id}>
-            <SinglePlaceholder condition={data?.profile_path} isTitle={false}>
+            {data?.profile_path?.length > 0 ? (
               <Image
                 quality={imageQualityLargeScreen}
                 width={1000}
@@ -32,7 +32,11 @@ const ActorInfo = ({ data }: { data: any }) => {
                 placeholder="blur"
                 priority={true}
               />
-            </SinglePlaceholder>
+            ) : (
+              <div className=" flex items-center justify-center h-[30rem] w-full rounded overflow-hidden bg-placeholder">
+                <RxPerson className="h-20 w-20 opacity-40 mr-2" />
+              </div>
+            )}
           </MasonryGridPics>
         </div>
 

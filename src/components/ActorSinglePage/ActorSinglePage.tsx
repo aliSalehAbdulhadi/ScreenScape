@@ -48,7 +48,7 @@ const ActorSinglePage = () => {
             </div>
           </div>
           <div className="w-full mt-14">
-            <LazyLoadComponent>
+            <LazyLoadComponent once threshold={0}>
               <div className="flex">
                 <div className="flex flex-col  xl:w-[70%] overflow-hidden">
                   <div className="w-full slider-fade">
