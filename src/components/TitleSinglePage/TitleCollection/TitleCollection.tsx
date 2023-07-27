@@ -49,7 +49,7 @@ const TitleCollection = ({
         width={80}
         animationCloseTime={190}
       >
-        <GridComp breakPointWidth={12} className="relative">
+        <GridComp center={true} breakPointWidth={12} className="relative">
           {collection?.parts
             ?.slice(0, visibleCount)
             .map((title: any, i: number) => (

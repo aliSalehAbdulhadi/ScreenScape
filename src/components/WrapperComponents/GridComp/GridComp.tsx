@@ -31,8 +31,8 @@ const GridComp = ({
         </div>
       </div>
       <div
-        className={`mt-5 grid gap-2 place-items-center justify-center  ${
-          center ? '' : 'semiSm:justify-start sm:ml-[26px]'
+        className={`mt-5 grid gap-2 place-items-center justify-center ${
+          center ? '' : 'semiSm:justify-start'
         }`}
         style={{
           display: 'grid',

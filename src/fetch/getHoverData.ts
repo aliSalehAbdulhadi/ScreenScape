@@ -6,15 +6,12 @@ export const useHoverDataFetch = (
   titleId: string,
   index: number,
   hoveredIndex: number
-): [any, any, boolean, string | null] => {
+) => {
   const [data, setData] = useState<any>(null);
   const [trailer, setTrailer] = useState<any>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const cancelTokenRef = useRef<CancelTokenSource | null>(null);
 
   const hoverDataFetch = useCallback(async () => {
-    setLoading(true);
     const source = axios.CancelToken.source();
     cancelTokenRef.current = source;
 
@@ -40,15 +37,12 @@ export const useHoverDataFetch = (
           (title: any) => title.type === 'Trailer'
         )
       );
-      setError(null);
     } catch (error) {
       if (axios.isCancel(error)) {
         // Request was canceled, ignore the error
       } else {
-        setError('Failed to fetch data');
+        // Other errors
       }
-    } finally {
-      setLoading(false);
     }
   }, [mediaType, titleId]);
 
@@ -65,5 +59,5 @@ export const useHoverDataFetch = (
     };
   }, [index, hoveredIndex, hoverDataFetch]);
 
-  return [data, trailer, loading, error];
+  return [data, trailer];
 };
