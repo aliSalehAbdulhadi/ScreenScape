@@ -24,8 +24,6 @@ const TitleRelated = ({
     pageNum
   );
 
-  console.log(totalPages);
-
   return (
     <div>
       {data?.length >= 1 && (
