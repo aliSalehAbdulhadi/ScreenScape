@@ -95,7 +95,6 @@ const TitleSinglePage = () => {
                 )}
               </LazyLoadComponent>
 
-              <LazyLoadComponent key="recommended" threshold={0} once={true}>
                 {TitleRecommendation && (
                   <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in ">
                     <TitleRecommendation

@@ -4,7 +4,6 @@ import { Suspense, lazy, memo, useState } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
 import { useDataFetch } from '@/src/fetch/getDataWithPages';
-
 const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
 );
