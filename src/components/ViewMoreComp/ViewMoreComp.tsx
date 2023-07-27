@@ -7,7 +7,6 @@ import Modal from '../WrapperComponents/Modal/Modal';
 import CreditsCard from '../Cards/CreditsCard/CreditsCard';
 import SmallTextButton from './SmallTextButton/SmallTextButton';
 import { dataObject, delay } from '@/src/global/globalVariables';
-import LazyLoad from '../WrapperComponents/LazyLoad/LazyLoad';
 import { LoadMoreData } from '@/src/helper/loadMoreData';
 
 const ViewMoreComp = ({
@@ -28,11 +27,6 @@ const ViewMoreComp = ({
   totalResults?: number;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [visibleCount, setVisibleCount] = useState(3);
-
-  const handleVisible = useRef(() => {
-    setVisibleCount((count) => count + 2);
-  });
 
   const loadMoreDataHandler = () => {
     setPageNum && setPageNum((prev: number) => prev + 1);
@@ -67,34 +61,32 @@ const ViewMoreComp = ({
         totalResults={totalResults}
       >
         <GridComp center={true} breakPointWidth={12} className="relative pb-5">
-          {titles?.slice(0, visibleCount)?.map((title: any, i: number) => (
-            <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
-              <DelayDisplay delay={delay(i)}>
-                <Link
-                  href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
-                    mediaType === 'actor' ? 'person' : mediaType
-                  }/${title?.id}`}
-                  className="flex flex-col  cursor-pointer h-[23rem] w-[12rem] rounded overflow-hidden bg-primary bg-opacity-70"
-                >
-                  {mediaType === 'actor' ? (
-                    <CreditsCard
-                      index={i}
-                      data={title}
-                      mediaType={title?.total_episode_count ? 'tv' : 'movie'}
-                    />
-                  ) : (
-                    <PosterCard
-                      index={i}
-                      imageUrl={dataObject(title, mediaType)?.posterUrl}
-                      title={dataObject(title, mediaType)?.title}
-                      releaseDate={dataObject(title, mediaType)?.releaseDate}
-                      rating={dataObject(title, mediaType)?.voteAverage * 10}
-                      mediaType={mediaType}
-                    />
-                  )}
-                </Link>
-              </DelayDisplay>
-            </LazyLoad>
+          {titles?.map((title: any, i: number) => (
+            <DelayDisplay key={i} delay={delay(i)}>
+              <Link
+                href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
+                  mediaType === 'actor' ? 'person' : mediaType
+                }/${title?.id}`}
+                className="flex flex-col  cursor-pointer h-[23rem] w-[12rem] rounded overflow-hidden bg-primary bg-opacity-70"
+              >
+                {mediaType === 'actor' ? (
+                  <CreditsCard
+                    index={i}
+                    data={title}
+                    mediaType={title?.total_episode_count ? 'tv' : 'movie'}
+                  />
+                ) : (
+                  <PosterCard
+                    index={i}
+                    imageUrl={dataObject(title, mediaType)?.posterUrl}
+                    title={dataObject(title, mediaType)?.title}
+                    releaseDate={dataObject(title, mediaType)?.releaseDate}
+                    rating={dataObject(title, mediaType)?.voteAverage * 10}
+                    mediaType={mediaType}
+                  />
+                )}
+              </Link>
+            </DelayDisplay>
           ))}
           <div ref={loadMoreRef} />
         </GridComp>
