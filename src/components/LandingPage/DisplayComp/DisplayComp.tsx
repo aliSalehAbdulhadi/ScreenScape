@@ -3,13 +3,12 @@
 import { useEffect, useRef, useState } from 'react';
 import DisplaySlider from '../../Sliders/DisplaySlider/DisplaySlider';
 import LazyLoad from '../../WrapperComponents/LazyLoad/LazyLoad';
-import LazyLoadComponent from '../../WrapperComponents/LazyLoadComponents/LazyLoadComponent';
 
 const DisplayComp = ({ data }: { data: any }) => {
   const [visibleCount, setVisibleCount] = useState(3);
 
   const handleVisible = useRef(() => {
-    setVisibleCount((count) => count + 1);
+    setVisibleCount((count) => count + 2);
   });
 
   useEffect(() => {
@@ -20,10 +19,11 @@ const DisplayComp = ({ data }: { data: any }) => {
 
   return (
     <div className="flex flex-col">
-      {data.map(
-        (slide: { displaySliderResponse: any; name: string }, i: any) => {
+      {data
+        ?.slice(0, visibleCount)
+        .map((slide: { displaySliderResponse: any; name: string }, i: any) => {
           return (
-            <LazyLoadComponent key={i} threshold={0} once={true}>
+            <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
               <div className=" mt-5 semiSm:mt-10 w-[100%]  flex flex-col transition-all">
                 <div className="flex items-center justify-between">
                   <span className=" ml-5 semiSm:ml-10 text-opacity-75 semiSm:text-opacity-100 semiSm:text semiSm:text-xl md:text-2xl mb-3 text-secondary fade-in ">
@@ -39,10 +39,9 @@ const DisplayComp = ({ data }: { data: any }) => {
                   <DisplaySlider index={i} data={slide.displaySliderResponse} />
                 </div>
               </div>
-            </LazyLoadComponent>
+            </LazyLoad>
           );
-        }
-      )}
+        })}
 
       {/* <div
         onClick={() => setSlidersInView(slidersInView + 4)}

@@ -12,7 +12,6 @@ const Modal = ({
   data,
   onClose,
   closeIcon,
-  totalResults,
 }: {
   children: ReactNode;
   animationCloseTime: number;
@@ -22,7 +21,6 @@ const Modal = ({
   data?: any[];
   onClose?: Function;
   closeIcon?: ReactNode;
-  totalResults?: number;
 }) => {
   const [animation, setAnimation] = useState(false);
 
@@ -69,9 +67,7 @@ const Modal = ({
       >
         <div className="w-full flex items-center justify-between  my-2 z-[2]">
           <div className={`ml-5 ${data || 'invisible'}`}>
-            <span className="text-secondary mr-1">
-              {totalResults ? totalResults : data?.length}
-            </span>
+            <span className="text-secondary mr-1">{data?.length}</span>
             <span>Matches</span>
           </div>
           <div

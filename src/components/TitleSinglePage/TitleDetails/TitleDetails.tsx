@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { memo } from 'react';
-import Link from 'next/link';
 import { checkDataAvailability } from '@/src/helper/checkDataAvailability';
 import { formatCurrency } from '@/src/helper/formatCurrency';
+import Link from 'next/link';
 import SocialMedia from '../../SocialMedia/SocialMedia';
 import Rating from '../TitleInfo/Rating/Rating';
+import { memo } from 'react';
 
 const TitleDetails = ({
   data,

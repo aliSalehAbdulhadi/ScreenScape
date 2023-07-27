@@ -5,7 +5,6 @@ export const useSingleActorDataFetch = (mediaType: string, param: any) => {
   const [data, setData] = useState<any>({});
   const [appearedInMovies, setAppearedInMovies] = useState<any>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   const cancelTokenRef = useRef<CancelTokenSource | null>(null);
 
@@ -25,7 +24,6 @@ export const useSingleActorDataFetch = (mediaType: string, param: any) => {
       setData(actorInfoResponse?.data);
       setAppearedInMovies(appearedInResponse?.data);
     } catch (error) {
-      setError('Error fetching actors data. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -43,5 +41,5 @@ export const useSingleActorDataFetch = (mediaType: string, param: any) => {
     };
   }, [singleActorDataFetch]);
 
-  return [data, appearedInMovies, loading, error];
+  return [data, appearedInMovies, loading];
 };

@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import { Dispatch, SetStateAction, memo, useRef } from 'react';
+import { Dispatch, SetStateAction, memo, useRef, useState } from 'react';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import GridComp from '../../WrapperComponents/GridComp/GridComp';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
 import { dataObject, delay } from '@/src/global/globalVariables';
 import { LoadMoreData } from '@/src/helper/loadMoreData';
+import LazyLoad from '../../WrapperComponents/LazyLoad/LazyLoad';
 
 const SearchPageContent = ({
   filteredData,
@@ -21,6 +22,11 @@ const SearchPageContent = ({
   totalPages: number;
   loading: boolean;
 }) => {
+  const [visibleCount, setVisibleCount] = useState(3);
+
+  const handleVisible = useRef(() => {
+    setVisibleCount((count) => count + 2);
+  });
   const loadMoreDataHandler = () => {
     setPageNum((prev: number) => prev + 1);
   };
@@ -65,37 +71,39 @@ const SearchPageContent = ({
       changeableTitle={String(lookingForTitleHandler())}
       className="relative"
     >
-      {filteredData?.map((title: any, i: number) => (
-        <DelayDisplay key={i} delay={delay(i)}>
-          <div className="flex flex-col  cursor-pointer bg-white text-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden">
-            <Link
-              href={`/browse/${title?.first_air_date ? 'tv/' : 'movie/'}${
-                title?.id
-              }`}
-            >
-              <PosterCard
-                index={i}
-                imageUrl={
-                  dataObject(title, title?.first_air_date ? 'tv' : 'movie')
-                    ?.posterUrl
-                }
-                title={
-                  dataObject(title, title?.first_air_date ? 'tv' : 'movie')
-                    ?.title
-                }
-                releaseDate={
-                  dataObject(title, title?.first_air_date ? 'tv' : 'movie')
-                    ?.releaseDate
-                }
-                rating={
-                  dataObject(title, title?.first_air_date ? 'tv' : 'movie')
-                    ?.voteAverage * 10
-                }
-                mediaType={title?.first_air_date ? 'tv' : 'movie'}
-              />
-            </Link>
-          </div>
-        </DelayDisplay>
+      {filteredData?.slice(0, visibleCount)?.map((title: any, i: number) => (
+        <LazyLoad key={i} threshold={0.8} onVisible={handleVisible.current}>
+          <DelayDisplay delay={delay(i)}>
+            <div className="flex flex-col  cursor-pointer bg-white text-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden">
+              <Link
+                href={`/browse/${title?.first_air_date ? 'tv/' : 'movie/'}${
+                  title?.id
+                }`}
+              >
+                <PosterCard
+                  index={i}
+                  imageUrl={
+                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
+                      ?.posterUrl
+                  }
+                  title={
+                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
+                      ?.title
+                  }
+                  releaseDate={
+                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
+                      ?.releaseDate
+                  }
+                  rating={
+                    dataObject(title, title?.first_air_date ? 'tv' : 'movie')
+                      ?.voteAverage * 10
+                  }
+                  mediaType={title?.first_air_date ? 'tv' : 'movie'}
+                />
+              </Link>
+            </div>
+          </DelayDisplay>
+        </LazyLoad>
       ))}
       <div ref={loadMoreRef} />
       {loading && (
