@@ -18,7 +18,7 @@ const PicturesComponent = ({
   mediaType,
 }: {
   children: ReactNode;
-  id: string;
+  id: number;
   mediaType: string;
 }) => {
   const [open, setOpen] = useState(false);

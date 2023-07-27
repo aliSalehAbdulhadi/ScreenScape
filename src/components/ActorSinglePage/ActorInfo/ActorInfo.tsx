@@ -4,8 +4,9 @@ import MasonryGridPics from '../../MasonryGridPics/MasonryGridPics';
 import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 import SocialMedia from '../../SocialMedia/SocialMedia';
 import { RxPerson } from 'react-icons/rx';
+import { ActorSingleInterface } from '@/src/Interfaces/interfaces';
 
-const ActorInfo = ({ data }: { data: any }) => {
+const ActorInfo = ({ data }: { data: ActorSingleInterface }) => {
   const age = `${moment(data?.birthday).format('MMMM Do YYYY')} ${
     data?.deathday ? '' : `(${moment().diff(data?.birthday, 'years')} years)`
   }`;
@@ -14,13 +15,12 @@ const ActorInfo = ({ data }: { data: any }) => {
     data?.deathday &&
     `(${moment(data?.deathday).diff(data?.birthday, 'years')} years)`
   }`;
-
   return (
     <div className="flex flex-col semiSm:flex-row">
       <div className="flex flex-col sm:flex-row xs:self-center">
         <div className={`xs:w-[28rem] sm:w-[21rem]`}>
           <MasonryGridPics mediaType="person" id={data?.id}>
-            {data?.profile_path?.length > 0 ? (
+            {data?.profile_path && data?.profile_path?.length > 0 ? (
               <Image
                 quality={imageQualityLargeScreen}
                 width={1000}

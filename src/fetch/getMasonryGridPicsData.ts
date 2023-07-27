@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useMasonryGridPicsDataFetch = (
   mediaType: string,
-  id: string,
+  id: number,
   isOpen: boolean
 ): [any, boolean, string | null] => {
   const [pictureResponse, setPictureResponse] = useState<any>({});

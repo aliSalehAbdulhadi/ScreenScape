@@ -8,7 +8,10 @@ const SingleGenres = ({
 }: {
   className?: string;
   underLine?: boolean;
-  genres?: [];
+  genres?: {
+    id: number;
+    name: string;
+  }[];
   mediaType?: string;
 }) => {
   return (

@@ -9,17 +9,21 @@ import {
   dataObject,
   imageQualityLargeScreen,
 } from '@/src/global/globalVariables';
+import {
+  FullMovieSingleInterface,
+  FullTvShowSingleInterface,
+} from '@/src/Interfaces/interfaces';
 
 const TitleInfo = ({
   data,
   videos,
   mediaType,
 }: {
-  data: any;
+  data: FullMovieSingleInterface & FullTvShowSingleInterface;
   videos: any[];
   mediaType: string;
 }) => {
-  const minutes = data.runtime;
+  const minutes = data?.runtime;
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
   const movieRuntime = hours + 'h ' + remainingMinutes + 'm';

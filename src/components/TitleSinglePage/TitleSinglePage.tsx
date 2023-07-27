@@ -28,7 +28,6 @@ const TitleSinglePage = () => {
 
   const cast = credits?.cast;
   const crew = credits?.crew;
-
   return (
     <div className="">
       {loading ? (
