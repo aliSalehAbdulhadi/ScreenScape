@@ -18,7 +18,7 @@ const TitleRelated = ({
   const [pageNum, setPageNum] = useState(1);
 
   const relatedEndPoint = `https://api.themoviedb.org/3/${mediaType}/${param?.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`;
-  const [data, error, loading, totalPages] = useDataFetch(
+  const [data, error, loading, totalPages, totalResults] = useDataFetch(
     relatedEndPoint,
     pageNum
   );
@@ -41,6 +41,7 @@ const TitleRelated = ({
                     pageNum={pageNum}
                     totalPages={totalPages}
                     loading={loading}
+                    totalResults={totalResults}
                   />
                 </div>
               </Suspense>

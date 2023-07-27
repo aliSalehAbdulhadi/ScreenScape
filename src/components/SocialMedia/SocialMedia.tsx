@@ -14,7 +14,7 @@ const SocialMedia = ({
   mediaType,
   homePage,
 }: {
-  id: string;
+  id: number;
   mediaType: string;
   homePage?: string;
 }) => {

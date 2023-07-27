@@ -8,8 +8,9 @@ import 'swiper/swiper-bundle.css';
 import styles from '../../../../styles/swiper.module.scss';
 import useWindowSize from '@/src/hooks/useWindowsSize';
 import HeroSliderVideo from './HerSliderVideo/HeroSliderVideo';
+import { TrailerTitleInterface } from '@/src/Interfaces/interfaces';
 
-const HeroSlider = ({ data = [] }: { data: [] }) => {
+const HeroSlider = ({ data = [] }: { data: TrailerTitleInterface[] }) => {
   const [nextArrow, setNextArrow] = useState<boolean>(false);
   const [prevArrow, setPrevArrow] = useState<boolean>(false);
   const [showArrows, setShowArrows] = useState<boolean>(false);
@@ -85,7 +86,7 @@ const HeroSlider = ({ data = [] }: { data: [] }) => {
           }}
         >
           <div>
-            {data?.map((title: any, i: any) => {
+            {data?.map((title: TrailerTitleInterface, i: number) => {
               return (
                 i <= 8 && (
                   <SwiperSlide

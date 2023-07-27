@@ -3,15 +3,14 @@ import { Suspense } from 'react';
 import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import { getMoviesWithTrailers } from '@/src/fetch/getMoviesWithTrailer';
 import { getDisplaySlideData } from '@/src/fetch/getDisplaySlideData';
+import { TrailerTitleInterface } from '@/src/Interfaces/interfaces';
 
-const TrailerSlider = dynamic(
-  () => import('../Sliders/HeroSlider/HeroSlider')
-);
+const TrailerSlider = dynamic(() => import('../Sliders/HeroSlider/HeroSlider'));
 const DisplayComp = dynamic(() => import('./DisplayComp/DisplayComp'));
 
 const LandingPage = async () => {
   const displaySlideContent: {
-    apiKey: any;
+    apiKey: string;
     name: string;
     mediaType: string;
   }[] = [
@@ -49,7 +48,8 @@ const LandingPage = async () => {
   ];
 
   const displaySliderData = await getDisplaySlideData(displaySlideContent);
-  const moviesWithTrailers: any = await getMoviesWithTrailers();
+  const moviesWithTrailers: TrailerTitleInterface[] =
+    await getMoviesWithTrailers();
 
   return (
     <div className="flex flex-col items-center background-fade md:py-[6rem] fade-in">

@@ -4,6 +4,10 @@ import { Dispatch, SetStateAction, Suspense, lazy, memo } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 import MovieTvSwitchButtons from './MovieTvSwitchButtons/MovieTvSwitchButtons';
 import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
+import {
+  MovieSingleInterface,
+  TvShowSingleInterface,
+} from '@/src/Interfaces/interfaces';
 
 const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
@@ -14,7 +18,7 @@ const ActorAppearedIn = ({
   setMediaType,
   mediaType,
 }: {
-  appearedInTitles: any;
+  appearedInTitles: TvShowSingleInterface[] | MovieSingleInterface[];
   setMediaType: Dispatch<SetStateAction<string>>;
   mediaType: string;
 }) => {

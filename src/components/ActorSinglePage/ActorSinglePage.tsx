@@ -9,6 +9,10 @@ import OtherActors from './OtherActors/OtherActors';
 import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
 import { useSingleActorDataFetch } from '@/src/fetch/getSingleActorData';
 import LazyLoadComponent from '../WrapperComponents/LazyLoadComponents/LazyLoadComponent';
+import {
+  MovieSingleInterface,
+  TvShowSingleInterface,
+} from '@/src/Interfaces/interfaces';
 
 const ActorSinglePage = () => {
   const [mediaType, setMediaType] = useState<string>('movie');
@@ -23,7 +27,7 @@ const ActorSinglePage = () => {
   const tvShows = useMemo(
     () =>
       appearedInMovies?.cast?.filter(
-        (title: any) => title?.media_type !== 'movie'
+        (title: TvShowSingleInterface) => title?.media_type !== 'movie'
       ),
     [appearedInMovies]
   );
@@ -31,10 +35,11 @@ const ActorSinglePage = () => {
   const movies = useMemo(
     () =>
       appearedInMovies?.cast?.filter(
-        (title: any) => title?.media_type === 'movie'
+        (title: MovieSingleInterface) => title?.media_type === 'movie'
       ),
     [appearedInMovies]
   );
+
 
   return (
     <div>

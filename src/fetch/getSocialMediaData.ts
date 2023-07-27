@@ -1,7 +1,7 @@
 import axios, { CancelTokenSource } from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-export const useSocialMediaIds = (mediaType: string, id: string) => {
+export const useSocialMediaIds = (mediaType: string, id: number) => {
   const [socialMediaIds, setSocialMediaIds] = useState<any>({});
   const cancelTokenRef = useRef<CancelTokenSource | null>(null);
 
