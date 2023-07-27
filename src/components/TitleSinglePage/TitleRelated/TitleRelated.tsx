@@ -4,6 +4,7 @@ import { Suspense, lazy, memo, useState } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
 import { useDataFetch } from '@/src/fetch/getDataWithPages';
+
 const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
 );
@@ -18,10 +19,12 @@ const TitleRelated = ({
   const [pageNum, setPageNum] = useState(1);
 
   const relatedEndPoint = `https://api.themoviedb.org/3/${mediaType}/${param?.id}/similar?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`;
-  const [data, error, loading, totalPages] = useDataFetch(
+  const [data, error, loading, totalPages, totalResults] = useDataFetch(
     relatedEndPoint,
     pageNum
   );
+
+  console.log(totalPages);
 
   return (
     <div>
@@ -41,6 +44,7 @@ const TitleRelated = ({
                     pageNum={pageNum}
                     totalPages={totalPages}
                     loading={loading}
+                    totalResults={totalResults}
                   />
                 </div>
               </Suspense>

@@ -6,6 +6,7 @@ export const useDataFetch = (endpoint: string, pageNum: number) => {
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [totalResults, setTotalResults] = useState<number>(0);
 
   const cancelTokenRef = useRef<CancelTokenSource | null>(null);
 
@@ -24,6 +25,7 @@ export const useDataFetch = (endpoint: string, pageNum: number) => {
         return Array.from(new Set(newData));
       });
       setTotalPages(response?.data?.total_pages);
+      setTotalResults(response?.data?.total_results);
     } catch (error) {
       if (axios.isCancel(error)) {
         // Ignore cancel token error
@@ -47,5 +49,5 @@ export const useDataFetch = (endpoint: string, pageNum: number) => {
     };
   }, [fetchData]);
 
-  return [data, error, loading, totalPages];
+  return [data, error, loading, totalPages, totalResults];
 };

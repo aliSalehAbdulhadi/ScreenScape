@@ -17,6 +17,7 @@ const ViewMoreComp = ({
   pageNum,
   loading,
   totalPages,
+  totalResults,
 }: {
   titles: any[];
   mediaType: string;
@@ -24,6 +25,7 @@ const ViewMoreComp = ({
   pageNum?: number;
   loading?: boolean;
   totalPages?: number;
+  totalResults?: number;
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [visibleCount, setVisibleCount] = useState(3);
@@ -62,6 +64,7 @@ const ViewMoreComp = ({
         animationCloseTime={190}
         open={open}
         setOpen={setOpen}
+        totalResults={totalResults}
       >
         <GridComp center={true} breakPointWidth={12} className="relative pb-5">
           {titles?.slice(0, visibleCount)?.map((title: any, i: number) => (
@@ -71,7 +74,7 @@ const ViewMoreComp = ({
                   href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
                     mediaType === 'actor' ? 'person' : mediaType
                   }/${title?.id}`}
-                  className="flex flex-col  cursor-pointer h-[23rem] w-[12rem] rounded overflow-hidden bg-primary bg-opacity-7  0"
+                  className="flex flex-col  cursor-pointer h-[23rem] w-[12rem] rounded overflow-hidden bg-primary bg-opacity-70"
                 >
                   {mediaType === 'actor' ? (
                     <CreditsCard
