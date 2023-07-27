@@ -5,11 +5,14 @@ export const useMasonryGridPicsDataFetch = (
   mediaType: string,
   id: string,
   isOpen: boolean
-) => {
+): [any, boolean, string | null] => {
   const [pictureResponse, setPictureResponse] = useState<any>({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const cancelTokenRef = useRef<CancelTokenSource | null>(null);
 
   const masonryGridPicsDataFetch = useCallback(async () => {
+    setLoading(true);
     const source = axios.CancelToken.source();
     cancelTokenRef.current = source;
 
@@ -19,7 +22,12 @@ export const useMasonryGridPicsDataFetch = (
       );
 
       setPictureResponse(picturesResponse?.data);
-    } catch (error) {}
+      setError(null);
+    } catch (error) {
+      setError('Failed to fetch pictures data');
+    } finally {
+      setLoading(false);
+    }
   }, [id, mediaType]);
 
   useEffect(() => {
@@ -35,5 +43,5 @@ export const useMasonryGridPicsDataFetch = (
     };
   }, [isOpen, masonryGridPicsDataFetch]);
 
-  return [pictureResponse];
+  return [pictureResponse, loading, error];
 };

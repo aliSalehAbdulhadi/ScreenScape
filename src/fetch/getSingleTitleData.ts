@@ -13,6 +13,8 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
     minusYear: '',
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const cancelTokenRef = useRef<CancelTokenSource | null>(null);
   const cancelTokenRefOmdb = useRef<CancelTokenSource | null>(null);
 
@@ -22,8 +24,9 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
 
     const generateUrl = (endpoint: string) =>
       `https://api.themoviedb.org/3/${mediaType}/${param.id}${
-        endpoint && `/${endpoint}`
+        endpoint ? `/${endpoint}` : ''
       }?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`;
+
     try {
       const [
         titleResponse,
@@ -38,7 +41,6 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
             ? generateUrl('aggregate_credits')
             : generateUrl('credits')
         ),
-
         axios.get(generateUrl('keywords')),
       ]);
 
@@ -47,6 +49,7 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
           ?.map((genre: { id: number; name: string }) => genre?.id)
           .join('&')
       );
+
       setYear({
         plusYear: moment(titleResponse?.data?.release_date)
           .subtract(1, 'year')
@@ -59,19 +62,18 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
       setData(titleResponse?.data);
       setCredits(creditsResponse?.data);
       setVideos(trailerResponse.data?.results);
-
       setKeywords(
         mediaType === 'movie'
           ? keywordsResponse?.data?.keywords
           : keywordsResponse?.data?.results
       );
+
+      setError(null); // Clear any previous errors if the fetch is successful
     } catch (error) {
+      setError('Error fetching title data. Please try again later.');
     } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 100);
+      setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mediaType, param.id]);
 
   const omdbFetch = useCallback(async () => {
@@ -87,19 +89,19 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
         }&apikey=${process.env.NEXT_PUBLIC_OMDB_API_KEY}`
       );
 
-      setData((prev: any) => {
-        return {
-          ...prev,
-          ratings: omdbRequest?.data?.Ratings,
-          rated: omdbRequest?.data?.Rated,
-          awards:
-            omdbRequest?.data?.Awards === 'N/A' || null || undefined
-              ? null
-              : omdbRequest?.data?.Awards,
-        };
-      });
+      setData((prev: any) => ({
+        ...prev,
+        ratings: omdbRequest?.data?.Ratings,
+        rated: omdbRequest?.data?.Rated,
+        awards:
+          omdbRequest?.data?.Awards === 'N/A' || !omdbRequest?.data?.Awards
+            ? null
+            : omdbRequest?.data?.Awards,
+      }));
+
+      setError(null); // Clear any previous errors if the fetch is successful
     } catch (error) {
-    } finally {
+      setError('Error fetching additional data. Please try again later.');
     }
   }, [data, mediaType]);
 
@@ -115,7 +117,7 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
   }, [singleDataFetch]);
 
   useEffect(() => {
-    if (data) {
+    if (data?.id) {
       omdbFetch();
     }
 
@@ -128,5 +130,5 @@ export const useSingleTitleDataFetch = (mediaType: string, param: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.id]);
 
-  return [data, credits, videos, keywords, genres, year, loading];
+  return [data, credits, videos, keywords, genres, year, loading, error];
 };

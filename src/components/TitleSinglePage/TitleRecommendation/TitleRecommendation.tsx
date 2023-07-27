@@ -6,7 +6,6 @@ import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/Loa
 
 import { useDataFetch } from '@/src/fetch/getDataWithPages';
 
-
 const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
 );
@@ -22,7 +21,7 @@ const TitleRecommendation = ({
 
   const recommendedEndPoint = `https://api.themoviedb.org/3/${mediaType}/${param?.id}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`;
 
-  const [data, error, loading, totalPages] = useDataFetch(
+  const [data, error, loading, totalPages, totalResults] = useDataFetch(
     recommendedEndPoint,
     pageNum
   );
@@ -45,6 +44,7 @@ const TitleRecommendation = ({
                     pageNum={pageNum}
                     totalPages={totalPages}
                     loading={loading}
+                    totalResults={totalResults}
                   />
                 </div>
               </Suspense>

@@ -84,7 +84,7 @@ const TitleSinglePage = () => {
                 )}
               </LazyLoadComponent>
 
-              <LazyLoadComponent key="related" threshold={0.7} once={true}>
+              <LazyLoadComponent key="related" threshold={0} once={true}>
                 {TitleRelated && (
                   <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in ">
                     <TitleRelated
@@ -95,7 +95,6 @@ const TitleSinglePage = () => {
                 )}
               </LazyLoadComponent>
 
-              <LazyLoadComponent key="recommended" threshold={0.7} once={true}>
                 {TitleRecommendation && (
                   <div className="pt-1 overflow-x-hidden flex flex-col slider-fade overflow-hidden fade-in ">
                     <TitleRecommendation
