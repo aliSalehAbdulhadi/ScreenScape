@@ -4,9 +4,7 @@ import LoadingComponent from '../LoadingComponent/LoadingComponent';
 import { getMoviesWithTrailers } from '@/src/fetch/getMoviesWithTrailer';
 import { getDisplaySlideData } from '@/src/fetch/getDisplaySlideData';
 
-const TrailerSlider = dynamic(
-  () => import('../Sliders/HeroSlider/HeroSlider')
-);
+const TrailerSlider = dynamic(() => import('../Sliders/HeroSlider/HeroSlider'));
 const DisplayComp = dynamic(() => import('./DisplayComp/DisplayComp'));
 
 const LandingPage = async () => {
