@@ -37,9 +37,7 @@ const PosterCard = ({
             width={150}
             height={250}
             alt="Title Image"
-            className={`h-[250px] w-[195px] object-fit rounded-t ${
-              loading === false ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`h-[250px] w-[195px] object-fit rounded-t `}
             onLoad={() => setLoading(false)}
           />
         ) : (

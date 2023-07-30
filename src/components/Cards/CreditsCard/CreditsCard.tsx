@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
-import LoadingPicture from '../../LoadingComponent/LoadingPicture/LoadingPicture';
+import { RxPerson } from 'react-icons/rx';
 import { imageQualitySmallScreen } from '@/src/global/globalVariables';
 import { charactersLengthHandler } from '@/src/helper/charactersLengthHandler';
-import { RxPerson } from 'react-icons/rx';
 
 const CreditsCard = ({
   data,
@@ -31,10 +30,8 @@ const CreditsCard = ({
           }
           width={150}
           height={250}
-          alt="Title Image"
-          className={`h-[250px] w-[195px] object-fit rounded-t ${
-            loading === false ? 'opacity-100' : 'opacity-0'
-          }`}
+          alt="Cast Image"
+          className={`h-[250px] w-[195px] object-fit rounded-t`}
           onLoad={() => setLoading(false)}
         />
       ) : (
