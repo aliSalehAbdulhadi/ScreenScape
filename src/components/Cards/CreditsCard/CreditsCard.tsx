@@ -17,27 +17,26 @@ const CreditsCard = ({
 }) => {
   const [loading, setLoading] = useState(true);
 
+  const imagePlaceholder = '/images/imagePlaceholder.png';
+
   return (
     <div>
       {data.profile_path?.length > 0 ? (
-        <div className="transition-all sm:hover:opacity-90">
-          {loading && (
-            <div className="h-[365px]  w-[195px] ">
-              <LoadingPicture />
-            </div>
-          )}
-          <Image
-            quality={imageQualitySmallScreen}
-            src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
-            width={150}
-            height={250}
-            alt="Title Image"
-            className={`h-[250px] w-[195px] object-fit rounded-t ${
-              loading === false ? 'opacity-100' : 'opacity-0'
-            }`}
-            onLoad={() => setLoading(false)}
-          />
-        </div>
+        <Image
+          quality={imageQualitySmallScreen}
+          src={
+            loading
+              ? imagePlaceholder
+              : `https://image.tmdb.org/t/p/original/${data?.profile_path}`
+          }
+          width={150}
+          height={250}
+          alt="Title Image"
+          className={`h-[250px] w-[195px] object-fit rounded-t ${
+            loading === false ? 'opacity-100' : 'opacity-0'
+          }`}
+          onLoad={() => setLoading(false)}
+        />
       ) : (
         <div className="h-[250px] bg-placeholder flex items-center justify-center">
           <RxPerson className="h-20 w-20 opacity-40 mr-2" />
