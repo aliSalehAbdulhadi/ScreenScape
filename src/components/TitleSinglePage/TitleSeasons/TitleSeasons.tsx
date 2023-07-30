@@ -44,7 +44,7 @@ const TitleSeasons = ({
           setEpisodes(lastSeason?.episodes);
         }}
       >
-        <SeasonsCard data={lastSeason} />
+        <SeasonsCard data={lastSeason} seasonLoading={loadingLastSeason} />
       </div>
 
       <Modal
@@ -65,7 +65,7 @@ const TitleSeasons = ({
             }}
           >
             <div className=" px-1 xs:px-2 semiSm:px-0">
-              <SeasonsCard data={season} />
+              <SeasonsCard data={season} seasonLoading={loadingAllSeasons} />
             </div>
           </div>
         ))}

@@ -75,7 +75,7 @@ const TitleInfo = ({
                 loading={loading}
               />
             </span>
-            <div className=" text-opacity-75 w-fit mb-5 mt-2 min-w-[100px]">
+            <div className=" text-opacity-75 w-fit mb-5 mt-2 ">
               <LoadingSkeleton
                 data={
                   <SingleGenres
@@ -86,12 +86,13 @@ const TitleInfo = ({
                 }
                 height={30}
                 loading={loading}
+                width={100}
               />
             </div>
           </div>
           <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
             <div className="flex items-center mb-5 ">
-              <div className=" h-[2rem] flex items-center min-w-[50px]">
+              <div className=" h-[2rem] flex items-center">
                 <LoadingSkeleton
                   data={
                     dataObject(data, mediaType)?.rated !== 'N/A' ? (
@@ -106,10 +107,11 @@ const TitleInfo = ({
                   }
                   height={30}
                   loading={loading}
+                  width={50}
                 />
               </div>
 
-              <div className="min-w-[50px] ml-1">
+              <div className=" ml-3">
                 <LoadingSkeleton
                   data={
                     mediaType === 'movie' ? (
@@ -134,6 +136,7 @@ const TitleInfo = ({
                     )
                   }
                   height={30}
+                  width={50}
                   loading={loading}
                 />
               </div>

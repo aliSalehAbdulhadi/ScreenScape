@@ -27,7 +27,7 @@ const TitleCollection = ({
 
   return (
     <div>
-      <CollectionCard setOpen={setOpen} data={collection} />
+      <CollectionCard setOpen={setOpen} data={collection} loading={loading} />
       <Modal
         data={collection?.parts}
         open={open}
