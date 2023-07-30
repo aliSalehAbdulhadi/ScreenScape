@@ -7,9 +7,10 @@ import { memo, useRef } from 'react';
 import PosterCard from '../../Cards/PosterCard/PosterCard';
 import CreditsCard from '../../Cards/CreditsCard/CreditsCard';
 import 'swiper/swiper-bundle.css';
-import { dataObject } from '@/src/global/globalVariables';
+import { dataObject, delay } from '@/src/global/globalVariables';
 import { MdOutlineArrowBackIos } from 'react-icons/md';
 import styles from '../../../../styles/swiper.module.scss';
+import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 
 const CardSlider = ({
   data,
@@ -79,32 +80,38 @@ const CardSlider = ({
               (info, i) =>
                 i <= 15 && (
                   <SwiperSlide className="!w-[12rem]" key={uuidv4()}>
-                    {isCast ? (
-                      <Link
-                        href={`/person/${info?.id}`}
-                        className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
-                      >
-                        <CreditsCard
-                          data={info}
-                          index={i}
-                          mediaType={mediaType}
-                        />
-                      </Link>
-                    ) : (
-                      <Link
-                        href={`/browse/${mediaType}/${info?.id}`}
-                        className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
-                      >
-                        <PosterCard
-                          index={i}
-                          imageUrl={dataObject(info, mediaType)?.posterUrl}
-                          title={dataObject(info, mediaType)?.title}
-                          releaseDate={dataObject(info, mediaType)?.releaseDate}
-                          rating={dataObject(info, mediaType)?.voteAverage * 10}
-                          mediaType={mediaType}
-                        />
-                      </Link>
-                    )}
+                    <DelayDisplay key={i} delay={delay(i)}>
+                      {isCast ? (
+                        <Link
+                          href={`/person/${info?.id}`}
+                          className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
+                        >
+                          <CreditsCard
+                            data={info}
+                            index={i}
+                            mediaType={mediaType}
+                          />
+                        </Link>
+                      ) : (
+                        <Link
+                          href={`/browse/${mediaType}/${info?.id}`}
+                          className="flex flex-col  cursor-pointer bg-white bg-opacity-10 h-[23rem] w-[12rem] rounded overflow-hidden"
+                        >
+                          <PosterCard
+                            index={i}
+                            imageUrl={dataObject(info, mediaType)?.posterUrl}
+                            title={dataObject(info, mediaType)?.title}
+                            releaseDate={
+                              dataObject(info, mediaType)?.releaseDate
+                            }
+                            rating={
+                              dataObject(info, mediaType)?.voteAverage * 10
+                            }
+                            mediaType={mediaType}
+                          />
+                        </Link>
+                      )}
+                    </DelayDisplay>
                   </SwiperSlide>
                 )
             )}
