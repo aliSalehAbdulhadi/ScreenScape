@@ -13,15 +13,18 @@ import {
   FullMovieSingleInterface,
   FullTvShowSingleInterface,
 } from '@/src/Interfaces/interfaces';
+import LoadingSkeleton from '../../LoadingComponent/LoadingSkeleton/LoadingSkeleton';
 
 const TitleInfo = ({
   data,
   videos,
   mediaType,
+  loading,
 }: {
   data: FullMovieSingleInterface & FullTvShowSingleInterface;
   videos: any[];
   mediaType: string;
+  loading: boolean;
 }) => {
   const minutes = data?.runtime;
   const hours = Math.floor(minutes / 60);
@@ -32,7 +35,7 @@ const TitleInfo = ({
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
         <div className="xs:self-center  xs:w-[28rem] sm:w-[21rem]">
           <MasonryGridPics mediaType={mediaType} id={data?.id}>
-            {dataObject(data, mediaType).posterUrl?.length > 0 ? (
+            {dataObject(data, mediaType).posterUrl?.length > 0 || !loading ? (
               <Image
                 quality={imageQualityLargeScreen}
                 width={1000}
@@ -48,7 +51,9 @@ const TitleInfo = ({
               />
             ) : (
               <div className=" flex items-center justify-center h-[30rem] w-full rounded overflow-hidden bg-placeholder">
-                <SlPicture className="h-[3.5rem] w-[3.5rem]" />
+                <SlPicture
+                  className={`h-[3.5rem] w-[3.5rem] ${loading && 'hidden'}`}
+                />
               </div>
             )}
           </MasonryGridPics>
@@ -60,75 +65,116 @@ const TitleInfo = ({
               title={dataObject(data, mediaType).title}
               className="text-lg xxxs:text-xl  semiSm:text-3xl  flex items-center  semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem] xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem]  scrollBar"
             >
-              {dataObject(data, mediaType).title?.length <= 40
-                ? dataObject(data, mediaType).title
-                : dataObject(data, mediaType).title?.slice(0, 40) + '...'}
+              <LoadingSkeleton
+                data={
+                  dataObject(data, mediaType).title?.length <= 40
+                    ? dataObject(data, mediaType).title
+                    : dataObject(data, mediaType).title?.slice(0, 40) + '...'
+                }
+                height={30}
+                loading={loading}
+              />
             </span>
-            <div className=" text-opacity-75 w-fit mb-5 mt-2">
-              <SingleGenres
-                mediaType={mediaType}
-                genres={data?.genres}
-                className="flex"
+            <div className=" text-opacity-75 w-fit mb-5 mt-2 ">
+              <LoadingSkeleton
+                data={
+                  <SingleGenres
+                    mediaType={mediaType}
+                    genres={data?.genres}
+                    className="flex"
+                  />
+                }
+                height={30}
+                loading={loading}
+                width={100}
               />
             </div>
           </div>
           <div className=" w-fit opacity-75 mt-1 semiSm:mt-0 mr-2 ">
             <div className="flex items-center mb-5 ">
-              <div className=" h-[2rem] flex items-center ">
-                {dataObject(data, mediaType)?.rated !== 'N/A' ? (
-                  <span className="border-[1px] rounded  py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
-                    {dataObject(data, mediaType)?.rated}
-                  </span>
-                ) : (
-                  <span className="border-[1px] rounded py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
-                    {dataObject(data, mediaType)?.isAdult ? '18+' : 'G'}
-                  </span>
-                )}
+              <div className=" h-[2rem] flex items-center">
+                <LoadingSkeleton
+                  data={
+                    dataObject(data, mediaType)?.rated !== 'N/A' ? (
+                      <span className="border-[1px] rounded min-h-[30px] w-full  py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                        {dataObject(data, mediaType)?.rated}
+                      </span>
+                    ) : (
+                      <span className="min-h-[30px] w-full border-[1px] rounded py-1 px-2 flex justify-center items-center bg-primary bg-opacity-20  border-white border-opacity-75 mr-3 font-averia">
+                        {dataObject(data, mediaType)?.isAdult ? '18+' : 'G'}
+                      </span>
+                    )
+                  }
+                  height={30}
+                  loading={loading}
+                  width={50}
+                />
               </div>
 
-              <div>
-                {mediaType === 'movie' ? (
-                  <span>
-                    {dataObject(data, mediaType).releaseDate?.split('-')[0]}
-                  </span>
-                ) : (
-                  <div className="flex items-center justify-center">
-                    <span>
-                      {dataObject(data, mediaType).releaseDate?.split('-')[0]}
-                    </span>
-                    <span className="mx-2">-</span>
-                    <span>
-                      {dataObject(data, mediaType).endedDate?.split('-')[0]}{' '}
-                      Last Aired
-                    </span>
-                  </div>
-                )}
+              <div className=" ml-3">
+                <LoadingSkeleton
+                  data={
+                    mediaType === 'movie' ? (
+                      <span>
+                        {dataObject(data, mediaType).releaseDate?.split('-')[0]}
+                      </span>
+                    ) : (
+                      <div className="flex items-center justify-center">
+                        <span>
+                          {
+                            dataObject(data, mediaType).releaseDate?.split(
+                              '-'
+                            )[0]
+                          }
+                        </span>
+                        <span className="mx-2">-</span>
+                        <span>
+                          {dataObject(data, mediaType).endedDate?.split('-')[0]}{' '}
+                          Last Aired
+                        </span>
+                      </div>
+                    )
+                  }
+                  height={30}
+                  width={50}
+                  loading={loading}
+                />
               </div>
             </div>
 
             <div className="mb-5 flex flex-col justify-center whitespace-nowrap ">
-              {mediaType === 'movie' ? (
-                <span> {movieRuntime}</span>
-              ) : (
-                <div className='className="flex items-center'>
-                  <div>
-                    <span className='className="flex items-center'>
-                      {dataObject(data, mediaType)?.seasons}{' '}
-                      {dataObject(data, mediaType)?.seasons > 1
-                        ? 'Seasons'
-                        : 'Season'}
-                    </span>{' '}
-                    <span className='className="flex items-center'>
-                      {dataObject(data, mediaType).episodes}{' '}
-                      {dataObject(data, mediaType)?.episodes > 1
-                        ? 'Episodes'
-                        : 'Episode'}
-                    </span>
-                  </div>
-                </div>
-              )}
+              <LoadingSkeleton
+                data={
+                  mediaType === 'movie' ? (
+                    <span> {movieRuntime}</span>
+                  ) : (
+                    <div className='className="flex items-center'>
+                      <div>
+                        <span className='className="flex items-center'>
+                          {dataObject(data, mediaType)?.seasons}{' '}
+                          {dataObject(data, mediaType)?.seasons > 1
+                            ? 'Seasons'
+                            : 'Season'}
+                        </span>{' '}
+                        <span className='className="flex items-center'>
+                          {dataObject(data, mediaType).episodes}{' '}
+                          {dataObject(data, mediaType)?.episodes > 1
+                            ? 'Episodes'
+                            : 'Episode'}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                }
+                height={30}
+                loading={loading}
+              />
               <span className="mt-1">
-                {dataObject(data, mediaType).seriesStatus}
+                <LoadingSkeleton
+                  data={dataObject(data, mediaType).seriesStatus}
+                  height={30}
+                  loading={loading}
+                />
               </span>
             </div>
 
@@ -142,7 +188,11 @@ const TitleInfo = ({
           </div>
           <div className="text-[17px]  scrollBar overflow-auto hidden max-h-[13rem] w-full xl:w-[80%] semiSm:block text-offWhite">
             <span className="leading-7">
-              {dataObject(data, mediaType).overview}
+              <LoadingSkeleton
+                data={dataObject(data, mediaType).overview}
+                height={100}
+                loading={loading}
+              />
             </span>
           </div>
 
@@ -158,7 +208,13 @@ const TitleInfo = ({
       </div>
 
       <div className="text-sm xxs:text-[17px] scrollBar mx-2 xs:mx-5 sm:mx-0  mt-5 self-center  semiSm:hidden">
-        <span className="leading-7">{data?.overview}</span>
+        <span className="leading-7">
+          <LoadingSkeleton
+            data={data?.overview}
+            height={100}
+            loading={loading}
+          />
+        </span>
       </div>
     </div>
   );

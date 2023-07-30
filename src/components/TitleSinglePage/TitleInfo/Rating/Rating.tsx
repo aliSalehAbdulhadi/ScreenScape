@@ -19,7 +19,8 @@ const Rating = ({ data, mediaType }: { data: any; mediaType: string }) => {
 
       <div>
         <span className="mr-1">
-          {parseInt(String(dataObject(data, mediaType)?.voteAverage * 10))}
+          {dataObject(data, mediaType)?.voteAverage &&
+            Math.floor(Number(dataObject(data, mediaType)?.voteAverage * 10))}
         </span>
         <span>Community</span>
       </div>

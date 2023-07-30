@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import Link from 'next/link';
 import CollectionCard from '../../Cards/CollectionCard/CollectionCard';
 import Modal from '../../WrapperComponents/Modal/Modal';
@@ -7,6 +7,7 @@ import PosterCard from '../../Cards/PosterCard/PosterCard';
 import DelayDisplay from '../../WrapperComponents/DelayDisplay/DelayDisplay';
 import LazyLoad from '../../WrapperComponents/LazyLoad/LazyLoad';
 import { delay } from '@/src/global/globalVariables';
+import useGetCollection from '@/src/fetch/getCollections';
 
 const TitleCollection = ({
   collectionId,
@@ -15,7 +16,6 @@ const TitleCollection = ({
   collectionId: string;
   mediaType: string;
 }) => {
-  const [collection, setCollection] = useState<any>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [visibleCount, setVisibleCount] = useState(3);
 
@@ -23,25 +23,11 @@ const TitleCollection = ({
     setVisibleCount((count) => count + 2);
   });
 
-  const collectionFetch = useCallback(async () => {
-    try {
-      const collectionRequest = await fetch(
-        `https://api.themoviedb.org/3/collection/${collectionId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-      );
-
-      const collectionResponse = await collectionRequest?.json();
-
-      setCollection(collectionResponse);
-    } catch (error) {}
-  }, [collectionId]);
-
-  useEffect(() => {
-    collectionFetch();
-  }, [collectionFetch]);
+  const [collection, loading, error] = useGetCollection(collectionId);
 
   return (
     <div>
-      <CollectionCard setOpen={setOpen} data={collection} />
+      <CollectionCard setOpen={setOpen} data={collection} loading={loading} />
       <Modal
         data={collection?.parts}
         open={open}
