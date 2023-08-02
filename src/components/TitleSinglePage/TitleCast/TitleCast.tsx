@@ -29,7 +29,7 @@ const TitleCast = ({
         </div>
 
         {credits?.length > 10 ? (
-          <Suspense fallback={<LoadingSpinner />}>
+          <Suspense>
             <div className="mr-2 xs:mr-5">
               <ViewMoreComp titles={credits} mediaType="actor" />
             </div>
