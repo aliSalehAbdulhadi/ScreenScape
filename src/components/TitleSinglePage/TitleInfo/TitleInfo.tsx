@@ -35,7 +35,8 @@ const TitleInfo = ({
       <div className="flex justify-center flex-col sm:justify-start  sm:flex-row w-full">
         <div className="xs:self-center  xs:w-[28rem] sm:w-[21rem]">
           <MasonryGridPics mediaType={mediaType} id={data?.id}>
-            {dataObject(data, mediaType).posterUrl?.length > 0 || !loading ? (
+            {dataObject(data, mediaType).posterUrl?.length > 0 && !loading ? (
+
               <Image
                 quality={imageQualityLargeScreen}
                 width={1000}
@@ -50,7 +51,12 @@ const TitleInfo = ({
                 priority={true}
               />
             ) : (
-              <div className=" flex items-center justify-center h-[30rem] w-full rounded overflow-hidden bg-placeholder">
+              <div
+                className={`flex items-center justify-center h-[30rem] w-full rounded overflow-hidden bg-placeholder ${
+                  loading && 'animate-pulse'
+                }`}
+              >
+
                 <SlPicture
                   className={`h-[3.5rem] w-[3.5rem] ${loading && 'hidden'}`}
                 />
@@ -63,14 +69,11 @@ const TitleInfo = ({
           <div className=" w-full xxs:w-fit relative ">
             <span
               title={dataObject(data, mediaType).title}
-              className="text-lg xxxs:text-xl  semiSm:text-3xl  flex items-center  semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem] xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem]  scrollBar"
+              className="text-lg xxxs:text-xl  semiSm:text-3xl  flex items-center "
             >
               <LoadingSkeleton
-                data={
-                  dataObject(data, mediaType).title?.length <= 40
-                    ? dataObject(data, mediaType).title
-                    : dataObject(data, mediaType).title?.slice(0, 40) + '...'
-                }
+                data={dataObject(data, mediaType).title}
+
                 height={30}
                 loading={loading}
               />

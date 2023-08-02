@@ -4,8 +4,8 @@ import { TbReload } from 'react-icons/tb';
 import Link from 'next/link';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { Dispatch, SetStateAction } from 'react';
-import useWindowSize from '@/src/hooks/useWindowsSize';
 import { BsFillPauseFill } from 'react-icons/bs';
+import useWindowSize from '@/src/hooks/useWindowsSize';
 
 const HeroSliderButtons = ({
   title,

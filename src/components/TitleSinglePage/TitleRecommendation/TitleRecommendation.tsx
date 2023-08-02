@@ -35,7 +35,7 @@ const TitleRecommendation = ({
               Recommended
             </span>
             {data?.length > 10 ? (
-              <Suspense fallback={<LoadingSpinner />}>
+              <Suspense>
                 <div className="mr-2 xs:mr-5">
                   <ViewMoreComp
                     titles={data}

@@ -79,6 +79,7 @@ const VideoPlayer = ({
             controls={controls}
             muted={mute}
             allowFullScreen={true}
+            crossOrigin="anonymous"
             onError={(e: any) => onError && onError(e)}
             onEnded={() => {
               onEnd && onEnd();

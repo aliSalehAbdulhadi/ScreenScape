@@ -1,17 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import DisplaySlider from '../../Sliders/DisplaySlider/DisplaySlider';
-import LazyLoad from '../../WrapperComponents/LazyLoad/LazyLoad';
 import LazyLoadComponent from '../../WrapperComponents/LazyLoadComponents/LazyLoadComponent';
 
 const DisplayComp = ({ data }: { data: any }) => {
-  const [visibleCount, setVisibleCount] = useState(3);
-
-  const handleVisible = useRef(() => {
-    setVisibleCount((count) => count + 1);
-  });
-
   useEffect(() => {
     window.addEventListener('unload', () => {
       window.scrollTo(0, 0);
@@ -43,15 +36,6 @@ const DisplayComp = ({ data }: { data: any }) => {
           );
         }
       )}
-
-      {/* <div
-        onClick={() => setSlidersInView(slidersInView + 4)}
-        className={`self-center  ${
-          slidersInView < data.length ? '' : 'hidden'
-        } py-1 px-1 rotate-180 rounded-full bg-white bg-opacity-10 text-white border-[2px] border-opacity-10 border-white text-xs text-opacity-70 mt-5 cursor-pointer hover:opacity-90 transition-all`}
-      >
-        <IoIosArrowUp className="h-5 w-5 md:w-6 md:h-6" />
-      </div> */}
     </div>
   );
 };

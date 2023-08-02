@@ -7,7 +7,6 @@ import { News } from '../News/News';
 import TitleCast from './TitleCast/TitleCast';
 import TitleRelated from './TitleRelated/TitleRelated';
 import BackgroundOverlay from './TitleInfo/BackgroundOverlay/BackgroundOverlay';
-import LoadingSpinner from '../LoadingComponent/LoadingSpinner/LoadingSpinner';
 import TitleDetails from './TitleDetails/TitleDetails';
 import TitleSeasons from './TitleSeasons/TitleSeasons';
 import TitleRecommendation from './TitleRecommendation/TitleRecommendation';

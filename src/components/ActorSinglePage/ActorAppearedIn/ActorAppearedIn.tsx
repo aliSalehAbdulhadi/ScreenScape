@@ -33,7 +33,7 @@ const ActorAppearedIn = ({
         </div>
 
         {appearedInTitles?.length > 10 ? (
-          <Suspense fallback={<LoadingSpinner />}>
+          <Suspense>
             <div className="ml-5">
               <ViewMoreComp titles={appearedInTitles} mediaType={mediaType} />
             </div>

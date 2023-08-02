@@ -10,6 +10,7 @@ import {
 } from '@/src/global/globalVariables';
 import { BsPlus } from 'react-icons/bs';
 import { useHoverDataFetch } from '@/src/fetch/getHoverData';
+import { charactersLengthHandler } from '@/src/helper/charactersLengthHandler';
 
 const HoverExpand = ({
   titleId,
@@ -72,7 +73,7 @@ const HoverExpand = ({
             <div className="absolute top-0 left-0 h-full px-3  w-[300px] flex items-end justify-end ">
               <div
                 onClick={() => setMuteVideo(!muteVideo)}
-                className={`w-fit border-[2px] border-white border-opacity-60 opacity-40 hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60  mb-3 mr-[2px] ${
+                className={`w-fit border-[2px] border-white border-opacity-60 opacity-40 hover:opacity-90 hover:border-opacity-90 transition-all p-[.45rem] rounded-full cursor-pointer bg-black bg-opacity-60  mb-3 mr-[1px] ${
                   isVideoReady || 'hidden'
                 }`}
               >
@@ -121,10 +122,13 @@ const HoverExpand = ({
       >
         <Link href={`/browse/${mediaType}/${titleId}`}>
           <div className="flex items-center justify-between">
-            <span className="text-xs xl:text-base ">
-              {dataObject(data, mediaType)?.title}
+            <span
+              title={dataObject(data, mediaType)?.title}
+              className="text-xs xl:text-base "
+            >
+              {charactersLengthHandler(dataObject(data, mediaType)?.title, 27)}
             </span>
-            <div className="border-[2px] w-fit border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.2rem]  rounded-full text-white cursor-pointer bg-black bg-opacity-30">
+            <div className="border-[2px] w-fit border-white border-opacity-60 hover:border-opacity-90 transition-all p-[.2rem] rounded-full text-white cursor-pointer bg-black bg-opacity-30">
               <BsPlus className="w-4 h-4 xl:w-5 xl:h-5" />
             </div>
           </div>
