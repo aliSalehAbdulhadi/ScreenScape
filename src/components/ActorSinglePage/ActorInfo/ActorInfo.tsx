@@ -5,8 +5,15 @@ import { imageQualityLargeScreen } from '@/src/global/globalVariables';
 import SocialMedia from '../../SocialMedia/SocialMedia';
 import { RxPerson } from 'react-icons/rx';
 import { ActorSingleInterface } from '@/src/Interfaces/interfaces';
+import LoadingSkeleton from '../../LoadingComponent/LoadingSkeleton/LoadingSkeleton';
 
-const ActorInfo = ({ data }: { data: ActorSingleInterface }) => {
+const ActorInfo = ({
+  data,
+  loading,
+}: {
+  data: ActorSingleInterface;
+  loading: boolean;
+}) => {
   const age = `${moment(data?.birthday).format('MMMM Do YYYY')} ${
     data?.deathday ? '' : `(${moment().diff(data?.birthday, 'years')} years)`
   }`;
@@ -18,9 +25,11 @@ const ActorInfo = ({ data }: { data: ActorSingleInterface }) => {
   return (
     <div className="flex flex-col semiSm:flex-row">
       <div className="flex flex-col sm:flex-row xs:self-center">
-        <div className={`xs:w-[28rem] sm:w-[21rem]`}>
+        <div className={`xs:w-[28rem] sm:w-[21rem] semiSm:min-w-[21rem]`}>
           <MasonryGridPics mediaType="person" id={data?.id}>
-            {data?.profile_path && data?.profile_path?.length > 0 ? (
+            {data?.profile_path &&
+            data?.profile_path?.length > 0 &&
+            !loading ? (
               <Image
                 quality={imageQualityLargeScreen}
                 width={1000}
@@ -28,76 +37,131 @@ const ActorInfo = ({ data }: { data: ActorSingleInterface }) => {
                 src={`https://image.tmdb.org/t/p/original/${data?.profile_path}`}
                 alt="Actor Photo"
                 className={`xs:rounded object-fit h-[28rem] xxxs:h-[35rem] xxs:h-[37rem] sm:h-[30rem] xs:w-[28rem] sm:w-[21rem]`}
-                blurDataURL="/images/imagePlaceholder.png"
-                placeholder="blur"
                 priority={true}
               />
             ) : (
-              <div className=" flex items-center justify-center h-[30rem] w-full rounded overflow-hidden bg-placeholder">
-                <RxPerson className="h-20 w-20 opacity-40 mr-2" />
+              <div
+                className={`flex items-center justify-center h-[30rem] w-full rounded overflow-hidden bg-placeholder ${
+                  loading && 'animate-pulse'
+                }`}
+              >
+                <RxPerson
+                  className={`h-20 w-20 opacity-40 mr-2 ${loading && 'hidden'}`}
+                />
               </div>
             )}
           </MasonryGridPics>
         </div>
 
-        <div className=" sm:pl-5  xs:ml-0  mx-2 xs:mx-5 semiSm:max-w-[60%] md:max-w-[70%] ">
+        <div className=" sm:pl-5  xs:ml-0  mx-2 xs:mx-5">
           <div className="flex items-center">
-            <span className="text-lg xxxs:text-2xl xs:text-3xl">
-              {data?.name ? data?.name : 'Not Available'}
-            </span>
+            <LoadingSkeleton
+              data={
+                <span className="text-lg xxxs:text-2xl xs:text-3xl">
+                  {data?.name ? data?.name : '-'}
+                </span>
+              }
+              height={30}
+              loading={loading}
+              width={150}
+            />
           </div>
           <div className="text-offWhite text-opacity-75  mt-3 w-fit text-sm xx:text-xs xs:text-sm">
             <div className="mt-5">
-              <span>Born: {data?.birthday ? age : ' Not Available'}</span>
+              <LoadingSkeleton
+                data={<span>Born: {data?.birthday ? age : ' -'}</span>}
+                height={20}
+                loading={loading}
+                width={100}
+              />
             </div>
 
             {data?.deathday ? (
               <div className="mt-2">
-                <span>
-                  Died:
-                  {data?.deathday ? deathDay : ' Not Available'}
-                </span>
+                <LoadingSkeleton
+                  data={
+                    <span>
+                      Died:
+                      {data?.deathday ? deathDay : ' -'}
+                    </span>
+                  }
+                  height={30}
+                  loading={loading}
+                />
               </div>
             ) : (
               ''
             )}
 
             <div className="mt-2">
-              <span>
-                Place of Birth:{' '}
-                {data?.place_of_birth ? data?.place_of_birth : 'Not Available'}
-              </span>
+              <LoadingSkeleton
+                data={
+                  <span>
+                    Place of Birth:{' '}
+                    {data?.place_of_birth ? data?.place_of_birth : '-'}
+                  </span>
+                }
+                height={20}
+                loading={loading}
+                width={100}
+              />
             </div>
 
             <div className="mt-2">
-              <span>
-                Known for:{' '}
-                {data?.known_for_department
-                  ? data?.known_for_department
-                  : 'Not Available'}
-              </span>
+              <LoadingSkeleton
+                data={
+                  <span>
+                    Known for:{' '}
+                    {data?.known_for_department
+                      ? data?.known_for_department
+                      : '-'}
+                  </span>
+                }
+                height={20}
+                loading={loading}
+                width={100}
+              />
             </div>
 
             <div className="mt-2">
-              <span>
-                Gender:{' '}
-                {data?.gender
-                  ? data?.gender === 1
-                    ? 'Female'
-                    : 'Male'
-                  : 'Not Available'}
-              </span>
+              <LoadingSkeleton
+                data={
+                  <span>
+                    Gender:{' '}
+                    {!data?.gender
+                      ? data?.gender === 1
+                        ? 'Female'
+                        : 'Male'
+                      : '-'}
+                  </span>
+                }
+                height={20}
+                loading={loading}
+                width={100}
+              />
             </div>
           </div>
-          <div className="mt-5">
-            <SocialMedia mediaType="person" id={data?.id} />
+          <div className="mt-5 min-h-10 ">
+            <LoadingSkeleton
+              data={<SocialMedia mediaType="person" id={data?.id} />}
+              height={20}
+              loading={loading}
+              width={40}
+            />
           </div>
           <div className=" mt-6  max-h-[15rem]  text-[17px] scrollBar  overflow-auto hidden semiSm:block">
-            <span className=" leading-7">
-              {data?.biography
-                ? data?.biography
-                : `${data?.name}'s biography is not available`}
-            </span>
+            <LoadingSkeleton
+              data={
+                <span className=" leading-7">
+                  {data?.biography
+                    ? data?.biography
+                    : `${data?.name}'s biography is not available`}
+                </span>
+              }
+              height={200}
+              loading={loading}
+              width={450}
+            />
           </div>
         </div>
       </div>
@@ -106,11 +170,18 @@ const ActorInfo = ({ data }: { data: ActorSingleInterface }) => {
         <span className=" text-secondary   text-sm xxxs:text-base sm:text-lg mb-2">
           Biography
         </span>
-        <span className=" leading-7">
-          {data?.biography
-            ? data?.biography
-            : `${data?.name}'s biography is not available`}
-        </span>
+
+        <LoadingSkeleton
+          data={
+            <span className=" leading-7">
+              {data?.biography
+                ? data?.biography
+                : `${data?.name}'s biography is not available`}
+            </span>
+          }
+          height={100}
+          loading={loading}
+        />
       </div>
     </div>
   );
