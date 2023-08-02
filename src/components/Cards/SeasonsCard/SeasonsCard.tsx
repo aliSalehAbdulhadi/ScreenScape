@@ -1,5 +1,4 @@
 import { checkDataAvailability } from '@/src/helper/checkDataAvailability';
-import moment from 'moment';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { SlPicture } from 'react-icons/sl';
