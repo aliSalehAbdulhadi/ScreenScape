@@ -99,7 +99,7 @@ const HeroSliderVideo = ({
               className={`absolute top-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center pointer-events-none ${
                 playVideo ? 'hidden' : ''
               }`}
-            ></div>
+            />
           </div>
         )}
         <div className={`absolute bottom-[-5px]  left-0 h-full w-full `}>

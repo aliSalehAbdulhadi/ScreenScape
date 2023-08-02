@@ -1,6 +1,6 @@
 import { checkDataAvailability } from '@/src/helper/checkDataAvailability';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import { SlPicture } from 'react-icons/sl';
 import LoadingSkeleton from '../../LoadingComponent/LoadingSkeleton/LoadingSkeleton';
 
@@ -11,8 +11,6 @@ const SeasonsCard = ({
   data: any;
   seasonLoading: boolean;
 }) => {
-  const imagePlaceholder = '/images/imagePlaceholder.png';
-
   return (
     <div className="flex flex-row  my-5 w-full shadow-lg rounded overflow-hidden bg-white bg-opacity-10 cursor-pointer hover:bg-opacity-[0.09] transition-all">
       <div className="w-[180px] h-[200px] sm:h-[250px]">
