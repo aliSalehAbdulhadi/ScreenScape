@@ -67,14 +67,10 @@ const TitleInfo = ({
           <div className=" w-full xxs:w-fit relative ">
             <span
               title={dataObject(data, mediaType).title}
-              className="text-lg xxxs:text-xl  semiSm:text-3xl  flex items-center  semiSm:w-[27rem] md:w-[36rem] lg:w-[44rem] xl:w-[28.5rem] xxl:w-[37rem] xxxl:w-[40rem]  scrollBar"
+              className="text-lg xxxs:text-xl  semiSm:text-3xl  flex items-center "
             >
               <LoadingSkeleton
-                data={
-                  dataObject(data, mediaType).title?.length <= 40
-                    ? dataObject(data, mediaType).title
-                    : dataObject(data, mediaType).title?.slice(0, 40) + '...'
-                }
+                data={dataObject(data, mediaType).title}
                 height={30}
                 loading={loading}
               />
