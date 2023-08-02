@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, Suspense, lazy, memo } from 'react';
 import CardSlider from '@/src/components/Sliders/CardSlider/CardSlider';
 import CastCrewSwitchButtons from './CastCrewSwitchButtons/CastCrewSwitchButtons';
-import LoadingSpinner from '@/src/components/LoadingComponent/LoadingSpinner/LoadingSpinner';
 
 const ViewMoreComp = lazy(
   () => import('@/src/components/ViewMoreComp/ViewMoreComp')
