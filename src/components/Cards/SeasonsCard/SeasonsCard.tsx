@@ -1,6 +1,6 @@
 import { checkDataAvailability } from '@/src/helper/checkDataAvailability';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import { SlPicture } from 'react-icons/sl';
 import LoadingSkeleton from '../../LoadingComponent/LoadingSkeleton/LoadingSkeleton';
 
@@ -11,7 +11,6 @@ const SeasonsCard = ({
   data: any;
   seasonLoading: boolean;
 }) => {
-
   return (
     <div className="flex flex-row  my-5 w-full shadow-lg rounded overflow-hidden bg-white bg-opacity-10 cursor-pointer hover:bg-opacity-[0.09] transition-all">
       <div className="w-[180px] h-[200px] sm:h-[250px]">
@@ -19,17 +18,12 @@ const SeasonsCard = ({
           <Image
             width={250}
             height={180}
-            src={
-              loading
-                ? imagePlaceholder
-                : `https://image.tmdb.org/t/p/original/${data?.poster_path}`
-            }
+            src={`https://image.tmdb.org/t/p/original/${data?.poster_path}`}
             alt="Season"
             className="h-[250px] w-[180px] rounded-l object-cover xs:object-fill"
             placeholder="blur"
             blurDataURL="/images/imagePlaceholder.png"
             loading="lazy"
-            onLoad={() => setLoading(false)}
           />
         ) : (
           <div
