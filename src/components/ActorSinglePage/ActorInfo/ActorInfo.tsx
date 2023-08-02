@@ -66,10 +66,17 @@ const ActorInfo = ({
               width={150}
             />
           </div>
-          <div className="text-offWhite text-opacity-75  mt-3 w-fit text-sm xx:text-xs xs:text-sm">
+          <div className="  mt-3 w-fit text-sm xx:text-xs xs:text-sm">
             <div className="mt-5">
               <LoadingSkeleton
-                data={<span>Born: {data?.birthday ? age : ' -'}</span>}
+                data={
+                  <div>
+                    <span className="font-semibold">Born:</span>{' '}
+                    <span className="text-offWhite  text-opacity-80">
+                      {data?.birthday ? age : ' -'}
+                    </span>
+                  </div>
+                }
                 height={20}
                 loading={loading}
                 width={100}
@@ -80,10 +87,12 @@ const ActorInfo = ({
               <div className="mt-2">
                 <LoadingSkeleton
                   data={
-                    <span>
-                      Died:
-                      {data?.deathday ? deathDay : ' -'}
-                    </span>
+                    <div>
+                      <span className=" font-semibold"> Died:</span>
+                      <span className="text-offWhite  text-opacity-80">
+                        {data?.deathday ? deathDay : ' -'}
+                      </span>
+                    </div>
                   }
                   height={30}
                   loading={loading}
@@ -96,10 +105,12 @@ const ActorInfo = ({
             <div className="mt-2">
               <LoadingSkeleton
                 data={
-                  <span>
-                    Place of Birth:{' '}
-                    {data?.place_of_birth ? data?.place_of_birth : '-'}
-                  </span>
+                  <div>
+                    <span className=" font-semibold">Place of Birth: </span>
+                    <span className="text-offWhite  text-opacity-80">
+                      {data?.place_of_birth ? data?.place_of_birth : '-'}
+                    </span>
+                  </div>
                 }
                 height={20}
                 loading={loading}
@@ -110,12 +121,14 @@ const ActorInfo = ({
             <div className="mt-2">
               <LoadingSkeleton
                 data={
-                  <span>
-                    Known for:{' '}
-                    {data?.known_for_department
-                      ? data?.known_for_department
-                      : '-'}
-                  </span>
+                  <div>
+                    <span className=" font-semibold">Known for: </span>
+                    <span className="text-offWhite  text-opacity-80">
+                      {data?.known_for_department
+                        ? data?.known_for_department
+                        : '-'}
+                    </span>
+                  </div>
                 }
                 height={20}
                 loading={loading}
@@ -126,14 +139,16 @@ const ActorInfo = ({
             <div className="mt-2">
               <LoadingSkeleton
                 data={
-                  <span>
-                    Gender:{' '}
-                    {!data?.gender
-                      ? data?.gender === 1
-                        ? 'Female'
-                        : 'Male'
-                      : '-'}
-                  </span>
+                  <div>
+                    <span className=" font-semibold">Gender: </span>
+                    <span className="text-offWhite  text-opacity-80">
+                      {!data?.gender
+                        ? data?.gender === 1
+                          ? 'Female'
+                          : 'Male'
+                        : '-'}
+                    </span>
+                  </div>
                 }
                 height={20}
                 loading={loading}
@@ -152,7 +167,7 @@ const ActorInfo = ({
           <div className=" mt-6  max-h-[15rem]  text-[17px] scrollBar  overflow-auto hidden semiSm:block">
             <LoadingSkeleton
               data={
-                <span className=" leading-7">
+                <span className=" leading-7 text-offWhite text-opacity-80">
                   {data?.biography
                     ? data?.biography
                     : `${data?.name}'s biography is not available`}
