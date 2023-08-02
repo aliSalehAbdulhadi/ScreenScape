@@ -61,33 +61,34 @@ const ViewMoreComp = ({
         totalResults={totalResults}
       >
         <GridComp center={true} breakPointWidth={12} className="relative pb-5">
-          {titles?.map((title: any, i: number) => (
-            <DelayDisplay key={i} delay={delay(i)}>
-              <Link
-                href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
-                  mediaType === 'actor' ? 'person' : mediaType
-                }/${title?.id}`}
-                className="flex flex-col  cursor-pointer h-[23rem] w-[12rem] rounded overflow-hidden bg-primary bg-opacity-70"
-              >
-                {mediaType === 'actor' ? (
-                  <CreditsCard
-                    index={i}
-                    data={title}
-                    mediaType={title?.total_episode_count ? 'tv' : 'movie'}
-                  />
-                ) : (
-                  <PosterCard
-                    index={i}
-                    imageUrl={dataObject(title, mediaType)?.posterUrl}
-                    title={dataObject(title, mediaType)?.title}
-                    releaseDate={dataObject(title, mediaType)?.releaseDate}
-                    rating={dataObject(title, mediaType)?.voteAverage * 10}
-                    mediaType={mediaType}
-                  />
-                )}
-              </Link>
-            </DelayDisplay>
-          ))}
+          {open &&
+            titles?.map((title: any, i: number) => (
+              <DelayDisplay key={i} delay={delay(i)}>
+                <Link
+                  href={`/${mediaType !== 'actor' ? 'browse/' : ''}${
+                    mediaType === 'actor' ? 'person' : mediaType
+                  }/${title?.id}`}
+                  className="flex flex-col  cursor-pointer h-[23rem] w-[12rem] rounded overflow-hidden bg-primary bg-opacity-70"
+                >
+                  {mediaType === 'actor' ? (
+                    <CreditsCard
+                      index={i}
+                      data={title}
+                      mediaType={title?.total_episode_count ? 'tv' : 'movie'}
+                    />
+                  ) : (
+                    <PosterCard
+                      index={i}
+                      imageUrl={dataObject(title, mediaType)?.posterUrl}
+                      title={dataObject(title, mediaType)?.title}
+                      releaseDate={dataObject(title, mediaType)?.releaseDate}
+                      rating={dataObject(title, mediaType)?.voteAverage * 10}
+                      mediaType={mediaType}
+                    />
+                  )}
+                </Link>
+              </DelayDisplay>
+            ))}
           <div ref={loadMoreRef} />
         </GridComp>
 
