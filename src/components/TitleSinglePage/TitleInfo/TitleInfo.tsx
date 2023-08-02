@@ -36,6 +36,7 @@ const TitleInfo = ({
         <div className="xs:self-center  xs:w-[28rem] sm:w-[21rem]">
           <MasonryGridPics mediaType={mediaType} id={data?.id}>
             {dataObject(data, mediaType).posterUrl?.length > 0 && !loading ? (
+
               <Image
                 quality={imageQualityLargeScreen}
                 width={1000}
@@ -55,6 +56,7 @@ const TitleInfo = ({
                   loading && 'animate-pulse'
                 }`}
               >
+
                 <SlPicture
                   className={`h-[3.5rem] w-[3.5rem] ${loading && 'hidden'}`}
                 />
@@ -71,6 +73,7 @@ const TitleInfo = ({
             >
               <LoadingSkeleton
                 data={dataObject(data, mediaType).title}
+
                 height={30}
                 loading={loading}
               />
